@@ -1,6 +1,9 @@
 
 (function () {
 
+    var apiKey = "68s7rFRK3GauGzv2";
+    var el = new Everlive(apiKey);
+    
     // store a reference to the application object that will be created
     // later on so that we can use it if need be
     var app;
@@ -9,10 +12,10 @@
     window.APP = {
       models: {
         home: {
-          title: 'Home'
+          title: 'Inicio'
         },
-        settings: {
-          title: 'Settings'
+        tracking: {
+          title: 'Seguimiento'
         },
         contacts: {
           title: 'Contacts',
@@ -26,6 +29,37 @@
       }
     };
 
+    window.APP.models.tracking = kendo.observable({
+        title: 'Seguimiento',
+        submit: function () {
+                var childrenDataSource = new kendo.data.DataSource({
+                type: "everlive",
+                logic: "or",
+                    filter: [
+                    {
+                    "field": "FirstName",
+                    "operator": "contains",
+                    "value": this.firstName
+                    },
+                    {
+                    "field": "LastName",
+                    "operator": "contains",
+                    "value": this.lastName
+                    }                  
+                    ],
+                transport: {
+                    typeName: "Child"
+                }
+            });
+            
+           $("#children-list").kendoMobileListView({
+            dataSource: childrenDataSource,
+            template: "#: LastName #, #: FirstName #"
+        });
+            
+        }
+    });    
+    
     // this function is called by Cordova when the application is loaded by the device
     document.addEventListener('deviceready', function () {  
       
@@ -40,7 +74,7 @@
         skin: 'flat',
 
         // the application needs to know which view to load first
-        initial: 'views/home.html'
+        initial: 'views/tracking.html'
       });
 
     }, false);

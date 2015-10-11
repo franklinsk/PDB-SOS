@@ -1,0 +1,32 @@
+<div data-role="view" data-title="Seguimiento" data-layout="main" data-model="APP.models.tracking">
+  <h1 data-bind="html: title"></h1>
+    
+            <form>
+            <ul data-role="listview" data-style="inset">
+                <li>
+                    <label>
+                        Nombre:
+                        <input type="text" name="firstName" data-bind="value: firstName" >
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Apellido Paterno:
+                        <input type="text" name="lastName" data-bind="value: lastName" >
+                    </label>
+                </li>                
+                <li>
+                    <label>
+                        Apellido Materno:
+                        <input type="text" name="lastName2" data-bind="value: lastName2" >
+                    </label>
+                </li>
+                <li>
+                    <button style="width: 100%" data-role="button" data-bind="click: submit">Buscar</button>
+                </li>
+            </ul>
+        </form>
+    
+        <ul id="children-list"></ul>
+    
+</div>
