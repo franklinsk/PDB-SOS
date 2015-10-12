@@ -86,6 +86,7 @@
             trackingDataSource.one("sync", this.close);
             trackingDataSource.sync();
             
+            
             navigator.notification.alert("Guardado!!. Tipo de conexion = " + navigator.connection.type);
         }
          
