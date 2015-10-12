@@ -66,6 +66,32 @@
         }
     });    
     
+    window.GeneralTracking = kendo.observable({
+        
+        childID: "6181be40-66fd-11e5-9cce-6925581deeeb",
+        
+        submit: function () {
+            
+                var trackingDataSource = new kendo.data.DataSource({
+                type: "everlive",
+                transport: {
+                    typeName: "ChildTracking"
+                }                    
+            });
+            
+            trackingDataSource.add({
+                StartDate: this.startDate,
+                EndDate: this.endDate
+            });
+            trackingDataSource.one("sync", this.close);
+            trackingDataSource.sync();
+            
+            navigator.notification.alert("Guardado!!. Tipo de conexion = " + navigator.connection.type);
+        }
+         
+    });    
+    
+    
     // this function is called by Cordova when the application is loaded by the device
     document.addEventListener('deviceready', function () {  
       
@@ -80,7 +106,7 @@
         skin: 'flat',
 
         // the application needs to know which view to load first
-        initial: 'views/AddTracking.html'
+        initial: 'views/AddTracking2.html'
       });
 
     }, false);
