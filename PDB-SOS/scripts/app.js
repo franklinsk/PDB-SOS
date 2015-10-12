@@ -30,8 +30,7 @@
     };
 
     window.APP.models.tracking = kendo.observable({
-        submit: function () {
-            
+        submit: function () {            
                 var childrenDataSource = new kendo.data.DataSource({
                 type: "everlive",
                 transport: {
@@ -64,7 +63,52 @@
         });
             
         }
+    });  
+        
+    window.AddTrackingValues = kendo.observable({        
+        childID: "6181be40-66fd-11e5-9cce-6925581deeeb",        
+        submit: function () {            
+            	navigator.notification.alert("Guardado!!. Tipo de conexion = " + this.hostageType.value);
+                var trackingDataSource = new kendo.data.DataSource({
+                type: "everlive",
+                transport: {
+                    typeName: "ChildTracking"
+                }                    
+            });            
+            trackingDataSource.add({
+                StartDate: this.startDate,
+                EndDate: this.endDate,
+                Phone: this.phone,
+                EmailAddress: this.email,
+                AgeWhenFirstChild: this.ageWhenHasFirstChild,
+                ChildrenNumber: this.childrenNumber,
+                LegalGuardian: this.legalGuardian,
+                SiblingsOutsideSOS: this.siblingsOutsideSOS,
+                HomeType: this.hostageType,
+                HomeComments: this.hostageComments,
+                HomeImprovementsComments: this.hostageImproveComments,
+                HomeEducationalCenterNoSOS: this.educationalCenterNoSOS,
+                CurrentSchoolLevel: this.currentEnrollment,
+                EducationStudyStart: this.educationStudyStart,
+                EducationalSpecialityName: this.specialityName,
+                EducationalSpecialitySemester : this.specialitySemester,
+                WorkIncomeType: this.sourceOfIncome,
+                WorkType: this.typeOfEmployment,
+                WorkSpeacialityRelated: this.workRelatedWithSpeciality,
+                WorkSector: this.areaOfWork,
+                WorkMonthsContinuity: this.continueWorkinMonths,
+                WorkMonthlyIncome: this.incomeMonthly,
+                WorkMonthsUnemployed: this.monthsUnemployee,
+                HealthHasDisabilities: this.hasDisability,
+                HealthHowDisabilityAffects: this.affectsInDailyLife,
+                HealthDisabilityComments: this.commentsAboutHandicap                
+            });
+            trackingDataSource.one("sync", this.close);
+            trackingDataSource.sync();                        
+            navigator.notification.alert("Guardado!!. Tipo de conexion = " + navigator.connection.type);
+        }
     });    
+
     
     window.GeneralTracking = kendo.observable({
         
@@ -107,7 +151,7 @@
         skin: 'flat',
 
         // the application needs to know which view to load first
-        initial: 'views/AddTracking2.html'
+        initial: 'views/AddTracking.html'
       });
 
     }, false);
