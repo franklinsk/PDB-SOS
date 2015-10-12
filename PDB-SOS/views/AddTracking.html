@@ -1,0 +1,70 @@
+<div data-role="view" id="General" data-title="General" data-layout="mobile-tabstrip">
+		<form>
+			<ul data-role="listview" data-style="inset" title="General">
+                <li><label>Código:<input type="text" name="childID" data-bind="value: childID" ></label></li>
+                <li><label>Nombres:<input type="text" name="firstName" data-bind="value: firstName" ></label></li>
+                <li><label>Apellidos<input type="text" name="surName" data-bind="value: surName" ></label></li>
+                <li><label>Razón de Salida:
+                    <input type="text" name="reasonsForExit" data-bind="value: reasonsForExit" >
+                    <select>
+                         <option value="1">Adopción</option>
+                         <option value="2">Fallecimiento</option>
+                         <option value="3">Autosuficiencia</option>
+                         <option value="4">Reintegración familiar</option>
+                    </select>
+                    </label>
+                </li>
+                <li><label>Fecha de Inicio:<input type="date" name="startDate" data-bind="value: startDate" ></label></li>
+                <li><label>Fecha de Fin:<input type="date" name="endDate" data-bind="value: endDate" ></label></li>
+            </ul>
+        </form>
+</div>
+<div data-role="view" id="Vivienda" data-title="Vivienda" data-layout="mobile-tabstrip">
+  		<form>
+			<ul data-role="listview" data-style="inset" title="Vivienda">
+                <li><label>Tipo de Alojamiento:
+                        <select name="hostageType" data-bind="value: hostageType">
+                             <option value="1">Casa Propia</option>
+                             <option value="2">Casa Alquilada</option>
+                             <option value="3">Familiares</option>
+                             <option value="4">Residencia Universitaria</option>
+                        </select>
+                    </label>
+                </li>
+                <li>
+                    <label>Comentarios de Alojamiento:
+                        <textarea name="hostageComments" style="resize: none" data-bind="value: hostageComments"></textarea>
+                    </label>
+                </li>
+                <li>
+                    <label>Comentarios de Mejora de Alojamiento:
+                        <textarea name="hostageImproveComments" style="resize: none" data-bind="value: hostageImproveComments"></textarea>
+                    </label>
+                </li>
+            </ul>
+        </form>
+</div>
+<div data-role="view" id="Educacion" data-title="Educacion" data-layout="mobile-tabstrip">
+  Educacion
+</div>
+<div data-role="view" id="Empleo" data-title="Empleo" data-layout="mobile-tabstrip">
+  Empleo
+</div>
+<div data-role="view" id="Ingresos" data-title="Ingresos" data-layout="mobile-tabstrip">
+  Ingresos
+</div>
+<div data-role="view" id="Salud" data-title="Salud" data-layout="mobile-tabstrip">
+  Salud
+</div>
+<div data-role="layout" data-id="mobile-tabstrip" data-show="showDemoLayout">
+    <div data-role="footer">
+        <div data-role="tabstrip">
+            <a href="#General" data-icon="contacts">General</a>
+      		<a href="#Vivienda" data-icon="contacts">Vivienda</a>
+            <a href="#Educacion" data-icon="contacts">Educacion</a>
+            <a href="#Empleo" data-icon="contacts">Empleo</a>
+            <a href="#Ingresos" data-icon="contacts">Ingresos</a>
+            <a href="#Salud" data-icon="contacts">Salud</a>
+        </div>
+    </div>
+</div>
