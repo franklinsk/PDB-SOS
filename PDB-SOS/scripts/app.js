@@ -31,29 +31,32 @@
 
     window.APP.models.tracking = kendo.observable({
         title: 'Seguimiento',
+        
         submit: function () {
                 var childrenDataSource = new kendo.data.DataSource({
                 type: "everlive",
                 transport: {
                     typeName: "Child"
                 },
-                filter: [
-                    {
-                    field: "FirstName",
-                    operator: "contains",
-                    value: this.firstName
-                    },
-                    {
-                    field: "LastName",
-                    operator: "contains",
-                    value: this.lastName
-                    },
-                    {
-                    field: "MotherLastName",
-                    operator: "contains",
-                    value: this.lastName2
-                    }                  
-                 ]                    
+                filter: {
+                    filters:[
+                        {
+                        field: "FirstName",
+                        operator: "contains",
+                        value: this.firstName
+                        },
+                        {
+                        field: "LastName",
+                        operator: "contains",
+                        value: this.lastName
+                        },
+                        {
+                        field: "MotherLastName",
+                        operator: "contains",
+                        value: this.lastName2
+                        }                  
+                     ]   
+                 }
             });
             
            $("#children-list").kendoMobileListView({
