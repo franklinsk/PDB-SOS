@@ -30,9 +30,9 @@
     };
 
     window.APP.models.tracking = kendo.observable({
-        title: 'Seguimiento',
-        
         submit: function () {
+                navigator.notification.alert("pal vacilon.");
+            
                 var childrenDataSource = new kendo.data.DataSource({
                 type: "everlive",
                 transport: {
@@ -81,7 +81,7 @@
         skin: 'flat',
 
         // the application needs to know which view to load first
-        initial: 'views/tracking.html'
+        initial: 'views/AddTracking.html'
       });
 
     }, false);
