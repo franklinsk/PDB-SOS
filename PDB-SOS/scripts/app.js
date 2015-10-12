@@ -31,7 +31,6 @@
 
     window.APP.models.tracking = kendo.observable({
         submit: function () {
-                navigator.notification.alert("pal vacilon.");
             
                 var childrenDataSource = new kendo.data.DataSource({
                 type: "everlive",
