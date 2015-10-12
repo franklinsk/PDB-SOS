@@ -61,7 +61,7 @@
             
            $("#children-list").kendoMobileListView({
             dataSource: childrenDataSource,
-            template: "#: LastName #, #: FirstName #"
+            template: "#: LastName #, #: FirstName # <a href='views/AddTracking.html?id=#: id#'>Seguir</a>"
         });
             
         }
