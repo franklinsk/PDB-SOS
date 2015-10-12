@@ -1,3 +1,6 @@
+<div data-role="view" id="Busqueda" data-title="Busqueda" data-layout="mobile-tabstrip">
+  Busqueda
+</div>
 <div data-role="view" id="General" data-title="General" data-layout="mobile-tabstrip">
 		<form>
 			<ul data-role="listview" data-style="inset" title="General">
@@ -64,15 +67,15 @@
 <div data-role="view" id="EmpleoIngresos" data-title="Empleo e Ingresos" data-layout="mobile-tabstrip">
   <li><label>Ingresos Mensuales:<input type="number" name="incomeMonthly" data-bind="value: incomeMonthly" ></label></li>
   <li><label>Fuente de Ingreso:
-                        <select name="current" data-bind="value: sourceOfIncome">
+                        <select name="sourceOfIncome" data-bind="value: sourceOfIncome">
                              <option value="1">Salario</option>
                              <option value="2">Prestaciones sociales</option>                             
                              <option value="3">Apoyo de SOS</option>                             
                              <option value="4">Otros</option>                                      
                         </select>
   </label></li>
-  <li><label>Fuente de Ingreso:
-                        <select name="current" data-bind="value: sourceOfIncome">
+  <li><label>Tipo de Empleo:
+                        <select name="typeOfEmployment" data-bind="value: typeOfEmployment">
                              <option value="1">Salario</option>
                              <option value="2">Prestaciones sociales</option>                             
                              <option value="3">Apoyo de SOS</option>                             
@@ -86,11 +89,12 @@
 <div data-role="layout" data-id="mobile-tabstrip" data-show="showDemoLayout">
     <div data-role="footer">
         <div data-role="tabstrip">
-            <a href="#General" data-icon="contacts">General</a>
-      		<a href="#Vivienda" data-icon="contacts">Vivienda</a>
-            <a href="#Educacion" data-icon="contacts">Educacion</a>
-            <a href="#EmpleoIngresos" data-icon="contacts">Empleo e Ingreso</a>
-            <a href="#Salud" data-icon="contacts">Salud</a>
+            <a href="#Busqueda" data-icon="search">Busqueda</a>
+            <a href="#General" data-icon="globe">General</a>
+      		<a href="#Vivienda" data-icon="home">Vivienda</a>
+            <a href="#Educacion" data-icon="bookmarks">Educacion</a>
+            <a href="#EmpleoIngresos" data-icon="cart">Empleo e Ingreso</a>
+            <a href="#Salud" data-icon="featured">Salud</a>
         </div>
     </div>
 </div>
