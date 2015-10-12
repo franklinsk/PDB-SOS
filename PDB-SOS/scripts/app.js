@@ -34,22 +34,26 @@
         submit: function () {
                 var childrenDataSource = new kendo.data.DataSource({
                 type: "everlive",
-                logic: "or",
-                    filter: [
-                    {
-                    "field": "FirstName",
-                    "operator": "contains",
-                    "value": this.firstName
-                    },
-                    {
-                    "field": "LastName",
-                    "operator": "contains",
-                    "value": this.lastName
-                    }                  
-                    ],
                 transport: {
                     typeName: "Child"
-                }
+                },
+                filter: [
+                    {
+                    field: "FirstName",
+                    operator: "contains",
+                    value: this.firstName
+                    },
+                    {
+                    field: "LastName",
+                    operator: "contains",
+                    value: this.lastName
+                    },
+                    {
+                    field: "MotherLastName",
+                    operator: "contains",
+                    value: this.lastName2
+                    }                  
+                 ]                    
             });
             
            $("#children-list").kendoMobileListView({
