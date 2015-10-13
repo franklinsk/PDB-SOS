@@ -74,7 +74,7 @@
             	navigator.notification.alert("Se ha registrado correctamente");
         }
     });  
-    
+     
     window.APP.models.tracking = kendo.observable({
         submit: function () {            
                 var childrenDataSource = new kendo.data.DataSource({
