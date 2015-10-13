@@ -31,16 +31,17 @@
                 <li>
                     <label>Código:
                         <input type="text" name="childID" data-bind="value: childID">
+                        <a data-role="button" data-icon="search" data-click="window.APP.models.actions.getChildItem"></a>                    
                     </label>
                 </li>
                 <li>
                     <label>Nombres:
-                        <input type="text" name="firstName" data-bind="value: firstName">
+                        <input type="text" name="firstName" data-bind="value: firstName" readonly>
                     </label>
                 </li>
                 <li>
                     <label>Apellidos
-                        <input type="text" name="surName" data-bind="value: surName">
+                        <input type="text" name="surName" data-bind="value: surName" readonly>
                     </label>
                 </li>
                 <li>
@@ -286,7 +287,7 @@
                 <div data-role="navbar">
 					<a data-role="backbutton" data-align="left">Atrás</a>
                     <span data-role="view-title"></span>
-                    <a data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.actions.addTrackingSubmit">Guardar</a>
+                    <a data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.actions.addTrackingSubmit">Guardar</a>                    
                 </div>
             </header>
             <div data-role="footer">

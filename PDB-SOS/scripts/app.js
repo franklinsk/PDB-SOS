@@ -48,8 +48,44 @@
         }
     };
 
+    window.APP.models.listTracking = kendo.observable({
+        listTrackingSubmit: function () {            
+            var listTracking = new kendo.data.DataSource({
+                    type: "everlive",
+                    transport: {
+                        typeName: "ChildTracking"
+                    },
+    				serverFiltering: true,
+    				filter: { field: 'SOSChildID', operator: 'eq', value: $('[name="SOSChildID"]').val() }
+    		});    
+            
+            $("#tracking-list").kendoMobileListView({
+                dataSource: listTracking,
+                template: "Fecha de Inicio: #: kendo.toString(StartDate, 'yyyy/MM/dd' ) #, Fecha de Fin: #: kendo.toString(EndDate, 'yyyy/MM/dd' ) # <a href='views/ViewTracking.html?id=#: id#'>Visualizar</a>"
+            });
+        }
+    });
     window.APP.models.actions = kendo.observable({
-        //reasonsForExit: "3",
+        getChildItem: function () {            
+            $('[name="firstName"]').val("");
+            $('[name="surName"]').val("");
+            
+            var trackingDataSources = new kendo.data.DataSource({
+                    type: "everlive",
+                    transport: {
+                        typeName: "Child"
+                    },
+    				serverFiltering: true,
+    				filter: { field: 'SOSChildID', operator: 'eq', value: $('[name="childID"]').val() }
+    		});    
+            
+            trackingDataSources.fetch(function() {
+  				var child = trackingDataSources.at(0);
+  				$('[name="childID"]').val(child.get("SOSChildID"));
+                $('[name="firstName"]').val(child.get("FirstName"));
+                $('[name="surName"]').val(child.get("LastName"));
+			});
+        },
         addTrackingSubmit: function () {
 
            if (navigator.onLine) {                               
@@ -102,9 +138,72 @@
             else
             {                
                 navigator.notification.alert("Se ha registrado correctamente en modo desconectado");   
-            }            
+            }   
+        },
+        getTrackingChildItem: function () {
+			var ds = new kendo.data.DataSource({
+                    type: "everlive",
+                    transport: {
+                        typeName: "ChildTracking"
+                    },
+    				serverFiltering: true,
+    				filter: { field: 'ID', operator: 'eq', value: $('[name="childIDGuid"]').val() }
+    		});    
             
-
+            ds.fetch(function() {
+  				var child = ds.at(0);
+  				$('[name="childID"]').val(child.get("SOSChildID"));
+                $('[name="startDate"]').val(child.get("StartDate"));
+                $('[name="endDate"]').val(child.get("EndDate"));
+                
+                $('[name="phone"]').val(child.get("Phone"));
+                $('[name="email"]').val(child.get("EmailAddress"));
+                $('[name="ageWhenHasFirstChild"]').val(child.get("AgeWhenFirstChild"));
+                $('[name="childrenNumber"]').val(child.get("ChildrenNumber"));
+                $('[name="legalGuardian"]').val(child.get("LegalGuardian"));
+                
+                $('[name="siblingsOutsideSOS"]').val(child.get("SiblingsOutsideSOS"));
+                $('[name="hostageType"]').val(child.get("HomeType"));
+                $('[name="homePlace"]').val(child.get("HomePlace"));
+                $('[name="hostageComments"]').val(child.get("HomeComments"));
+                $('[name="hostageImproveComments"]').val(child.get("HomeImprovementsComments"));
+                $('[name="educationalCenterNoSOS"]').val(child.get("HomeEducationCenterNoSOS"));
+                
+                $('[name="currentEnrollment"]').val(child.get("CurrentSchoolLevel"));
+                $('[name="educationCurrentEnrollment"]').val(child.get("EducationCurrentEnrollment"));
+                $('[name="educationStudyStart"]').val(child.get("EducationStudyStart"));
+                $('[name="specialityName"]').val(child.get("EducationSpecialityName"));
+                $('[name="specialitySemester"]').val(child.get("EducationSpecialitySemester"));
+                $('[name="sourceOfIncome"]').val(child.get("WorkIncomeType"));
+                
+                $('[name="typeOfEmployment"]').val(child.get("WorkType"));
+                $('[name="workCurrency"]').val(child.get("WorkCurrency"));
+                $('[name="workRelatedWithSpeciality"]').val(child.get("WorkSpeacialityRelated"));
+                $('[name="areaOfWork"]').val(child.get("WorkSector"));
+                $('[name="continueWorkinMonths"]').val(child.get("WorkMonthsContinuity"));
+                $('[name="incomeMonthly"]').val(child.get("WorkMonthlyIncome"));
+                
+                $('[name="monthsUnemployee"]').val(child.get("WorkMonthsUnemployed"));
+                $('[name="hasDisability"]').val(child.get("HealthHasDisabilities"));
+                $('[name="affectsInDailyLife"]').val(child.get("HealthHowDisabilityAffects"));
+                $('[name="commentsAboutHandicap"]').val(child.get("HealthDisabilityComments"));  
+			});
+            
+            var dsChild = new kendo.data.DataSource({
+                    type: "everlive",
+                    transport: {
+                        typeName: "Child"
+                    },
+    				serverFiltering: true,
+    				filter: { field: 'SOSChildID', operator: 'eq', value: $('[name="childID"]').val() }
+    		});    
+            
+            dsChild.fetch(function() {
+  				var child = dsChild.at(0);
+  				$('[name="childID"]').val(child.get("SOSChildID"));
+                $('[name="firstName"]').val(child.get("FirstName"));
+                $('[name="surName"]').val(child.get("LastName"));
+            });    
         }
     });
 
