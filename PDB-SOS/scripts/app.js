@@ -4,10 +4,16 @@
     var el = new Everlive(apiKey);
 
     var trackingDataSource = new kendo.data.DataSource({
+                   offlineStorage: "tracking-offline",
         type: "everlive",
         transport: {
             typeName: "ChildTracking"
-        }
+        },
+                    schema: {
+                        model: {
+                            id: "Id"
+                        }
+                    }
     });
 
     var app; // store a reference to the application object that will be created  later on so that we can use it if need be
@@ -46,6 +52,14 @@
         //reasonsForExit: "3",
         addTrackingSubmit: function () {
 
+           if (navigator.onLine) {                               
+   	                trackingDataSource.online(true);
+            }   
+            else
+            {                
+                trackingDataSource.online(false);                                              
+            }
+            
 
             trackingDataSource.add({
                 SOSChildID: $('[name="childID"]').val(),
@@ -81,7 +95,16 @@
             });
             trackingDataSource.one("sync", this.close);
             trackingDataSource.sync();
-            navigator.notification.alert("Se ha registrado correctamente");
+
+           if (navigator.onLine) {                               
+                navigator.notification.alert("Se ha registrado correctamente");
+            }   
+            else
+            {                
+                navigator.notification.alert("Se ha registrado correctamente en modo desconectado");   
+            }            
+            
+
         }
     });
 
@@ -121,13 +144,28 @@
         }
     });
 
+    window.APP.synchro = kendo.observable({
+        submit: function () {
+           if (navigator.onLine) {                               
+                navigator.notification.alert("correcto");
+               
+
+            }   
+            else
+            {                
+                navigator.notification.alert("No se ha detectado una conexion activa a internet");   
+            }            
+
+        }
+    });    
+    
     // this function is called by Cordova when the application is loaded by the device
     document.addEventListener('deviceready', function () {
         navigator.splashscreen.hide(); // hide the splash screen as soon as the app is ready. otherwise  Cordova will wait 5 very long seconds to do it for you.
 
         app = new kendo.mobile.Application(document.body, {
             skin: 'flat', // comment out the following line to get a UI which matches the look  and feel of the operating system
-            initial: 'views/AddTracking.html' // the application needs to know which view to load first
+            initial: 'views/home.html' // the application needs to know which view to load first
         });
     }, false);
 }());
