@@ -93,7 +93,6 @@
                 HealthHowDisabilityAffects: $('[name="affectsInDailyLife"]').val(),
                 HealthDisabilityComments: $('[name="commentsAboutHandicap"]').val()
             });
-            trackingDataSource.one("sync", this.close);
             trackingDataSource.sync();
 
            if (navigator.onLine) {                               
@@ -146,10 +145,56 @@
 
     window.APP.synchro = kendo.observable({
         submit: function () {
-           if (navigator.onLine) {                               
-                navigator.notification.alert("correcto");
+
+                var offlineDataSource = new kendo.data.DataSource({
+                   offlineStorage: "tracking-offline",
+        type: "everlive",
+        transport: {
+            typeName: "ChildTracking"
+        },
+                    schema: {
+                        model: {
+                            id: "Id"
+                        }
+                    }
+    });
+            
+            if (navigator.onLine) {                               
+
+         var sLocalStorage = localStorage.getItem("tracking-offline");
+         var jLocalStorage = JSON.parse(sLocalStorage);
+               
+               var OfflineDataSource = new kendo.data.DataSource({
+                data: jLocalStorage 
+            });
+
+            $("#listView").kendoMobileListView({
+                dataSource: OfflineDataSource,
+                template: "#: StartDate # - #: EndDate # - #: SOSChildID #"
+            });
                
 
+               offlineDataSource.online(true);
+               
+            for (var item in jLocalStorage) {
+
+                
+                
+                    offlineDataSource.add({
+                        SOSChildID: jLocalStorage[item]["SOSChildID"],
+                        StartDate: jLocalStorage[item]["StartDate"],
+                        EndDate: jLocalStorage[item]["EndDate"]
+                    });
+
+            }
+               
+                localStorage.removeItem("tracking-offline");
+               offlineDataSource.sync();
+
+
+               
+                                               navigator.notification.alert("Sincronizacion finalizada!!!");   
+               
             }   
             else
             {                
