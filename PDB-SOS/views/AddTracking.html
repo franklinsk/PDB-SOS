@@ -29,9 +29,6 @@
             <form>                
             <ul data-role="listview" data-style="inset" title="General">
                 <li>
-                    <button style="width: 100%" data-role="button" data-bind="click: submit">Buscar</button>
-                </li>
-                <li>
                     <label>Código:
                         <input type="text" name="childID" data-bind="value: childID">
                     </label>
@@ -106,7 +103,7 @@
             <ul data-role="listview" data-style="inset" title="Vivienda">
                 <li>
                     <label>Tipo de Alojamiento:
-                        <select name="hostageType" id="hostageType" data-bind="value: hostageType">
+                        <select name="hostageType" data-bind="value: hostageType">
                             <option value="1">Casa Propia</option>
                             <option value="2">Casa Alquilada</optiosn>
                             <option value="3">Familiares</option>
@@ -129,6 +126,16 @@
                         <input type="text" name="educationalCenterNoSOS" data-bind="value: educationalCenterNoSOS">
                     </label>
                 </li>
+				<li>
+                    <label>Lugar de Residencia:
+                        <select name="homePlace" data-bind="value: homePlace">
+                            <option value="1">Madre / Padre</option>
+                            <option value="2">Hermanos Biologicos</optiosn>
+                            <option value="3">Familia SOS</option>
+                            <option value="4">Vivienda Propia</option>
+                        </select>
+                    </label>
+                </li>
                 <!--<li><a href="#General" data-icon="rewind">Regresar</a></li>
             <li><a href="#Educacion" data-icon="fastforward">Adelantar</a></li>-->
             </ul>
@@ -136,8 +143,8 @@
         <div data-role="view" id="Educacion" data-title="Educacion" data-layout="mobile-tabstrip">
             <ul data-role="listview" data-style="inset" title="Educacion">
                 <li>
-                    <label>Matricula Vigente:
-                        <select name="current" data-bind="value: currentEnrollment">
+                    <label>Matricula Escolar Vigente:
+                        <select name="currentEnrollment" data-bind="value: currentEnrollment">
                             <option value="1">Primeros años de Secundaria</option>
                             <option value="2">Finales años de Secundaria</option>
                             <option value="3">Post Secundaria</option>
@@ -146,7 +153,20 @@
                             <option value="6">No matriculado</option>
                         </select>
                     </label>
-                </li>                
+                </li>    
+                <li>
+                    <label>Nivel Educación Alcanzado:
+                        <select name="educationCurrentEnrollment" data-bind="value: educationCurrentEnrollment">
+                            <option value="1">Sin Nivel</option>
+                            <option value="2">Primaria</option>
+                            <option value="3">Secundaria</option>
+                            <option value="4">Superior No Univ.</option>
+                            <option value="5">Superior Univ.</option>
+                            <option value="6">PostGrado</option>
+                            <option value="7">Técnica</option>
+                        </select>
+                    </label>
+                </li>   
                 <li>
                     <label>Inicio de Educación:
                         <input type="date" name="educationStudyStart" data-bind="value: educationStudyStart">
@@ -169,6 +189,15 @@
                 <li>
                     <label>Ingresos Mensuales:
                             <input type="number" name="incomeMonthly" data-bind="value: incomeMonthly">
+                    </label>
+                </li>
+                <li>
+                    <label>Tipo de Moneda:
+                        <select name="workCurrency" data-bind="value: workCurrency">
+                            <option value="1">Nuevos Soles</option>
+                            <option value="2">Dolares</optiosn>
+                            <option value="3">Euros</option>
+                        </select>
                     </label>
                 </li>
                 <li>
@@ -257,7 +286,7 @@
                 <div data-role="navbar">
 					<a data-role="backbutton" data-align="left">Atrás</a>
                     <span data-role="view-title"></span>
-                    <a data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.actions.submit">Button</a>
+                    <a data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.actions.addTrackingSubmit">Guardar</a>
                 </div>
             </header>
             <div data-role="footer">
