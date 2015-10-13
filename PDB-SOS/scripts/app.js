@@ -1,4 +1,7 @@
-
+function addTracking() {
+	alert("click");
+}
+    
 (function () {
 
     var apiKey = "68s7rFRK3GauGzv2";
@@ -17,6 +20,9 @@
         tracking: {
           title: 'Seguimiento'
         },
+        actions:{
+              
+        },        
         contacts: {
           title: 'Contacts',
           ds: new kendo.data.DataSource({
@@ -27,8 +33,22 @@
           }
         }
       }
-    };
-
+    };   
+    
+    window.APP.models.actions = kendo.observable({
+        reasonsForExit: "3",
+        submit: function () {            
+            	var viewSurname = $('[name="surName"]').val();
+            	alert(viewSurname);
+            	var viewReason = $('[name="reasonsForExit"]').val();
+            	alert(viewReason);
+            	/*var viewReason = $("#General").listview.("#reasonsForExit").val();
+            	alert(viewReason);
+            	var viewComments = $("#Vivienda").listview.("#hostageComments").val();
+            	alert(viewComments);*/
+        }
+    });  
+    
     window.APP.models.tracking = kendo.observable({
         submit: function () {            
                 var childrenDataSource = new kendo.data.DataSource({

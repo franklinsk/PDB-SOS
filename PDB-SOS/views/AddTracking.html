@@ -25,9 +25,12 @@
 </div>
 <!--<div data-role="view" id="GeneralView" data-model="AddTrackingValues" >
     <form>-->
-        <div data-role="view" id="General" data-title="General" data-layout="mobile-tabstrip">
+        <div data-role="view" id="General" data-title="General" data-layout="mobile-tabstrip" data-model="APP.models.actions">
             <form>                
             <ul data-role="listview" data-style="inset" title="General">
+                <li>
+                    <button style="width: 100%" data-role="button" data-bind="click: submit">Buscar</button>
+                </li>
                 <li>
                     <label>Código:
                         <input type="text" name="childID" data-bind="value: childID">
@@ -45,8 +48,7 @@
                 </li>
                 <li>
                     <label>Razón de Salida:
-                        <input type="text" name="reasonsForExit" data-bind="value: reasonsForExit">
-                        <select>
+                        <select name="reasonsForExit" data-bind="value: reasonsForExit">
                             <option value="1">Adopción</option>
                             <option value="2">Fallecimiento</option>
                             <option value="3">Autosuficiencia</option>
@@ -131,7 +133,7 @@
             <li><a href="#Educacion" data-icon="fastforward">Adelantar</a></li>-->
             </ul>
         </div>
-        <div data-role="view" id="Educacion" data-title="Educacion" data-layout="mobile-tabstrip" data-role="view">
+        <div data-role="view" id="Educacion" data-title="Educacion" data-layout="mobile-tabstrip">
             <ul data-role="listview" data-style="inset" title="Educacion">
                 <li>
                     <label>Matricula Vigente:
@@ -162,7 +164,7 @@
                 </li>
             </ul>
         </div>
-        <div data-role="view" id="EmpleoIngresos" data-title="Empleo" data-layout="mobile-tabstrip" data-role="view">
+        <div data-role="view" id="EmpleoIngresos" data-title="Empleo" data-layout="mobile-tabstrip">
             <ul data-role="listview" data-style="inset" title="Empleo">
                 <li>
                     <label>Ingresos Mensuales:
@@ -221,7 +223,7 @@
                 </li>
             </ul>
         </div>
-        <div data-role="view" id="Salud" data-title="Salud" data-layout="mobile-tabstrip" data-role="view">
+        <div data-role="view" id="Salud" data-title="Salud" data-layout="mobile-tabstrip" >
             <ul data-role="listview" data-style="inset" title="Salud">
                 <li>
                     <label>Tiene Discapacidad:
@@ -249,12 +251,13 @@
                 </li>
             </ul>
         </div>
-        <div data-role="layout" data-id="mobile-tabstrip" data-show="showDemoLayout">
+        
+		<div data-role="layout" data-id="mobile-tabstrip" data-show="showDemoLayout">
              <header data-role="header">
                 <div data-role="navbar">
-                    <a data-role="backbutton" data-align="left">Atrás</a>
+					<a data-role="backbutton" data-align="left">Atrás</a>
                     <span data-role="view-title"></span>
-                    <a data-role="button" data-bind="click: submit" data-align="right">Guardar</a>
+                    <a data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.actions.submit">Button</a>
                 </div>
             </header>
             <div data-role="footer">
