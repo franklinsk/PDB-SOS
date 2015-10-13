@@ -15,7 +15,7 @@
         }
     });
 
-    var offlineDataSource = new kendo.data.DataSource({
+    var offlineDataSource = new kendo.data.DataSource({  
         offlineStorage: "tracking-offline",
         type: "everlive",
         transport: {
