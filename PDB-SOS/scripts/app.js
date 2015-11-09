@@ -1,3 +1,35 @@
+var app; // store a reference to the application object that will be created  later on so that we can use it if need be
+
+function switchTab(val){
+    	var tabStrip = $("#tabstripAddFollowUp").data("kendoMobileTabStrip");
+	    tabStrip.switchTo("#General");
+    	app.navigate("#General?id=" + val, "slide");
+        
+    var dsChild = new kendo.data.DataSource({
+                        type: "everlive",
+                        transport: {
+                            typeName: "Child"
+                        },
+                        serverFiltering: true,
+        				filter: [{ field: "SOSChildID", operator: "eq", value: val }]
+        });    
+		
+    //fails when try to filter by GUID, best option would be number or string
+    
+    dsChild.fetch(function() {
+                    var child = dsChild.at(0);
+            		$('[name="childID"]').val(child.get("SOSChildID"));
+            		$('[name="firstName"]').val(child.get("FirstName"));
+                    $('[name="surName"]').val(child.get("LastName"));
+    }); 
+}
+
+function redirect(val){
+    //alert(val);
+    app.navigate("views/ViewTracking.html?id=" + val, "slide");
+    
+}
+    
 (function () {
 
     var apiKey = "68s7rFRK3GauGzv2";
@@ -30,8 +62,6 @@
 
     var childrenDataSource;
     
-    var app; // store a reference to the application object that will be created  later on so that we can use it if need be
-
     window.APP = { // create an object to store the models for each view
         models: {
             home: {
@@ -63,6 +93,7 @@
             
             $("#tracking-list").kendoMobileListView({
                 dataSource: listTracking,
+                //template: "Fecha de Inicio: #: kendo.toString(StartDate, 'yyyy/MM/dd' ) #, Fecha de Fin: #: kendo.toString(EndDate, 'yyyy/MM/dd' ) # <a href='javascript:redirect(\"#= id #\")'>Visualizar</a>"          
                 template: "Fecha de Inicio: #: kendo.toString(StartDate, 'yyyy/MM/dd' ) #, Fecha de Fin: #: kendo.toString(EndDate, 'yyyy/MM/dd' ) # <a href='views/ViewTracking.html?##id=#: id #'>Visualizar</a>"
             });
         }
@@ -258,15 +289,39 @@
                 type: "everlive",
                 transport: {
                     typeName: "Child"
-                },
-                filter: { field: "FirstName", operator: "contains", value: this.firstName}
-                //filter: { field: "LastName", operator: "contains", value: this.lastName},
-                //filter: { field: "MotherLastName", operator: "contains", value: this.lastName2}
+                }
             });
 
+            //Implementing for filtering by textbox values (missing the motherlastname)
+            //http://www.telerik.com/forums/multiple-filters-on-datasource
+            
+            if(this.firstName != null || this.lastName != null)
+            {
+                    childrenDataSource.filter([
+                    {"logic":"and",
+                     "filters":[
+                         {
+                            "field":"FirstName",
+                            "operator":"contains",
+                            "value":this.firstName},
+                         {
+                             "field":"LastName",
+                              "operator":"contains",
+                              "value":this.lastName}/*,
+                         {
+                            "field":"MotherLastName",
+                            "operator":"contains",
+                            "value":this.lastName2}*/
+                     ]},                
+            	]);
+            }
+            
+            
             $("#children-list").kendoMobileListView({
                 dataSource: childrenDataSource,
-                template: "#: LastName #, #: FirstName # <a href='views/AddTracking.html?id=#: id#'>Seguir</a>"
+                template: "#: LastName #, #: FirstName # <a href='javascript:switchTab(\"#= id #\")'>Seguir</a>"
+                //implement the ChildSOSID
+                //template: "#: LastName #, #: FirstName # <a href='views/AddTracking.html?id=\"#= id #\"'>Seguir</a>"                
             });
 
         }
@@ -275,7 +330,7 @@
     window.APP.synchro = kendo.observable({
         submit: function () {
 
-
+ 
 
             if (navigator.onLine) {
 
