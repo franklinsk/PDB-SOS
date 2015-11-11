@@ -8,17 +8,17 @@
         <ul data-role="listview" data-style="inset">
             <li>
                 <label>Nombre:
-                    <input type="text" name="firstName" data-bind="value: firstName">
+                    <input type="text" name="firstNameSearch" data-bind="value: firstNameSearch">
                 </label>
             </li>
             <li>
                 <label>Apellido Paterno:
-                    <input type="text" name="lastName" data-bind="value: lastName">
+                    <input type="text" name="lastNameSearch" data-bind="value: lastNameSearch">
                 </label>
             </li>
             <li>
                 <label>Apellido Materno:
-                    <input type="text" name="lastName2" data-bind="value: lastName2">
+                    <input type="text" name="lastName2Search" data-bind="value: lastName2Search">
                 </label>
             </li>
             <li>
@@ -290,9 +290,9 @@
 		<div data-role="layout" data-id="mobile-tabstrip" data-show="showDemoLayout">
              <header data-role="header">
                 <div data-role="navbar">
-					<a data-role="backbutton" data-align="left">Atrás</a>
+					<a  style="display:none" name="btnBackAddTracking" data-role="backbutton" data-align="left">Atrás</a>
                     <span data-role="view-title"></span>
-                    <a data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.actions.addTrackingSubmit">Guardar</a>                    
+                    <a  style="display:none" name="btnSaveAddTracking" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.actions.addTrackingSubmit">Guardar</a>                    
                 </div>
             </header>
             <div data-role="footer">

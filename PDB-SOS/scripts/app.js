@@ -1,27 +1,24 @@
 var app; // store a reference to the application object that will be created  later on so that we can use it if need be
 
-function switchTab(val){
+function validateNullValues(variable){
+	if (variable === undefined || variable === null) {
+    	return "";
+	}
+    return variable;
+}
+
+function switchTab(val, firstName, lastName){
     	var tabStrip = $("#tabstripAddFollowUp").data("kendoMobileTabStrip");
 	    tabStrip.switchTo("#General");
     	app.navigate("#General?id=" + val, "slide");
-        
-    var dsChild = new kendo.data.DataSource({
-                        type: "everlive",
-                        transport: {
-                            typeName: "Child"
-                        },
-                        serverFiltering: true,
-        				filter: [{ field: "SOSChildID", operator: "eq", value: val }]
-        });    
 		
-    //fails when try to filter by GUID, best option would be number or string
-    
-    dsChild.fetch(function() {
-                    var child = dsChild.at(0);
-            		$('[name="childID"]').val(child.get("SOSChildID"));
-            		$('[name="firstName"]').val(child.get("FirstName"));
-                    $('[name="surName"]').val(child.get("LastName"));
-    }); 
+    	//fails when try to filter by GUID, best option would be number or string
+        $('[name="childID"]').val(val);
+        $('[name="firstName"]').val(firstName);
+        $('[name="surName"]').val(lastName);
+    	
+    	$('[name="btnBackAddTracking"]').show();
+    	$('[name="btnSaveAddTracking"]').show();
 }
 
 function redirect(val){
@@ -169,7 +166,6 @@ function redirect(val){
             } else {
                 offlineDataSource.online(false);
 
-
                 offlineDataSource.add({
                     SOSChildID: $('[name="childID"]').val(),
                     StartDate: $('[name="startDate"]').val(),
@@ -295,42 +291,43 @@ function redirect(val){
             //Implementing for filtering by textbox values (missing the motherlastname)
             //http://www.telerik.com/forums/multiple-filters-on-datasource
             
-            if(this.firstName != null || this.lastName != null)
+            var opt1 = validateNullValues(this.firstNameSearch);
+            var opt2 = validateNullValues(this.lastNameSearch);
+            var opt3 = validateNullValues(this.lastName2Search);
+            
+            childrenDataSource.filter([
             {
-                    childrenDataSource.filter([
-                    {"logic":"and",
-                     "filters":[
-                         {
-                            "field":"FirstName",
-                            "operator":"contains",
-                            "value":this.firstName},
-                         {
-                             "field":"LastName",
-                              "operator":"contains",
-                              "value":this.lastName}/*,
-                         {
-                            "field":"MotherLastName",
-                            "operator":"contains",
-                            "value":this.lastName2}*/
-                     ]},                
-            	]);
-            }
+                        "logic": "and",
+                     	"filters": 
+                         [
+                             {
+                                "field":"FirstName",
+                                "operator":"contains",
+                                "value":opt1
+                             },
+                             {
+                                 "field":"LastName",
+                                  "operator":"contains",
+                                  "value":opt2
+                             },
+                             {
+                                "field":"MotherLastName",
+                                "operator":"contains",
+                                "value":opt3
+                             }
+                         ]}                
+            ]);
             
-            
+            //Values should be different to null, instead of this the app crashed (template)
             $("#children-list").kendoMobileListView({
                 dataSource: childrenDataSource,
-                template: "#: LastName #, #: FirstName # <a href='javascript:switchTab(\"#= id #\")'>Seguir</a>"
-                //implement the ChildSOSID
-                //template: "#: LastName #, #: FirstName # <a href='views/AddTracking.html?id=\"#= id #\"'>Seguir</a>"                
+                template: "#: LastName #, #: FirstName # <a href='javascript:switchTab(\"#if (SOSChildID == null) {# #=''# #} else {# #=SOSChildID# #}#\", \"#if (FirstName == null) {# #=''# #} else {# #=FirstName# #}#\", \"#if (LastName == null) {# #=''# #} else {# #=LastName# #}#\")'>Seguir</a>"                
             });
-
         }
     });
 
     window.APP.synchro = kendo.observable({
-        submit: function () {
-
- 
+        submit: function () { 
 
             if (navigator.onLine) {
 
