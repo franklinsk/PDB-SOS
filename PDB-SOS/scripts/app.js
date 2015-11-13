@@ -36,24 +36,24 @@ var app; // store a reference to the application object that will be created  la
         models: { home: { title: 'Bienvenido!!!' } }
     };
     
-    var country;
+    var programa;
     window.APP.models.house = kendo.observable({
         init: function () {             
                 
-            country = new kendo.data.DataSource({
+            programa = new kendo.data.DataSource({
                     type: "everlive",
                     transport: {
-                        typeName: "Country"
+                        typeName: "ProgrammeUnit"
                     },
     				serverFiltering: true,
                     serverSorting: true,
       				sort: { field: "Name", dir: "asc" }
     		});               
             
-             $("#ddlPais").kendoDropDownList({
+             $("#ddlProgramma").kendoDropDownList({
                         dataTextField: "Name",
-                        dataValueField: "CountryID",
-                        dataSource: country
+                        dataValueField: "ProgrammeUnitID",
+                        dataSource: programa
                     });
     	},
         submit: function(){
@@ -68,7 +68,7 @@ var app; // store a reference to the application object that will be created  la
                         typeName: "House"
                     },
     				serverFiltering: true,
-    				filter: { field: 'CountryID', operator: 'eq', value: $("#ddlPais").kendoDropDownList().val() }
+    				filter: { field: 'ProgrammeUnitID', operator: 'eq', value: $("#ddlProgramma").kendoDropDownList().value() }
     		});                            
             
             $("#list").kendoMobileListView({
