@@ -1,10 +1,5 @@
 <div data-role="view" id="Busqueda" data-title="Busqueda" data-layout="mobile-tabstrip" data-model="APP.models.tracking">
-    <!--<div ng-app="appDemo">
-       <div ng-controller="ctrlIndex">
-        	<input ng-model="valor"/>
-       </div>    
-    </div>-->
-    <form>
+   <form>
         <ul data-role="listview" data-style="inset">
             <li>
                 <label>Nombre:
@@ -30,7 +25,7 @@
 </div>
 <!--<div data-role="view" id="GeneralView" data-model="AddTrackingValues" >
     <form>-->
-        <div data-role="view" id="General" data-title="General" data-layout="mobile-tabstrip" data-model="APP.models.actions">
+        <div data-role="view" id="GeneralAdd" data-title="General" data-layout="mobile-tabstrip" data-model="APP.models.actions">
             <form>                
             <ul data-role="listview" data-style="inset" title="General">
                 <li>
@@ -105,7 +100,7 @@
             </ul>                
             </form>
         </div>
-        <div data-role="view" id="Vivienda" data-title="Vivienda" data-layout="mobile-tabstrip">
+        <div data-role="view" id="ViviendaAdd" data-title="Vivienda" data-layout="mobile-tabstrip">
             <ul data-role="listview" data-style="inset" title="Vivienda">
                 <li>
                     <label>Tipo de Alojamiento:
@@ -146,7 +141,7 @@
             <li><a href="#Educacion" data-icon="fastforward">Adelantar</a></li>-->
             </ul>
         </div>
-        <div data-role="view" id="Educacion" data-title="Educacion" data-layout="mobile-tabstrip">
+        <div data-role="view" id="EducacionAdd" data-title="Educacion" data-layout="mobile-tabstrip">
             <ul data-role="listview" data-style="inset" title="Educacion">
                 <li>
                     <label>Matricula Escolar Vigente:
@@ -190,7 +185,7 @@
                 </li>
             </ul>
         </div>
-        <div data-role="view" id="EmpleoIngresos" data-title="Empleo" data-layout="mobile-tabstrip">
+        <div data-role="view" id="EmpleoIngresosAdd" data-title="Empleo" data-layout="mobile-tabstrip">
             <ul data-role="listview" data-style="inset" title="Empleo">
                 <li>
                     <label>Ingresos Mensuales:
@@ -258,7 +253,7 @@
                 </li>
             </ul>
         </div>
-        <div data-role="view" id="Salud" data-title="Salud" data-layout="mobile-tabstrip" >
+        <div data-role="view" id="SaludAdd" data-title="Salud" data-layout="mobile-tabstrip" >
             <ul data-role="listview" data-style="inset" title="Salud">
                 <li>
                     <label>Tiene Discapacidad:
@@ -295,14 +290,14 @@
                     <a  style="display:none" name="btnSaveAddTracking" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.actions.addTrackingSubmit">Guardar</a>                    
                 </div>
             </header>
-            <div data-role="footer">
+            <div data-role="footer">          
                 <div data-role="tabstrip" id="tabstripAddFollowUp">
                     <a href="#Busqueda" data-icon="search">Busqueda</a>
-                    <a href="#General" data-icon="globe">General</a>
-                    <a href="#Vivienda" data-icon="home">Vivienda</a>
-                    <a href="#Educacion" data-icon="bookmarks">Educacion</a>
-                    <a href="#EmpleoIngresos" data-icon="cart">Empleo</a>
-                    <a href="#Salud" data-icon="featured">Salud</a>
+                    <a href="#GeneralAdd" data-icon="globe">General</a>
+                    <a href="#ViviendaAdd" data-icon="home">Vivienda</a>
+                    <a href="#EducacionAdd" data-icon="bookmarks">Educacion</a>
+                    <a href="#EmpleoIngresosAdd" data-icon="cart">Empleo</a>
+                    <a href="#SaludAdd" data-icon="featured">Salud</a>
                 </div>
             </div>
         </div>

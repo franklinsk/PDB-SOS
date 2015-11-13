@@ -7,24 +7,22 @@ function validateNullValues(variable){
     return variable;
 }
 
-function switchTab(val, firstName, lastName){
-    	var tabStrip = $("#tabstripAddFollowUp").data("kendoMobileTabStrip");
-	    tabStrip.switchTo("#General");
-    	app.navigate("#General?id=" + val, "slide");
-		
-    	//fails when try to filter by GUID, best option would be number or string
-        $('[name="childID"]').val(val);
+function switchTab(type, childID, firstName, lastName){    	
+		var tabStrip = $("#tabstrip" + type + "FollowUp").data("kendoMobileTabStrip");
+    	//fails when try to filter by GUID, best option would be number or string        
+    	tabStrip.switchTo("#General" + type);
+    	app.navigate("#General" + type + "?id=" + childID, "slide");    	
+    
+    	$('[name="childID"]').val(childID);
         $('[name="firstName"]').val(firstName);
         $('[name="surName"]').val(lastName);
     	
-    	$('[name="btnBackAddTracking"]').show();
-    	$('[name="btnSaveAddTracking"]').show();
+    	$('[name="btnBack' + type + 'Tracking"]').show();
+    	$('[name="btnSave' + type + 'Tracking"]').show();
 }
 
 function redirect(val){
-    //alert(val);
-    app.navigate("views/ViewTracking.html?id=" + val, "slide");
-    
+    app.navigate("views/ViewTracking.html?id=" + val, "slide");    
 }
     
 (function () {
@@ -87,11 +85,13 @@ function redirect(val){
     				serverFiltering: true,
     				filter: { field: 'SOSChildID', operator: 'eq', value: $('[name="SOSChildID"]').val() }
     		});    
+                        
             
             $("#tracking-list").kendoMobileListView({
                 dataSource: listTracking,
-                //template: "Fecha de Inicio: #: kendo.toString(StartDate, 'yyyy/MM/dd' ) #, Fecha de Fin: #: kendo.toString(EndDate, 'yyyy/MM/dd' ) # <a href='javascript:redirect(\"#= id #\")'>Visualizar</a>"          
-                template: "Fecha de Inicio: #: kendo.toString(StartDate, 'yyyy/MM/dd' ) #, Fecha de Fin: #: kendo.toString(EndDate, 'yyyy/MM/dd' ) # <a href='views/ViewTracking.html?##id=#: id #'>Visualizar</a>"
+                //template: "Fecha de Inicio: #: kendo.toString(StartDate, 'yyyy/MM/dd' ) #, Fecha de Fin: #: kendo.toString(EndDate, 'yyyy/MM/dd' ) # <a href='javascript:switchTab(\"#if (SOSChildID == null) {# #=''# #} else {# #=SOSChildID# #}#\", \"#if (FirstName == null) {# #=''# #} else {# #=FirstName# #}#\", \"#if (LastName == null) {# #=''# #} else {# #=LastName# #}#\")'>Visualizar</a>"                
+                //No values for firstName and lastName
+                template: "Fecha de Inicio: #: kendo.toString(StartDate, 'yyyy/MM/dd' ) #, Fecha de Fin: #: kendo.toString(EndDate, 'yyyy/MM/dd' ) # <a href='javascript:switchTab(\"View\",\"#if (SOSChildID == null) {# #=''# #} else {##=SOSChildID##}#\", \"\",\"\")'>Visualizar</a>"                
             });
         }
     });
@@ -203,18 +203,19 @@ function redirect(val){
                 navigator.notification.alert("Se ha registrado correctamente en modo desconectado");
             }
         },
-        getTrackingChildItem: function () {
-            var location = window.location.toString();
-            var isbn = location.substring(location.lastIndexOf('?') + 4);
-                        
-			var ds = new kendo.data.DataSource({
+        getTrackingChildItem: function (e) {
+            var childID = e.view.params.id;
+            
+            if(childID == null)
+                return;
+            	
+            var ds = new kendo.data.DataSource({
                     type: "everlive",
                     transport: {
                         typeName: "ChildTracking"
                     },
     				serverFiltering: true,
-    			filter: { field: 'ID', operator: 'eq', value: isbn }	
-                //filter: { field: 'ID', operator: 'eq', value: $('[name="childIDGuid"]').val() }
+    			filter: { field: 'SOSChildID', operator: 'eq', value: childID }	
     		});    
             
             ds.fetch(function() {
@@ -262,7 +263,7 @@ function redirect(val){
                         typeName: "Child"
                     },
     				serverFiltering: true,
-    				filter: { field: 'SOSChildID', operator: 'eq', value: $('[name="childID"]').val() }
+    				filter: { field: 'SOSChildID', operator: 'eq', value: childID }
     		});    
             
             dsChild.fetch(function() {
@@ -321,7 +322,7 @@ function redirect(val){
             //Values should be different to null, instead of this the app crashed (template)
             $("#children-list").kendoMobileListView({
                 dataSource: childrenDataSource,
-                template: "#: LastName #, #: FirstName # <a href='javascript:switchTab(\"#if (SOSChildID == null) {# #=''# #} else {# #=SOSChildID# #}#\", \"#if (FirstName == null) {# #=''# #} else {# #=FirstName# #}#\", \"#if (LastName == null) {# #=''# #} else {# #=LastName# #}#\")'>Seguir</a>"                
+                template: "#: LastName #, #: FirstName # <a href='javascript:switchTab(\"Add\",\"#if (SOSChildID == null) {# #=''# #} else {# #=SOSChildID# #}#\", \"#if (FirstName == null) {# #=''# #} else {# #=FirstName# #}#\", \"#if (LastName == null) {# #=''# #} else {# #=LastName# #}#\")'>Seguir</a>"                
             });
         }
     });

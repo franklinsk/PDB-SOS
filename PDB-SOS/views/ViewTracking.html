@@ -1,9 +1,23 @@
-<div data-role="view" id="General" data-title="General" data-show="actions.getTrackingChildItem" data-layout="mobile-tabstrip" data-model="APP.models.actions">
+<div data-role="view" id="Seguimiento" data-title="Seguimiento" data-layout="mobile-tabstrip" data-model="APP.models.listTracking">
+    <form>
+        <ul data-role="listview" data-style="inset">
+            <li>
+                <label>Código de Niño:
+                    <input type="text" name="SOSChildID" data-bind="value: SOSChildID">
+                </label>
+            </li>
+            <li>
+                <button style="width: 100%" data-role="button" data-bind="click: listTrackingSubmit">Buscar</button>
+            </li>
+        </ul>
+    </form>
+    <ul id="tracking-list"></ul>
+</div>
+<div data-role="view" id="GeneralView" data-title="General" data-show="APP.models.actions.getTrackingChildItem" data-layout="mobile-tabstrip" data-model="APP.models.actions">
     <form>
         <ul data-role="listview" data-style="inset" title="General">
             <li>
                 <label>Código:                    
-                    <input type="text" name="childIDGuid" data-bind="value: childIDGuid">
                     <input type="text" name="childID" data-bind="value: childID">
                     <a data-role="button" data-icon="search" data-click="window.APP.models.actions.getTrackingChildItem"></a>
                 </label>
@@ -74,7 +88,7 @@
         </ul>
     </form>
 </div>
-<div data-role="view" id="Vivienda" data-title="Vivienda" data-layout="mobile-tabstrip">
+<div data-role="view" id="ViviendaView" data-title="Vivienda" data-layout="mobile-tabstrip">
     <ul data-role="listview" data-style="inset" title="Vivienda">
         <li>
             <label>Tipo de Alojamiento:
@@ -115,7 +129,7 @@
             <li><a href="#Educacion" data-icon="fastforward">Adelantar</a></li>-->
     </ul>
 </div>
-<div data-role="view" id="Educacion" data-title="Educacion" data-layout="mobile-tabstrip">
+<div data-role="view" id="EducacionView" data-title="Educacion" data-layout="mobile-tabstrip">
     <ul data-role="listview" data-style="inset" title="Educacion">
         <li>
             <label>Matricula Escolar Vigente:
@@ -159,7 +173,7 @@
         </li>
     </ul>
 </div>
-<div data-role="view" id="EmpleoIngresos" data-title="Empleo" data-layout="mobile-tabstrip">
+<div data-role="view" id="EmpleoIngresosView" data-title="Empleo" data-layout="mobile-tabstrip">
     <ul data-role="listview" data-style="inset" title="Empleo">
         <li>
             <label>Ingresos Mensuales:
@@ -227,7 +241,7 @@
         </li>
     </ul>
 </div>
-<div data-role="view" id="Salud" data-title="Salud" data-layout="mobile-tabstrip">
+<div data-role="view" id="SaludView" data-title="Salud" data-layout="mobile-tabstrip">
     <ul data-role="listview" data-style="inset" title="Salud">
         <li>
             <label>Tiene Discapacidad:
@@ -258,17 +272,19 @@
 <div data-role="layout" data-id="mobile-tabstrip" data-show="showDemoLayout">
     <header data-role="header">
         <div data-role="navbar">
-            <a data-role="backbutton" data-align="left">Atrás</a>
-            <span data-role="view-title"></span>
+					<a  style="display:none" name="btnBackViewTracking" data-role="backbutton" data-align="left">Atrás</a>
+                    <span data-role="view-title"></span>
+                    <a  style="display:none" name="btnBackViewTracking" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.actions.addTrackingSubmit">Guardar</a>                    
         </div>
     </header>
     <div data-role="footer">
-        <div data-role="tabstrip" id="tabstripFollowUp">
-            <a href="#General" data-icon="globe" id="followGeneral">General</a>
-            <a href="#Vivienda" data-icon="home">Vivienda</a>
-            <a href="#Educacion" data-icon="bookmarks">Educacion</a>
-            <a href="#EmpleoIngresos" data-icon="cart">Empleo</a>
-            <a href="#Salud" data-icon="featured">Salud</a>
+        <div data-role="tabstrip" id="tabstripViewFollowUp">
+            <a href="#Seguimiento" data-icon="search">Seguimiento</a>
+            <a href="#GeneralView" data-icon="globe">General</a>
+            <a href="#ViviendaView" data-icon="home">Vivienda</a>
+            <a href="#EducacionView" data-icon="bookmarks">Educacion</a>
+            <a href="#EmpleoIngresosView" data-icon="cart">Empleo</a>
+            <a href="#SaludView" data-icon="featured">Salud</a>
         </div>
     </div>
 </div>
