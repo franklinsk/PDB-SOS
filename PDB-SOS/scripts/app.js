@@ -1,30 +1,5 @@
 var app; // store a reference to the application object that will be created  later on so that we can use it if need be
 
-function validateNullValues(variable){
-	if (variable === undefined || variable === null) {
-    	return "";
-	}
-    return variable;
-}
-
-function switchTab(type, childID, firstName, lastName){    	
-		var tabStrip = $("#tabstrip" + type + "FollowUp").data("kendoMobileTabStrip");
-    	//fails when try to filter by GUID, best option would be number or string        
-    	tabStrip.switchTo("#General" + type);
-    	app.navigate("#General" + type + "?id=" + childID, "slide");    	
-    
-    	$('[name="childID"]').val(childID);
-        $('[name="firstName"]').val(firstName);
-        $('[name="surName"]').val(lastName);
-    	
-    	$('[name="btnBack' + type + 'Tracking"]').show();
-    	$('[name="btnSave' + type + 'Tracking"]').show();
-}
-
-function redirect(val){
-    app.navigate("views/ViewTracking.html?id=" + val, "slide");    
-}
-    
 (function () {
 
     var apiKey = "68s7rFRK3GauGzv2";
@@ -71,7 +46,7 @@ function redirect(val){
 
     
     window.APP.models.listTracking = kendo.observable({
-        listTrackingSubmit: function () {            
+        submit: function () {            
             if (!navigator.onLine) {
                     navigator.notification.alert("No hay conexion a Internet");
                     return;
@@ -98,8 +73,7 @@ function redirect(val){
     
     window.APP.models.actions = kendo.observable({
         //reasonsForExit: "3",
-         getChildItem: function () {            
-
+         getChildItem: function () {   
                 if (!navigator.onLine) {
                     navigator.notification.alert("No hay conexion a Internet");
                     return;
@@ -108,17 +82,17 @@ function redirect(val){
                 $('[name="firstName"]').val("");
                 $('[name="surName"]').val("");
 
-                var trackingDataSources = new kendo.data.DataSource({
+                var childDataSources = new kendo.data.DataSource({
                         type: "everlive",
                         transport: {
                             typeName: "Child"
                         },
                         serverFiltering: true,
-                        filter: { field: 'SOSChildID', operator: 'eq', value: $('[name="childID"]').val() }
+                        filter: { field: 'SOSChildID', operator: 'eq', value: $('[name="childID"]').val().trim() }
                 });    
-
-                trackingDataSources.fetch(function() {
-                    var child = trackingDataSources.at(0);
+				
+                childDataSources.fetch(function() {
+                    var child = childDataSources.at(0);
                     $('[name="childID"]').val(child.get("SOSChildID"));
                     $('[name="firstName"]').val(child.get("FirstName"));
                     $('[name="surName"]').val(child.get("LastName"));
@@ -126,7 +100,8 @@ function redirect(val){
             },
            addTrackingSubmit: function () {
 
-            if (navigator.onLine) {
+            if (navigator.onLine) 
+            {
                 trackingDataSource.add({
                     SOSChildID: $('[name="childID"]').val(),
                     StartDate: $('[name="startDate"]').val(),
@@ -209,7 +184,7 @@ function redirect(val){
             if(childID == null)
                 return;
             	
-            var ds = new kendo.data.DataSource({
+            var trackingSearchDataSource = new kendo.data.DataSource({
                     type: "everlive",
                     transport: {
                         typeName: "ChildTracking"
@@ -218,8 +193,8 @@ function redirect(val){
     			filter: { field: 'SOSChildID', operator: 'eq', value: childID }	
     		});    
             
-            ds.fetch(function() {
-  				var child = ds.at(0);
+            trackingSearchDataSource.fetch(function() {
+  				var child = trackingSearchDataSource.at(0);
   				$('[name="childID"]').val(child.get("SOSChildID"));
                 $('[name="startDate"]').val(child.get("StartDate"));
                 $('[name="endDate"]').val(child.get("EndDate"));
@@ -257,7 +232,7 @@ function redirect(val){
                 $('[name="commentsAboutHandicap"]').val(child.get("HealthDisabilityComments"));  
 			});
             
-            var dsChild = new kendo.data.DataSource({
+            var childSearchDataSource = new kendo.data.DataSource({
                     type: "everlive",
                     transport: {
                         typeName: "Child"
@@ -266,8 +241,9 @@ function redirect(val){
     				filter: { field: 'SOSChildID', operator: 'eq', value: childID }
     		});    
             
-            dsChild.fetch(function() {
-  				var child = dsChild.at(0);
+            childSearchDataSource.fetch(function() 
+            {
+  				var child = childSearchDataSource.at(0);
   				$('[name="childID"]').val(child.get("SOSChildID"));
                 $('[name="firstName"]').val(child.get("FirstName"));
                 $('[name="surName"]').val(child.get("LastName"));
@@ -282,7 +258,7 @@ function redirect(val){
                     return;
             }
             
-            childrenDataSource = new kendo.data.DataSource({
+            childDataSource = new kendo.data.DataSource({
                 type: "everlive",
                 transport: {
                     typeName: "Child"
@@ -296,7 +272,7 @@ function redirect(val){
             var opt2 = validateNullValues(this.lastNameSearch);
             var opt3 = validateNullValues(this.lastName2Search);
             
-            childrenDataSource.filter([
+            childDataSource.filter([
             {
                         "logic": "and",
                      	"filters": 
@@ -321,7 +297,7 @@ function redirect(val){
             
             //Values should be different to null, instead of this the app crashed (template)
             $("#children-list").kendoMobileListView({
-                dataSource: childrenDataSource,
+                dataSource: childDataSource,
                 template: "#: LastName #, #: FirstName # <a href='javascript:switchTab(\"Add\",\"#if (SOSChildID == null) {# #=''# #} else {# #=SOSChildID# #}#\", \"#if (FirstName == null) {# #=''# #} else {# #=FirstName# #}#\", \"#if (LastName == null) {# #=''# #} else {# #=LastName# #}#\")'>Seguir</a>"                
             });
         }
@@ -344,7 +320,6 @@ function redirect(val){
                     template: "#: StartDate # - #: EndDate # - #: SOSChildID #"
                 });
 
-
                 var synchroDataSource = new kendo.data.DataSource({
                     type: "everlive",
                     transport: {
@@ -357,28 +332,24 @@ function redirect(val){
                     }
                 });
 
-                for (var item in jLocalStorage) {
-
-
-
+                for (var item in jLocalStorage) 
+                {
                     synchroDataSource.add({
                         SOSChildID: jLocalStorage[item]["SOSChildID"],
                         StartDate: jLocalStorage[item]["StartDate"],
                         EndDate: jLocalStorage[item]["EndDate"]
                     });
-
                 }
 
                 localStorage.removeItem("tracking-offline");
                 synchroDataSource.sync();
-
-
                 navigator.notification.alert("Sincronizacion finalizada!!!");
 
-            } else {
+            }
+            else 
+            {
                 navigator.notification.alert("No se ha detectado una conexion activa a internet");
             }
-
         }
     });
 

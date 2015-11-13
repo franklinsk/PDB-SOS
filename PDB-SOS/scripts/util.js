@@ -1,3 +1,5 @@
+var app; // store a reference to the application object that will be created  later on so that we can use it if need be
+
 function validateNullValues(variable){
 	if (variable === undefined || variable === null) {
     	return "";
@@ -5,20 +7,21 @@ function validateNullValues(variable){
     return variable;
 }
 
-function switchTab(tabID, tabName, val, firstName, lastName){
-    	var tabStrip = $("#" + tabID).data("kendoMobileTabStrip");
-        tabStrip.switchTo("#" +tabName);
-    	app.navigate("#" + tabName + "?id=" + val, "slide");
-		
-    	//fails when try to filter by GUID, best option would be number or string
-        $('[name="childID"]').val(val);
+function switchTab(type, childID, firstName, lastName){    	
+		var tabStrip = $("#tabstrip" + type + "FollowUp").data("kendoMobileTabStrip");
+    	//fails when try to filter by GUID, best option would be number or string        
+    	tabStrip.switchTo("#General" + type);
+    	app.navigate("#General" + type + "?id=" + childID, "slide");    	
+    
+    	$('[name="childID"]').val(childID);
         $('[name="firstName"]').val(firstName);
         $('[name="surName"]').val(lastName);
     	
-    	$('[name="btnBackAddTracking"]').show();
-    	$('[name="btnSaveAddTracking"]').show();
+    	$('[name="btnBack' + type + 'Tracking"]').show();
+    	$('[name="btnSave' + type + 'Tracking"]').show();
 }
 
-function redirect(view, val){
-    app.navigate("views/" + view + ".html?id=" + val, "slide");    
+function redirect(val){
+    app.navigate("views/ViewTracking.html?id=" + val, "slide");    
 }
+    
