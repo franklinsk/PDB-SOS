@@ -36,6 +36,57 @@ var app; // store a reference to the application object that will be created  la
         models: { home: { title: 'Bienvenido!!!' } }
     };
     
+    var country;
+    window.APP.models.house = kendo.observable({
+        init: function () {             
+                
+            country = new kendo.data.DataSource({
+                    type: "everlive",
+                    transport: {
+                        typeName: "Country"
+                    },
+    				serverFiltering: true,
+                    serverSorting: true,
+      				sort: { field: "Name", dir: "asc" }
+    		});               
+            
+             $("#ddlPais").kendoDropDownList({
+                        dataTextField: "Name",
+                        dataValueField: "CountryID",
+                        dataSource: country
+                    });
+    	},
+        submit: function(){
+            if (!navigator.onLine) {
+                    navigator.notification.alert("No hay conexion a Internet");
+                    return;
+            }
+            alert($("#ddlPais").val());
+            var list = new kendo.data.DataSource({
+                    type: "everlive",
+                    transport: {
+                        typeName: "House"
+                    },
+    				serverFiltering: true,
+    				filter: { field: 'CountryID', operator: 'eq', value: $("#ddlPais").kendoDropDownList().val() }
+    		});                            
+            
+            $("#list").kendoMobileListView({
+                dataSource: list,
+                template: "Código: #: SOSHouseID #, Dirección #: Address # <a href='javascript:switchHouseTab(\"View\",\"#if (SOSHouseID == null) {# #=''# #} else {##=SOSHouseID##}#\", \"#if (Address == null) {# #=''# #} else {##=Address##}#\",, \"#if (NameOrNumber == null) {# #=''# #} else {##=NameOrNumber##}#\")'>Visualizar</a>"                
+            });
+        },
+        getHouseChildItem: function () { 
+            alert("b");
+    	},
+        getHouseItem: function () { 
+            alert("c");
+    	},
+        addHouseSubmit: function () { 
+            alert("d");
+    	}
+    });
+        
     window.APP.models.child = kendo.observable({
          getChildItem: function () {   
                 if (!navigator.onLine) {
