@@ -61,7 +61,7 @@ var app; // store a reference to the application object that will be created  la
                     navigator.notification.alert("No hay conexion a Internet");
                     return;
             }
-            alert($("#ddlPais").val());
+            
             var list = new kendo.data.DataSource({
                     type: "everlive",
                     transport: {
