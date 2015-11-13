@@ -1,52 +1,296 @@
-<div data-role="view" id="Casa" data-title="Casa" data-layout="mobile-tabstrip" data-model="APP.models.Caregiver">
-    <form>
+<div data-role="view" id="Busqueda" data-title="Busqueda" data-layout="mobile-tabstrip" data-model="APP.models.tracking">
+   <form>
         <ul data-role="listview" data-style="inset">
             <li>
-                <label>Casa:
-                    <input id="ddlCasa" />
+                <label>Código del Niño:
+                    <input type="text" name="SOSChildID" data-bind="value: SOSChildID">
                 </label>
             </li>
             <li>
-                <button style="width: 100%" data-role="button" data-bind="click: submit">Buscar</button>
+                <button style="width: 100%" data-role="button" data-bind="click: searchByCode">Buscar</button>
             </li>
         </ul>
     </form>
-    <ul id="list"></ul>
+    <ul id="trackingList"></ul>
 </div>
-<div data-role="view" id="GeneralView" data-title="General" data-show="APP.models.actions.getHouseChildItem" data-layout="mobile-tabstrip" data-model="APP.models.actions">
-    <form>
-        <ul data-role="listview" data-style="inset" title="General">
-            <li>
-                <label>Código:                    
-                    <input type="text" name="houseID" data-bind="value: houseID">
-                    <a data-role="button" data-icon="search" data-click="window.APP.models.actions.getHouseItem"></a>
-                </label>
-            </li>
-            <li>
-                <label>Nombre:
-                    <input type="text" name="houseName" data-bind="value: houseName" readonly>
-                </label>
-            </li>
-            <li>
-                <label>Dirección:
-                    <input type="text" name="addreess" data-bind="value: addreess" readonly>
-                </label>
-            </li>
-        </ul>
+<!--<div data-role="view" id="GeneralView" data-model="AddTrackingValues" >
+    <form>-->
+        <div data-role="view" id="GeneralView" data-title="General" data-layout="mobile-tabstrip" data-model="APP.models.tracking" data-show="APP.models.tracking.getTracking">
+            <form>                
+            <ul data-role="listview" data-style="inset" title="General">
+                <li>
+                    <label>Código:
+                        <input type="text" name="childID" data-bind="value: childID">
+                        <a data-role="button" data-icon="search" data-click="window.APP.models.child.getChildItem"></a>                    
+                    </label>
+                </li>
+                <li>
+                    <label>Nombres:
+                        <input type="text" name="firstName" data-bind="value: firstName" readonly>
+                    </label>
+                </li>
+                <li>
+                    <label>Apellidos
+                        <input type="text" name="surName" data-bind="value: surName" readonly>
+                    </label>
+                </li>
+                <li>
+                    <label>Razón de Salida:
+                        <select name="reasonsForExit" data-bind="value: reasonsForExit">
+                            <option value="1">Adopción</option>
+                            <option value="2">Fallecimiento</option>
+                            <option value="3">Autosuficiencia</option>
+                            <option value="4">Reintegración familiar</option>
+                        </select>
+                    </label>
+                </li>
+                <li>
+                    <label>Fecha de Inicio:
+                        <input type="date" name="startDate" data-bind="value: startDate">
+                    </label>
+                </li>
+                <li>
+                    <label>Fecha de Fin:
+                        <input type="date" name="endDate" data-bind="value: endDate">
+                    </label>
+                </li>
+                <li>
+                    <label>Teléfono:
+                        <input type="tel" name="phone" data-bind="value: phone">
+                    </label>
+                </li>                
+                <li>
+                    <label>Correo electrónico:
+                        <input type="email" name="email" data-bind="value: email">
+                    </label>
+                </li>                 
+                <li>
+                    <label>Edad cuando tuvo su primer hijo:
+                        <input type="number" name="ageWhenHasFirstChild" data-bind="value: ageWhenHasFirstChild">
+                    </label>
+                </li>
+                <li>
+                    <label>Número de Hijos:
+                        <input type="number" name="childrenNumber" data-bind="value: childrenNumber">
+                    </label>
+                </li>                
+                <li>
+                    <label>Tutor Legal:
+                        <input type="text" name="legalGuardian" data-bind="value: legalGuardian">
+                    </label>
+                </li>             
+                <li>
+                    <label>Hermanos biológicos fuera de SOS:
+                        <input type="number" name="siblingsOutsideSOS" data-bind="value: siblingsOutsideSOS">
+                    </label>
+                </li>                             
+                <li>
+                    <!--<a href="#Vivienda" data-icon="fastforward" data-click="onClickTabFollowUp">Adelantar</a>-->
+                </li>
+            </ul>                
+            </form>
+        </div>
+        <div data-role="view" id="ViviendaView" data-title="Vivienda" data-layout="mobile-tabstrip">
+            <ul data-role="listview" data-style="inset" title="Vivienda">
+                <li>
+                    <label>Tipo de Alojamiento:
+                        <select name="hostageType" data-bind="value: hostageType">
+                            <option value="1">Casa Propia</option>
+                            <option value="2">Casa Alquilada</optiosn>
+                            <option value="3">Familiares</option>
+                            <option value="4">Residencia Universitaria</option>
+                        </select>
+                    </label>
+                </li>
+                <li>
+                    <label>Comentarios de Alojamiento:
+                        <textarea name="hostageComments" style="resize: none" data-bind="value: hostageComments"></textarea>
+                    </label>
+                </li>
+                <li>
+                    <label>Comentarios de Mejora de Alojamiento:
+                        <textarea name="hostageImproveComments" style="resize: none" data-bind="value: hostageImproveComments"></textarea>
+                    </label>
+                </li>
+                <li>
+                    <label>Centro Educativo NO SOS:
+                        <input type="text" name="educationalCenterNoSOS" data-bind="value: educationalCenterNoSOS">
+                    </label>
+                </li>
+				<li>
+                    <label>Lugar de Residencia:
+                        <select name="homePlace" data-bind="value: homePlace">
+                            <option value="1">Madre / Padre</option>
+                            <option value="2">Hermanos Biologicos</optiosn>
+                            <option value="3">Familia SOS</option>
+                            <option value="4">Vivienda Propia</option>
+                        </select>
+                    </label>
+                </li>
+                <!--<li><a href="#General" data-icon="rewind">Regresar</a></li>
+            <li><a href="#Educacion" data-icon="fastforward">Adelantar</a></li>-->
+            </ul>
+        </div>
+        <div data-role="view" id="EducacionView" data-title="Educacion" data-layout="mobile-tabstrip">
+            <ul data-role="listview" data-style="inset" title="Educacion">
+                <li>
+                    <label>Matricula Escolar Vigente:
+                        <select name="currentEnrollment" data-bind="value: currentEnrollment">
+                            <option value="1">Primeros años de Secundaria</option>
+                            <option value="2">Finales años de Secundaria</option>
+                            <option value="3">Post Secundaria</option>
+                            <option value="4">Enseñanza Superior</option>
+                            <option value="5">Bachiller</option>
+                            <option value="6">No matriculado</option>
+                        </select>
+                    </label>
+                </li>    
+                <li>
+                    <label>Nivel Educación Alcanzado:
+                        <select name="educationCurrentEnrollment" data-bind="value: educationCurrentEnrollment">
+                            <option value="1">Sin Nivel</option>
+                            <option value="2">Primaria</option>
+                            <option value="3">Secundaria</option>
+                            <option value="4">Superior No Univ.</option>
+                            <option value="5">Superior Univ.</option>
+                            <option value="6">PostGrado</option>
+                            <option value="7">Técnica</option>
+                        </select>
+                    </label>
+                </li>   
+                <li>
+                    <label>Inicio de Educación:
+                        <input type="date" name="educationStudyStart" data-bind="value: educationStudyStart">
+                    </label>
+                </li>
+                <li>
+                    <label>Nombre de Especialidad:
+                        <input type="text" name="specialityName" data-bind="value: specialityName">
+                    </label>
+                </li>
+                <li>
+                    <label>Semestre de la Especialidad:
+                        <input type="text" name="specialitySemester" data-bind="value: specialitySemester">
+                    </label>
+                </li>
+            </ul>
+        </div>
+        <div data-role="view" id="EmpleoIngresosView" data-title="Empleo" data-layout="mobile-tabstrip">
+            <ul data-role="listview" data-style="inset" title="Empleo">
+                <li>
+                    <label>Ingresos Mensuales:
+                            <input type="number" name="incomeMonthly" data-bind="value: incomeMonthly">
+                    </label>
+                </li>
+                <li>
+                    <label>Tipo de Moneda:
+                        <select name="workCurrency" data-bind="value: workCurrency">
+                            <option value="1">Nuevos Soles</option>
+                            <option value="2">Dolares</optiosn>
+                            <option value="3">Euros</option>
+                        </select>
+                    </label>
+                </li>
+                <li>
+                    <label>Fuente de Ingreso:
+                        <select name="sourceOfIncome" data-bind="value: sourceOfIncome">
+                            <option value="1">Salario</option>
+                            <option value="2">Prestaciones sociales</option>
+                            <option value="3">Apoyo de SOS</option>
+                            <option value="4">Otros</option>
+                        </select>
+                    </label>
+                </li>
+                <li>
+                    <label>Tipo de Empleo:
+                        <select name="typeOfEmployment" data-bind="value: typeOfEmployment">
+                            <option value="1">Tiempo Completo</option>
+                            <option value="2">Medio Tiempo</option>
+                            <option value="3">Desempleado</option>
+                            <option value="4">Sin Trabajo</option>
+                            <option value="5">Otros</option>
+                        </select>
+                    </label>
+                </li>
+                <li>
+                    <label>Trabajo relacionado con la especialidad:
+                        <select name="workRelatedWithSpeciality" data-bind="value: workRelatedWithSpeciality">
+                            <option value="1">Si</option>
+                            <option value="2">No</option>
+                        </select>
+                    </label>
+                </li>
+                <li>
+                    <label>Area de Trabajo:
+                        <select name="areaOfWork" data-bind="value: areaOfWork">
+                            <option value="1">Privado</option>
+                            <option value="2">Publico</option>
+                            <option value="3">Independiente</option>
+                            <option value="4">ONG</option>
+                            <option value="5">Otros</option>
+                        </select>
+                    </label>
+                </li>
+                <li>
+                    <label>Trabajo Continuo en meses:
+                        <input type="number" name="continueWorkinMonths" data-bind="value: continueWorkinMonths">
+                    </label>
+                </li>
+                <li>
+                    <label>Meses desempleado:
+                        <input type="number" name="monthsUnemployee" data-bind="value: monthsUnemployee">
+                    </label>
+                </li>
+            </ul>
+        </div>
+        <div data-role="view" id="SaludView" data-title="Salud" data-layout="mobile-tabstrip" >
+            <ul data-role="listview" data-style="inset" title="Salud">
+                <li>
+                    <label>Tiene Discapacidad:
+                        <select name="hasDisability" data-bind="value: hasDisability">
+                            <option value="1">Si</option>
+                            <option value="2">No</option>
+                        </select>
+                    </label>
+                </li>
+                <li>
+                    <label>Afecta en la vida diaria:
+                        <select name="affectsInDailyLife" data-bind="value: affectsInDailyLife">
+                            <option value="1">Demasiado</option>
+                            <option value="2">Mucho</option>
+                            <option value="3">Regular</option>
+                            <option value="4">Muy Poco</option>
+                            <option value="5">Nada</option>
+                        </select>
+                    </label>
+                </li>
+                <li>
+                    <label>Comentarios de la discapacidad:
+                        <textarea name="commentsAboutHandicap" style="resize: none" data-bind="value: commentsAboutHandicap"></textarea>
+                    </label>
+                </li>
+            </ul>
+        </div>
+        
+		<div data-role="layout" data-id="mobile-tabstrip" data-show="showDemoLayout">
+             <header data-role="header">
+                <div data-role="navbar">
+					<a  style="display:none" name="btnBackViewTracking" data-role="backbutton" data-align="left">Atrás</a>
+                    <span data-role="view-title"></span>
+                    <a  style="display:none" name="btnSaveViewTracking" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.tracking.editTrackingSubmit">Guardar</a>                    
+                </div>
+            </header>
+            <div data-role="footer">          
+                <div data-role="tabstrip" id="tabstripViewFollowUp">
+                    <a href="#Busqueda" data-icon="search">Seguimiento</a>
+                    <a href="#GeneralView" data-icon="globe">General</a>
+                    <a href="#ViviendaView" data-icon="home">Vivienda</a>
+                    <a href="#EducacionView" data-icon="bookmarks">Educacion</a>
+                    <a href="#EmpleoIngresosView" data-icon="cart">Empleo</a>
+                    <a href="#SaludView" data-icon="featured">Salud</a>
+                </div>
+            </div>
+        </div>
+		<!--<button style="width: 100%" data-role="button" data-bind="click: submit">Guardar</button>
     </form>
-</div>
-<div data-role="layout" data-id="mobile-tabstrip" data-show="showDemoLayout">
-    <header data-role="header">
-        <div data-role="navbar">
-			<a  style="display:none" name="btnBackViewHouse" data-role="backbutton" data-align="left">Atrás</a>
-            <span data-role="view-title"></span>
-            <a  style="display:none" name="btnBackViewHouse" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.actions.viewHouseSubmit">Guardar</a>                    
-        </div>
-    </header>
-    <div data-role="footer">
-        <div data-role="tabstrip" id="tabstripViewHouse">
-            <a href="#Seguimiento" data-icon="search">Buscar</a>
-            <a href="#GeneralView" data-icon="globe">General</a>
-        </div>
-    </div>
-</div>
+</div>-->

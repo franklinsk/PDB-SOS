@@ -17,21 +17,21 @@
                 </label>
             </li>
             <li>
-                <button style="width: 100%" data-role="button" data-bind="click: submit">Buscar</button>
+                <button style="width: 100%" data-role="button" data-bind="click: search">Buscar</button>
             </li>
         </ul>
     </form>
-    <ul id="children-list"></ul>
+    <ul id="trackingList"></ul>
 </div>
 <!--<div data-role="view" id="GeneralView" data-model="AddTrackingValues" >
     <form>-->
-        <div data-role="view" id="GeneralAdd" data-title="General" data-layout="mobile-tabstrip" data-model="APP.models.actions">
+        <div data-role="view" id="GeneralAdd" data-title="General" data-layout="mobile-tabstrip" data-model="APP.models.tracking">
             <form>                
             <ul data-role="listview" data-style="inset" title="General">
                 <li>
                     <label>Código:
                         <input type="text" name="childID" data-bind="value: childID">
-                        <a data-role="button" data-icon="search" data-click="window.APP.models.actions.getChildItem"></a>                    
+                        <a data-role="button" data-icon="search" data-click="window.APP.models.child.getChildItem"></a>                    
                     </label>
                 </li>
                 <li>
@@ -287,7 +287,7 @@
                 <div data-role="navbar">
 					<a  style="display:none" name="btnBackAddTracking" data-role="backbutton" data-align="left">Atrás</a>
                     <span data-role="view-title"></span>
-                    <a  style="display:none" name="btnSaveAddTracking" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.actions.addTrackingSubmit">Guardar</a>                    
+                    <a  style="display:none" name="btnSaveAddTracking" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.tracking.addTrackingSubmit">Guardar</a>                    
                 </div>
             </header>
             <div data-role="footer">          
