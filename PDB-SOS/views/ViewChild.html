@@ -1,0 +1,52 @@
+<div data-role="view" id="Child" data-title="Niño" data-layout="mobile-tabstrip" data-model="APP.models.Child">
+    <form>
+        <ul data-role="listview" data-style="inset">
+            <li>
+                <label>Paìs:
+                    <input id="ddlCuidador" />
+                </label>
+            </li>
+            <li>
+                <button style="width: 100%" data-role="button" data-bind="click: submit">Buscar</button>
+            </li>
+        </ul>
+    </form>
+    <ul id="list"></ul>
+</div>
+<div data-role="view" id="GeneralView" data-title="General" data-show="APP.models.actions.getChildChildItem" data-layout="mobile-tabstrip" data-model="APP.models.actions">
+    <form>
+        <ul data-role="listview" data-style="inset" title="General">
+            <li>
+                <label>Código:                    
+                    <input type="text" name="childID" data-bind="value: childID">
+                    <a data-role="button" data-icon="search" data-click="window.APP.models.actions.getChildItem"></a>
+                </label>
+            </li>
+            <li>
+                <label>Nombres:
+                    <input type="text" name="firstName" data-bind="value: FirstName" readonly>
+                </label>
+            </li>
+            <li>
+                <label>Apellidos:
+                    <input type="text" name="surName" data-bind="value: SurName" readonly>
+                </label>
+            </li>
+        </ul>
+    </form>
+</div>
+<div data-role="layout" data-id="mobile-tabstrip" data-show="showDemoLayout">
+    <header data-role="header">
+        <div data-role="navbar">
+			<a  style="display:none" name="btnBackViewChild" data-role="backbutton" data-align="left">Atrás</a>
+            <span data-role="view-title"></span>
+            <a  style="display:none" name="btnBackViewChild" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.actions.viewChildSubmit">Guardar</a>                    
+        </div>
+    </header>
+    <div data-role="footer">
+        <div data-role="tabstrip" id="tabstripAddChild">
+            <a href="#Child" data-icon="search">Buscar</a>
+            <a href="#GeneralView" data-icon="globe">General</a>
+        </div>
+    </div>
+</div>

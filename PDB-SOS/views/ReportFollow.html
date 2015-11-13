@@ -1,0 +1,27 @@
+<div data-role="view" id="Child" data-title="Niño" data-layout="mobile-tabstrip" data-model="APP.models.Reports">
+    <form>
+        <ul data-role="listview" data-style="inset">
+            <li>
+                <label>País:
+                    <input id="ddlPais" />
+                </label>
+            </li>
+            <li>
+                <button style="width: 100%" data-role="button" data-bind="click: submitFollow">Generar</button>
+            </li>
+        </ul>
+    </form>
+    <ul id="list"></ul>
+</div>
+<div data-role="layout" data-id="mobile-tabstrip" data-show="showDemoLayout">
+    <header data-role="header">
+        <div data-role="navbar">
+			<a  style="display:none" name="btnBackViewReport" data-role="backbutton" data-align="left">Atrás</a>
+        </div>
+    </header>
+    <div data-role="footer">
+        <div data-role="tabstrip" id="tabstripViewReport">
+            <a href="#GeneralView" data-icon="globe">General</a>
+        </div>
+    </div>
+</div>

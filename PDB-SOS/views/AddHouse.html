@@ -1,9 +1,9 @@
-<div data-role="view" id="Casa" data-title="Casa" data-layout="mobile-tabstrip" data-model="APP.models.Caregiver">
+<div data-role="view" id="Casa" data-title="Casa" data-layout="mobile-tabstrip" data-model="APP.models.House">
     <form>
         <ul data-role="listview" data-style="inset">
             <li>
-                <label>Casa:
-                    <input id="ddlCasa" />
+                <label>Paìs:
+                    <input id="ddlPais" />
                 </label>
             </li>
             <li>
@@ -38,13 +38,13 @@
 <div data-role="layout" data-id="mobile-tabstrip" data-show="showDemoLayout">
     <header data-role="header">
         <div data-role="navbar">
-			<a  style="display:none" name="btnBackViewHouse" data-role="backbutton" data-align="left">Atrás</a>
+			<a  style="display:none" name="btnBackAddHouse" data-role="backbutton" data-align="left">Atrás</a>
             <span data-role="view-title"></span>
-            <a  style="display:none" name="btnBackViewHouse" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.actions.viewHouseSubmit">Guardar</a>                    
+            <a  style="display:none" name="btnBackAddHouse" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.actions.addHouseSubmit">Guardar</a>                    
         </div>
     </header>
     <div data-role="footer">
-        <div data-role="tabstrip" id="tabstripViewHouse">
+        <div data-role="tabstrip" id="tabstripAddHouse">
             <a href="#Seguimiento" data-icon="search">Buscar</a>
             <a href="#GeneralView" data-icon="globe">General</a>
         </div>
