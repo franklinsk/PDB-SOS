@@ -36,11 +36,10 @@ var app; // store a reference to the application object that will be created  la
         models: { home: { title: 'Bienvenido!!!' } }
     };
     
-    var programa;
+    
     window.APP.models.house = kendo.observable({
         init: function () {             
-                
-            programa = new kendo.data.DataSource({
+            var programa = new kendo.data.DataSource({
                     type: "everlive",
                     transport: {
                         typeName: "ProgrammeUnit"
@@ -61,6 +60,7 @@ var app; // store a reference to the application object that will be created  la
                     navigator.notification.alert("No hay conexion a Internet");
                     return;
             }
+            var programmeUnitID = $("#ddlProgramma").val();
             
             var list = new kendo.data.DataSource({
                     type: "everlive",
@@ -68,16 +68,25 @@ var app; // store a reference to the application object that will be created  la
                         typeName: "House"
                     },
     				serverFiltering: true,
-    				filter: { field: 'ProgrammeUnitID', operator: 'eq', value: $("#ddlProgramma").kendoDropDownList().value() }
+    				filter: { field: 'ProgrammeUnitID', operator: 'eq', value: programmeUnitID}
     		});                            
             
             $("#list").kendoMobileListView({
                 dataSource: list,
-                template: "Código: #: SOSHouseID #, Dirección #: Address # <a href='javascript:switchHouseTab(\"View\",\"#if (SOSHouseID == null) {# #=''# #} else {##=SOSHouseID##}#\", \"#if (Address == null) {# #=''# #} else {##=Address##}#\",, \"#if (NameOrNumber == null) {# #=''# #} else {##=NameOrNumber##}#\")'>Visualizar</a>"                
+                template: "Casa: #: SOSHouseID #, Dirección #: Address # <a href='javascript:newSwitchTab(\"View\",\"#if (SOSHouseID == null) {# #=''# #} else {##=SOSHouseID##}#\", \"#if (Address == null) {# #=''# #} else {##=Address##}#\", \"#if (NameOrNumber == null) {# #=''# #} else {##=NameOrNumber##}#\", \"" + programmeUnitID + "\")'>Visualizar</a>"                
             });
         },
+        setProgrammeToNewHouse: function(){
+            if (!navigator.onLine) {
+                    navigator.notification.alert("No hay conexion a Internet");
+                    return;
+            }
+            var programmeUnitID = $("#ddlProgramma").val();
+            newSwitchTab("Add", "", "", "", programmeUnitID); 
+             
+        },
         getHouseChildItem: function () { 
-            alert("b");
+            
     	},
         getHouseItem: function () { 
             alert("c");
@@ -121,7 +130,6 @@ var app; // store a reference to the application object that will be created  la
                     navigator.notification.alert("No hay conexion a Internet");
                     return;
             }
-            
             var listTracking = new kendo.data.DataSource({
                     type: "everlive",
                     transport: {
@@ -131,7 +139,7 @@ var app; // store a reference to the application object that will be created  la
     				filter: { field: 'SOSChildID', operator: 'eq', value: $('[name="SOSChildID"]').val() }
     		});                            
             
-            $("#trackingList").kendoMobileListView({
+            $("#trackViewList").kendoMobileListView({
                 dataSource: listTracking,
                 //template: "Fecha de Inicio: #: kendo.toString(StartDate, 'yyyy/MM/dd' ) #, Fecha de Fin: #: kendo.toString(EndDate, 'yyyy/MM/dd' ) # <a href='javascript:switchTab(\"#if (SOSChildID == null) {# #=''# #} else {# #=SOSChildID# #}#\", \"#if (FirstName == null) {# #=''# #} else {# #=FirstName# #}#\", \"#if (LastName == null) {# #=''# #} else {# #=LastName# #}#\")'>Visualizar</a>"                
                 //No values for firstName and lastName
@@ -144,20 +152,20 @@ var app; // store a reference to the application object that will be created  la
                     return;
             }
             
-            childDataSource = new kendo.data.DataSource({
+            var childDataSource = new kendo.data.DataSource({
                 type: "everlive",
                 transport: {
                     typeName: "Child"
                 }
             });
-
+            
             //Implementing for filtering by textbox values (missing the motherlastname)
             //http://www.telerik.com/forums/multiple-filters-on-datasource
             
             var opt1 = validateNullValues(this.firstNameSearch);
             var opt2 = validateNullValues(this.lastNameSearch);
             var opt3 = validateNullValues(this.lastName2Search);
-            
+                       
             childDataSource.filter([
             {
                         "logic": "and",
@@ -182,10 +190,10 @@ var app; // store a reference to the application object that will be created  la
             ]);
             
             //Values should be different to null, instead of this the app crashed (template)
-            $("#trackingList").kendoMobileListView({
+            $("#trackAddList").kendoMobileListView({
                 dataSource: childDataSource,
                 template: "#: LastName #, #: FirstName # <a href='javascript:switchTab(\"Add\",\"#if (SOSChildID == null) {# #=''# #} else {# #=SOSChildID# #}#\", \"#if (FirstName == null) {# #=''# #} else {# #=FirstName# #}#\", \"#if (LastName == null) {# #=''# #} else {# #=LastName# #}#\")'>Seguir</a>"                
-            });
+            });            
         },
         addTrackingSubmit: function () {
 

@@ -1,9 +1,9 @@
-<div data-role="view" id="Casa" data-title="Casa" data-layout="mobile-tabstrip" data-model="APP.models.House">
+<div data-role="view" id="Casa" data-title="Casa" data-layout="mobile-tabstrip" data-model="APP.models.house" data-show="APP.models.house.init">
     <form>
         <ul data-role="listview" data-style="inset">
             <li>
-                <label>Paìs:
-                    <input id="ddlPais" />
+                <label>Programa:
+                    <input id="ddlProgramma" name="ddlProgramma"/>   
                 </label>
             </li>
             <li>
@@ -13,13 +13,13 @@
     </form>
     <ul id="list"></ul>
 </div>
-<div data-role="view" id="GeneralView" data-title="General" data-show="APP.models.actions.getHouseChildItem" data-layout="mobile-tabstrip" data-model="APP.models.actions">
+<div data-role="view" id="GeneralView" data-title="General" data-show="APP.models.house.getHouseChildItem" data-layout="mobile-tabstrip" data-model="APP.models.house">
     <form>
         <ul data-role="listview" data-style="inset" title="General">
             <li>
                 <label>Código:                    
                     <input type="text" name="houseID" data-bind="value: houseID">
-                    <a data-role="button" data-icon="search" data-click="window.APP.models.actions.getHouseItem"></a>
+                    <a data-role="button" data-icon="search" data-click="window.APP.models.house.getHouseItem"></a>
                 </label>
             </li>
             <li>
@@ -29,7 +29,12 @@
             </li>
             <li>
                 <label>Dirección:
-                    <input type="text" name="addreess" data-bind="value: addreess" readonly>
+                    <input type="text" name="address" data-bind="value: address" readonly>
+                </label>
+            </li>
+            <li>
+                <label>Programma:
+                    <input type="text" name="programmeUnitID" data-bind="value: programmeUnitID" readonly>
                 </label>
             </li>
         </ul>
@@ -40,12 +45,12 @@
         <div data-role="navbar">
 			<a  style="display:none" name="btnBackViewHouse" data-role="backbutton" data-align="left">Atrás</a>
             <span data-role="view-title"></span>
-            <a  style="display:none" name="btnBackViewHouse" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.actions.viewHouseSubmit">Guardar</a>                    
+            <a  style="display:none" name="btnBackViewHouse" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.house.viewHouseSubmit">Guardar</a>                    
         </div>
     </header>
     <div data-role="footer">
         <div data-role="tabstrip" id="tabstripViewHouse">
-            <a href="#Seguimiento" data-icon="search">Buscar</a>
+            <a href="#Casa" data-icon="search">Buscar</a>
             <a href="#GeneralView" data-icon="globe">General</a>
         </div>
     </div>

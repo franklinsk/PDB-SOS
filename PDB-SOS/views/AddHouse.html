@@ -1,13 +1,13 @@
-<div data-role="view" id="Casa" data-title="Casa" data-layout="mobile-tabstrip" data-model="APP.models.house" data-show="APP.models.house.init" >
+<div data-role="view" id="Casa" data-title="Casa" data-layout="mobile-tabstrip" data-model="APP.models.house" data-show="APP.models.house.init">
     <form>
         <ul data-role="listview" data-style="inset">
             <li>
-                <label>País:
+                <label>Programa:
     				<input id="ddlProgramma" name="ddlProgramma"/>                
                 </label>
             </li>
             <li>
-                <button style="width: 100%" data-role="button" data-bind="click: submit">Buscar</button>
+                <button style="width: 100%" data-role="button" data-bind="click: setProgrammeToNewHouse">Agregar</button>
             </li>
         </ul>
     </form>
@@ -29,7 +29,12 @@
             </li>
             <li>
                 <label>Dirección:
-                    <input type="text" name="address" data-bind="value: addreess" readonly>
+                    <input type="text" name="address" data-bind="value: address" readonly>
+                </label>
+            </li>
+            <li>
+                <label>Programma:
+                    <input type="text" name="programmeUnitID" data-bind="value: programmeUnitID" readonly>
                 </label>
             </li>
         </ul>
