@@ -1,4 +1,4 @@
-<div data-role="view" id="Child" data-title="Niño" data-layout="mobile-tabstrip" data-model="APP.models.Child">
+<div data-role="view" id="Child" data-title="Niño" data-layout="mobile-tabstrip" data-model="APP.models.child">
     <form>
         <ul data-role="listview" data-style="inset">
             <li>
@@ -13,23 +13,28 @@
     </form>
     <ul id="list"></ul>
 </div>
-<div data-role="view" id="GeneralView" data-title="General" data-show="APP.models.actions.getChildChildItem" data-layout="mobile-tabstrip" data-model="APP.models.actions">
+<div data-role="view" id="GeneralView" data-title="General" data-show="APP.models.child.getChildItemByID" data-layout="mobile-tabstrip" data-model="APP.models.child">
     <form>
         <ul data-role="listview" data-style="inset" title="General">
             <li>
                 <label>Código:                    
                     <input type="text" name="childID" data-bind="value: childID">
-                    <a data-role="button" data-icon="search" data-click="window.APP.models.actions.getChildItem"></a>
+                    <a data-role="button" data-icon="search" data-click="window.APP.models.child.getChildByID"></a>
                 </label>
             </li>
             <li>
                 <label>Nombres:
-                    <input type="text" name="firstName" data-bind="value: FirstName" readonly>
+                    <input type="text" name="firstName" data-bind="value: FirstName">
                 </label>
             </li>
             <li>
                 <label>Apellidos:
-                    <input type="text" name="surName" data-bind="value: SurName" readonly>
+                    <input type="text" name="surName" data-bind="value: SurName">
+                </label>
+            </li>            
+            <li>
+                <label>Cuidador:
+                    <input type="text" name="caregiver" data-bind="value: Caregiver" readonly>
                 </label>
             </li>
         </ul>
@@ -40,11 +45,11 @@
         <div data-role="navbar">
 			<a  style="display:none" name="btnBackViewChild" data-role="backbutton" data-align="left">Atrás</a>
             <span data-role="view-title"></span>
-            <a  style="display:none" name="btnBackViewChild" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.actions.viewChildSubmit">Guardar</a>                    
+            <a  style="display:none" name="btnBackViewChild" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.child.viewChildSubmit">Guardar</a>                    
         </div>
     </header>
     <div data-role="footer">
-        <div data-role="tabstrip" id="tabstripAddChild">
+        <div data-role="tabstrip" id="tabstripViewChild">
             <a href="#Child" data-icon="search">Buscar</a>
             <a href="#GeneralView" data-icon="globe">General</a>
         </div>

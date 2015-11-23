@@ -7,34 +7,33 @@
                 </label>
             </li>
             <li>
-                <button style="width: 100%" data-role="button" data-bind="click: setProgrammeToNewHouse">Agregar</button>
+                <button style="width: 100%" data-role="button" data-bind="click: addProgrammeUnitToHouse">Agregar</button>
             </li>
         </ul>
     </form>
     <ul id="list"></ul>
 </div>
-<div data-role="view" id="GeneralAdd" data-title="General" data-show="APP.models.house.getHouseChildItem" data-layout="mobile-tabstrip" data-model="APP.models.house">
+<div data-role="view" id="GeneralAdd" data-title="General" data-layout="mobile-tabstrip" data-model="APP.models.house">
     <form>
         <ul data-role="listview" data-style="inset" title="General">
             <li>
                 <label>Código:                    
-                    <input type="text" name="houseID" data-bind="value: houseID">
-                    <a data-role="button" data-icon="search" data-click="window.APP.models.house.getHouseItem"></a>
+                    <input type="text" name="SOSHouseID" data-bind="value: SOSHouseID">
                 </label>
             </li>
             <li>
                 <label>Nombre:
-                    <input type="text" name="houseName" data-bind="value: houseName" readonly>
+                    <input type="text" name="NameOrNumber" data-bind="value: NameOrNumber">
                 </label>
             </li>
             <li>
                 <label>Dirección:
-                    <input type="text" name="address" data-bind="value: address" readonly>
+                    <input type="text" name="Address" data-bind="value: Address">
                 </label>
             </li>
             <li>
                 <label>Programma:
-                    <input type="text" name="programmeUnitID" data-bind="value: programmeUnitID" readonly>
+                    <input type="text" name="ProgrammeUnitID" data-bind="value: ProgrammeUnitID" readonly>
                 </label>
             </li>
         </ul>

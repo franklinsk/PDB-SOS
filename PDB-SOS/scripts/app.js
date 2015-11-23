@@ -5,10 +5,35 @@ var app; // store a reference to the application object that will be created  la
     var apiKey = "68s7rFRK3GauGzv2";
     var el = new Everlive(apiKey);
 
+    var houseDataSource = new kendo.data.DataSource({
+                    type: "everlive",
+                    transport: {
+                        typeName: "House"
+                    },
+                    schema: {
+                        model: {
+                            id: "Id"
+                        }
+                    }
+    });
+    
     var trackingDataSource = new kendo.data.DataSource({
         type: "everlive",
         transport: {
             typeName: "ChildTracking"
+        },
+        schema: {
+            model: {
+                id: "Id"
+            }
+        }
+    });
+
+    var offlineHouseDataSource = new kendo.data.DataSource({  
+        offlineStorage: "house-offline",
+        type: "everlive",
+        transport: {
+            typeName: "House"
         },
         schema: {
             model: {
@@ -36,7 +61,6 @@ var app; // store a reference to the application object that will be created  la
         models: { home: { title: 'Bienvenido!!!' } }
     };
     
-    
     window.APP.models.house = kendo.observable({
         init: function () {             
             var programa = new kendo.data.DataSource({
@@ -55,28 +79,25 @@ var app; // store a reference to the application object that will be created  la
                         dataSource: programa
                     });
     	},
-        submit: function(){
+        searchHouseByProgrammeUnit: function(){
             if (!navigator.onLine) {
                     navigator.notification.alert("No hay conexion a Internet");
                     return;
             }
             var programmeUnitID = $("#ddlProgramma").val();
             
-            var list = new kendo.data.DataSource({
-                    type: "everlive",
-                    transport: {
-                        typeName: "House"
-                    },
-    				serverFiltering: true,
-    				filter: { field: 'ProgrammeUnitID', operator: 'eq', value: programmeUnitID}
-    		});                            
+            var filters = [];
+ 
+        	//http://www.telerik.com/forums/adding-filters-to-grid-s-source
+            filters = UpdateSearchFilters(filters, "ProgrammeUnitID", "eq", programmeUnitID, "and");        
+	        houseDataSource.filter(filters);
             
             $("#list").kendoMobileListView({
-                dataSource: list,
+                dataSource: houseDataSource,
                 template: "Casa: #: SOSHouseID #, Dirección #: Address # <a href='javascript:newSwitchTab(\"View\",\"#if (SOSHouseID == null) {# #=''# #} else {##=SOSHouseID##}#\", \"#if (Address == null) {# #=''# #} else {##=Address##}#\", \"#if (NameOrNumber == null) {# #=''# #} else {##=NameOrNumber##}#\", \"" + programmeUnitID + "\")'>Visualizar</a>"                
             });
         },
-        setProgrammeToNewHouse: function(){
+        addProgrammeUnitToHouse: function(){
             if (!navigator.onLine) {
                     navigator.notification.alert("No hay conexion a Internet");
                     return;
@@ -85,19 +106,101 @@ var app; // store a reference to the application object that will be created  la
             newSwitchTab("Add", "", "", "", programmeUnitID); 
              
         },
-        getHouseChildItem: function () { 
-            
+        getHouseItemByID: function () { 
+            alert("b");
     	},
-        getHouseItem: function () { 
+        getHouseByID: function () { 
             alert("c");
     	},
         addHouseSubmit: function () { 
-            alert("d");
-    	}
+            if (navigator.onLine) 
+            {
+                houseDataSource.add({
+                    SOSHouseID: $('[name="SOSHouseID"]').val(),
+                    NameOrNumber: $('[name="NameOrNumber"]').val(),
+                    Address: $('[name="Address"]').val(),
+                    ProgrammeUnitID: $('[name="ProgrammeUnitID"]').val()
+                });
+                houseDataSource.sync();
+                navigator.notification.alert("Se ha registrado correctamente");
+                
+            } else {
+                offlineHouseDataSource.online(false);
+                
+                offlineHouseDataSource.add({
+                    SOSHouseID: $('[name="SOSHouseID"]').val(),
+                    NameOrNumber: $('[name="NameOrNumber"]').val(),
+                    Address: $('[name="Address"]').val(),
+                    ProgrammeUnitID: $('[name="ProgrammeUnitID"]').val()
+                });
+                
+                offlineHouseDataSource.sync();
+                navigator.notification.alert("Se ha registrado correctamente en modo desconectado");
+            }
+    	},
+        viewHouseSubmit: function(){}
     });
-        
+    
+    window.APP.models.caregiver = kendo.observable({
+         searchCaregiverByHouse: function(){
+             
+         },
+         addHouseToCaregiver: function(){
+            
+         },
+         getCaregiverItemByID: function(){
+             
+         },
+         addCaregiverSubmit: function(){
+            
+         },
+         viewCaregiverSubmit: function(){
+            
+         },
+         getCaregiverByID: function () {   
+                if (!navigator.onLine) {
+                    navigator.notification.alert("No hay conexion a Internet");
+                    return;
+                }
+             
+                $('[name="firstName"]').val("");
+                $('[name="surName"]').val("");
+
+                var caregiverDataSources = new kendo.data.DataSource({
+                        type: "everlive",
+                        transport: {
+                            typeName: "Caregiver"
+                        },
+                        serverFiltering: true,
+                        filter: { field: 'SOSCaregiverID', operator: 'eq', value: $('[name="caregiverID"]').val().trim() }
+                });    
+				
+                caregiverDataSources.fetch(function() {
+                    var caregiver = caregiverDataSources.at(0);
+                    $('[name="caregiverID"]').val(caregiver.get("SOSCaregiverID"));
+                    $('[name="firstName"]').val(caregiver.get("FirstName"));
+                    $('[name="surName"]').val(caregiver.get("LastName"));
+                });
+            }
+    });
+    
     window.APP.models.child = kendo.observable({
-         getChildItem: function () {   
+         addCaregiverToChild: function(){
+            
+         },
+         addChildSubmit: function(){
+            
+         },
+         submit: function(){
+            
+         },
+         getChildItemByID: function(){
+             
+         },
+         viewChildSubmit: function(){
+            
+         },
+         getChildByID: function () {   
                 if (!navigator.onLine) {
                     navigator.notification.alert("No hay conexion a Internet");
                     return;
