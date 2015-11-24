@@ -1,7 +1,11 @@
 var app; // store a reference to the application object that will be created  later on so that we can use it if need be
 
 (function () {
-
+	//remove filters in each search
+    //http://www.telerik.com/forums/remove-filters-from-data-source
+    //FoodMenuDataSource.filter({});
+    //FoodMenuDataSource.filter({ field: "Level", operator: "eq", value: 3 });
+    
     var apiKey = "68s7rFRK3GauGzv2";
     var el = new Everlive(apiKey);
 
