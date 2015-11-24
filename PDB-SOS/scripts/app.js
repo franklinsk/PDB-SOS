@@ -946,9 +946,36 @@ var app; // store a reference to the application object that will be created  la
                 for (var item in jLocalStorage) 
                 {
                     synchroDataSource.add({
-                        SOSChildID: jLocalStorage[item]["SOSChildID"],
+                        EndDate: jLocalStorage[item]["EndDate"],
+                        EducationSpecialityName: jLocalStorage[item]["EducationSpecialityName"],
+                        CurrentSchoolLevel: jLocalStorage[item]["CurrentSchoolLevel"],
+                        SiblingsOutsideSOS: jLocalStorage[item]["SiblingsOutsideSOS"],
+                        HomePlace: jLocalStorage[item]["HomePlace"],
+                        EducationStudyStart: jLocalStorage[item]["EducationStudyStart"],
+                        HealthHasDisabilities: jLocalStorage[item]["HealthHasDisabilities"],
+                        WorkMonthsUnemployed: jLocalStorage[item]["WorkMonthsUnemployed"],
+                        WorkMonthsContinuity: jLocalStorage[item]["WorkMonthsContinuity"],
+                        WorkSector: jLocalStorage[item]["WorkSector"],
+                        WorkSpeacialityRelated: jLocalStorage[item]["WorkSpeacialityRelated"],
+                        WorkType: jLocalStorage[item]["WorkType"],
+                        AgeWhenFirstChild: jLocalStorage[item]["AgeWhenFirstChild"],
+                        WorkIncomeType: jLocalStorage[item]["WorkIncomeType"],
+                        EmailAddress: jLocalStorage[item]["EmailAddress"],
                         StartDate: jLocalStorage[item]["StartDate"],
-                        EndDate: jLocalStorage[item]["EndDate"]
+                        ChildrenNumber: jLocalStorage[item]["ChildrenNumber"],
+                        Phone: jLocalStorage[item]["Phone"],
+                        HomeImprovementsComments: jLocalStorage[item]["HomeImprovementsComments"],
+                        LegalGuardian: jLocalStorage[item]["LegalGuardian"],
+                        HomeComments: jLocalStorage[item]["HomeComments"],
+                        HomeType: jLocalStorage[item]["HomeType"],
+                        WorkCurrency: jLocalStorage[item]["WorkCurrency"],
+                        WorkMonthlyIncome: jLocalStorage[item]["WorkMonthlyIncome"],
+                        HomeEducationCenterNoSOS: jLocalStorage[item]["HomeEducationCenterNoSOS"],
+                        EducationCurrentEnrollment: jLocalStorage[item]["EducationCurrentEnrollment"],
+                        EducationSpecialitySemester: jLocalStorage[item]["EducationSpecialitySemester"],
+                        HealthHowDisabilityAffects: jLocalStorage[item]["HealthHowDisabilityAffects"],
+                        HealthDisabilityComments: jLocalStorage[item]["HealthDisabilityComments"],
+                        SOSChildID: jLocalStorage[item]["SOSChildID"]
                     });
                 }
 
