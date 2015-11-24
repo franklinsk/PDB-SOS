@@ -18,23 +18,53 @@
         <ul data-role="listview" data-style="inset" title="General">
             <li>
                 <label>Código:                    
-                    <input type="text" name="houseID" data-bind="value: houseID">
+                    <input type="text" name="SOSHouseID" data-bind="value: SOSHouseID">
                     <a data-role="button" data-icon="search" data-click="window.APP.models.house.getHouseByID"></a>
                 </label>
             </li>
             <li>
                 <label>Nombre:
-                    <input type="text" name="houseName" data-bind="value: houseName" readonly>
+                    <input type="text" name="houseName" data-bind="value: houseName">
                 </label>
             </li>
             <li>
                 <label>Dirección:
-                    <input type="text" name="address" data-bind="value: address" readonly>
+                    <input type="text" name="address" data-bind="value: address">
                 </label>
             </li>
             <li>
                 <label>Programma:
                     <input type="text" name="programmeUnitID" data-bind="value: programmeUnitID" readonly>
+                </label>
+            </li>
+            <li>
+                <label>Fecha de Inicio:
+                    <input type="date" name="DateOfStart" data-bind="value: DateOfStart">
+                </label>
+            </li>
+            <li>
+                <label>Capacidad Máxima:
+                    <input type="number" name="MaximunCapacity" data-bind="value: MaximunCapacity">
+                </label>
+            </li>
+            <li>
+                <label>Notas:
+                    <input type="text" name="Notes" data-bind="value: Notes">
+                </label>
+            </li>
+            <li>
+                <label>Número de Niños:
+                    <input type="number" name="NumberOfChildren" data-bind="value: NumberOfChildren">
+                </label>
+            </li>
+            <li>
+                <label>Teléfono:
+                    <input type="text" name="PhoneNumber" data-bind="value: PhoneNumber">
+                </label>
+            </li>
+            <li>
+                <label>Estado:
+                    <input type="text" name="Status" data-bind="value: Status" readonly>
                 </label>
             </li>
         </ul>
