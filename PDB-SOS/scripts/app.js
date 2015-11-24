@@ -17,6 +17,30 @@ var app; // store a reference to the application object that will be created  la
                     }
     });
     
+    var caregiverDataSource = new kendo.data.DataSource({
+        type: "everlive",
+        transport: {
+            typeName: "Caregiver"
+        },
+        schema: {
+            model: {
+                id: "Id"
+            }
+        }
+    });
+    
+    var childDataSource = new kendo.data.DataSource({
+        type: "everlive",
+        transport: {
+            typeName: "Child"
+        },
+        schema: {
+            model: {
+                id: "Id"
+            }
+        }
+    });
+    
     var trackingDataSource = new kendo.data.DataSource({
         type: "everlive",
         transport: {
@@ -29,6 +53,32 @@ var app; // store a reference to the application object that will be created  la
         }
     });
 
+    var offlineChildDataSource = new kendo.data.DataSource({  
+        offlineStorage: "child-offline",
+        type: "everlive",
+        transport: {
+            typeName: "Child"
+        },
+        schema: {
+            model: {
+                id: "Id"
+            }
+        }
+    });
+    
+    var offlineCaregiverDataSource = new kendo.data.DataSource({  
+        offlineStorage: "caregiver-offline",
+        type: "everlive",
+        transport: {
+            typeName: "Caregiver"
+        },
+        schema: {
+            model: {
+                id: "Id"
+            }
+        }
+    });
+    
     var offlineHouseDataSource = new kendo.data.DataSource({  
         offlineStorage: "house-offline",
         type: "everlive",
@@ -106,9 +156,35 @@ var app; // store a reference to the application object that will be created  la
             newSwitchTab("Add", "", "", "", programmeUnitID); 
              
         },
-        getHouseItemByID: function () { 
-            alert("b");
-    	},
+        getHouseItemByID: function(e){
+            var houseID = e.view.params.id;
+            
+            if(houseID == null)
+                return;
+            	
+            var houseSearchDataSource = new kendo.data.DataSource({
+                    type: "everlive",
+                    transport: {
+                        typeName: "House"
+                    },
+    				serverFiltering: true,
+    			filter: { field: 'SOSHouseID', operator: 'eq', value: houseID }	
+    		});    
+            
+            houseSearchDataSource.fetch(function() {
+  				var entity = houseSearchDataSource.at(0);
+  				$('[name="Address"]').val(entity.get("Address"));
+                $('[name="DateOfStart"]').val(entity.get("DateOfStart"));
+                $('[name="MaximunCapacity"]').val(entity.get("MaximunCapacity"));
+                $('[name="NameOrNumber"]').val(entity.get("NameOrNumber"));
+                $('[name="Notes"]').val(entity.get("Notes"));
+                $('[name="NumberOfChildren"]').val(entity.get("NumberOfChildren"));
+                $('[name="PhoneNumber"]').val(entity.get("PhoneNumber"));
+                $('[name="ProgrammeUnitID"]').val(entity.get("ProgrammeUnitID"));
+                $('[name="SOSHouseID"]').val(entity.get("SOSHouseID"));
+                $('[name="Status"]').val(entity.get("Status"));
+			});   
+         },
         getHouseByID: function () { 
             alert("c");
     	},
@@ -116,10 +192,16 @@ var app; // store a reference to the application object that will be created  la
             if (navigator.onLine) 
             {
                 houseDataSource.add({
-                    SOSHouseID: $('[name="SOSHouseID"]').val(),
-                    NameOrNumber: $('[name="NameOrNumber"]').val(),
-                    Address: $('[name="Address"]').val(),
-                    ProgrammeUnitID: $('[name="ProgrammeUnitID"]').val()
+                    Address : $('[name="Address"]').val(),
+                    DateOfStart : $('[name="DateOfStart"]').val(),
+                    MaximunCapacity : $('[name="MaximunCapacity"]').val(),
+                    NameOrNumber : $('[name="NameOrNumber"]').val(),
+                    Notes : $('[name="Notes"]').val(),
+                    NumberOfChildren : $('[name="NumberOfChildren"]').val(),
+                    PhoneNumber : $('[name="PhoneNumber"]').val(),
+                    ProgrammeUnitID : $('[name="ProgrammeUnitID"]').val(),
+                    SOSHouseID : $('[name="SOSHouseID"]').val(),
+                    Status: $('[name="Status"]').val()
                 });
                 houseDataSource.sync();
                 navigator.notification.alert("Se ha registrado correctamente");
@@ -128,10 +210,16 @@ var app; // store a reference to the application object that will be created  la
                 offlineHouseDataSource.online(false);
                 
                 offlineHouseDataSource.add({
-                    SOSHouseID: $('[name="SOSHouseID"]').val(),
-                    NameOrNumber: $('[name="NameOrNumber"]').val(),
-                    Address: $('[name="Address"]').val(),
-                    ProgrammeUnitID: $('[name="ProgrammeUnitID"]').val()
+                    Address : $('[name="Address"]').val(),
+                    DateOfStart : $('[name="DateOfStart"]').val(),
+                    MaximunCapacity : $('[name="MaximunCapacity"]').val(),
+                    NameOrNumber : $('[name="NameOrNumber"]').val(),
+                    Notes : $('[name="Notes"]').val(),
+                    NumberOfChildren : $('[name="NumberOfChildren"]').val(),
+                    PhoneNumber : $('[name="PhoneNumber"]').val(),
+                    ProgrammeUnitID : $('[name="ProgrammeUnitID"]').val(),
+                    SOSHouseID : $('[name="SOSHouseID"]').val(),
+                    Status: $('[name="Status"]').val()
                 });
                 
                 offlineHouseDataSource.sync();
@@ -148,11 +236,96 @@ var app; // store a reference to the application object that will be created  la
          addHouseToCaregiver: function(){
             
          },
-         getCaregiverItemByID: function(){
-             
-         },
-         addCaregiverSubmit: function(){
+         getCaregiverItemByID: function(e){
+            var caregiverID = e.view.params.id;
             
+            if(caregiverID == null)
+                return;
+            	
+            var caregiverSearchDataSource = new kendo.data.DataSource({
+                    type: "everlive",
+                    transport: {
+                        typeName: "Caregiver"
+                    },
+    				serverFiltering: true,
+    			filter: { field: 'SOSCaregiverID', operator: 'eq', value: caregiverID }	
+    		});    
+            
+            caregiverSearchDataSource.fetch(function() {
+  				var entity = caregiverSearchDataSource.at(0);
+  				$('[name="PhoneNumber"]').val(entity.get("PhoneNumber"));
+                $('[name="Synchronized"]').val(entity.get("Synchronized"));
+                $('[name="DateOfStart"]').val(entity.get("DateOfStart"));
+                $('[name="DateOfBirth"]').val(entity.get("DateOfBirth"));
+                $('[name="LastName"]').val(entity.get("LastName"));
+                $('[name="FirstName"]').val(entity.get("FirstName"));
+                $('[name="DocumentNumber"]').val(entity.get("DocumentNumber"));
+                $('[name="Gender"]').val(entity.get("Gender"));
+                $('[name="ReceiveSpecialAttention"]').val(entity.get("ReceiveSpecialAttention"));
+                $('[name="IsLiterate"]').val(entity.get("IsLiterate"));
+                $('[name="TotalIncome"]').val(entity.get("TotalIncome"));
+                $('[name="Address"]').val(entity.get("Address"));
+                $('[name="Status"]').val(entity.get("Status"));
+                $('[name="DateOfLastHealthControl"]').val(entity.get("DateOfLastHealthControl"));
+                $('[name="DateOfLastUpdateDevelopmentPlan"]').val(entity.get("DateOfLastUpdateDevelopmentPlan"));
+                $('[name="PlannedUpdateOfDevelopmentPlan"]').val(entity.get("PlannedUpdateOfDevelopmentPlan"));
+                $('[name="CaregiverID"]').val(entity.get("CaregiverID"));
+                $('[name="SOSHouseID"]').val(entity.get("SOSHouseID"));
+			});   
+         },
+         addCaregiverSubmit: function () {
+
+            if (navigator.onLine) 
+            {
+                caregiverDataSource.add({
+                    PhoneNumber : $('[name="PhoneNumber"]').val(),
+                    Synchronized : $('[name="Synchronized"]').val(),
+                    DateOfStart : $('[name="DateOfStart"]').val(),
+                    DateOfBirth : $('[name="DateOfBirth"]').val(),
+                    LastName : $('[name="LastName"]').val(),
+                    FirstName : $('[name="FirstName"]').val(),
+                    DocumentNumber : $('[name="DocumentNumber"]').val(),
+                    Gender : $('[name="Gender"]').val(),
+                    ReceiveSpecialAttention: $('[name="ReceiveSpecialAttention"]').val(),
+                    IsLiterate : $('[name="IsLiterate"]').val(),
+                    TotalIncome : $('[name="TotalIncome"]').val(),
+                    Address : $('[name="Address"]').val(),
+                    Status : $('[name="Status"]').val(),
+                    DateOfLastHealthControl : $('[name="DateOfLastHealthControl"]').val(),
+                    DateOfLastUpdateDevelopmentPlan : $('[name="DateOfLastUpdateDevelopmentPlan"]').val(),
+                    PlannedUpdateOfDevelopmentPlan : $('[name="PlannedUpdateOfDevelopmentPlan"]').val(),
+                    CaregiverID : $('[name="CaregiverID"]').val(),
+                    SOSHouseID: $('[name="SOSHouseID"]').val()
+                });
+                childDataSource.sync();
+                navigator.notification.alert("Se ha registrado correctamente");
+
+            } else {
+                offlineCaregiverDataSource.online(false);
+
+                offlineCaregiverDataSource.add({
+                    PhoneNumber : $('[name="PhoneNumber"]').val(),
+                    Synchronized : $('[name="Synchronized"]').val(),
+                    DateOfStart : $('[name="DateOfStart"]').val(),
+                    DateOfBirth : $('[name="DateOfBirth"]').val(),
+                    LastName : $('[name="LastName"]').val(),
+                    FirstName : $('[name="FirstName"]').val(),
+                    DocumentNumber : $('[name="DocumentNumber"]').val(),
+                    Gender : $('[name="Gender"]').val(),
+                    ReceiveSpecialAttention: $('[name="ReceiveSpecialAttention"]').val(),
+                    IsLiterate : $('[name="IsLiterate"]').val(),
+                    TotalIncome : $('[name="TotalIncome"]').val(),
+                    Address : $('[name="Address"]').val(),
+                    Status : $('[name="Status"]').val(),
+                    DateOfLastHealthControl : $('[name="DateOfLastHealthControl"]').val(),
+                    DateOfLastUpdateDevelopmentPlan : $('[name="DateOfLastUpdateDevelopmentPlan"]').val(),
+                    PlannedUpdateOfDevelopmentPlan : $('[name="PlannedUpdateOfDevelopmentPlan"]').val(),
+                    CaregiverID : $('[name="CaregiverID"]').val(),
+                    SOSHouseID: $('[name="SOSHouseID"]').val()
+                });
+                offlineCaregiverDataSource.sync();
+                navigator.notification.alert("Se ha registrado correctamente en modo desconectado");
+            }
          },
          viewCaregiverSubmit: function(){
             
@@ -188,14 +361,73 @@ var app; // store a reference to the application object that will be created  la
          addCaregiverToChild: function(){
             
          },
-         addChildSubmit: function(){
-            
+         addChildSubmit: function () {
+
+            if (navigator.onLine) 
+            {
+                childDataSource.add({
+                    Birthdate : $('[name="Birthdate"]').val(),
+                    LastName : $('[name="LastName"]').val(),
+                    FirstName : $('[name="FirstName"]').val(),
+                    Trackings : $('[name="Trackings"]').val(),
+                    Exitdate : $('[name="Exitdate"]').val(),
+                    ExitReason : $('[name="ExitReason"]').val(),
+                    MotherLastName : $('[name="MotherLastName"]').val(),
+                    SOSChildID : $('[name="SOSChildID"]').val(),
+                    CaregiverID: $('[name="CaregiverID"]').val()
+                });
+                childDataSource.sync();
+                navigator.notification.alert("Se ha registrado correctamente");
+
+            } else {
+                offlineChildDataSource.online(false);
+
+                offlineChildDataSource.add({
+                    Birthdate : $('[name="Birthdate"]').val(),
+                    LastName : $('[name="LastName"]').val(),
+                    FirstName : $('[name="FirstName"]').val(),
+                    Trackings : $('[name="Trackings"]').val(),
+                    Exitdate : $('[name="Exitdate"]').val(),
+                    ExitReason : $('[name="ExitReason"]').val(),
+                    MotherLastName : $('[name="MotherLastName"]').val(),
+                    SOSChildID : $('[name="SOSChildID"]').val(),
+                    CaregiverID: $('[name="CaregiverID"]').val()
+                });
+                offlineChildDataSource.sync();
+                navigator.notification.alert("Se ha registrado correctamente en modo desconectado");
+            }
          },
          submit: function(){
             
          },
-         getChildItemByID: function(){
-             
+         getChildItemByID: function(e){
+            var childID = e.view.params.id;
+            
+            if(childID == null)
+                return;
+            	
+            var childSearchDataSource = new kendo.data.DataSource({
+                    type: "everlive",
+                    transport: {
+                        typeName: "Child"
+                    },
+    				serverFiltering: true,
+    			filter: { field: 'SOSChildID', operator: 'eq', value: childID }	
+    		});    
+            
+            childSearchDataSource.fetch(function() {
+  				var entity = childSearchDataSource.at(0);
+  				$('[name="Birthdate"]').val(entity.get("Birthdate"));
+                $('[name="LastName"]').val(entity.get("LastName"));
+                $('[name="FirstName"]').val(entity.get("FirstName"));
+                $('[name="Trackings"]').val(entity.get("Trackings"));
+                $('[name="Exitdate"]').val(entity.get("Exitdate"));
+                $('[name="ExitReason"]').val(entity.get("ExitReason"));
+                $('[name="MotherLastName"]').val(entity.get("MotherLastName"));
+                $('[name="SOSChildID"]').val(entity.get("SOSChildID"));
+                $('[name="CaregiverID"]').val(entity.get("CaregiverID"));
+
+			});   
          },
          viewChildSubmit: function(){
             
@@ -488,6 +720,171 @@ var app; // store a reference to the application object that will be created  la
                 }
 
                 localStorage.removeItem("tracking-offline");
+                synchroDataSource.sync();
+                navigator.notification.alert("Sincronizacion finalizada!!!");
+
+            }
+            else 
+            {
+                navigator.notification.alert("No se ha detectado una conexion activa a internet");
+            }
+        },
+        submitHouse: function(){
+            if (navigator.onLine) {
+
+                var sLocalStorage = localStorage.getItem("house-offline");
+                var jLocalStorage = JSON.parse(sLocalStorage);
+
+                var localStorageDataSource = new kendo.data.DataSource({
+                    data: jLocalStorage
+                });
+
+                $("#listView").kendoMobileListView({
+                    dataSource: localStorageDataSource,
+                    template: "#: NameOrNumber # - #: Address # - #: SOSHouseID #"
+                });
+
+                var synchroDataSource = new kendo.data.DataSource({
+                    type: "everlive",
+                    transport: {
+                        typeName: "House"
+                    },
+                    schema: {
+                        model: {
+                            id: "Id"
+                        }
+                    }
+                });
+
+                for (var item in jLocalStorage) 
+                {
+                    synchroDataSource.add({
+                        Address : jLocalStorage[item]["Address"],
+                        DateOfStart : jLocalStorage[item]["DateOfStart"],
+                        MaximunCapacity : jLocalStorage[item]["MaximunCapacity"],
+                        NameOrNumber : jLocalStorage[item]["NameOrNumber"],
+                        Notes : jLocalStorage[item]["Notes"],
+                        NumberOfChildren : jLocalStorage[item]["NumberOfChildren"],
+                        PhoneNumber : jLocalStorage[item]["PhoneNumber"],
+                        ProgrammeUnitID : jLocalStorage[item]["ProgrammeUnitID"],
+                        SOSHouseID : jLocalStorage[item]["SOSHouseID"],
+                        Status: jLocalStorage[item]["Status"]
+                    });
+                }
+
+                localStorage.removeItem("house-offline");
+                synchroDataSource.sync();
+                navigator.notification.alert("Sincronizacion finalizada!!!");
+
+            }
+            else 
+            {
+                navigator.notification.alert("No se ha detectado una conexion activa a internet");
+            }
+        },
+        submitCaregiver: function(){
+            if (navigator.onLine) {
+
+                var sLocalStorage = localStorage.getItem("caregiver-offline");
+                var jLocalStorage = JSON.parse(sLocalStorage);
+
+                var localStorageDataSource = new kendo.data.DataSource({
+                    data: jLocalStorage
+                });
+
+                $("#listView").kendoMobileListView({
+                    dataSource: localStorageDataSource,
+                    template: "#: FirstName # - #: LastName # - #: SOSCaregiverID #"
+                });
+
+                var synchroDataSource = new kendo.data.DataSource({
+                    type: "everlive",
+                    transport: {
+                        typeName: "Caregiver"
+                    },
+                    schema: {
+                        model: {
+                            id: "Id"
+                        }
+                    }
+                });
+
+                for (var item in jLocalStorage) 
+                {
+                    synchroDataSource.add({
+                        PhoneNumber : jLocalStorage[item]["PhoneNumber"],
+                        Synchronized : jLocalStorage[item]["Synchronized"],
+                        DateOfStart : jLocalStorage[item]["DateOfStart"],
+                        DateOfBirth : jLocalStorage[item]["DateOfBirth"],
+                        LastName : jLocalStorage[item]["LastName"],
+                        FirstName : jLocalStorage[item]["FirstName"],
+                        DocumentNumber : jLocalStorage[item]["DocumentNumber"],
+                        Gender : jLocalStorage[item]["Gender"],
+                        ReceiveSpecialAttention: jLocalStorage[item]["ReceiveSpecialAttention"],
+                        IsLiterate : jLocalStorage[item]["IsLiterate"],
+                        TotalIncome : jLocalStorage[item]["TotalIncome"],
+                        Address : jLocalStorage[item]["Address"],
+                        Status : jLocalStorage[item]["Status"],
+                        DateOfLastHealthControl : jLocalStorage[item]["DateOfLastHealthControl"],
+                        DateOfLastUpdateDevelopmentPlan : jLocalStorage[item]["DateOfLastUpdateDevelopmentPlan"],
+                        PlannedUpdateOfDevelopmentPlan : jLocalStorage[item]["PlannedUpdateOfDevelopmentPlan"],
+                        CaregiverID : jLocalStorage[item]["CaregiverID"],
+                        SOSHouseID: jLocalStorage[item]["SOSHouseID"]
+                    });
+                }
+
+                localStorage.removeItem("caregiver-offline");
+                synchroDataSource.sync();
+                navigator.notification.alert("Sincronizacion finalizada!!!");
+
+            }
+            else 
+            {
+                navigator.notification.alert("No se ha detectado una conexion activa a internet");
+            }
+        },
+        submitChild: function(){
+            if (navigator.onLine) {
+
+                var sLocalStorage = localStorage.getItem("child-offline");
+                var jLocalStorage = JSON.parse(sLocalStorage);
+
+                var localStorageDataSource = new kendo.data.DataSource({
+                    data: jLocalStorage
+                });
+
+                $("#listView").kendoMobileListView({
+                    dataSource: localStorageDataSource,
+                    template: "#: FirstName # - #: LastName # - #: SOSChildID #"
+                });
+
+                var synchroDataSource = new kendo.data.DataSource({
+                    type: "everlive",
+                    transport: {
+                        typeName: "Child"
+                    },
+                    schema: {
+                        model: {
+                            id: "Id"
+                        }
+                    }
+                });
+
+                for (var item in jLocalStorage) 
+                {
+                    synchroDataSource.add({
+                        Birthdate : jLocalStorage[item]["Birthdate"],
+                        LastName : jLocalStorage[item]["LastName"],
+                        FirstName : jLocalStorage[item]["FirstName"],
+                        Exitdate : jLocalStorage[item]["Exitdate"],
+                        ExitReason : jLocalStorage[item]["ExitReason"],
+                        MotherLastName : jLocalStorage[item]["MotherLastName"],
+                        SOSChildID : jLocalStorage[item]["SOSChildID"],
+                        CaregiverID: jLocalStorage[item]["CaregiverID"]
+                    });
+                }
+
+                localStorage.removeItem("child-offline");
                 synchroDataSource.sync();
                 navigator.notification.alert("Sincronizacion finalizada!!!");
 
