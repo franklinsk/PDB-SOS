@@ -6,6 +6,9 @@ var app; // store a reference to the application object that will be created  la
     //FoodMenuDataSource.filter({});
     //FoodMenuDataSource.filter({ field: "Level", operator: "eq", value: 3 });
     
+    
+    //requireJS
+    //https://github.com/FalafelSoftwareInc/quran-gateway-web
     var apiKey = "68s7rFRK3GauGzv2";
     var el = new Everlive(apiKey);
 
