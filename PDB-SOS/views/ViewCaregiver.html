@@ -2,7 +2,7 @@
     <form>
         <ul data-role="listview" data-style="inset">
             <li>
-                <label>Paìs:
+                <label>Casa:
                     <input id="ddlCasa" />
                 </label>
             </li>
@@ -16,27 +16,30 @@
 <div data-role="view" id="GeneralView" data-title="General" data-show="APP.models.actions.getCaregiverItemByID" data-layout="mobile-tabstrip" data-model="APP.models.caregiver">
     <form>
         <ul data-role="listview" data-style="inset" title="General">
-            <li>
-                <label>Código:                    
-                    <input type="text" name="caregiverID" data-bind="value: caregiverID">
-                    <a data-role="button" data-icon="search" data-click="window.APP.models.caregiver.getCaregiverByID"></a>
-                </label>
-            </li>
-            <li>
-                <label>Nombres:
-                    <input type="text" name="firstName" data-bind="value: caregiverFirstName">
-                </label>
-            </li>
-            <li>
-                <label>Apellidos:
-                    <input type="text" name="surName" data-bind="value: caregiverFirstName">
-                </label>
-            </li>
+            <li><label>Código de Cuidador:<input type="text" name="CaregiverID" data-bind="value: CaregiverID"/>
+                <a data-role="button" data-icon="search" data-click="window.APP.models.caregiver.getCaregiverByID"></a></label></li>
+            <li><label>Código de Casa:<input type="text" name="SOSHouseID" data-bind="value: SOSHouseID"/></label></li>
             <li>
                 <label>Casa:
                     <input type="text" name="houseName" data-bind="value: caregiverHouse" readonly>
                 </label>
             </li>
+            <li><label>Nombres:<input type="text" name="FirstName" data-bind="value: FirstName"/></label></li>
+            <li><label>Apellidos:<input type="text" name="LastName" data-bind="value: LastName"/></label></li>
+            <li><label>Teléfono:<input type="text" name="PhoneNumber" data-bind="value: PhoneNumber"/></label></li>
+            <li><label>Sincronizado:<input type="checkbox" name="Synchronized" data-bind="value: Synchronized"/></label></li>
+            <li><label>Fecha de Inicio:<input type="date" name="DateOfStart" data-bind="value: DateOfStart"/></label></li>
+            <li><label>Fecha de Nacimiento:<input type="date" name="DateOfBirth" data-bind="value: DateOfBirth"/></label></li>
+            <li><label>Documento de Identidad:<input type="text" name="DocumentNumber" data-bind="value: DocumentNumber"/></label></li>
+            <li><label>Género:<select name="Gender" data-bind="value: Gender"><option value="1">Masculino</option><option value="2">Femenino</option></select></label></li>
+            <li><label>Recibe Atención Especial:<input type="checkbox" name="ReceiveSpecialAttention" data-bind="value: ReceiveSpecialAttention"/></label></li>
+            <li><label>Es Alfabetizado:<input type="checkbox" name="IsLiterate" data-bind="value: IsLiterate"/></label></li>
+            <li><label>Total de Ingresos:<input type="number" name="TotalIncome" data-bind="value: TotalIncome"/></label></li>
+            <li><label>Dirección:<input type="text" name="Address" data-bind="value: Address"/></label></li>
+            <li><label>Estado:<input type="checkbox" name="Status" data-bind="value: Status"/></label></li>
+            <li><label>Fecha de Último control médico:<input type="date" name="DateOfLastHealthControl" data-bind="value: DateOfLastHealthControl"/></label></li>
+            <li><label>Fecha de última atualización del plan de desarrollo:<input type="date" name="DateOfLastUpdateDevelopmentPlan" data-bind="value: DateOfLastUpdateDevelopmentPlan"/></label></li>
+            <li><label>Fecha planeada de desarrollo del plan:<input type="date" name="PlannedUpdateOfDevelopmentPlan" data-bind="value: PlannedUpdateOfDevelopmentPlan"/></label></li>                                   
         </ul>
     </form>
 </div>

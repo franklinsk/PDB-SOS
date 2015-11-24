@@ -2,7 +2,7 @@
     <form>
         <ul data-role="listview" data-style="inset">
             <li>
-                <label>Paìs:
+                <label>Cuidador:
                     <input id="ddlCuidador" />
                 </label>
             </li>
@@ -16,27 +16,16 @@
 <div data-role="view" id="GeneralView" data-title="General" data-show="APP.models.child.getChildItemByID" data-layout="mobile-tabstrip" data-model="APP.models.child">
     <form>
         <ul data-role="listview" data-style="inset" title="General">
-            <li>
-                <label>Código:                    
-                    <input type="text" name="childID" data-bind="value: childID">
-                    <a data-role="button" data-icon="search" data-click="window.APP.models.child.getChildByID"></a>
-                </label>
-            </li>
-            <li>
-                <label>Nombres:
-                    <input type="text" name="firstName" data-bind="value: FirstName">
-                </label>
-            </li>
-            <li>
-                <label>Apellidos:
-                    <input type="text" name="surName" data-bind="value: SurName">
-                </label>
-            </li>            
-            <li>
-                <label>Cuidador:
-                    <input type="text" name="caregiver" data-bind="value: Caregiver" readonly>
-                </label>
-            </li>
+            <li><label>Código de Niño:<input type="text" name="SOSChildID" data-bind="value: SOSChildID"/>
+                <a data-role="button" data-icon="search" data-click="window.APP.models.child.getChildByID"></a></label></li>
+            <li><label>Nombres:<input type="text" name="FirstName" data-bind="value: FirstName"/></label></li>
+            <li><label>Apellidos:<input type="text" name="LastName" data-bind="value: LastName"/></label></li>
+            <li><label>Código:<input type="text" name="CaregiverID" data-bind="value: CaregiverID"></label></li>
+            <li><label>Fecha de Nacimiento:<input type="text" name="Birthdate" data-bind="value: Birthdate"/></label></li>
+            <li><label>Fecha de Salida:<input type="text" name="Exitdate" data-bind="value: Exitdate"/></label></li>
+            <li><label>Razón de Salida:<select name="ExitReason" data-bind="value: ExitReason"><option value="1">Adopción</option><option value="2">Fallecimiento</option>
+				<option value="3">Autosuficiencia</option><option value="4">Reintegración familiar</option></select></label></li>
+            <li><label>Apellido de la Madre:<input type="text" name="MotherLastName" data-bind="value: MotherLastName"/></label></li>
         </ul>
     </form>
 </div>
