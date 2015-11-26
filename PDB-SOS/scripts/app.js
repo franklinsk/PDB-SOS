@@ -28,7 +28,7 @@ var app; // store a reference to the application object that will be created  la
     var caregiverDataSource = new kendo.data.DataSource({
         type: "everlive",
         transport: {
-            typeName: "Caregiver"
+            typeName: "CareGiver"
         },
         schema: {
             model: {
@@ -81,7 +81,7 @@ var app; // store a reference to the application object that will be created  la
         offlineStorage: "caregiver-offline",
         type: "everlive",
         transport: {
-            typeName: "Caregiver"
+            typeName: "CareGiver"
         },
         schema: {
             model: {
@@ -201,7 +201,7 @@ var app; // store a reference to the application object that will be created  la
             houseDataSource.fetch(function() {
   				var entity = houseDataSource.at(0);
   				$('[name="AddressView"]').val(entity.get("Address"));
-                $('[name="DateOfStartView"]').val(entity.get("DateOfStart"));
+                $('[name="DateOfStartView"]').val(kendo.toString(entity.get("DateOfStart"), "yyyy-MM-dd"));
                 $('[name="MaximunCapacityView"]').val(entity.get("MaximunCapacity"));
                 $('[name="NameOrNumberView"]').val(entity.get("NameOrNumber"));
                 $('[name="NotesView"]').val(entity.get("Notes"));
@@ -443,7 +443,7 @@ var app; // store a reference to the application object that will be created  la
             
             $("#listCaregiver").kendoMobileListView({
                 dataSource: caregiverDataSource,
-                template: "Nombres: #: FirstName #, Apellidos #: LastName # <a href='javascript:newSwitchCaregiverTab(\"View\",\"#if (CaregiverID == null) {# #=''# #} else {##=CaregiverID##}#\", \"#if (FirstName == null) {# #=''# #} else {##=FirstName##}#\", \"#if (SurName == null) {# #=''# #} else {##=SurName##}#\", \"" + houseID + "\")'>Visualizar</a>"                
+                template: "Nombres: #: FirstName #, Apellidos #: LastName # <a href='javascript:newSwitchCaregiverTab(\"View\",\"#if (CaregiverID == null) {# #=''# #} else {##=CaregiverID##}#\", \"#if (FirstName == null) {# #=''# #} else {##=FirstName##}#\", \"#if (LastName == null) {# #=''# #} else {##=LastName##}#\", \"" + houseID + "\")'>Visualizar</a>"                
             });
          },
          addHouseToCaregiver: function(){
@@ -467,15 +467,16 @@ var app; // store a reference to the application object that will be created  la
                         typeName: "CareGiver"
                     },
     				serverFiltering: true,
-    			filter: { field: 'SOSCaregiverID', operator: 'eq', value: caregiverID }	
+    			filter: { field: 'CaregiverID', operator: 'eq', value: caregiverID }	
     		});    
             
             caregiverDataSource.fetch(function() {
   				var entity = caregiverDataSource.at(0);
+                
   				$('[name="PhoneNumberView"]').val(entity.get("PhoneNumber"));
                 $('[name="SynchronizedView"]').val(entity.get("Synchronized"));
-                $('[name="DateOfStartView"]').val(entity.get("DateOfStart"));
-                $('[name="DateOfBirthView"]').val(entity.get("DateOfBirth"));
+                $('[name="DateOfStartView"]').val(kendo.toString(entity.get("DateOfStart"), "yyyy-MM-dd"));
+                $('[name="DateOfBirthView"]').val(kendo.toString(entity.get("DateOfBirth"), "yyyy-MM-dd"));
                 $('[name="LastNameView"]').val(entity.get("LastName"));
                 $('[name="FirstNameView"]').val(entity.get("FirstName"));
                 $('[name="DocumentNumberView"]').val(entity.get("DocumentNumber"));
@@ -484,9 +485,9 @@ var app; // store a reference to the application object that will be created  la
                 $('[name="IsLiterateView"]').val(entity.get("IsLiterate"));
                 $('[name="TotalIncomeView"]').val(entity.get("TotalIncome"));
                 $('[name="AddressView"]').val(entity.get("Address"));                
-                $('[name="DateOfLastHealthControlView"]').val(entity.get("DateOfLastHealthControl"));
-                $('[name="DateOfLastUpdateDevelopmentPlanView"]').val(entity.get("DateOfLastUpdateDevelopmentPlan"));
-                $('[name="PlannedUpdateOfDevelopmentPlanView"]').val(entity.get("PlannedUpdateOfDevelopmentPlan"));
+                $('[name="DateOfLastHealthControlView"]').val(kendo.toString(entity.get("DateOfLastHealthControl"), "yyyy-MM-dd"));
+                $('[name="DateOfLastUpdateDevelopmentPlanView"]').val(kendo.toString(entity.get("DateOfLastUpdateDevelopmentPlan"), "yyyy-MM-dd"));
+                $('[name="PlannedUpdateOfDevelopmentPlanView"]').val(kendo.toString(entity.get("PlannedUpdateOfDevelopmentPlan"), "yyyy-MM-dd"));
                 $('[name="CaregiverIDView"]').val(entity.get("CaregiverID"));
                 $('[name="SOSHouseIDView"]').val(entity.get("SOSHouseID"));
                 
@@ -631,17 +632,17 @@ var app; // store a reference to the application object that will be created  la
             if (navigator.onLine) 
             {
                 caregiverDataSource.filter({});
-                 caregiverDataSource = new kendo.data.DataSource({
+                caregiverDataSource = new kendo.data.DataSource({
                     type: "everlive",
                     transport: {
                         typeName: "CareGiver"
                     },
     				serverFiltering: true,
-    				filter: { field: 'SOSCaregiverID', operator: 'eq', value: $('[name="SOSCaregiverID"]').val() }	
+    				filter: { field: 'CaregiverID', operator: 'eq', value: $('[name="CaregiverIDView"]').val() }	
     			});    
                 
                 caregiverDataSource.fetch(function() {
-  					var entity = caregiverDataSource.at(0);
+                    var entity = caregiverDataSource.at(0);                    
                     entity.set("PhoneNumber",$('[name="PhoneNumberView"]').val());
                     entity.set("Synchronized",$('[name="SynchronizedView"]').val());
                     entity.set("DateOfStart",$('[name="DateOfStartView"]').val());
@@ -660,10 +661,9 @@ var app; // store a reference to the application object that will be created  la
                     entity.set("PlannedUpdateOfDevelopmentPlan",$('[name="PlannedUpdateOfDevelopmentPlanView"]').val());
                     entity.set("CaregiverID",$('[name="CaregiverIDView"]').val());
                     entity.set("SOSHouseID",$('[name="SOSHouseIDView"]').val());
+                    caregiverDataSource.sync();
+                	navigator.notification.alert("Se ha registrado correctamente");
                 });
-                
-                caregiverDataSource.sync();
-                navigator.notification.alert("Se ha registrado correctamente");
                 
             } else {
                 offlineCaregiverDataSource.online(false);
@@ -692,9 +692,8 @@ var app; // store a reference to the application object that will be created  la
                     entity.set("PlannedUpdateOfDevelopmentPlan",$('[name="PlannedUpdateOfDevelopmentPlanView"]').val());
                     entity.set("CaregiverID",$('[name="CaregiverIDView"]').val());
                     entity.set("SOSHouseID",$('[name="SOSHouseIDView"]').val());
+                    offlineCaregiverDataSource.sync();
                 });
-                
-                offlineCaregiverDataSource.sync();
             }
          }         
     });
@@ -767,10 +766,10 @@ var app; // store a reference to the application object that will be created  la
             
             childDataSource.fetch(function() {
   				var entity = childDataSource.at(0);
-  				$('[name="Birthdate"]').val(entity.get("Birthdate"));
+  				$('[name="Birthdate"]').val(kendo.toString(entity.get("Birthdate"), "yyyy-MM-dd"));
                 $('[name="LastName"]').val(entity.get("LastName"));
                 $('[name="FirstName"]').val(entity.get("FirstName"));
-                $('[name="Exitdate"]').val(entity.get("Exitdate"));
+                $('[name="Exitdate"]').val(kendo.toString(entity.get("Exitdate"), "yyyy-MM-dd"));
                 $('[name="ExitReason"]').val(entity.get("ExitReason"));
                 $('[name="MotherLastName"]').val(entity.get("MotherLastName"));
                 $('[name="SOSChildID"]').val(entity.get("SOSChildID"));
@@ -903,29 +902,28 @@ var app; // store a reference to the application object that will be created  la
                         typeName: "Child"
                     },
     				serverFiltering: true,
-    				filter: { field: 'SOSChildID', operator: 'eq', value: $('[name="SOSChildID"]').val() }	
+    				filter: { field: 'SOSChildID', operator: 'eq', value: $('[name="SOSChildIDView"]').val() }	
     			});    
                 
                 childDataSource.fetch(function() {
   					var entity = childDataSource.at(0);
-                    entity.set("Birthdate ",$('[name="BirthdateView"]').val());
-                    entity.set("LastName ",$('[name="LastNameView"]').val());
-                    entity.set("FirstName ",$('[name="FirstNameView"]').val());
-                    entity.set("Exitdate ",$('[name="ExitdateView"]').val());
-                    entity.set("ExitReason ",$('[name="ExitReasonView"]').val());
-                    entity.set("MotherLastName ",$('[name="MotherLastNameView"]').val());
-                    entity.set("SOSChildID ",$('[name="SOSChildIDView"]').val());
+                    entity.set("Birthdate",$('[name="BirthdateView"]').val());
+                    entity.set("LastName",$('[name="LastNameView"]').val());
+                    entity.set("FirstName",$('[name="FirstNameView"]').val());
+                    entity.set("Exitdate",$('[name="ExitdateView"]').val());
+                    entity.set("ExitReason",$('[name="ExitReasonView"]').val());
+                    entity.set("MotherLastName",$('[name="MotherLastNameView"]').val());
+                    entity.set("SOSChildID",$('[name="SOSChildIDView"]').val());
                     entity.set("CaregiverID",$('[name="CaregiverIDView"]').val());
+                    childDataSource.sync();
+                	navigator.notification.alert("Se ha registrado correctamente");
                 });
-                
-                childDataSource.sync();
-                navigator.notification.alert("Se ha registrado correctamente");
                 
             } else {
                 offlineChildDataSource.online(false);
                 
                 var filters = [];
- 				filters = UpdateSearchFilters(filters, "SOSChildID", "eq", $('[name="SOSChildID"]').val(), "and");        
+ 				filters = UpdateSearchFilters(filters, "SOSChildID", "eq", $('[name="SOSChildIDView"]').val(), "and");        
                 offlineChildDataSource.filter(filters);
                 
                 offlineChildDataSource.fetch(function() {
@@ -938,9 +936,8 @@ var app; // store a reference to the application object that will be created  la
                     entity.set("MotherLastName",$('[name="MotherLastNameView"]').val());
                     entity.set("SOSChildID",$('[name="SOSChildIDView"]').val());
                     entity.set("CaregiverID",$('[name="CaregiverIDView"]').val());
+                    offlineChildDataSource.sync();
                 });
-                
-                offlineChildDataSource.sync();
             }
          }         
     });
@@ -1307,13 +1304,13 @@ var app; // store a reference to the application object that will be created  la
 
                 $("#listView").kendoMobileListView({
                     dataSource: localStorageDataSource,
-                    template: "#: FirstName # - #: LastName # - #: SOSCaregiverID #"
+                    template: "#: FirstName # - #: LastName # - #: CaregiverID #"
                 });
 
                 var synchroDataSource = new kendo.data.DataSource({
                     type: "everlive",
                     transport: {
-                        typeName: "Caregiver"
+                        typeName: "CareGiver"
                     },
                     schema: {
                         model: {
