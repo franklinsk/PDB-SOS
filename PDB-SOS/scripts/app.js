@@ -441,7 +441,7 @@ var app; // store a reference to the application object that will be created  la
                 houseDataSource = new kendo.data.DataSource({
                     type: "everlive",
                     transport: {
-                        typeName: "CareGiver"
+                        typeName: "House"
                     },
     				serverFiltering: true,
     				filter: { field: 'SOSHouseID', operator: 'eq', value: $('[name="SOSHouseIDView"]').val() }	
