@@ -68,6 +68,7 @@ function newSwitchTab(type, SOSHouseID, address, name, programmeUnitID){
     	$('[name="btnBack' + type + 'House"]').show();
     	$('[name="btnSave' + type + 'House"]').show();
 }
+
 function newSwitchCaregiverTab(type, ID, name, surname, houseID){    	
 		var tabStrip = $("#tabstrip" + type + "Caregiver").data("kendoMobileTabStrip");
     	//fails when try to filter by GUID, best option would be number or string        
@@ -86,6 +87,22 @@ function newSwitchCaregiverTab(type, ID, name, surname, houseID){
             
     	$('[name="btnBack' + type + 'Caregiver"]').show();
     	$('[name="btnSave' + type + 'Caregiver"]').show();
+}
+
+function optCaregiverTab(type, ID){    	
+		var tabStrip = $("#tabstripViewCaregiver").data("kendoMobileTabStrip");
+    	
+    	tabStrip.switchTo("#Caregiver" + type);
+    	app.navigate("#Caregiver" + type + "?id=" + ID, "slide");    	
+    
+    	$('[name="btnDepartCaregiver"]').hide();
+        $('[name="btnReactivateCaregiver"]').hide();
+        $('[name="btnTransferCaregiver"]').hide();    
+        $('[name="btnBackViewCaregiver"]').show();
+        $('[name="btnSaveViewCaregiver"]').hide();
+    
+        $('[name="btn' + type + 'Caregiver"]').show();    
+    	$('[name="CaregiverIDView"]').val(ID);    	        	
 }
 
 function newSwitchChildTab(type, ID, name, surname, caregiverID){    	

@@ -403,7 +403,7 @@ var app; // store a reference to the application object that will be created  la
     });
     
     window.APP.models.caregiver = kendo.observable({
-         init: function () {             
+         init: function () {     
             var casa = new kendo.data.DataSource({
                     type: "everlive",
                     transport: {
@@ -424,7 +424,14 @@ var app; // store a reference to the application object that will be created  la
                         dataTextField: "NameOrNumber",
                         dataValueField: "SOSHouseID",
                         dataSource: casa
-                    });
+             });
+             
+             $("#listCaregiver").html("");
+             $('[name="btnDepartCaregiver"]').hide();
+             $('[name="btnReactivateCaregiver"]').hide();
+             $('[name="btnTransferCaregiver"]').hide();    
+             $('[name="btnBackViewCaregiver"]').hide();
+             $('[name="btnSaveViewCaregiver"]').hide();
     	 },
          searchCaregiverByHouse: function(){
              if (!navigator.onLine) {
@@ -441,9 +448,14 @@ var app; // store a reference to the application object that will be created  la
             filters = UpdateSearchFilters(filters, "SOSHouseID", "eq", houseID, "and");        
 	        caregiverDataSource.filter(filters);
             
+            var stringTemplate = "Nombres: #: FirstName #, Apellidos #: LastName # <a href='javascript:newSwitchCaregiverTab(\"View\",\"#if (CaregiverID == null) {# #=''# #} else {##=CaregiverID##}#\", \"#if (FirstName == null) {# #=''# #} else {##=FirstName##}#\", \"#if (LastName == null) {# #=''# #} else {##=LastName##}#\", \"" + houseID + "\")'>Visualizar</a>";                
+            var inactive = "#if (Status == null || Status != '1') {# <a href='javascript:optCaregiverTab(\"Reactivate\", \"#= CaregiverID #\")'>Reactivar</a> #}#";                
+            var active = "#if (Status != null && Status == '1') {# <a href='javascript:optCaregiverTab(\"Depart\", \"#= CaregiverID #\")'>Salida</a><a href='javascript:optCaregiverTab(\"Transfer\", \"#= CaregiverID #\")'>Transferencia</a> #}#";                
+            stringTemplate = stringTemplate + inactive + active;            
+             
             $("#listCaregiver").kendoMobileListView({
                 dataSource: caregiverDataSource,
-                template: "Nombres: #: FirstName #, Apellidos #: LastName # <a href='javascript:newSwitchCaregiverTab(\"View\",\"#if (CaregiverID == null) {# #=''# #} else {##=CaregiverID##}#\", \"#if (FirstName == null) {# #=''# #} else {##=FirstName##}#\", \"#if (LastName == null) {# #=''# #} else {##=LastName##}#\", \"" + houseID + "\")'>Visualizar</a>"                
+                template: stringTemplate
             });
          },
          addHouseToCaregiver: function(){
@@ -695,7 +707,108 @@ var app; // store a reference to the application object that will be created  la
                     offlineCaregiverDataSource.sync();
                 });
             }
-         }         
+         },
+         departCaregiverSubmit: function(){
+             	caregiverDataSource.filter({});
+                caregiverDataSource = new kendo.data.DataSource({
+                    type: "everlive",
+                    transport: {
+                        typeName: "CareGiver"
+                    },
+    				serverFiltering: true,
+    				filter: { field: 'CaregiverID', operator: 'eq', value: $('[name="CaregiverIDView"]').val() }	
+    			});    
+                
+                caregiverDataSource.fetch(function() {
+                    var entity = caregiverDataSource.at(0);                    
+                    entity.set("Status","0");
+                    //entity.set("ReentryReason",$('[name="ExitReason"]').val());
+                    caregiverDataSource.sync();
+                	navigator.notification.alert("Se ha inactivado el cuidador correctamente");
+                });
+         },
+         reactivateCaregiverSubmit: function(){
+             	caregiverDataSource.filter({});
+                caregiverDataSource = new kendo.data.DataSource({
+                    type: "everlive",
+                    transport: {
+                        typeName: "CareGiver"
+                    },
+    				serverFiltering: true,
+    				filter: { field: 'CaregiverID', operator: 'eq', value: $('[name="CaregiverIDView"]').val() }	
+    			});    
+                
+                caregiverDataSource.fetch(function() {
+                    var entity = caregiverDataSource.at(0);                    
+                    entity.set("Status","1");
+                    //entity.set("ReentryReason",$('[name="ReentryReason"]').val());
+                    caregiverDataSource.sync();
+                	navigator.notification.alert("Se ha reactivado el cuidador correctamente");
+                });
+         },
+         initTransfer: function(){
+             var programa = new kendo.data.DataSource({
+                    type: "everlive",
+                    transport: {
+                        typeName: "ProgrammeUnit"
+                    },
+    				serverFiltering: true,
+                    serverSorting: true,
+      				sort: { field: "Name", dir: "asc" }
+    		});               
+            
+             $("#ddlProgramaTransfer").kendoDropDownList({
+                        dataTextField: "Name",
+                        dataValueField: "ProgrammeUnitID",
+                        dataSource: programa
+             });
+             
+             $("#ddlProgramaTransfer").data("kendoDropDownList").bind("dataBound", function(e) {
+                this.trigger("change");    			
+			 });
+             $("#ddlProgramaTransfer").data("kendoDropDownList").bind("change", function(){
+                var casa = new kendo.data.DataSource({
+                        type: "everlive",
+                        transport: {
+                            typeName: "House"
+                        },
+                        serverFiltering: true,
+                        serverSorting: true,
+                        sort: { field: "NameOrNumber", dir: "asc" },
+                        filter: { field: 'ProgrammeUnitID', operator: 'eq', value: $("#ddlProgramaTransfer").val() }	
+                });               
+
+                 $("#ddlCasaTransfer").kendoDropDownList({
+                            dataTextField: "NameOrNumber",
+                            dataValueField: "SOSHouseID",
+                            dataSource: casa
+                 }); 
+             });
+         },
+         tranferCaregiverSubmit: function(){
+                if(validateNullValues($("#ddlCasaTransfer").val()) == ""){
+                    navigator.notification.alert("Debe seleccionar una casa");
+                    return;
+                }
+             
+             	caregiverDataSource.filter({});
+                caregiverDataSource = new kendo.data.DataSource({
+                    type: "everlive",
+                    transport: {
+                        typeName: "CareGiver"
+                    },
+    				serverFiltering: true,
+    				filter: { field: 'CaregiverID', operator: 'eq', value: $('[name="CaregiverIDView"]').val() }	
+    			});    
+                
+                caregiverDataSource.fetch(function() {
+                    var entity = caregiverDataSource.at(0);                    
+                    entity.set("SOSHouseID", $("#ddlCasaTransfer").val());
+                    //entity.set("TransferReason",$('[name="TransferReason"]').val());
+                    caregiverDataSource.sync();
+                	navigator.notification.alert("Se ha transferido el cuidador correctamente");
+                });
+         }
     });
     
     window.APP.models.child = kendo.observable({
