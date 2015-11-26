@@ -22,10 +22,33 @@
             <li><label>Apellidos:<input type="text" name="LastNameView" data-bind="value: LastName"/></label></li>
             <li><label>Código:<input type="text" name="CaregiverIDView" data-bind="value: CaregiverID"></label></li>
             <li><label>Fecha de Nacimiento:<input type="date" name="BirthdateView" data-bind="value: Birthdate"/></label></li>
-            <li><label>Fecha de Salida:<input type="date" name="ExitdateView" data-bind="value: Exitdate"/></label></li>
+            <!--<li><label>Fecha de Salida:<input type="date" name="ExitdateView" data-bind="value: Exitdate"/></label></li>
             <li><label>Razón de Salida:<select name="ExitReasonView" data-bind="value: ExitReason"><option value="1">Adopción</option><option value="2">Fallecimiento</option>
-				<option value="3">Autosuficiencia</option><option value="4">Reintegración familiar</option></select></label></li>
+				<option value="3">Autosuficiencia</option><option value="4">Reintegración familiar</option></select></label></li>-->
             <li><label>Apellido de la Madre:<input type="text" name="MotherLastNameView" data-bind="value: MotherLastName"/></label></li>
+            <li><label>Razón de Salida:
+                <select name="ExitReasonView" id="ExitReasonView" data-bind="value: ExitReason">
+                    <option value="1">Adopción</option>
+                    <option value="2">Fallecimiento</option>
+					<option value="3">Autosuficiencia</option>
+                    <option value="4">Reintegración familiar</option>
+                </select>
+                </label>
+            </li>
+            <li>
+                <label>
+                    <a data-role="button" data-click-on="down" data-align="left" data-click="window.APP.models.Util.AddItem" data-type="ExitReasonView">+</a>                    
+                    <a data-role="button" data-click-on="down" data-align="left" data-click="window.APP.models.Util.RemoveItem" data-type="ExitReasonView">-</a>                                                    
+                    <select name="ExitReasonViewValues" id="ExitReasonViewValues" multiple data-align="right">
+                	</select>
+            	</label>
+            </li>
+            <li>
+                <label>
+                    <select name="ExitReasonViewValuesTest" id="ExitReasonViewValuesTest" multiple data-align="right">
+                	</select>
+            	</label>
+            </li>
         </ul>
     </form>
 </div>

@@ -124,6 +124,45 @@ var app; // store a reference to the application object that will be created  la
         models: { home: { title: 'Bienvenido!!!' } }
     };
     
+    window.APP.models.Util = kendo.observable({
+       AddItem: function (e) {             
+            var data = e.button.data();
+            var selectedOpt = $("#" + data.type + " option:selected");                         
+            var viewOpt = $("#" + data.type + "Values");
+             
+            if(viewOpt.find('[value="' + selectedOpt.val() + '"]').length == 0 && selectedOpt.text().trim() != "")                        
+            	viewOpt.append($("<option></option>").attr("value",selectedOpt.val()).text(selectedOpt.text()));
+           
+            var details = [];
+           
+            $("#" + data.type + "Values option").each(function(){
+                var item = $(this);
+
+                details.push({ 
+                    "value" : item.val(),
+                    "text"  : item.text()
+                });
+            });
+           
+            //Convert Array To Json (Save in DB)
+            var myJsonString = JSON.stringify(details);
+            
+            //Convert Json To Array (Show in Form)
+            var array = JSON.parse(myJsonString);
+           
+           	$.each(array, function(text,value) {
+              $("#" + data.type + "ValuesTest").append($("<option></option>").attr("value",value.value).text(value.text));               
+            });              
+       },
+       RemoveItem: function (e) {             
+            var data = e.button.data();
+            var selectedOpt = $("#" + data.type + "Values option:selected");                         
+            var viewOpt = $("#" + data.type + "Values");
+             
+            viewOpt.find('[value="' + selectedOpt.val() + '"]').remove();             
+   	   } 
+    });
+    
     window.APP.models.Reports = kendo.observable({
         submit: function(){
             alert("en implementacion");
@@ -873,7 +912,7 @@ var app; // store a reference to the application object that will be created  la
          }
     });
     
-    window.APP.models.child = kendo.observable({
+    window.APP.models.child = kendo.observable({         
          init: function () {             
             var cuidador = new kendo.data.DataSource({
                     type: "everlive",
