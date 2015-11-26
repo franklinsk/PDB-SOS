@@ -133,26 +133,11 @@ var app; // store a reference to the application object that will be created  la
             if(viewOpt.find('[value="' + selectedOpt.val() + '"]').length == 0 && selectedOpt.text().trim() != "")                        
             	viewOpt.append($("<option></option>").attr("value",selectedOpt.val()).text(selectedOpt.text()));
            
-            var details = [];
-           
-            $("#" + data.type + "Values option").each(function(){
-                var item = $(this);
-
-                details.push({ 
-                    "value" : item.val(),
-                    "text"  : item.text()
-                });
-            });
-           
-            //Convert Array To Json (Save in DB)
-            var myJsonString = JSON.stringify(details);
+            //Convert Array To Json (Save in DB)            
+            //var myJsonString = GetComboBoxItemsAndConvertToJson(data.type);
             
             //Convert Json To Array (Show in Form)
-            var array = JSON.parse(myJsonString);
-           
-           	$.each(array, function(text,value) {
-              $("#" + data.type + "ValuesTest").append($("<option></option>").attr("value",value.value).text(value.text));               
-            });              
+            //SetComboBoxItemsAndConvertJsonToArray(myJsonString, data.type);
        },
        RemoveItem: function (e) {             
             var data = e.button.data();
@@ -1006,6 +991,9 @@ var app; // store a reference to the application object that will be created  la
                 $('[name="SOSChildIDView"]').val(entity.get("SOSChildID"));
                 $('[name="CaregiverIDView"]').val(entity.get("CaregiverID"));
                 
+                if(entity.get("ExitReason").trim() != "")
+                	SetComboBoxItemsAndConvertJsonToArray(entity.get("ExitReason"), "ExitReasonView");
+                
                 /*if(entity.get("Status") == "1")                	
                     $('[name="StatusView"]').val("Activo");
                 else
@@ -1148,6 +1136,12 @@ var app; // store a reference to the application object that will be created  la
                     entity.set("MotherLastName",$('[name="MotherLastNameView"]').val());
                     entity.set("SOSChildID",$('[name="SOSChildIDView"]').val());
                     entity.set("CaregiverID",$('[name="CaregiverIDView"]').val());
+                    
+                    var jsonExitReasonView = GetComboBoxItemsAndConvertToJson("ExitReasonView");
+                    
+                    if(jsonExitReasonView.trim() != "")
+                    	entity.set("ExitReason", jsonExitReasonView);
+                    
                     childDataSource.sync();
                 	navigator.notification.alert("Se ha registrado correctamente");
                 });

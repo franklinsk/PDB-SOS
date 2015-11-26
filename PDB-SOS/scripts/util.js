@@ -1,5 +1,24 @@
 var app; // store a reference to the application object that will be created  later on so that we can use it if need be
 
+function GetComboBoxItemsAndConvertToJson(type) {
+    var details = [];
+           
+	$("#" + type + "Values option").each(function(){
+			var item = $(this);
+            details.push({ "value" : item.val(), "text"  : item.text() });
+    });
+           
+    return JSON.stringify(details);    
+}
+
+function SetComboBoxItemsAndConvertJsonToArray(myJsonString, type){
+    var array = JSON.parse(myJsonString);
+	$("#" + type + "Values").html("");
+	$.each(array, function(text,value) {
+    	$("#" + type + "Values").append($("<option></option>").attr("value",value.value).text(value.text));               
+	});              
+}
+
 function UpdateSearchFilters(filters, field, operator, value, logic) {
         var newFilter = { field: field, operator: operator, value: value };
  
