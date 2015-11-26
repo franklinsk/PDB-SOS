@@ -153,7 +153,13 @@ var app; // store a reference to the application object that will be created  la
                         dataTextField: "Name",
                         dataValueField: "ProgrammeUnitID",
                         dataSource: programa
-             });            
+             });      
+            
+             $("#listHouse").html("");
+             $('[name="btnDepartHouse"]').hide();
+             $('[name="btnReactivateHouse"]').hide();
+             $('[name="btnBackViewHouse"]').hide();
+             $('[name="btnSaveViewHouse"]').hide(); 
     	},
         searchHouseByProgrammeUnit: function(){
             if (!navigator.onLine) {
@@ -169,9 +175,17 @@ var app; // store a reference to the application object that will be created  la
             filters = UpdateSearchFilters(filters, "ProgrammeUnitID", "eq", programmeUnitID, "and");        
 	        houseDataSource.filter(filters);
             
+            var stringTemplate = "Casa: #: SOSHouseID #, Dirección #: Address # <a href='javascript:newSwitchTab(\"View\",\"#if (SOSHouseID == null) {# #=''# #} else {##=SOSHouseID##}#\", \"#if (Address == null) {# #=''# #} else {##=Address##}#\", \"#if (NameOrNumber == null) {# #=''# #} else {##=NameOrNumber##}#\", \"" + programmeUnitID + "\")'>Visualizar</a>";                
+            var inactive = "#if (Status == null || Status != '1') {# <a href='javascript:optEntityTab(\"House\",\"Reactivate\", \"#= SOSHouseID #\")'>Reactivar</a> #}#";                
+            var active = "#if (Status != null && Status == '1') {# <a href='javascript:optEntityTab(\"House\",\"Depart\", \"#= SOSHouseID #\")'>Salida</a> #}#";                
+            
             $("#listHouse").kendoMobileListView({
                 dataSource: houseDataSource,
-                template: "Casa: #: SOSHouseID #, Dirección #: Address # <a href='javascript:newSwitchTab(\"View\",\"#if (SOSHouseID == null) {# #=''# #} else {##=SOSHouseID##}#\", \"#if (Address == null) {# #=''# #} else {##=Address##}#\", \"#if (NameOrNumber == null) {# #=''# #} else {##=NameOrNumber##}#\", \"" + programmeUnitID + "\")'>Visualizar</a>"                
+                template: stringTemplate,
+                dataBound: function () {
+                    if (this.dataSource.total() == 0) 
+                        $("#listHouse").html('<li>No hay resultados.</li>');
+                }
             });
         },
         addProgrammeUnitToHouse: function(){
@@ -399,7 +413,45 @@ var app; // store a reference to the application object that will be created  la
                     navigator.notification.alert("Se ha registrado correctamente");
                 });
             }
-        }
+        },
+        departHouseSubmit: function(){
+             	houseDataSource.filter({});
+                houseDataSource = new kendo.data.DataSource({
+                    type: "everlive",
+                    transport: {
+                        typeName: "House"
+                    },
+    				serverFiltering: true,
+    				filter: { field: 'SOSHouseID', operator: 'eq', value: $('[name="SOSHouseIDView"]').val() }	
+    			});    
+                
+                houseDataSource.fetch(function() {
+                    var entity = houseDataSource.at(0);                    
+                    entity.set("Status","0");
+                    //entity.set("ReentryReason",$('[name="ExitReason"]').val());
+                    houseDataSource.sync();
+                	navigator.notification.alert("Se ha inactivado el hogar correctamente");
+                });
+         },
+         reactivateHouseSubmit: function(){
+             	houseDataSource.filter({});
+                houseDataSource = new kendo.data.DataSource({
+                    type: "everlive",
+                    transport: {
+                        typeName: "CareGiver"
+                    },
+    				serverFiltering: true,
+    				filter: { field: 'SOSHouseID', operator: 'eq', value: $('[name="SOSHouseIDView"]').val() }	
+    			});    
+                
+                houseDataSource.fetch(function() {
+                    var entity = houseDataSource.at(0);                    
+                    entity.set("Status","1");
+                    //entity.set("ReentryReason",$('[name="ReentryReason"]').val());
+                    houseDataSource.sync();
+                	navigator.notification.alert("Se ha reactivado el hogar correctamente");
+                });
+         }         
     });
     
     window.APP.models.caregiver = kendo.observable({
@@ -455,7 +507,11 @@ var app; // store a reference to the application object that will be created  la
              
             $("#listCaregiver").kendoMobileListView({
                 dataSource: caregiverDataSource,
-                template: stringTemplate
+                template: stringTemplate,
+                dataBound: function () {
+                    if (this.dataSource.total() == 0) 
+                        $("#listCaregiver").html('<li>No hay resultados.</li>');
+                }
             });
          },
          addHouseToCaregiver: function(){
@@ -862,7 +918,11 @@ var app; // store a reference to the application object that will be created  la
             
             $("#listChild").kendoMobileListView({
                 dataSource: childDataSource,
-                template: stringTemplate                
+                template: stringTemplate,
+                dataBound: function () {
+                    if (this.dataSource.total() == 0) 
+                        $("#listChild").html('<li>No hay resultados.</li>');
+                }                
             }); 
          },
          addCaregiverToChild: function(){

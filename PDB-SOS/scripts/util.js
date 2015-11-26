@@ -52,8 +52,8 @@ function switchTab(type, childID, firstName, lastName){
 function newSwitchTab(type, SOSHouseID, address, name, programmeUnitID){    	
 		var tabStrip = $("#tabstrip" + type + "House").data("kendoMobileTabStrip");
     	//fails when try to filter by GUID, best option would be number or string        
-    	tabStrip.switchTo("#General" + type);
-    	app.navigate("#General" + type + "?id=" + SOSHouseID, "slide");    	
+    	tabStrip.switchTo("#GeneralHouse" + type);
+    	app.navigate("#GeneralHouse" + type + "?id=" + SOSHouseID, "slide");    	
     
     	var sufix = "View";
     
@@ -113,7 +113,10 @@ function optEntityTab(entity, type, ID){
     
     	$('[name="btnDepart' + entity + '"]').hide();
         $('[name="btnReactivate' + entity + '"]').hide();
-        $('[name="btnTransfer' + entity + '"]').hide();    
+    
+    	if(entity != "House")
+        	$('[name="btnTransfer' + entity + '"]').hide();    
+    
         $('[name="btnBackView' + entity + '"]').show();
         $('[name="btnSaveView' + entity + '"]').hide();
     

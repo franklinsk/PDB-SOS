@@ -1,4 +1,4 @@
-<div data-role="view" id="CasaView" data-title="Casa" data-layout="mobile-tabstrip" data-model="APP.models.house" data-show="APP.models.house.init">
+<div data-role="view" id="HouseView" data-title="Casa" data-layout="mobile-tabstrip" data-model="APP.models.house" data-show="APP.models.house.init">
     <form>
         <ul data-role="listview" data-style="inset">
             <li>
@@ -13,7 +13,7 @@
     </form>
     <ul id="listHouse"></ul>
 </div>
-<div data-role="view" id="GeneralView" data-title="General" data-show="APP.models.house.getHouseItemByID" data-layout="mobile-tabstrip" data-model="APP.models.house">
+<div data-role="view" id="GeneralHouseView" data-title="General" data-show="APP.models.house.getHouseItemByID" data-layout="mobile-tabstrip" data-model="APP.models.house">
     <form id="formViewHouse">
         <!--<div id="errors"></div>-->
         <ul data-role="listview" data-style="inset" title="General">
@@ -76,13 +76,17 @@
         <div data-role="navbar">
 			<a  style="display:none" name="btnBackViewHouse" data-role="backbutton" data-align="left">Atrás</a>
             <span data-role="view-title"></span>
-            <a  style="display:none" name="btnBackViewHouse" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.house.viewHouseSubmit">Guardar</a>                    
+            <a  style="display:none" name="btnSaveViewHouse" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.house.viewHouseSubmit">Guardar</a>                    
+            <a  style="display:none" name="btnDepartHouse" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.house.departHouseSubmit">Inactivar</a>                    
+            <a  style="display:none" name="btnReactivateHouse" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.house.reactivateHouseSubmit">Reactivar</a>                                     
         </div>
     </header>
     <div data-role="footer">
         <div data-role="tabstrip" id="tabstripViewHouse">
-            <a href="#CasaView" data-icon="search">Buscar</a>
-            <a href="#GeneralView" data-icon="globe">General</a>
+            <a href="#HouseView" data-icon="search">Buscar</a>
+            <a href="#GeneralHouseView" data-icon="globe">General</a>
+            <a href="#HouseDepart" data-icon="globe" style="display:none">Salida</a>
+            <a href="#HouseReactivate" data-icon="globe" style="display:none">Reactivar</a>
         </div>
     </div>
 </div>
