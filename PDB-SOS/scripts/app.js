@@ -188,6 +188,7 @@ var app; // store a reference to the application object that will be created  la
             if(houseID == null)
                 return;
             	
+            houseDataSource.filter({});
             houseDataSource = new kendo.data.DataSource({
                     type: "everlive",
                     transport: {
@@ -227,6 +228,7 @@ var app; // store a reference to the application object that will be created  la
              
                 $('[name="NameOrNumberView"]').val("");
 
+                houseDataSource.filter({});
                 houseDataSource = new kendo.data.DataSource({
                         type: "everlive",
                         transport: {
@@ -328,24 +330,24 @@ var app; // store a reference to the application object that will be created  la
                 });
                 return;
             }*/
+            if(validateNullValues($('[name="AddressView"]').val()) == ""){
+                    navigator.notification.alert("La dirección es obligatoria");
+                    return;
+            }
+
+            if(validateNullValues($('[name="NameOrNumberView"]').val()) == ""){
+                    navigator.notification.alert("El nombre de hogar es obligatorio");
+                    return;
+            }            
+
+            if(validateNullValues($('[name="SOSHouseIDView"]').val()) == "" && validateNullValues($('[name="SOSHouseIDView"]').val()).length == 8){
+                    navigator.notification.alert("El código de hogar es obligatorio y ser de 8 caracteres");
+                    return;
+            }
+
             
             if (navigator.onLine) 
             {
-                 if(validateNullValues($('[name="AddressView"]').val()) == ""){
-                    navigator.notification.alert("La dirección es obligatoria");
-                    return;
-                 }
-
-                 if(validateNullValues($('[name="NameOrNumberView"]').val()) == ""){
-                    navigator.notification.alert("El nombre de hogar es obligatorio");
-                    return;
-                 }            
-
-                 if(validateNullValues($('[name="SOSHouseIDView"]').val()) == "" && validateNullValues($('[name="SOSHouseIDView"]').val()).length == 8){
-                    navigator.notification.alert("El código de hogar es obligatorio y ser de 8 caracteres");
-                    return;
-                 }
-
                  houseDataSource = new kendo.data.DataSource({
                     type: "everlive",
                     transport: {
@@ -417,23 +419,31 @@ var app; // store a reference to the application object that will be created  la
                         dataValueField: "SOSHouseID",
                         dataSource: casa
                     });
+             
+             $("#ddlCasaView").kendoDropDownList({
+                        dataTextField: "NameOrNumber",
+                        dataValueField: "SOSHouseID",
+                        dataSource: casa
+                    });
     	 },
          searchCaregiverByHouse: function(){
-            if (!navigator.onLine) {
+             if (!navigator.onLine) {
                     navigator.notification.alert("No hay conexion a Internet");
                     return;
             }
-            var houseID = $("#ddlCasa").val();
+             
+            var houseID = $("#ddlCasaView").val();
             
-            var filters = [];
- 
+            var filters = []; 
+            caregiverDataSource.filter({});
+             
         	//http://www.telerik.com/forums/adding-filters-to-grid-s-source
             filters = UpdateSearchFilters(filters, "SOSHouseID", "eq", houseID, "and");        
 	        caregiverDataSource.filter(filters);
             
-            $("#list").kendoMobileListView({
+            $("#listCaregiver").kendoMobileListView({
                 dataSource: caregiverDataSource,
-                template: "Nombres: #: FirstName #, Apellidos #: LastName # <a href='javascript:newSwitchTab(\"View\",\"#if (CaregiverID == null) {# #=''# #} else {##=CaregiverID##}#\", \"#if (FirstName == null) {# #=''# #} else {##=FirstName##}#\", \"#if (SurName == null) {# #=''# #} else {##=SurName##}#\", \"" + houseID + "\")'>Visualizar</a>"                
+                template: "Nombres: #: FirstName #, Apellidos #: LastName # <a href='javascript:newSwitchCaregiverTab(\"View\",\"#if (CaregiverID == null) {# #=''# #} else {##=CaregiverID##}#\", \"#if (FirstName == null) {# #=''# #} else {##=FirstName##}#\", \"#if (SurName == null) {# #=''# #} else {##=SurName##}#\", \"" + houseID + "\")'>Visualizar</a>"                
             });
          },
          addHouseToCaregiver: function(){
@@ -442,7 +452,7 @@ var app; // store a reference to the application object that will be created  la
                     return;
             }
             var houseID = $("#ddlCasa").val();
-            newSwitchTab("Add", "", "", "", houseID); 
+            newSwitchCaregiverTab("Add", "", "", "", houseID); 
          },
          getCaregiverItemByID: function(e){
             var caregiverID = e.view.params.id;
@@ -450,67 +460,134 @@ var app; // store a reference to the application object that will be created  la
             if(caregiverID == null)
                 return;
             	
-            var caregiverSearchDataSource = new kendo.data.DataSource({
+            caregiverDataSource.filter({});
+            caregiverDataSource = new kendo.data.DataSource({
                     type: "everlive",
                     transport: {
-                        typeName: "Caregiver"
+                        typeName: "CareGiver"
                     },
     				serverFiltering: true,
     			filter: { field: 'SOSCaregiverID', operator: 'eq', value: caregiverID }	
     		});    
             
-            caregiverSearchDataSource.fetch(function() {
-  				var entity = caregiverSearchDataSource.at(0);
-  				$('[name="PhoneNumber"]').val(entity.get("PhoneNumber"));
-                $('[name="Synchronized"]').val(entity.get("Synchronized"));
-                $('[name="DateOfStart"]').val(entity.get("DateOfStart"));
-                $('[name="DateOfBirth"]').val(entity.get("DateOfBirth"));
-                $('[name="LastName"]').val(entity.get("LastName"));
-                $('[name="FirstName"]').val(entity.get("FirstName"));
-                $('[name="DocumentNumber"]').val(entity.get("DocumentNumber"));
-                $('[name="Gender"]').val(entity.get("Gender"));
-                $('[name="ReceiveSpecialAttention"]').val(entity.get("ReceiveSpecialAttention"));
-                $('[name="IsLiterate"]').val(entity.get("IsLiterate"));
-                $('[name="TotalIncome"]').val(entity.get("TotalIncome"));
-                $('[name="Address"]').val(entity.get("Address"));
-                $('[name="Status"]').val(entity.get("Status"));
-                $('[name="DateOfLastHealthControl"]').val(entity.get("DateOfLastHealthControl"));
-                $('[name="DateOfLastUpdateDevelopmentPlan"]').val(entity.get("DateOfLastUpdateDevelopmentPlan"));
-                $('[name="PlannedUpdateOfDevelopmentPlan"]').val(entity.get("PlannedUpdateOfDevelopmentPlan"));
-                $('[name="CaregiverID"]').val(entity.get("CaregiverID"));
-                $('[name="SOSHouseID"]').val(entity.get("SOSHouseID"));
-			});   
+            caregiverDataSource.fetch(function() {
+  				var entity = caregiverDataSource.at(0);
+  				$('[name="PhoneNumberView"]').val(entity.get("PhoneNumber"));
+                $('[name="SynchronizedView"]').val(entity.get("Synchronized"));
+                $('[name="DateOfStartView"]').val(entity.get("DateOfStart"));
+                $('[name="DateOfBirthView"]').val(entity.get("DateOfBirth"));
+                $('[name="LastNameView"]').val(entity.get("LastName"));
+                $('[name="FirstNameView"]').val(entity.get("FirstName"));
+                $('[name="DocumentNumberView"]').val(entity.get("DocumentNumber"));
+                $('[name="GenderView"]').val(entity.get("Gender"));
+                $('[name="ReceiveSpecialAttentionView"]').val(entity.get("ReceiveSpecialAttention"));
+                $('[name="IsLiterateView"]').val(entity.get("IsLiterate"));
+                $('[name="TotalIncomeView"]').val(entity.get("TotalIncome"));
+                $('[name="AddressView"]').val(entity.get("Address"));                
+                $('[name="DateOfLastHealthControlView"]').val(entity.get("DateOfLastHealthControl"));
+                $('[name="DateOfLastUpdateDevelopmentPlanView"]').val(entity.get("DateOfLastUpdateDevelopmentPlan"));
+                $('[name="PlannedUpdateOfDevelopmentPlanView"]').val(entity.get("PlannedUpdateOfDevelopmentPlan"));
+                $('[name="CaregiverIDView"]').val(entity.get("CaregiverID"));
+                $('[name="SOSHouseIDView"]').val(entity.get("SOSHouseID"));
+                
+                //$('[name="StatusView"]').val(entity.get("Status"));
+                if(entity.get("Status") == "1")                	
+                    $('[name="StatusView"]').val("Activo");
+                else
+                	$('[name="StatusView"]').val("Inactivo");
+			}); 
+            
+            caregiverDataSource.filter({});  
          },
+         getCaregiverByID: function () {   
+                if (!navigator.onLine) {
+                    navigator.notification.alert("No hay conexion a Internet");
+                    return;
+                }
+             
+                $('[name="FirstName"]').val("");
+                $('[name="LastName"]').val("");
+
+                caregiverDataSource.filter({});
+                caregiverDataSource = new kendo.data.DataSource({
+                        type: "everlive",
+                        transport: {
+                            typeName: "CareGiver"
+                        },
+                        serverFiltering: true,
+                        filter: { field: 'CaregiverID', operator: 'eq', value: $('[name="CaregiverID"]').val().trim() }
+                });    
+				
+                caregiverDataSource.fetch(function() {
+                    var caregiver = caregiverDataSource.at(0);
+                    $('[name="CaregiverID"]').val(caregiver.get("CaregiverID"));
+                    $('[name="FirstName"]').val(caregiver.get("FirstName"));
+                    $('[name="LastName"]').val(caregiver.get("LastName"));
+                });
+            },
          addCaregiverSubmit: function () {
 
+            if(validateNullValues($('[name="FirstName"]').val()) == ""){
+                navigator.notification.alert("Los nombres son obligatorios");
+                return;
+        	}
+            
+            if(validateNullValues($('[name="LastName"]').val()) == ""){
+                navigator.notification.alert("Los apellidos son obligatorios");
+                return;
+        	}            
+        
+            if(validateNullValues($('[name="CaregiverID"]').val()) == "" && validateNullValues($('[name="CaregiverID"]').val()).length == 8){
+                navigator.notification.alert("El código de cuidador es obligatorio y ser de 8 caracteres");
+                return;
+        	}
+             
             if (navigator.onLine) 
             {
-                caregiverDataSource.add({
-                    PhoneNumber : $('[name="PhoneNumber"]').val(),
-                    Synchronized : $('[name="Synchronized"]').val(),
-                    DateOfStart : $('[name="DateOfStart"]').val(),
-                    DateOfBirth : $('[name="DateOfBirth"]').val(),
-                    LastName : $('[name="LastName"]').val(),
-                    FirstName : $('[name="FirstName"]').val(),
-                    DocumentNumber : $('[name="DocumentNumber"]').val(),
-                    Gender : $('[name="Gender"]').val(),
-                    ReceiveSpecialAttention: $('[name="ReceiveSpecialAttention"]').val(),
-                    IsLiterate : $('[name="IsLiterate"]').val(),
-                    TotalIncome : $('[name="TotalIncome"]').val(),
-                    Address : $('[name="Address"]').val(),
-                    Status : $('[name="Status"]').val(),
-                    DateOfLastHealthControl : $('[name="DateOfLastHealthControl"]').val(),
-                    DateOfLastUpdateDevelopmentPlan : $('[name="DateOfLastUpdateDevelopmentPlan"]').val(),
-                    PlannedUpdateOfDevelopmentPlan : $('[name="PlannedUpdateOfDevelopmentPlan"]').val(),
-                    CaregiverID : $('[name="CaregiverID"]').val(),
-                    SOSHouseID: $('[name="SOSHouseID"]').val()
-                });
-                childDataSource.sync();
-                navigator.notification.alert("Se ha registrado correctamente");
+                var searchCaregiverDataSource = new kendo.data.DataSource({
+                    type: "everlive",
+                    transport: {
+                        typeName: "CareGiver"
+                    },
+    				serverFiltering: true,
+                    change: function(e) {
+                        var view = this.view();
+                                                
+                        if(view.length > 0){
+                            navigator.notification.alert("El código del cuidador ya está registrado");                
+                            return;
+                        }else{
+                            caregiverDataSource.add({
+                                PhoneNumber : $('[name="PhoneNumber"]').val(),
+                                Synchronized : $('[name="Synchronized"]').val(),
+                                DateOfStart : $('[name="DateOfStart"]').val(),
+                                DateOfBirth : $('[name="DateOfBirth"]').val(),
+                                LastName : $('[name="LastName"]').val(),
+                                FirstName : $('[name="FirstName"]').val(),
+                                DocumentNumber : $('[name="DocumentNumber"]').val(),
+                                Gender : $('[name="Gender"]').val(),
+                                ReceiveSpecialAttention: $('[name="ReceiveSpecialAttention"]').val(),
+                                IsLiterate : $('[name="IsLiterate"]').val(),
+                                TotalIncome : $('[name="TotalIncome"]').val(),
+                                Address : $('[name="Address"]').val(),
+                                Status : $('[name="Status"]').val(),
+                                DateOfLastHealthControl : $('[name="DateOfLastHealthControl"]').val(),
+                                DateOfLastUpdateDevelopmentPlan : $('[name="DateOfLastUpdateDevelopmentPlan"]').val(),
+                                PlannedUpdateOfDevelopmentPlan : $('[name="PlannedUpdateOfDevelopmentPlan"]').val(),
+                                CaregiverID : $('[name="CaregiverID"]').val(),
+                                SOSHouseID: $('[name="SOSHouseID"]').val()
+                            });
+                            caregiverDataSource.sync();
+                            navigator.notification.alert("Se ha registrado correctamente");            
+                        }                      
+                    },
+    				filter: { field: 'CaregiverID', operator: 'eq', value: $('[name="CaregiverID"]').val() }	
+    			});    
+                
+                searchCaregiverDataSource.read();
 
             } else {
                 offlineCaregiverDataSource.online(false);
-
                 offlineCaregiverDataSource.add({
                     PhoneNumber : $('[name="PhoneNumber"]').val(),
                     Synchronized : $('[name="Synchronized"]').val(),
@@ -536,12 +613,28 @@ var app; // store a reference to the application object that will be created  la
             }
          },
          viewCaregiverSubmit: function(){
+            if(validateNullValues($('[name="FirstNameView"]').val()) == ""){
+                navigator.notification.alert("Los nombres son obligatorios");
+                return;
+        	}
+            
+            if(validateNullValues($('[name="LastNameView"]').val()) == ""){
+                navigator.notification.alert("Los apellidos son obligatorios");
+                return;
+        	}            
+        
+            if(validateNullValues($('[name="CaregiverIDView"]').val()) == "" && validateNullValues($('[name="CaregiverIDView"]').val()).length == 8){
+                navigator.notification.alert("El código de cuidador es obligatorio y ser de 8 caracteres");
+                return;
+        	}
+             
             if (navigator.onLine) 
             {
-                 var caregiverDataSource = new kendo.data.DataSource({
+                caregiverDataSource.filter({});
+                 caregiverDataSource = new kendo.data.DataSource({
                     type: "everlive",
                     transport: {
-                        typeName: "Caregiver"
+                        typeName: "CareGiver"
                     },
     				serverFiltering: true,
     				filter: { field: 'SOSCaregiverID', operator: 'eq', value: $('[name="SOSCaregiverID"]').val() }	
@@ -549,24 +642,24 @@ var app; // store a reference to the application object that will be created  la
                 
                 caregiverDataSource.fetch(function() {
   					var entity = caregiverDataSource.at(0);
-                    entity.set("PhoneNumber ",$('[name="PhoneNumber"]').val());
-                    entity.set("Synchronized ",$('[name="Synchronized"]').val());
-                    entity.set("DateOfStart ",$('[name="DateOfStart"]').val());
-                    entity.set("DateOfBirth ",$('[name="DateOfBirth"]').val());
-                    entity.set("LastName ",$('[name="LastName"]').val());
-                    entity.set("FirstName ",$('[name="FirstName"]').val());
-                    entity.set("DocumentNumber ",$('[name="DocumentNumber"]').val());
-                    entity.set("Gender ",$('[name="Gender"]').val());
-                    entity.set("ReceiveSpecialAttention",$('[name="ReceiveSpecialAttention"]').val());
-                    entity.set("IsLiterate ",$('[name="IsLiterate"]').val());
-                    entity.set("TotalIncome ",$('[name="TotalIncome"]').val());
-                    entity.set("Address ",$('[name="Address"]').val());
-                    entity.set("Status ",$('[name="Status"]').val());
-                    entity.set("DateOfLastHealthControl ",$('[name="DateOfLastHealthControl"]').val());
-                    entity.set("DateOfLastUpdateDevelopmentPlan ",$('[name="DateOfLastUpdateDevelopmentPlan"]').val());
-                    entity.set("PlannedUpdateOfDevelopmentPlan ",$('[name="PlannedUpdateOfDevelopmentPlan"]').val());
-                    entity.set("CaregiverID ",$('[name="CaregiverID"]').val());
-                    entity.set("SOSHouseID",$('[name="SOSHouseID"]').val());
+                    entity.set("PhoneNumber",$('[name="PhoneNumberView"]').val());
+                    entity.set("Synchronized",$('[name="SynchronizedView"]').val());
+                    entity.set("DateOfStart",$('[name="DateOfStartView"]').val());
+                    entity.set("DateOfBirth",$('[name="DateOfBirthView"]').val());
+                    entity.set("LastName",$('[name="LastNameView"]').val());
+                    entity.set("FirstName",$('[name="FirstNameView"]').val());
+                    entity.set("DocumentNumber",$('[name="DocumentNumberView"]').val());
+                    entity.set("Gender",$('[name="GenderView"]').val());
+                    entity.set("ReceiveSpecialAttention",$('[name="ReceiveSpecialAttentionView"]').val());
+                    entity.set("IsLiterate",$('[name="IsLiterateView"]').val());
+                    entity.set("TotalIncome",$('[name="TotalIncomeView"]').val());
+                    entity.set("Address",$('[name="AddressView"]').val());
+                    entity.set("Status",$('[name="StatusView"]').val());
+                    entity.set("DateOfLastHealthControl",$('[name="DateOfLastHealthControlView"]').val());
+                    entity.set("DateOfLastUpdateDevelopmentPlan",$('[name="DateOfLastUpdateDevelopmentPlanView"]').val());
+                    entity.set("PlannedUpdateOfDevelopmentPlan",$('[name="PlannedUpdateOfDevelopmentPlanView"]').val());
+                    entity.set("CaregiverID",$('[name="CaregiverIDView"]').val());
+                    entity.set("SOSHouseID",$('[name="SOSHouseIDView"]').val());
                 });
                 
                 caregiverDataSource.sync();
@@ -576,60 +669,34 @@ var app; // store a reference to the application object that will be created  la
                 offlineCaregiverDataSource.online(false);
                 
                 var filters = [];
- 				filters = UpdateSearchFilters(filters, "SOSCaregiverID", "eq", $('[name="SOSCaregiverID"]').val(), "and");        
+ 				filters = UpdateSearchFilters(filters, "CaregiverID", "eq", $('[name="CaregiverIDView"]').val(), "and");        
                 offlineCaregiverDataSource.filter(filters);
                 
                 offlineCaregiverDataSource.fetch(function() {
-  					var entity = offlineCaregiverDataSource.at(0);
-                    entity.set("PhoneNumber ",$('[name="PhoneNumber"]').val());
-                    entity.set("Synchronized ",$('[name="Synchronized"]').val());
-                    entity.set("DateOfStart ",$('[name="DateOfStart"]').val());
-                    entity.set("DateOfBirth ",$('[name="DateOfBirth"]').val());
-                    entity.set("LastName ",$('[name="LastName"]').val());
-                    entity.set("FirstName ",$('[name="FirstName"]').val());
-                    entity.set("DocumentNumber ",$('[name="DocumentNumber"]').val());
-                    entity.set("Gender ",$('[name="Gender"]').val());
-                    entity.set("ReceiveSpecialAttention",$('[name="ReceiveSpecialAttention"]').val());
-                    entity.set("IsLiterate ",$('[name="IsLiterate"]').val());
-                    entity.set("TotalIncome ",$('[name="TotalIncome"]').val());
-                    entity.set("Address ",$('[name="Address"]').val());
-                    entity.set("Status ",$('[name="Status"]').val());
-                    entity.set("DateOfLastHealthControl ",$('[name="DateOfLastHealthControl"]').val());
-                    entity.set("DateOfLastUpdateDevelopmentPlan ",$('[name="DateOfLastUpdateDevelopmentPlan"]').val());
-                    entity.set("PlannedUpdateOfDevelopmentPlan ",$('[name="PlannedUpdateOfDevelopmentPlan"]').val());
-                    entity.set("CaregiverID ",$('[name="CaregiverID"]').val());
-                    entity.set("SOSHouseID",$('[name="SOSHouseID"]').val());
-
+  					var entity = caregiverDataSource.at(0);
+                    entity.set("PhoneNumber",$('[name="PhoneNumberView"]').val());
+                    entity.set("Synchronized",$('[name="SynchronizedView"]').val());
+                    entity.set("DateOfStart",$('[name="DateOfStartView"]').val());
+                    entity.set("DateOfBirth",$('[name="DateOfBirthView"]').val());
+                    entity.set("LastName",$('[name="LastNameView"]').val());
+                    entity.set("FirstName",$('[name="FirstNameView"]').val());
+                    entity.set("DocumentNumber",$('[name="DocumentNumberView"]').val());
+                    entity.set("Gender",$('[name="GenderView"]').val());
+                    entity.set("ReceiveSpecialAttention",$('[name="ReceiveSpecialAttentionView"]').val());
+                    entity.set("IsLiterate",$('[name="IsLiterateView"]').val());
+                    entity.set("TotalIncome",$('[name="TotalIncomeView"]').val());
+                    entity.set("Address",$('[name="AddressView"]').val());
+                    entity.set("Status",$('[name="StatusView"]').val());
+                    entity.set("DateOfLastHealthControl",$('[name="DateOfLastHealthControlView"]').val());
+                    entity.set("DateOfLastUpdateDevelopmentPlan",$('[name="DateOfLastUpdateDevelopmentPlanView"]').val());
+                    entity.set("PlannedUpdateOfDevelopmentPlan",$('[name="PlannedUpdateOfDevelopmentPlanView"]').val());
+                    entity.set("CaregiverID",$('[name="CaregiverIDView"]').val());
+                    entity.set("SOSHouseID",$('[name="SOSHouseIDView"]').val());
                 });
                 
                 offlineCaregiverDataSource.sync();
             }
-         },
-         getCaregiverByID: function () {   
-                if (!navigator.onLine) {
-                    navigator.notification.alert("No hay conexion a Internet");
-                    return;
-                }
-             
-                $('[name="FirstName"]').val("");
-                $('[name="LastName"]').val("");
-
-                var caregiverDataSources = new kendo.data.DataSource({
-                        type: "everlive",
-                        transport: {
-                            typeName: "Caregiver"
-                        },
-                        serverFiltering: true,
-                        filter: { field: 'CaregiverID', operator: 'eq', value: $('[name="CaregiverID"]').val().trim() }
-                });    
-				
-                caregiverDataSources.fetch(function() {
-                    var caregiver = caregiverDataSources.at(0);
-                    $('[name="CaregiverID"]').val(caregiver.get("CaregiverID"));
-                    $('[name="FirstName"]').val(caregiver.get("FirstName"));
-                    $('[name="LastName"]').val(caregiver.get("LastName"));
-                });
-            }
+         }         
     });
     
     window.APP.models.child = kendo.observable({
@@ -648,32 +715,150 @@ var app; // store a reference to the application object that will be created  la
                         dataValueField: "CaregiverID",
                         dataSource: cuidador
                     });
+             
+             $("#ddlCuidadorView").kendoDropDownList({
+                        dataTextField: "LastName",
+                        dataValueField: "CaregiverID",
+                        dataSource: cuidador
+                    });
     	 },
+         searchChildByCaregiver: function(){
+           if (!navigator.onLine) {
+                    navigator.notification.alert("No hay conexion a Internet");
+                    return;
+            }
+            var caregiverID = $("#ddlCuidadorView").val();
+            
+            var filters = [];
+ 
+            childDataSource.filter({});
+        	//http://www.telerik.com/forums/adding-filters-to-grid-s-source
+            filters = UpdateSearchFilters(filters, "CaregiverID", "eq", caregiverID, "and");        
+	        childDataSource.filter(filters);
+            
+            $("#list").kendoMobileListView({
+                dataSource: childDataSource,
+                template: "Nombres: #: FirstName #, Apellidos #: LastName # <a href='javascript:newSwitchTab(\"View\",\"#if (SOSChildID == null) {# #=''# #} else {##=SOSChildID##}#\", \"#if (FirstName == null) {# #=''# #} else {##=FirstName##}#\", \"#if (SurName == null) {# #=''# #} else {##=SurName##}#\", \"" + caregiverID + "\")'>Visualizar</a>"                
+            }); 
+         },
          addCaregiverToChild: function(){
             if (!navigator.onLine) {
                     navigator.notification.alert("No hay conexion a Internet");
                     return;
             }
             var caregiverID = $("#ddlCuidador").val();
-            newSwitchTab("Add", "", "", "", caregiverID); 
+            newSwitchChildTab("Add", "", "", "", caregiverID); 
+         },
+         getChildItemByID: function(e){
+            var childID = e.view.params.id;
+            
+            if(childID == null)
+                return;
+            
+            childDataSource.filter({});             
+            childDataSource = new kendo.data.DataSource({
+                    type: "everlive",
+                    transport: {
+                        typeName: "Child"
+                    },
+    				serverFiltering: true,
+    			filter: { field: 'SOSChildID', operator: 'eq', value: childID }	
+    		});    
+            
+            childDataSource.fetch(function() {
+  				var entity = childDataSource.at(0);
+  				$('[name="Birthdate"]').val(entity.get("Birthdate"));
+                $('[name="LastName"]').val(entity.get("LastName"));
+                $('[name="FirstName"]').val(entity.get("FirstName"));
+                $('[name="Exitdate"]').val(entity.get("Exitdate"));
+                $('[name="ExitReason"]').val(entity.get("ExitReason"));
+                $('[name="MotherLastName"]').val(entity.get("MotherLastName"));
+                $('[name="SOSChildID"]').val(entity.get("SOSChildID"));
+                $('[name="CaregiverID"]').val(entity.get("CaregiverID"));
+                
+                /*if(entity.get("Status") == "1")                	
+                    $('[name="StatusView"]').val("Activo");
+                else
+                	$('[name="StatusView"]').val("Inactivo");*/
+			});   
+            childDataSource.filter({});  
+         },
+         getChildByID: function () {   
+                if (!navigator.onLine) {
+                    navigator.notification.alert("No hay conexion a Internet");
+                    return;
+                }
+             
+                $('[name="firstName"]').val("");
+                $('[name="surName"]').val("");
+
+                childDataSource.filter({});
+                childDataSource = new kendo.data.DataSource({
+                        type: "everlive",
+                        transport: {
+                            typeName: "Child"
+                        },
+                        serverFiltering: true,
+                        filter: { field: 'SOSChildID', operator: 'eq', value: $('[name="childID"]').val().trim() }
+                });    
+				
+                childDataSource.fetch(function() {
+                    var child = childDataSource.at(0);
+                    $('[name="childID"]').val(child.get("SOSChildID"));
+                    $('[name="firstName"]').val(child.get("FirstName"));
+                    $('[name="surName"]').val(child.get("LastName"));
+                });
          },
          addChildSubmit: function () {
 
+            if(validateNullValues($('[name="FirstName"]').val()) == ""){
+                navigator.notification.alert("Los nombres son obligatorios");
+                return;
+        	}
+            
+            if(validateNullValues($('[name="LastName"]').val()) == ""){
+                navigator.notification.alert("Los apellidos son obligatorios");
+                return;
+        	}            
+        
+            if(validateNullValues($('[name="SOSChildID"]').val()) == "" && validateNullValues($('[name="SOSChildID"]').val()).length == 8){
+                navigator.notification.alert("El código de niño es obligatorio y ser de 8 caracteres");
+                return;
+        	}
+             
             if (navigator.onLine) 
             {
-                childDataSource.add({
-                    Birthdate : $('[name="Birthdate"]').val(),
-                    LastName : $('[name="LastName"]').val(),
-                    FirstName : $('[name="FirstName"]').val(),
-                    Trackings : $('[name="Trackings"]').val(),
-                    Exitdate : $('[name="Exitdate"]').val(),
-                    ExitReason : $('[name="ExitReason"]').val(),
-                    MotherLastName : $('[name="MotherLastName"]').val(),
-                    SOSChildID : $('[name="SOSChildID"]').val(),
-                    CaregiverID: $('[name="CaregiverID"]').val()
-                });
-                childDataSource.sync();
-                navigator.notification.alert("Se ha registrado correctamente");
+                 var searchChildDataSource = new kendo.data.DataSource({
+                    type: "everlive",
+                    transport: {
+                        typeName: "Child"
+                    },
+    				serverFiltering: true,
+                    change: function(e) {
+                        var view = this.view();
+                                                
+                        if(view.length > 0){
+                            navigator.notification.alert("El código del niño ya está registrado");                
+                            return;
+                        }else{
+                            childDataSource.add({
+                                Birthdate : $('[name="Birthdate"]').val(),
+                                LastName : $('[name="LastName"]').val(),
+                                FirstName : $('[name="FirstName"]').val(),
+                                Exitdate : $('[name="Exitdate"]').val(),
+                                ExitReason : $('[name="ExitReason"]').val(),
+                                MotherLastName : $('[name="MotherLastName"]').val(),
+                                SOSChildID : $('[name="SOSChildID"]').val(),
+                                CaregiverID: $('[name="CaregiverID"]').val()
+                            });
+                            childDataSource.sync();
+                            navigator.notification.alert("Se ha registrado correctamente");
+						}                      
+                    },
+    				filter: { field: 'SOSChildID', operator: 'eq', value: $('[name="SOSChildID"]').val() }	
+    			});    
+                
+                searchChildDataSource.read();
 
             } else {
                 offlineChildDataSource.online(false);
@@ -693,57 +878,26 @@ var app; // store a reference to the application object that will be created  la
                 navigator.notification.alert("Se ha registrado correctamente en modo desconectado");
             }
          },
-         searchChildByCaregiver: function(){
-           if (!navigator.onLine) {
-                    navigator.notification.alert("No hay conexion a Internet");
-                    return;
-            }
-            var caregiverID = $("#ddlCuidador").val();
-            
-            var filters = [];
- 
-        	//http://www.telerik.com/forums/adding-filters-to-grid-s-source
-            filters = UpdateSearchFilters(filters, "CaregiverID", "eq", caregiverID, "and");        
-	        childDataSource.filter(filters);
-            
-            $("#list").kendoMobileListView({
-                dataSource: childDataSource,
-                template: "Nombres: #: FirstName #, Apellidos #: LastName # <a href='javascript:newSwitchTab(\"View\",\"#if (SOSChildID == null) {# #=''# #} else {##=SOSChildID##}#\", \"#if (FirstName == null) {# #=''# #} else {##=FirstName##}#\", \"#if (SurName == null) {# #=''# #} else {##=SurName##}#\", \"" + caregiverID + "\")'>Visualizar</a>"                
-            }); 
-         },
-         getChildItemByID: function(e){
-            var childID = e.view.params.id;
-            
-            if(childID == null)
-                return;
-            	
-            var childSearchDataSource = new kendo.data.DataSource({
-                    type: "everlive",
-                    transport: {
-                        typeName: "Child"
-                    },
-    				serverFiltering: true,
-    			filter: { field: 'SOSChildID', operator: 'eq', value: childID }	
-    		});    
-            
-            childSearchDataSource.fetch(function() {
-  				var entity = childSearchDataSource.at(0);
-  				$('[name="Birthdate"]').val(entity.get("Birthdate"));
-                $('[name="LastName"]').val(entity.get("LastName"));
-                $('[name="FirstName"]').val(entity.get("FirstName"));
-                $('[name="Trackings"]').val(entity.get("Trackings"));
-                $('[name="Exitdate"]').val(entity.get("Exitdate"));
-                $('[name="ExitReason"]').val(entity.get("ExitReason"));
-                $('[name="MotherLastName"]').val(entity.get("MotherLastName"));
-                $('[name="SOSChildID"]').val(entity.get("SOSChildID"));
-                $('[name="CaregiverID"]').val(entity.get("CaregiverID"));
-
-			});   
-         },
          viewChildSubmit: function(){
+            if(validateNullValues($('[name="FirstNameView"]').val()) == ""){
+                navigator.notification.alert("Los nombres son obligatorios");
+                return;
+        	}
+            
+            if(validateNullValues($('[name="LastNameView"]').val()) == ""){
+                navigator.notification.alert("Los apellidos son obligatorios");
+                return;
+        	}            
+        
+            if(validateNullValues($('[name="SOSChildIDView"]').val()) == "" && validateNullValues($('[name="SOSChildIDView"]').val()).length == 8){
+                navigator.notification.alert("El código de niño es obligatorio y ser de 8 caracteres");
+                return;
+        	}
+             
             if (navigator.onLine) 
             {
-                 var childDataSource = new kendo.data.DataSource({
+                 childDataSource.filter({});
+                 childDataSource = new kendo.data.DataSource({
                     type: "everlive",
                     transport: {
                         typeName: "Child"
@@ -754,15 +908,14 @@ var app; // store a reference to the application object that will be created  la
                 
                 childDataSource.fetch(function() {
   					var entity = childDataSource.at(0);
-                    entity.set("Birthdate ",$('[name="Birthdate"]').val());
-                    entity.set("LastName ",$('[name="LastName"]').val());
-                    entity.set("FirstName ",$('[name="FirstName"]').val());
-                    entity.set("Trackings ",$('[name="Trackings"]').val());
-                    entity.set("Exitdate ",$('[name="Exitdate"]').val());
-                    entity.set("ExitReason ",$('[name="ExitReason"]').val());
-                    entity.set("MotherLastName ",$('[name="MotherLastName"]').val());
-                    entity.set("SOSChildID ",$('[name="SOSChildID"]').val());
-                    entity.set("CaregiverID",$('[name="CaregiverID"]').val());
+                    entity.set("Birthdate ",$('[name="BirthdateView"]').val());
+                    entity.set("LastName ",$('[name="LastNameView"]').val());
+                    entity.set("FirstName ",$('[name="FirstNameView"]').val());
+                    entity.set("Exitdate ",$('[name="ExitdateView"]').val());
+                    entity.set("ExitReason ",$('[name="ExitReasonView"]').val());
+                    entity.set("MotherLastName ",$('[name="MotherLastNameView"]').val());
+                    entity.set("SOSChildID ",$('[name="SOSChildIDView"]').val());
+                    entity.set("CaregiverID",$('[name="CaregiverIDView"]').val());
                 });
                 
                 childDataSource.sync();
@@ -777,45 +930,19 @@ var app; // store a reference to the application object that will be created  la
                 
                 offlineChildDataSource.fetch(function() {
   					var entity = offlineChildDataSource.at(0);
-                    entity.set("Birthdate ",$('[name="Birthdate"]').val());
-                    entity.set("LastName ",$('[name="LastName"]').val());
-                    entity.set("FirstName ",$('[name="FirstName"]').val());
-                    entity.set("Trackings ",$('[name="Trackings"]').val());
-                    entity.set("Exitdate ",$('[name="Exitdate"]').val());
-                    entity.set("ExitReason ",$('[name="ExitReason"]').val());
-                    entity.set("MotherLastName ",$('[name="MotherLastName"]').val());
-                    entity.set("SOSChildID ",$('[name="SOSChildID"]').val());
-                    entity.set("CaregiverID",$('[name="CaregiverID"]').val());
+                    entity.set("Birthdate",$('[name="BirthdateView"]').val());
+                    entity.set("LastName",$('[name="LastNameView"]').val());
+                    entity.set("FirstName",$('[name="FirstNameView"]').val());
+                    entity.set("Exitdate",$('[name="ExitdateView"]').val());
+                    entity.set("ExitReason",$('[name="ExitReasonView"]').val());
+                    entity.set("MotherLastName",$('[name="MotherLastNameView"]').val());
+                    entity.set("SOSChildID",$('[name="SOSChildIDView"]').val());
+                    entity.set("CaregiverID",$('[name="CaregiverIDView"]').val());
                 });
                 
                 offlineChildDataSource.sync();
             }
-         },
-         getChildByID: function () {   
-                if (!navigator.onLine) {
-                    navigator.notification.alert("No hay conexion a Internet");
-                    return;
-                }
-             
-                $('[name="firstName"]').val("");
-                $('[name="surName"]').val("");
-
-                var childDataSources = new kendo.data.DataSource({
-                        type: "everlive",
-                        transport: {
-                            typeName: "Child"
-                        },
-                        serverFiltering: true,
-                        filter: { field: 'SOSChildID', operator: 'eq', value: $('[name="childID"]').val().trim() }
-                });    
-				
-                childDataSources.fetch(function() {
-                    var child = childDataSources.at(0);
-                    $('[name="childID"]').val(child.get("SOSChildID"));
-                    $('[name="firstName"]').val(child.get("FirstName"));
-                    $('[name="surName"]').val(child.get("LastName"));
-                });
-            }
+         }         
     });
 
     window.APP.models.tracking = kendo.observable({

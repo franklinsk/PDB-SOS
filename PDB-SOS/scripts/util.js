@@ -68,6 +68,45 @@ function newSwitchTab(type, SOSHouseID, address, name, programmeUnitID){
     	$('[name="btnBack' + type + 'House"]').show();
     	$('[name="btnSave' + type + 'House"]').show();
 }
+function newSwitchCaregiverTab(type, ID, name, surname, houseID){    	
+		var tabStrip = $("#tabstrip" + type + "Caregiver").data("kendoMobileTabStrip");
+    	//fails when try to filter by GUID, best option would be number or string        
+    	tabStrip.switchTo("#GeneralCaregiver" + type);
+    	app.navigate("#GeneralCaregiver" + type + "?id=" + ID, "slide");    	
+    
+    	var sufix = "View";
+    
+    	if(type=="Add")
+            sufix="";
+    
+    	$('[name="SOSHouseID' + sufix + '"]').val(houseID);
+        $('[name="FirstName' + sufix + '"]').val(name);
+        $('[name="LastName' + sufix + '"]').val(surname);    	    
+    	$('[name="CaregiverID' + sufix + '"]').val(ID);    	        	
+            
+    	$('[name="btnBack' + type + 'Caregiver"]').show();
+    	$('[name="btnSave' + type + 'Caregiver"]').show();
+}
+
+function newSwitchChildTab(type, ID, name, surname, caregiverID){    	
+		var tabStrip = $("#tabstrip" + type + "Child").data("kendoMobileTabStrip");
+    	//fails when try to filter by GUID, best option would be number or string        
+    	tabStrip.switchTo("#GeneralChild" + type);
+    	app.navigate("#GeneralChild" + type + "?id=" + ID, "slide");    	
+    
+    	var sufix = "View";
+    
+    	if(type=="Add")
+            sufix="";
+    
+    	$('[name="SOSChildID' + sufix + '"]').val(ID);
+        $('[name="FirstName' + sufix + '"]').val(name);
+        $('[name="LastName' + sufix + '"]').val(surname);    	    
+    	$('[name="CaregiverID' + sufix + '"]').val(caregiverID);    	        	
+            
+    	$('[name="btnBack' + type + 'Caregiver"]').show();
+    	$('[name="btnSave' + type + 'Caregiver"]').show();
+}
 
 function redirect(val){
     app.navigate("views/ViewTracking.html?id=" + val, "slide");    

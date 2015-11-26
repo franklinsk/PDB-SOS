@@ -1,9 +1,9 @@
-<div data-role="view" id="Child" data-title="Niño" data-layout="mobile-tabstrip" data-model="APP.models.child" data-show="APP.models.child.init">
+<div data-role="view" id="ChildView" data-title="Niño" data-layout="mobile-tabstrip" data-model="APP.models.child" data-show="APP.models.child.init">
     <form>
         <ul data-role="listview" data-style="inset">
             <li>
                 <label>Cuidador:
-                    <input id="ddlCuidador" name="ddlCuidador" />
+                    <input id="ddlCuidadorView" name="ddlCuidadorView" />
                 </label>
             </li>
             <li>
@@ -11,21 +11,21 @@
             </li>
         </ul>
     </form>
-    <ul id="list"></ul>
+    <ul id="listChild"></ul>
 </div>
-<div data-role="view" id="GeneralView" data-title="General" data-show="APP.models.child.getChildItemByID" data-layout="mobile-tabstrip" data-model="APP.models.child">
+<div data-role="view" id="GeneralChildView" data-title="General" data-show="APP.models.child.getChildItemByID" data-layout="mobile-tabstrip" data-model="APP.models.child">
     <form>
         <ul data-role="listview" data-style="inset" title="General">
-            <li><label>Código de Niño:<input type="text" name="SOSChildID" data-bind="value: SOSChildID"/>
+            <li><label>Código de Niño:<input type="text" name="SOSChildIDView" data-bind="value: SOSChildID"/>
                 <a data-role="button" data-icon="search" data-click="window.APP.models.child.getChildByID"></a></label></li>
-            <li><label>Nombres:<input type="text" name="FirstName" data-bind="value: FirstName"/></label></li>
-            <li><label>Apellidos:<input type="text" name="LastName" data-bind="value: LastName"/></label></li>
-            <li><label>Código:<input type="text" name="CaregiverID" data-bind="value: CaregiverID"></label></li>
-            <li><label>Fecha de Nacimiento:<input type="text" name="Birthdate" data-bind="value: Birthdate"/></label></li>
-            <li><label>Fecha de Salida:<input type="text" name="Exitdate" data-bind="value: Exitdate"/></label></li>
-            <li><label>Razón de Salida:<select name="ExitReason" data-bind="value: ExitReason"><option value="1">Adopción</option><option value="2">Fallecimiento</option>
+            <li><label>Nombres:<input type="text" name="FirstNameView" data-bind="value: FirstName"/></label></li>
+            <li><label>Apellidos:<input type="text" name="LastNameView" data-bind="value: LastName"/></label></li>
+            <li><label>Código:<input type="text" name="CaregiverIDView" data-bind="value: CaregiverID"></label></li>
+            <li><label>Fecha de Nacimiento:<input type="text" name="BirthdateView" data-bind="value: Birthdate"/></label></li>
+            <li><label>Fecha de Salida:<input type="text" name="ExitdateView" data-bind="value: Exitdate"/></label></li>
+            <li><label>Razón de Salida:<select name="ExitReasonView" data-bind="value: ExitReason"><option value="1">Adopción</option><option value="2">Fallecimiento</option>
 				<option value="3">Autosuficiencia</option><option value="4">Reintegración familiar</option></select></label></li>
-            <li><label>Apellido de la Madre:<input type="text" name="MotherLastName" data-bind="value: MotherLastName"/></label></li>
+            <li><label>Apellido de la Madre:<input type="text" name="MotherLastNameView" data-bind="value: MotherLastName"/></label></li>
         </ul>
     </form>
 </div>
@@ -39,8 +39,8 @@
     </header>
     <div data-role="footer">
         <div data-role="tabstrip" id="tabstripViewChild">
-            <a href="#Child" data-icon="search">Buscar</a>
-            <a href="#GeneralView" data-icon="globe">General</a>
+            <a href="#ChildView" data-icon="search">Buscar</a>
+            <a href="#GeneralChildView" data-icon="globe">General</a>
         </div>
     </div>
 </div>

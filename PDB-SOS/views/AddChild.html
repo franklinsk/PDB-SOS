@@ -1,4 +1,4 @@
-<div data-role="view" id="Child" data-title="Niño" data-layout="mobile-tabstrip" data-model="APP.models.child"  data-show="APP.models.child.init">
+<div data-role="view" id="ChildAdd" data-title="Niño" data-layout="mobile-tabstrip" data-model="APP.models.child"  data-show="APP.models.child.init">
     <form>
         <ul data-role="listview" data-style="inset">
             <li>
@@ -11,9 +11,8 @@
             </li>
         </ul>
     </form>
-    <ul id="list"></ul>
 </div>
-<div data-role="view" id="GeneralAdd" data-title="General" data-layout="mobile-tabstrip" data-model="APP.models.child">
+<div data-role="view" id="GeneralChildAdd" data-title="General" data-layout="mobile-tabstrip" data-model="APP.models.child">
     <form>
         <ul data-role="listview" data-style="inset" title="General">
             <li><label>Código de Niño:<input type="text" name="SOSChildID" data-bind="value: SOSChildID"/></label></li>
@@ -38,8 +37,8 @@
     </header>
     <div data-role="footer">
         <div data-role="tabstrip" id="tabstripAddChild">
-            <a href="#Child" data-icon="search">Buscar</a>
-            <a href="#GeneralAdd" data-icon="globe">General</a>
+            <a href="#ChildAdd" data-icon="search">Buscar</a>
+            <a href="#GeneralChildAdd" data-icon="globe">General</a>
         </div>
     </div>
 </div>

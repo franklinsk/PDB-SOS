@@ -1,4 +1,4 @@
-<div data-role="view" id="Caregiver" data-title="Cuidador" data-layout="mobile-tabstrip" data-model="APP.models.caregiver" data-show="APP.models.caregiver.init">
+<div data-role="view" id="CaregiverAdd" data-title="Cuidador" data-layout="mobile-tabstrip" data-model="APP.models.caregiver" data-show="APP.models.caregiver.init">
     <form>
         <ul data-role="listview" data-style="inset">
             <li>
@@ -13,7 +13,7 @@
     </form>
     <ul id="list"></ul>
 </div>
-<div data-role="view" id="GeneralAdd" data-title="General" data-layout="mobile-tabstrip" data-model="APP.models.caregiver">
+<div data-role="view" id="GeneralCaregiverAdd" data-title="General" data-layout="mobile-tabstrip" data-model="APP.models.caregiver">
     <form>
         <ul data-role="listview" data-style="inset" title="General">
             <li><label>Código de Cuidador:<input type="text" name="CaregiverID" data-bind="value: CaregiverID"/></label></li>
@@ -52,8 +52,8 @@
     </header>
     <div data-role="footer">
         <div data-role="tabstrip" id="tabstripAddCaregiver">
-            <a href="#Caregiver" data-icon="search">Buscar</a>
-            <a href="#GeneralAdd" data-icon="globe">General</a>
+            <a href="#CaregiverAdd" data-icon="search">Buscar</a>
+            <a href="#GeneralCaregiverAdd" data-icon="globe">General</a>
         </div>
     </div>
 </div>
