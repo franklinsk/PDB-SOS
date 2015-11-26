@@ -449,8 +449,8 @@ var app; // store a reference to the application object that will be created  la
 	        caregiverDataSource.filter(filters);
             
             var stringTemplate = "Nombres: #: FirstName #, Apellidos #: LastName # <a href='javascript:newSwitchCaregiverTab(\"View\",\"#if (CaregiverID == null) {# #=''# #} else {##=CaregiverID##}#\", \"#if (FirstName == null) {# #=''# #} else {##=FirstName##}#\", \"#if (LastName == null) {# #=''# #} else {##=LastName##}#\", \"" + houseID + "\")'>Visualizar</a>";                
-            var inactive = "#if (Status == null || Status != '1') {# <a href='javascript:optCaregiverTab(\"Reactivate\", \"#= CaregiverID #\")'>Reactivar</a> #}#";                
-            var active = "#if (Status != null && Status == '1') {# <a href='javascript:optCaregiverTab(\"Depart\", \"#= CaregiverID #\")'>Salida</a><a href='javascript:optCaregiverTab(\"Transfer\", \"#= CaregiverID #\")'>Transferencia</a> #}#";                
+            var inactive = "#if (Status == null || Status != '1') {# <a href='javascript:optEntityTab(\"Caregiver\",\"Reactivate\", \"#= CaregiverID #\")'>Reactivar</a> #}#";                
+            var active = "#if (Status != null && Status == '1') {# <a href='javascript:optEntityTab(\"Caregiver\",\"Depart\", \"#= CaregiverID #\")'>Salida</a><a href='javascript:optEntityTab(\"Caregiver\",\"Transfer\", \"#= CaregiverID #\")'>Transferencia</a> #}#";                
             stringTemplate = stringTemplate + inactive + active;            
              
             $("#listCaregiver").kendoMobileListView({
@@ -833,6 +833,13 @@ var app; // store a reference to the application object that will be created  la
                         dataValueField: "CaregiverID",
                         dataSource: cuidador
                     });
+             
+             $("#listChild").html("");
+             $('[name="btnDepartChild"]').hide();
+             $('[name="btnReactivateChild"]').hide();
+             $('[name="btnTransferChild"]').hide();    
+             $('[name="btnBackViewChild"]').hide();
+             $('[name="btnSaveViewChild"]').hide();
     	 },
          searchChildByCaregiver: function(){
            if (!navigator.onLine) {
@@ -848,9 +855,14 @@ var app; // store a reference to the application object that will be created  la
             filters = UpdateSearchFilters(filters, "CaregiverID", "eq", caregiverID, "and");        
 	        childDataSource.filter(filters);
             
+            var stringTemplate = "Nombres: #: FirstName #, Apellidos #: LastName # <a href='javascript:newSwitchChildTab(\"View\",\"#if (SOSChildID == null) {# #=''# #} else {##=SOSChildID##}#\", \"#if (FirstName == null) {# #=''# #} else {##=FirstName##}#\", \"#if (LastName == null) {# #=''# #} else {##=LastName##}#\", \"" + caregiverID + "\")'>Visualizar</a>";                
+            var inactive = "#if (Status == null || Status != '1') {# <a href='javascript:optEntityTab(\"Child\",\"Reactivate\", \"#= SOSChildID #\")'>Reactivar</a> #}#";                
+            var active = "#if (Status != null && Status == '1') {# <a href='javascript:optEntityTab(\"Child\", \"Depart\", \"#= SOSChildID #\")'>Salida</a><a href='javascript:optEntityTab(\"Child\",\"Transfer\", \"#= SOSChildID #\")'>Transferencia</a> #}#";                
+            stringTemplate = stringTemplate + inactive + active;            
+            
             $("#listChild").kendoMobileListView({
                 dataSource: childDataSource,
-                template: "Nombres: #: FirstName #, Apellidos #: LastName # <a href='javascript:newSwitchChildTab(\"View\",\"#if (SOSChildID == null) {# #=''# #} else {##=SOSChildID##}#\", \"#if (FirstName == null) {# #=''# #} else {##=FirstName##}#\", \"#if (LastName == null) {# #=''# #} else {##=LastName##}#\", \"" + caregiverID + "\")'>Visualizar</a>"                
+                template: stringTemplate                
             }); 
          },
          addCaregiverToChild: function(){
@@ -1053,7 +1065,136 @@ var app; // store a reference to the application object that will be created  la
                     offlineChildDataSource.sync();
                 });
             }
-         }         
+         },
+         departChildSubmit: function(){
+             	childDataSource.filter({});
+                childDataSource = new kendo.data.DataSource({
+                    type: "everlive",
+                    transport: {
+                        typeName: "Child"
+                    },
+    				serverFiltering: true,
+    				filter: { field: 'SOSChildID', operator: 'eq', value: $('[name="SOSChildIDView"]').val() }	
+    			});    
+                
+                childDataSource.fetch(function() {
+                    var entity = childDataSource.at(0);                    
+                    entity.set("Status","0");
+                    //entity.set("ExitChildReason",$('[name="ExitChildReason"]').val());
+                    childDataSource.sync();
+                	navigator.notification.alert("Se ha inactivado al niño correctamente");
+                });
+         },
+         reactivateChildSubmit: function(){
+             	childDataSource.filter({});
+                childDataSource = new kendo.data.DataSource({
+                    type: "everlive",
+                    transport: {
+                        typeName: "Child"
+                    },
+    				serverFiltering: true,
+    				filter: { field: 'SOSChildID', operator: 'eq', value: $('[name="ChildIDView"]').val() }	
+    			});    
+                
+                childDataSource.fetch(function() {
+                    var entity = childDataSource.at(0);                    
+                    entity.set("Status","1");
+                    //entity.set("ReentryChildReason",$('[name="ReentryChildReason"]').val());
+                    childDataSource.sync();
+                	navigator.notification.alert("Se ha reactivado al niño correctamente");
+                });
+         },
+         initChildTransfer: function(){
+             var programa = new kendo.data.DataSource({
+                    type: "everlive",
+                    transport: {
+                        typeName: "ProgrammeUnit"
+                    },
+    				serverFiltering: true,
+                    serverSorting: true,
+      				sort: { field: "Name", dir: "asc" }
+    		});               
+            
+             $("#ddlProgramaTransfer").kendoDropDownList({
+                        dataTextField: "Name",
+                        dataValueField: "ProgrammeUnitID",
+                        dataSource: programa
+             });
+             
+             $("#ddlProgramaChildTransfer").data("kendoDropDownList").bind("dataBound", function(e) {
+                this.trigger("change");    			
+			 });
+             
+             $("#ddlProgramaChildTransfer").data("kendoDropDownList").bind("change", function(){
+                var casa = new kendo.data.DataSource({
+                        type: "everlive",
+                        transport: {
+                            typeName: "House"
+                        },
+                        serverFiltering: true,
+                        serverSorting: true,
+                        sort: { field: "NameOrNumber", dir: "asc" },
+                        filter: { field: 'ProgrammeUnitID', operator: 'eq', value: $("#ddlProgramaChildTransfer").val() }	
+                });               
+
+                 $("#ddlCasaChildTransfer").kendoDropDownList({
+                            dataTextField: "NameOrNumber",
+                            dataValueField: "SOSHouseID",
+                            dataSource: casa
+                 }); 
+                 
+                 $("#ddlCasaChildTransfer").data("kendoDropDownList").bind("dataBound", function(e) {
+                    this.trigger("change");    			
+                 });
+                 
+                 $("#ddlCasaChildTransfer").data("kendoDropDownList").bind("change", function(){
+                    var cuidador = new kendo.data.DataSource({
+                            type: "everlive",
+                            transport: {
+                                typeName: "CareGiver"
+                            },
+                            serverFiltering: true,
+                            serverSorting: true,
+                            sort: { field: "LastName", dir: "asc" },
+                            filter: { field: 'SOSHouseID', operator: 'eq', value: $("#ddlCasaChildTransfer").val() }	
+                    });               
+
+                     $("#ddlCuidadorChildTransfer").kendoDropDownList({
+                                dataTextField: "LastName",
+                                dataValueField: "CareGiverID",
+                                dataSource: casa
+                     }); 
+
+                     $("#ddlCasaChildTransfer").data("kendoDropDownList").bind("dataBound", function(e) {
+                        this.trigger("change");    			
+                     });
+                 });
+             });
+         },
+         transferChildSubmit: function(){
+                if(validateNullValues($("#ddlCuidadorChildTransfer").val()) == ""){
+                    navigator.notification.alert("Debe seleccionar un cuidador");
+                    return;
+                }
+             
+             	childDataSource.filter({});
+                childDataSource = new kendo.data.DataSource({
+                    type: "everlive",
+                    transport: {
+                        typeName: "Child"
+                    },
+    				serverFiltering: true,
+    				filter: { field: 'SOSChildID', operator: 'eq', value: $('[name="SOSChildIDView"]').val() }	
+    			});    
+                
+                childDataSource.fetch(function() {
+                    var entity = childDataSource.at(0);                    
+                    entity.set("CaregiverID", $("#ddlCuidadorChildTransfer").val());
+                    //entity.set("TransferReason",$('[name="TransferReason"]').val());
+                    childDataSource.sync();
+                	navigator.notification.alert("Se ha transferido al niño correctamente");
+                });
+         }
     });
 
     window.APP.models.tracking = kendo.observable({

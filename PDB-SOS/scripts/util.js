@@ -105,6 +105,23 @@ function optCaregiverTab(type, ID){
     	$('[name="CaregiverIDView"]').val(ID);    	        	
 }
 
+function optEntityTab(entity, type, ID){    	
+		var tabStrip = $("#tabstripView" + entity).data("kendoMobileTabStrip");
+    	
+    	tabStrip.switchTo("#" + entity + type);
+    	app.navigate("#" + entity + type + "?id=" + ID, "slide");    	
+    
+    	$('[name="btnDepart' + entity + '"]').hide();
+        $('[name="btnReactivate' + entity + '"]').hide();
+        $('[name="btnTransfer' + entity + '"]').hide();    
+        $('[name="btnBackView' + entity + '"]').show();
+        $('[name="btnSaveView' + entity + '"]').hide();
+    
+        $('[name="btn' + type + entity + '"]').show();    
+    	$('[name="' + entity + 'IDView"]').val(ID);    	        	
+}
+
+
 function newSwitchChildTab(type, ID, name, surname, caregiverID){    	
 		var tabStrip = $("#tabstrip" + type + "Child").data("kendoMobileTabStrip");
     	//fails when try to filter by GUID, best option would be number or string        
