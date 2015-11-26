@@ -104,8 +104,8 @@ function newSwitchChildTab(type, ID, name, surname, caregiverID){
         $('[name="LastName' + sufix + '"]').val(surname);    	    
     	$('[name="CaregiverID' + sufix + '"]').val(caregiverID);    	        	
             
-    	$('[name="btnBack' + type + 'Caregiver"]').show();
-    	$('[name="btnSave' + type + 'Caregiver"]').show();
+    	$('[name="btnBack' + type + 'Child"]').show();
+    	$('[name="btnSave' + type + 'Child"]').show();
 }
 
 function redirect(val){

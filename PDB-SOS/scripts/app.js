@@ -257,7 +257,7 @@ var app; // store a reference to the application object that will be created  la
                 return;
         	}            
         
-            if(validateNullValues($('[name="SOSHouseID"]').val()) == "" && validateNullValues($('[name="SOSHouseID"]').val()).length == 8){
+            if(validateNullValues($('[name="SOSHouseID"]').val()) == "" || validateNullValues($('[name="SOSHouseID"]').val()).length != 8){
                 navigator.notification.alert("El código de hogar es obligatorio y ser de 8 caracteres");
                 return;
         	}
@@ -340,7 +340,7 @@ var app; // store a reference to the application object that will be created  la
                     return;
             }            
 
-            if(validateNullValues($('[name="SOSHouseIDView"]').val()) == "" && validateNullValues($('[name="SOSHouseIDView"]').val()).length == 8){
+            if(validateNullValues($('[name="SOSHouseIDView"]').val()) == "" || validateNullValues($('[name="SOSHouseIDView"]').val()).length != 8){
                     navigator.notification.alert("El código de hogar es obligatorio y ser de 8 caracteres");
                     return;
             }
@@ -538,7 +538,7 @@ var app; // store a reference to the application object that will be created  la
                 return;
         	}            
         
-            if(validateNullValues($('[name="CaregiverID"]').val()) == "" && validateNullValues($('[name="CaregiverID"]').val()).length == 8){
+            if(validateNullValues($('[name="CaregiverID"]').val()) == "" || validateNullValues($('[name="CaregiverID"]').val()).length != 8){
                 navigator.notification.alert("El código de cuidador es obligatorio y ser de 8 caracteres");
                 return;
         	}
@@ -624,7 +624,7 @@ var app; // store a reference to the application object that will be created  la
                 return;
         	}            
         
-            if(validateNullValues($('[name="CaregiverIDView"]').val()) == "" && validateNullValues($('[name="CaregiverIDView"]').val()).length == 8){
+            if(validateNullValues($('[name="CaregiverIDView"]').val()) == "" || validateNullValues($('[name="CaregiverIDView"]').val()).length != 8){
                 navigator.notification.alert("El código de cuidador es obligatorio y ser de 8 caracteres");
                 return;
         	}
@@ -735,9 +735,9 @@ var app; // store a reference to the application object that will be created  la
             filters = UpdateSearchFilters(filters, "CaregiverID", "eq", caregiverID, "and");        
 	        childDataSource.filter(filters);
             
-            $("#list").kendoMobileListView({
+            $("#listChild").kendoMobileListView({
                 dataSource: childDataSource,
-                template: "Nombres: #: FirstName #, Apellidos #: LastName # <a href='javascript:newSwitchTab(\"View\",\"#if (SOSChildID == null) {# #=''# #} else {##=SOSChildID##}#\", \"#if (FirstName == null) {# #=''# #} else {##=FirstName##}#\", \"#if (SurName == null) {# #=''# #} else {##=SurName##}#\", \"" + caregiverID + "\")'>Visualizar</a>"                
+                template: "Nombres: #: FirstName #, Apellidos #: LastName # <a href='javascript:newSwitchChildTab(\"View\",\"#if (SOSChildID == null) {# #=''# #} else {##=SOSChildID##}#\", \"#if (FirstName == null) {# #=''# #} else {##=FirstName##}#\", \"#if (LastName == null) {# #=''# #} else {##=LastName##}#\", \"" + caregiverID + "\")'>Visualizar</a>"                
             }); 
          },
          addCaregiverToChild: function(){
@@ -766,14 +766,15 @@ var app; // store a reference to the application object that will be created  la
             
             childDataSource.fetch(function() {
   				var entity = childDataSource.at(0);
-  				$('[name="Birthdate"]').val(kendo.toString(entity.get("Birthdate"), "yyyy-MM-dd"));
-                $('[name="LastName"]').val(entity.get("LastName"));
-                $('[name="FirstName"]').val(entity.get("FirstName"));
-                $('[name="Exitdate"]').val(kendo.toString(entity.get("Exitdate"), "yyyy-MM-dd"));
-                $('[name="ExitReason"]').val(entity.get("ExitReason"));
-                $('[name="MotherLastName"]').val(entity.get("MotherLastName"));
-                $('[name="SOSChildID"]').val(entity.get("SOSChildID"));
-                $('[name="CaregiverID"]').val(entity.get("CaregiverID"));
+                
+  				$('[name="BirthdateView"]').val(kendo.toString(entity.get("Birthdate"), "yyyy-MM-dd"));
+                $('[name="LastNameView"]').val(entity.get("LastName"));
+                $('[name="FirstNameView"]').val(entity.get("FirstName"));
+                $('[name="ExitdateView"]').val(kendo.toString(entity.get("Exitdate"), "yyyy-MM-dd"));
+                $('[name="ExitReasonView"]').val(entity.get("ExitReason"));
+                $('[name="MotherLastNameView"]').val(entity.get("MotherLastName"));
+                $('[name="SOSChildIDView"]').val(entity.get("SOSChildID"));
+                $('[name="CaregiverIDView"]').val(entity.get("CaregiverID"));
                 
                 /*if(entity.get("Status") == "1")                	
                     $('[name="StatusView"]').val("Activo");
@@ -820,7 +821,7 @@ var app; // store a reference to the application object that will be created  la
                 return;
         	}            
         
-            if(validateNullValues($('[name="SOSChildID"]').val()) == "" && validateNullValues($('[name="SOSChildID"]').val()).length == 8){
+            if(validateNullValues($('[name="SOSChildID"]').val()) == "" || validateNullValues($('[name="SOSChildID"]').val()).length != 8){
                 navigator.notification.alert("El código de niño es obligatorio y ser de 8 caracteres");
                 return;
         	}
@@ -888,7 +889,7 @@ var app; // store a reference to the application object that will be created  la
                 return;
         	}            
         
-            if(validateNullValues($('[name="SOSChildIDView"]').val()) == "" && validateNullValues($('[name="SOSChildIDView"]').val()).length == 8){
+            if(validateNullValues($('[name="SOSChildIDView"]').val()) == "" || validateNullValues($('[name="SOSChildIDView"]').val()).length != 8){
                 navigator.notification.alert("El código de niño es obligatorio y ser de 8 caracteres");
                 return;
         	}
