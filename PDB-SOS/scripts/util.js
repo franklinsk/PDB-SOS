@@ -120,8 +120,13 @@ function optEntityTab(entity, type, ID){
         $('[name="btnBackView' + entity + '"]').show();
         $('[name="btnSaveView' + entity + '"]').hide();
     
-        $('[name="btn' + type + entity + '"]').show();    
-    	$('[name="' + entity + 'IDView"]').val(ID);    	        	
+        $('[name="btn' + type + entity + '"]').show();   
+    
+    	var prefixSOS = "SOS";
+    	if(entity=="Caregiver")
+            prefixSOS = "";
+    
+    	$('[name="' + prefixSOS + entity + 'IDView"]').val(ID);    	        	
 }
 
 

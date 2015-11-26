@@ -6,6 +6,8 @@ var app; // store a reference to the application object that will be created  la
     //FoodMenuDataSource.filter({});
     //FoodMenuDataSource.filter({ field: "Level", operator: "eq", value: 3 });
     
+	//When you bind a property in a template and the property or value doesn't exist or is not declare, the app crashed
+    //When you bind a property in a dropdown and the property doesn't exist or is not declare, the app get the text value when you invoke
     
     //requireJS
     //https://github.com/FalafelSoftwareInc/quran-gateway-web
@@ -433,7 +435,7 @@ var app; // store a reference to the application object that will be created  la
                 	navigator.notification.alert("Se ha inactivado el hogar correctamente");
                 });
          },
-         reactivateHouseSubmit: function(){
+        reactivateHouseSubmit: function(){
              	houseDataSource.filter({});
                 houseDataSource = new kendo.data.DataSource({
                     type: "everlive",
@@ -778,7 +780,8 @@ var app; // store a reference to the application object that will be created  la
                 caregiverDataSource.fetch(function() {
                     var entity = caregiverDataSource.at(0);                    
                     entity.set("Status","0");
-                    //entity.set("ReentryReason",$('[name="ExitReason"]').val());
+                    entity.set("ExitReason",$('[name="ExitReason"]').val());
+                    entity.set("Exitdate",new Date().toJSON().slice(0,10));
                     caregiverDataSource.sync();
                 	navigator.notification.alert("Se ha inactivado el cuidador correctamente");
                 });
@@ -797,7 +800,8 @@ var app; // store a reference to the application object that will be created  la
                 caregiverDataSource.fetch(function() {
                     var entity = caregiverDataSource.at(0);                    
                     entity.set("Status","1");
-                    //entity.set("ReentryReason",$('[name="ReentryReason"]').val());
+                    entity.set("ReentryReason",$('[name="ReentryReason"]').val());
+                    entity.set("DateOfReentry",new Date().toJSON().slice(0,10));
                     caregiverDataSource.sync();
                 	navigator.notification.alert("Se ha reactivado el cuidador correctamente");
                 });
@@ -860,7 +864,8 @@ var app; // store a reference to the application object that will be created  la
                 caregiverDataSource.fetch(function() {
                     var entity = caregiverDataSource.at(0);                    
                     entity.set("SOSHouseID", $("#ddlCasaTransfer").val());
-                    //entity.set("TransferReason",$('[name="TransferReason"]').val());
+                    entity.set("TransferReason",$('[name="TransferReason"]').val());
+                    entity.set("DateOfTransfer",new Date().toJSON().slice(0,10));
                     caregiverDataSource.sync();
                 	navigator.notification.alert("Se ha transferido el cuidador correctamente");
                 });
@@ -915,7 +920,7 @@ var app; // store a reference to the application object that will be created  la
             var inactive = "#if (Status == null || Status != '1') {# <a href='javascript:optEntityTab(\"Child\",\"Reactivate\", \"#= SOSChildID #\")'>Reactivar</a> #}#";                
             var active = "#if (Status != null && Status == '1') {# <a href='javascript:optEntityTab(\"Child\", \"Depart\", \"#= SOSChildID #\")'>Salida</a><a href='javascript:optEntityTab(\"Child\",\"Transfer\", \"#= SOSChildID #\")'>Transferencia</a> #}#";                
             stringTemplate = stringTemplate + inactive + active;            
-            
+                         
             $("#listChild").kendoMobileListView({
                 dataSource: childDataSource,
                 template: stringTemplate,
@@ -1034,7 +1039,8 @@ var app; // store a reference to the application object that will be created  la
                                 ExitReason : $('[name="ExitReason"]').val(),
                                 MotherLastName : $('[name="MotherLastName"]').val(),
                                 SOSChildID : $('[name="SOSChildID"]').val(),
-                                CaregiverID: $('[name="CaregiverID"]').val()
+                                CaregiverID: $('[name="CaregiverID"]').val(),
+                                Status: "1"
                             });
                             childDataSource.sync();
                             navigator.notification.alert("Se ha registrado correctamente");
@@ -1057,7 +1063,8 @@ var app; // store a reference to the application object that will be created  la
                     ExitReason : $('[name="ExitReason"]').val(),
                     MotherLastName : $('[name="MotherLastName"]').val(),
                     SOSChildID : $('[name="SOSChildID"]').val(),
-                    CaregiverID: $('[name="CaregiverID"]').val()
+                    CaregiverID: $('[name="CaregiverID"]').val(),
+                    Status: "1"
                 });
                 offlineChildDataSource.sync();
                 navigator.notification.alert("Se ha registrado correctamente en modo desconectado");
@@ -1140,7 +1147,8 @@ var app; // store a reference to the application object that will be created  la
                 childDataSource.fetch(function() {
                     var entity = childDataSource.at(0);                    
                     entity.set("Status","0");
-                    //entity.set("ExitChildReason",$('[name="ExitChildReason"]').val());
+                    entity.set("ExitReason",$('[name="ExitReasonChild"]').val());
+                    entity.set("Exitdate",new Date().toJSON().slice(0,10));
                     childDataSource.sync();
                 	navigator.notification.alert("Se ha inactivado al niño correctamente");
                 });
@@ -1159,7 +1167,8 @@ var app; // store a reference to the application object that will be created  la
                 childDataSource.fetch(function() {
                     var entity = childDataSource.at(0);                    
                     entity.set("Status","1");
-                    //entity.set("ReentryChildReason",$('[name="ReentryChildReason"]').val());
+                    entity.set("ReentryReason",$('[name="ReentryReasonChild"]').val());
+                    entity.set("DateOfReentry",new Date().toJSON().slice(0,10));
                     childDataSource.sync();
                 	navigator.notification.alert("Se ha reactivado al niño correctamente");
                 });
@@ -1175,7 +1184,7 @@ var app; // store a reference to the application object that will be created  la
       				sort: { field: "Name", dir: "asc" }
     		});               
             
-             $("#ddlProgramaTransfer").kendoDropDownList({
+             $("#ddlProgramaChildTransfer").kendoDropDownList({
                         dataTextField: "Name",
                         dataValueField: "ProgrammeUnitID",
                         dataSource: programa
@@ -1221,13 +1230,13 @@ var app; // store a reference to the application object that will be created  la
 
                      $("#ddlCuidadorChildTransfer").kendoDropDownList({
                                 dataTextField: "LastName",
-                                dataValueField: "CareGiverID",
-                                dataSource: casa
+                                dataValueField: "CaregiverID",
+                                dataSource: cuidador
                      }); 
 
-                     $("#ddlCasaChildTransfer").data("kendoDropDownList").bind("dataBound", function(e) {
+                     /*$("#ddlCuidadorChildTransfer").data("kendoDropDownList").bind("dataBound", function(e) {
                         this.trigger("change");    			
-                     });
+                     });*/
                  });
              });
          },
@@ -1249,8 +1258,9 @@ var app; // store a reference to the application object that will be created  la
                 
                 childDataSource.fetch(function() {
                     var entity = childDataSource.at(0);                    
-                    entity.set("CaregiverID", $("#ddlCuidadorChildTransfer").val());
-                    //entity.set("TransferReason",$('[name="TransferReason"]').val());
+                    entity.set("CaregiverID", $('[name="ddlCuidadorChildTransfer"]').val());
+                    entity.set("TransferReason",$('[name="TransferReasonChild"]').val());
+                    entity.set("DateOfTransfer",new Date().toJSON().slice(0,10));
                     childDataSource.sync();
                 	navigator.notification.alert("Se ha transferido al niño correctamente");
                 });

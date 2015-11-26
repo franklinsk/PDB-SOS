@@ -34,7 +34,7 @@
         <ul data-role="listview" data-style="inset">
             <li>
                 <label>Motivo de Salida:
-                <input type="input" name="ExitChildReason" data-bind="value: ExitChildReason"/></label>
+                <input type="input" name="ExitReasonChild" data-bind="value: ExitReason"/></label>
             </li>
         </ul>
     </form>
@@ -44,12 +44,12 @@
         <ul data-role="listview" data-style="inset">            
             <li>
                 <label>Motivo de Reingreso:
-                <input type="input" name="ReentryChildReason" data-bind="value: ReentryChildReason"/></label>
+                <input type="input" name="ReentryReasonChild" data-bind="value: ReentryReason"/></label>
             </li>
         </ul>
     </form>
 </div>
-<div data-role="view" id="ChildTransfer" data-title="Transferencia" data-layout="mobile-tabstrip" data-model="APP.models.child" style="display:none"  data-show="APP.models.caregiver.initChildTransfer">
+<div data-role="view" id="ChildTransfer" data-title="Transferencia" data-layout="mobile-tabstrip" data-model="APP.models.child" style="display:none"  data-show="APP.models.child.initChildTransfer">
     <form>
         <ul data-role="listview" data-style="inset">            
             <li>
@@ -69,7 +69,7 @@
             </li>
             <li>
                 <label>Motivo de Transferencia:
-                <input type="input" name="TransferChildReason" data-bind="value: TransferChildReason"/></label>
+                <input type="input" name="TransferReasonChild" data-bind="value: TransferReason"/></label>
             </li>            
         </ul>
     </form>
