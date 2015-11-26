@@ -1,9 +1,9 @@
-<div data-role="view" id="Casa" data-title="Casa" data-layout="mobile-tabstrip" data-model="APP.models.house" data-show="APP.models.house.init">
+<div data-role="view" id="CasaView" data-title="Casa" data-layout="mobile-tabstrip" data-model="APP.models.house" data-show="APP.models.house.init">
     <form>
         <ul data-role="listview" data-style="inset">
             <li>
                 <label>Programa:
-                    <input id="ddlProgramma" name="ddlProgramma"/>   
+                    <input id="ddlProgrammaView" name="ddlProgrammaView"/>                                    
                 </label>
             </li>
             <li>
@@ -11,60 +11,61 @@
             </li>
         </ul>
     </form>
-    <ul id="list"></ul>
+    <ul id="listHouse"></ul>
 </div>
 <div data-role="view" id="GeneralView" data-title="General" data-show="APP.models.house.getHouseItemByID" data-layout="mobile-tabstrip" data-model="APP.models.house">
-    <form>
+    <form id="formViewHouse">
+        <!--<div id="errors"></div>-->
         <ul data-role="listview" data-style="inset" title="General">
             <li>
                 <label>Código:                    
-                    <input type="text" name="SOSHouseID" data-bind="value: SOSHouseID">
+                    <input type="text" name="SOSHouseIDView" data-bind="value: SOSHouseID">
                     <a data-role="button" data-icon="search" data-click="window.APP.models.house.getHouseByID"></a>
                 </label>
             </li>
             <li>
                 <label>Nombre:
-                    <input type="text" name="houseName" data-bind="value: houseName">
+                    <input type="text" name="NameOrNumberView" data-bind="value: NameOrNumber">
                 </label>
             </li>
             <li>
                 <label>Dirección:
-                    <input type="text" name="address" data-bind="value: address">
+                    <input type="text" name="AddressView" data-bind="value: Address">
                 </label>
             </li>
             <li>
                 <label>Programma:
-                    <input type="text" name="programmeUnitID" data-bind="value: programmeUnitID" readonly>
+                    <input type="text" name="ProgrammeUnitIDView" data-bind="value: ProgrammeUnitID" readonly>
                 </label>
             </li>
             <li>
                 <label>Fecha de Inicio:
-                    <input type="date" name="DateOfStart" data-bind="value: DateOfStart">
+                    <input type="date" name="DateOfStartView" data-bind="value: DateOfStart">
                 </label>
             </li>
             <li>
                 <label>Capacidad Máxima:
-                    <input type="number" name="MaximunCapacity" data-bind="value: MaximunCapacity">
+                    <input type="number" name="MaximunCapacityView" data-bind="value: MaximunCapacity">
                 </label>
             </li>
             <li>
                 <label>Notas:
-                    <input type="text" name="Notes" data-bind="value: Notes">
+                    <input type="text" name="NotesView" data-bind="value: Notes">
                 </label>
             </li>
             <li>
                 <label>Número de Niños:
-                    <input type="number" name="NumberOfChildren" data-bind="value: NumberOfChildren">
+                    <input type="number" name="NumberOfChildrenView" data-bind="value: NumberOfChildren">
                 </label>
             </li>
             <li>
                 <label>Teléfono:
-                    <input type="text" name="PhoneNumber" data-bind="value: PhoneNumber">
+                    <input type="text" name="PhoneNumberView" data-bind="value: PhoneNumber">
                 </label>
             </li>
             <li>
                 <label>Estado:
-                    <input type="text" name="Status" data-bind="value: Status" readonly>
+                    <input type="text" name="StatusView" data-bind="value: Status" readonly>
                 </label>
             </li>
         </ul>
@@ -80,7 +81,7 @@
     </header>
     <div data-role="footer">
         <div data-role="tabstrip" id="tabstripViewHouse">
-            <a href="#Casa" data-icon="search">Buscar</a>
+            <a href="#CasaView" data-icon="search">Buscar</a>
             <a href="#GeneralView" data-icon="globe">General</a>
         </div>
     </div>

@@ -21,7 +21,8 @@ var app; // store a reference to the application object that will be created  la
                         model: {
                             id: "Id"
                         }
-                    }
+                    },
+        			serverFiltering: true
     });
     
     var caregiverDataSource = new kendo.data.DataSource({
@@ -33,7 +34,8 @@ var app; // store a reference to the application object that will be created  la
             model: {
                 id: "Id"
             }
-        }
+        },
+		serverFiltering: true
     });
     
     var childDataSource = new kendo.data.DataSource({
@@ -45,7 +47,8 @@ var app; // store a reference to the application object that will be created  la
             model: {
                 id: "Id"
             }
-        }
+        },
+		serverFiltering: true        
     });
     
     var trackingDataSource = new kendo.data.DataSource({
@@ -57,7 +60,8 @@ var app; // store a reference to the application object that will be created  la
             model: {
                 id: "Id"
             }
-        }
+        },
+		serverFiltering: true        
     });
 
     var offlineChildDataSource = new kendo.data.DataSource({  
@@ -118,6 +122,15 @@ var app; // store a reference to the application object that will be created  la
         models: { home: { title: 'Bienvenido!!!' } }
     };
     
+    window.APP.models.Reports = kendo.observable({
+        submit: function(){
+            alert("en implementacion");
+        },
+        submitFollow: function(){
+            alert("en implementacion");
+        }
+    });
+    
     window.APP.models.house = kendo.observable({
         init: function () {             
             var programa = new kendo.data.DataSource({
@@ -134,22 +147,29 @@ var app; // store a reference to the application object that will be created  la
                         dataTextField: "Name",
                         dataValueField: "ProgrammeUnitID",
                         dataSource: programa
-                    });
+             });
+             
+             $("#ddlProgrammaView").kendoDropDownList({
+                        dataTextField: "Name",
+                        dataValueField: "ProgrammeUnitID",
+                        dataSource: programa
+             });            
     	},
         searchHouseByProgrammeUnit: function(){
             if (!navigator.onLine) {
                     navigator.notification.alert("No hay conexion a Internet");
                     return;
             }
-            var programmeUnitID = $("#ddlProgramma").val();
             
+            var programmeUnitID = $("#ddlProgrammaView").val();
             var filters = [];
  
+            houseDataSource.filter({});
         	//http://www.telerik.com/forums/adding-filters-to-grid-s-source
             filters = UpdateSearchFilters(filters, "ProgrammeUnitID", "eq", programmeUnitID, "and");        
 	        houseDataSource.filter(filters);
             
-            $("#list").kendoMobileListView({
+            $("#listHouse").kendoMobileListView({
                 dataSource: houseDataSource,
                 template: "Casa: #: SOSHouseID #, Dirección #: Address # <a href='javascript:newSwitchTab(\"View\",\"#if (SOSHouseID == null) {# #=''# #} else {##=SOSHouseID##}#\", \"#if (Address == null) {# #=''# #} else {##=Address##}#\", \"#if (NameOrNumber == null) {# #=''# #} else {##=NameOrNumber##}#\", \"" + programmeUnitID + "\")'>Visualizar</a>"                
             });
@@ -168,7 +188,7 @@ var app; // store a reference to the application object that will be created  la
             if(houseID == null)
                 return;
             	
-            var houseSearchDataSource = new kendo.data.DataSource({
+            houseDataSource = new kendo.data.DataSource({
                     type: "everlive",
                     transport: {
                         typeName: "House"
@@ -177,60 +197,105 @@ var app; // store a reference to the application object that will be created  la
     			filter: { field: 'SOSHouseID', operator: 'eq', value: houseID }	
     		});    
             
-            houseSearchDataSource.fetch(function() {
-  				var entity = houseSearchDataSource.at(0);
-  				$('[name="Address"]').val(entity.get("Address"));
-                $('[name="DateOfStart"]').val(entity.get("DateOfStart"));
-                $('[name="MaximunCapacity"]').val(entity.get("MaximunCapacity"));
-                $('[name="NameOrNumber"]').val(entity.get("NameOrNumber"));
-                $('[name="Notes"]').val(entity.get("Notes"));
-                $('[name="NumberOfChildren"]').val(entity.get("NumberOfChildren"));
-                $('[name="PhoneNumber"]').val(entity.get("PhoneNumber"));
-                $('[name="ProgrammeUnitID"]').val(entity.get("ProgrammeUnitID"));
-                $('[name="SOSHouseID"]').val(entity.get("SOSHouseID"));
-                $('[name="Status"]').val(entity.get("Status"));
-			});   
-         },
+            houseDataSource.fetch(function() {
+  				var entity = houseDataSource.at(0);
+  				$('[name="AddressView"]').val(entity.get("Address"));
+                $('[name="DateOfStartView"]').val(entity.get("DateOfStart"));
+                $('[name="MaximunCapacityView"]').val(entity.get("MaximunCapacity"));
+                $('[name="NameOrNumberView"]').val(entity.get("NameOrNumber"));
+                $('[name="NotesView"]').val(entity.get("Notes"));
+                $('[name="NumberOfChildrenView"]').val(entity.get("NumberOfChildren"));
+                $('[name="PhoneNumberView"]').val(entity.get("PhoneNumber"));
+                $('[name="ProgrammeUnitIDView"]').val(entity.get("ProgrammeUnitID"));
+                $('[name="SOSHouseIDView"]').val(entity.get("SOSHouseID"));
+                
+                //$('[name="StatusView"]').val(entity.get("Status"));
+                
+                if(entity.get("Status") == "1")                	
+                    $('[name="StatusView"]').val("Activo");
+                else
+                	$('[name="StatusView"]').val("Inactivo");
+			}); 
+            
+            houseDataSource.filter({});
+        },
         getHouseByID: function () { 
             if (!navigator.onLine) {
                     navigator.notification.alert("No hay conexion a Internet");
                     return;
                 }
              
-                $('[name="NameOrNumber"]').val("");
+                $('[name="NameOrNumberView"]').val("");
 
-                var houseDataSources = new kendo.data.DataSource({
+                houseDataSource = new kendo.data.DataSource({
                         type: "everlive",
                         transport: {
                             typeName: "House"
                         },
                         serverFiltering: true,
-                        filter: { field: 'SOSHouseID', operator: 'eq', value: $('[name="SOSHouseID"]').val().trim() }
+                        filter: { field: 'SOSHouseID', operator: 'eq', value: $('[name="SOSHouseIDView"]').val().trim() }
                 });    
 				
-                houseDataSources.fetch(function() {
-                    var entity = houseDataSources.at(0);
-                    $('[name="SOSHouseID"]').val(entity.get("SOSHouseID"));
-                    $('[name="NameOrNumber"]').val(entity.get("NameOrNumber "));
+                houseDataSource.fetch(function() {
+                    var entity = houseDataSource.at(0);
+                    $('[name="SOSHouseIDView"]').val(entity.get("SOSHouseID"));
+                    $('[name="NameOrNumberView"]').val(entity.get("NameOrNumber"));
                 });
+            
+            	houseDataSource.filter({});
     	},
         addHouseSubmit: function () { 
+            if(validateNullValues($('[name="Address"]').val()) == ""){
+                navigator.notification.alert("La dirección es obligatoria");
+                return;
+        	}
+            
+            if(validateNullValues($('[name="NameOrNumber"]').val()) == ""){
+                navigator.notification.alert("El nombre de hogar es obligatorio");
+                return;
+        	}            
+        
+            if(validateNullValues($('[name="SOSHouseID"]').val()) == "" && validateNullValues($('[name="SOSHouseID"]').val()).length == 8){
+                navigator.notification.alert("El código de hogar es obligatorio y ser de 8 caracteres");
+                return;
+        	}
+            
             if (navigator.onLine) 
             {
-                houseDataSource.add({
-                    Address : $('[name="Address"]').val(),
-                    DateOfStart : $('[name="DateOfStart"]').val(),
-                    MaximunCapacity : $('[name="MaximunCapacity"]').val(),
-                    NameOrNumber : $('[name="NameOrNumber"]').val(),
-                    Notes : $('[name="Notes"]').val(),
-                    NumberOfChildren : $('[name="NumberOfChildren"]').val(),
-                    PhoneNumber : $('[name="PhoneNumber"]').val(),
-                    ProgrammeUnitID : $('[name="ProgrammeUnitID"]').val(),
-                    SOSHouseID : $('[name="SOSHouseID"]').val(),
-                    Status: $('[name="Status"]').val()
-                });
-                houseDataSource.sync();
-                navigator.notification.alert("Se ha registrado correctamente");
+                var searchHouseDataSource = new kendo.data.DataSource({
+                    type: "everlive",
+                    transport: {
+                        typeName: "House"
+                    },
+    				serverFiltering: true,
+                    change: function(e) {
+                        var view = this.view();
+                                                
+                        if(view.length > 0){
+                            navigator.notification.alert("El código de hogar ya está registrado");                
+                            return;
+                        }else{
+                            houseDataSource.add({
+                                Address : $('[name="Address"]').val(),
+                                DateOfStart : $('[name="DateOfStart"]').val(),
+                                MaximunCapacity : $('[name="MaximunCapacity"]').val(),
+                                NameOrNumber : $('[name="NameOrNumber"]').val(),
+                                Notes : $('[name="Notes"]').val(),
+                                NumberOfChildren : $('[name="NumberOfChildren"]').val(),
+                                PhoneNumber : $('[name="PhoneNumber"]').val(),
+                                ProgrammeUnitID : $('[name="ProgrammeUnitID"]').val(),
+                                SOSHouseID : $('[name="SOSHouseID"]').val(),
+                                Status: "1"
+                                //Status: $('[name="Status"]').val()
+                            });
+                            houseDataSource.sync();
+                            navigator.notification.alert("Se ha registrado correctamente");            
+                        }                      
+                    },
+    				filter: { field: 'SOSHouseID', operator: 'eq', value: $('[name="SOSHouseID"]').val() }	
+    			});    
+                
+                searchHouseDataSource.read();
                 
             } else {
                 offlineHouseDataSource.online(false);
@@ -244,8 +309,8 @@ var app; // store a reference to the application object that will be created  la
                     NumberOfChildren : $('[name="NumberOfChildren"]').val(),
                     PhoneNumber : $('[name="PhoneNumber"]').val(),
                     ProgrammeUnitID : $('[name="ProgrammeUnitID"]').val(),
-                    SOSHouseID : $('[name="SOSHouseID"]').val(),
-                    Status: $('[name="Status"]').val()
+                    SOSHouseID : $('[name="SOSHouseID"]').val(),                    
+                    Status: "1"
                 });
                 
                 offlineHouseDataSource.sync();
@@ -253,61 +318,106 @@ var app; // store a reference to the application object that will be created  la
             }
     	},
         viewHouseSubmit: function(){
+            //http://docs.telerik.com/kendo-ui/api/javascript/ui/validator
+            //In the tag control  add: required data-required-msg="Fecha de inicio es mandatorio"
+            /*var validatable = $("#formViewHouse").kendoValidator().data("kendoValidator");            
+            if (validatable.validate() === false) {
+                var errors = validatable.errors();
+                $(errors).each(function() {
+                  $("#errors").html(this);
+                });
+                return;
+            }*/
+            
             if (navigator.onLine) 
             {
-                 var houseDataSource = new kendo.data.DataSource({
+                 if(validateNullValues($('[name="AddressView"]').val()) == ""){
+                    navigator.notification.alert("La dirección es obligatoria");
+                    return;
+                 }
+
+                 if(validateNullValues($('[name="NameOrNumberView"]').val()) == ""){
+                    navigator.notification.alert("El nombre de hogar es obligatorio");
+                    return;
+                 }            
+
+                 if(validateNullValues($('[name="SOSHouseIDView"]').val()) == "" && validateNullValues($('[name="SOSHouseIDView"]').val()).length == 8){
+                    navigator.notification.alert("El código de hogar es obligatorio y ser de 8 caracteres");
+                    return;
+                 }
+
+                 houseDataSource = new kendo.data.DataSource({
                     type: "everlive",
                     transport: {
                         typeName: "House"
                     },
     				serverFiltering: true,
-    				filter: { field: 'SOSHouseID', operator: 'eq', value: $('[name="SOSHouseID"]').val() }	
+    				filter: { field: 'SOSHouseID', operator: 'eq', value: $('[name="SOSHouseIDView"]').val() }	
     			});    
                 
                 houseDataSource.fetch(function() {
-  					var entity = houseDataSource.at(0);
-                    entity.set("Address ",$('[name="Address"]').val());
-                    entity.set("DateOfStart ",$('[name="DateOfStart"]').val());
-                    entity.set("MaximunCapacity ",$('[name="MaximunCapacity"]').val());
-                    entity.set("NameOrNumber ",$('[name="NameOrNumber"]').val());
-                    entity.set("Notes ",$('[name="Notes"]').val());
-                    entity.set("NumberOfChildren ",$('[name="NumberOfChildren"]').val());
-                    entity.set("PhoneNumber ",$('[name="PhoneNumber"]').val());
-                    entity.set("ProgrammeUnitID ",$('[name="ProgrammeUnitID"]').val());
-                    entity.set("SOSHouseID ",$('[name="SOSHouseID"]').val());
-                    entity.set("Status",$('[name="Status"]').val());
+                    var entity = houseDataSource.at(0);
+                    entity.set("Address",$('[name="AddressView"]').val());
+                    entity.set("DateOfStart",$('[name="DateOfStartView"]').val());
+                    entity.set("MaximunCapacity",$('[name="MaximunCapacityView"]').val());
+                    entity.set("NameOrNumber",$('[name="NameOrNumberView"]').val());
+                    entity.set("Notes",$('[name="NotesView"]').val());
+                    entity.set("NumberOfChildren",$('[name="NumberOfChildrenView"]').val());
+                    entity.set("PhoneNumber",$('[name="PhoneNumberView"]').val());
+                    entity.set("ProgrammeUnitID",$('[name="ProgrammeUnitIDView"]').val());
+                    entity.set("SOSHouseID",$('[name="SOSHouseIDView"]').val());
+                    //entity.set("Status","1");
+                    //entity.set("Status",$('[name="StatusView"]').val());
+                    houseDataSource.sync();                	
+                    navigator.notification.alert("Se ha registrado correctamente");
                 });
                 
-                houseDataSource.sync();
-                navigator.notification.alert("Se ha registrado correctamente");
+                houseDataSource.filter({});
                 
             } else {
                 offlineHouseDataSource.online(false);
                 
                 var filters = [];
- 				filters = UpdateSearchFilters(filters, "SOSHouseID", "eq", $('[name="SOSHouseID"]').val(), "and");        
+ 				filters = UpdateSearchFilters(filters, "SOSHouseID", "eq", $('[name="SOSHouseIDView"]').val(), "and");        
                 offlineHouseDataSource.filter(filters);
                 
                 offlineHouseDataSource.fetch(function() {
   					var entity = offlineHouseDataSource.at(0);
-                    entity.set("Address ",$('[name="Address"]').val());
-                    entity.set("DateOfStart ",$('[name="DateOfStart"]').val());
-                    entity.set("MaximunCapacity ",$('[name="MaximunCapacity"]').val());
-                    entity.set("NameOrNumber ",$('[name="NameOrNumber"]').val());
-                    entity.set("Notes ",$('[name="Notes"]').val());
-                    entity.set("NumberOfChildren ",$('[name="NumberOfChildren"]').val());
-                    entity.set("PhoneNumber ",$('[name="PhoneNumber"]').val());
-                    entity.set("ProgrammeUnitID ",$('[name="ProgrammeUnitID"]').val());
-                    entity.set("SOSHouseID ",$('[name="SOSHouseID"]').val());
-                    entity.set("Status",$('[name="Status"]').val());
+                    entity.set("Address",$('[name="AddressView"]').val());
+                    entity.set("DateOfStart",$('[name="DateOfStartView"]').val());
+                    entity.set("MaximunCapacity",$('[name="MaximunCapacityView"]').val());
+                    entity.set("NameOrNumber",$('[name="NameOrNumberView"]').val());
+                    entity.set("Notes",$('[name="NotesView"]').val());
+                    entity.set("NumberOfChildren",$('[name="NumberOfChildrenView"]').val());
+                    entity.set("PhoneNumber",$('[name="PhoneNumberView"]').val());
+                    entity.set("ProgrammeUnitID",$('[name="ProgrammeUnitIDView"]').val());
+                    entity.set("SOSHouseID",$('[name="SOSHouseIDView"]').val());
+                    //entity.set("Status",$('[name="StatusView"]').val());
+                    offlineHouseDataSource.sync();
+                    navigator.notification.alert("Se ha registrado correctamente");
                 });
-                
-                offlineHouseDataSource.sync();
             }
         }
     });
     
     window.APP.models.caregiver = kendo.observable({
+         init: function () {             
+            var casa = new kendo.data.DataSource({
+                    type: "everlive",
+                    transport: {
+                        typeName: "House"
+                    },
+    				serverFiltering: true,
+                    serverSorting: true,
+      				sort: { field: "NameOrNumber", dir: "asc" }
+    		});               
+            
+             $("#ddlCasa").kendoDropDownList({
+                        dataTextField: "NameOrNumber",
+                        dataValueField: "SOSHouseID",
+                        dataSource: casa
+                    });
+    	 },
          searchCaregiverByHouse: function(){
             if (!navigator.onLine) {
                     navigator.notification.alert("No hay conexion a Internet");
@@ -523,6 +633,22 @@ var app; // store a reference to the application object that will be created  la
     });
     
     window.APP.models.child = kendo.observable({
+         init: function () {             
+            var cuidador = new kendo.data.DataSource({
+                    type: "everlive",
+                    transport: {
+                        typeName: "CareGiver"
+                    },
+    				serverFiltering: true,
+                    serverSorting: true,
+      				sort: { field: "LastName", dir: "asc" }
+    		});               
+             $("#ddlCuidador").kendoDropDownList({
+                        dataTextField: "LastName",
+                        dataValueField: "CaregiverID",
+                        dataSource: cuidador
+                    });
+    	 },
          addCaregiverToChild: function(){
             if (!navigator.onLine) {
                     navigator.notification.alert("No hay conexion a Internet");
@@ -1159,7 +1285,7 @@ var app; // store a reference to the application object that will be created  la
     // this function is called by Cordova when the application is loaded by the device
     document.addEventListener('deviceready', function () {
         navigator.splashscreen.hide(); // hide the splash screen as soon as the app is ready. otherwise  Cordova will wait 5 very long seconds to do it for you.
-
+		
         app = new kendo.mobile.Application(document.body, {
             skin: 'flat', // comment out the following line to get a UI which matches the look  and feel of the operating system
             initial: 'views/home.html' // the application needs to know which view to load first

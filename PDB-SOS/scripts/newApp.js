@@ -1,13 +1,13 @@
-define(function(require) {
+/*define(function(require) {
 	var kendoApp,
 	$ = require('jquery'),
 	kendo = require('kendo'),
 	kendoLayouts = {
-		service: require('views/service')
+		service: require('../scripts/service')
 	},
 	kendoViews = {
-		drawer: require('views/drawer'),
-		home: require('scripts/home')
+		drawer: require('../scripts/drawer'),
+		home: require('../scripts/home')
 	};
 
 	// Loop through all kendo layouts and views and spit their HTML into the BODY
@@ -30,7 +30,7 @@ define(function(require) {
 			onBeforeInit();
 
 			kendoApp = new kendo.mobile.Application(document.body, {
-				initial: 'home',
+				initial: 'home-view',
 				transition: 'slide'
 			});
 
@@ -40,4 +40,4 @@ define(function(require) {
 		layouts: kendoLayouts,
 		views: kendoViews
 	};
-});
+});*/

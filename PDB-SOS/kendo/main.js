@@ -1,8 +1,8 @@
-require.config({
+/*require.config({
     paths: {
-        jQuery: "kendo/js/jquery.min",
-        kendo: "kendo/js/kendo.mobile.min",
-        text: 'kendo/js/text'	
+        jQuery: "js/jquery.min",
+        kendo: "js/kendo.mobile.min",
+        text: 'js/text'	
     },
     shim: {
         jQuery: {
@@ -17,7 +17,7 @@ require.config({
 
 var app;
  
-require(['jquery', 'scripts/newApp'],
+require(['jquery', '../scripts/newApp'],
 	function($, application) {
 		app = application;
 
@@ -33,4 +33,4 @@ require(['jquery', 'scripts/newApp'],
 			}
 		});
 	}
-);
+);*/

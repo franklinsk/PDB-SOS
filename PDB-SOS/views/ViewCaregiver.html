@@ -1,9 +1,9 @@
-<div data-role="view" id="Caregiver" data-title="Cuidador" data-layout="mobile-tabstrip" data-model="APP.models.caregiver">
+<div data-role="view" id="Caregiver" data-title="Cuidador" data-layout="mobile-tabstrip" data-model="APP.models.caregiver" data-show="APP.models.caregiver.init">
     <form>
         <ul data-role="listview" data-style="inset">
             <li>
                 <label>Casa:
-                    <input id="ddlCasa" />
+                    <input id="ddlCasa"  name="ddlCasa"/>
                 </label>
             </li>
             <li>
@@ -13,7 +13,7 @@
     </form>
     <ul id="list"></ul>
 </div>
-<div data-role="view" id="GeneralView" data-title="General" data-show="APP.models.actions.getCaregiverItemByID" data-layout="mobile-tabstrip" data-model="APP.models.caregiver">
+<div data-role="view" id="GeneralView" data-title="General" data-show="APP.models.caregiver.getCaregiverItemByID" data-layout="mobile-tabstrip" data-model="APP.models.caregiver">
     <form>
         <ul data-role="listview" data-style="inset" title="General">
             <li><label>Código de Cuidador:<input type="text" name="CaregiverID" data-bind="value: CaregiverID"/>

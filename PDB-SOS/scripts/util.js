@@ -55,10 +55,15 @@ function newSwitchTab(type, SOSHouseID, address, name, programmeUnitID){
     	tabStrip.switchTo("#General" + type);
     	app.navigate("#General" + type + "?id=" + SOSHouseID, "slide");    	
     
-    	$('[name="SOSHouseID"]').val(SOSHouseID);
-        $('[name="NameOrNumber"]').val(name);
-        $('[name="Address"]').val(address);    	    
-    	$('[name="ProgrammeUnitID"]').val(programmeUnitID);    	        	
+    	var sufix = "View";
+    
+    	if(type=="Add")
+            sufix="";
+    
+    	$('[name="SOSHouseID' + sufix + '"]').val(SOSHouseID);
+        $('[name="NameOrNumber' + sufix + '"]').val(name);
+        $('[name="Address' + sufix + '"]').val(address);    	    
+    	$('[name="ProgrammeUnitID' + sufix + '"]').val(programmeUnitID);    	        	
             
     	$('[name="btnBack' + type + 'House"]').show();
     	$('[name="btnSave' + type + 'House"]').show();
