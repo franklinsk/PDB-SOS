@@ -171,7 +171,7 @@ var app; // store a reference to the application object that will be created  la
             
             var programmeUnitID = $("#ddlProgrammaView").val();
             var filters = [];
- 
+ 			
             houseDataSource.filter({});
         	//http://www.telerik.com/forums/adding-filters-to-grid-s-source
             filters = UpdateSearchFilters(filters, "ProgrammeUnitID", "eq", programmeUnitID, "and");        
@@ -180,6 +180,7 @@ var app; // store a reference to the application object that will be created  la
             var stringTemplate = "Casa: #: SOSHouseID #, Dirección #: Address # <a href='javascript:newSwitchTab(\"View\",\"#if (SOSHouseID == null) {# #=''# #} else {##=SOSHouseID##}#\", \"#if (Address == null) {# #=''# #} else {##=Address##}#\", \"#if (NameOrNumber == null) {# #=''# #} else {##=NameOrNumber##}#\", \"" + programmeUnitID + "\")'>Visualizar</a>";                
             var inactive = "#if (Status == null || Status != '1') {# <a href='javascript:optEntityTab(\"House\",\"Reactivate\", \"#= SOSHouseID #\")'>Reactivar</a> #}#";                
             var active = "#if (Status != null && Status == '1') {# <a href='javascript:optEntityTab(\"House\",\"Depart\", \"#= SOSHouseID #\")'>Salida</a> #}#";                
+            stringTemplate = stringTemplate + inactive + active;
             
             $("#listHouse").kendoMobileListView({
                 dataSource: houseDataSource,
