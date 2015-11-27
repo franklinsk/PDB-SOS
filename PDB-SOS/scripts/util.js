@@ -1,5 +1,10 @@
 var app; // store a reference to the application object that will be created  later on so that we can use it if need be
 
+function setRestrictions(){
+    $("input[type='date']").attr({'min':'1900-01-01', 'max':new Date().toJSON().split('T')[0]});
+	$("input[type='number']").attr({'min':'10', 'max':'20'});            
+}
+
 function GetComboBoxItemsAndConvertToJson(type) {
     var details = [];
            

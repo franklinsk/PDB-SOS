@@ -1,7 +1,7 @@
 var app; // store a reference to the application object that will be created  later on so that we can use it if need be
 
 (function () {
-	//remove filters in each search
+    //remove filters in each search
     //http://www.telerik.com/forums/remove-filters-from-data-source
     //FoodMenuDataSource.filter({});
     //FoodMenuDataSource.filter({ field: "Level", operator: "eq", value: 3 });
@@ -157,9 +157,11 @@ var app; // store a reference to the application object that will be created  la
     
     window.APP.models.house = kendo.observable({
         init: function () {
+            
+            setRestrictions();
             hideTabControls("House", "Add");
             hideTabControls("House", "View");
-            
+                        
             var programa = new kendo.data.DataSource({
                     type: "everlive",
                     transport: {
@@ -480,6 +482,7 @@ var app; // store a reference to the application object that will be created  la
     
     window.APP.models.caregiver = kendo.observable({
          init: function () {     
+            setRestrictions();
             hideTabControls("Caregiver", "Add");
             hideTabControls("Caregiver", "View");
              
@@ -592,7 +595,7 @@ var app; // store a reference to the application object that will be created  la
                 $('[name="TypeofFamilyView"]').val(entity.get("TypeofFamily"));
                 $('[name="NationalityView"]').val(entity.get("Nationality"));
                 $('[name="TypeOfCaregiverView"]').val(entity.get("TypeOfCaregiver"));
-                $('[name="PlannedRetirementDateView"]').val(entity.get("PlannedRetirementDate"));
+                $('[name="PlannedRetirementDateView"]').val(kendo.toString(entity.get("PlannedRetirementDate"), "yyyy-MM-dd"));
                 
                 if(entity.get("HasChildrenSiblings") == true) $('[name="HasChildrenSiblingsView"]').attr('checked', true);
                 $('[name="TypeOfSupportView"]').val(entity.get("TypeOfSupport"));
@@ -1007,6 +1010,7 @@ var app; // store a reference to the application object that will be created  la
     
     window.APP.models.child = kendo.observable({         
          init: function () {             
+            setRestrictions();
             hideTabControls("Child", "Add");
             hideTabControls("Child", "View");
              
@@ -1019,13 +1023,18 @@ var app; // store a reference to the application object that will be created  la
                     serverSorting: true,
       				sort: { field: "LastName", dir: "asc" }
     		});               
-             $("#ddlCuidador").kendoDropDownList({
+             $("#ddlCuidadorView").kendoDropDownList({
                         dataTextField: "LastName",
                         dataValueField: "CaregiverID",
                         dataSource: cuidador
                     });
              
-             $("#ddlCuidadorView").kendoDropDownList({
+             var filters = []; 
+             cuidador.filter({});
+             filters = UpdateSearchFilters(filters, "Status", "eq", "1", "and");        
+	         cuidador.filter(filters);
+             
+             $("#ddlCuidador").kendoDropDownList({
                         dataTextField: "LastName",
                         dataValueField: "CaregiverID",
                         dataSource: cuidador
@@ -1104,8 +1113,8 @@ var app; // store a reference to the application object that will be created  la
                 
                 if(entity.get("HasChildDevelopmentPlan") == true) $('[name="HasChildDevelopmentPlanView"]').attr('checked', true);
                 
-                $('[name="DateOfExpectedUpdateView"]').val(entity.get("DateOfExpectedUpdate"));
-                $('[name="DateOfStartView"]').val(entity.get("DateOfStart"));
+                $('[name="DateOfExpectedUpdateView"]').val(kendo.toString(entity.get("DateOfExpectedUpdate"), "yyyy-MM-dd"));
+                $('[name="DateOfStartView"]').val(kendo.toString(entity.get("DateOfStart"), "yyyy-MM-dd"));
                 $('[name="NationalityView"]').val(entity.get("Nationality"));
                 
                 if(entity.get("GoesToEducationalCenterSOS") == true) $('[name="GoesToEducationalCenterSOSView"]').attr('checked', true);                
@@ -1113,7 +1122,7 @@ var app; // store a reference to the application object that will be created  la
                 if(entity.get("CurrentEnrollment") == true) $('[name="CurrentEnrollmentView"]').attr('checked', true);
                 
                 $('[name="CurrentSchoolYearView"]').val(entity.get("CurrentSchoolYear"));
-                $('[name="DateOfLastMedicalControlView"]').val(entity.get("DateOfLastMedicalControl"));
+                $('[name="DateOfLastMedicalControlView"]').val(kendo.toString(entity.get("DateOfLastMedicalControl"), "yyyy-MM-dd"));
                 
                 if(entity.get("Disability") == true) $('[name="DisabilityView"]').attr('checked', true);
                 $('[name="NutritionalStatusView"]').val(entity.get("NutritionalStatus"));
@@ -1593,6 +1602,7 @@ var app; // store a reference to the application object that will be created  la
 
     window.APP.models.tracking = kendo.observable({
         init: function () {             
+            setRestrictions();
             hideTabControls("Follow", "Add");
             hideTabControls("Follow", "View");
              
