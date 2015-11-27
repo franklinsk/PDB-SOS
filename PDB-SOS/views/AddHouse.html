@@ -1,4 +1,4 @@
-<div data-role="view" id="CasaAdd" data-title="Casa" data-layout="mobile-tabstrip" data-model="APP.models.house" data-show="APP.models.house.init">
+<div data-role="view" id="HouseAdd" data-title="Casa" data-layout="mobile-tabstrip" data-model="APP.models.house" data-show="APP.models.house.init">
     <form>
         <ul data-role="listview" data-style="inset">
             <li>
@@ -13,7 +13,7 @@
     </form>
     <ul id="list"></ul>
 </div>
-<div data-role="view" id="GeneralAdd" data-title="General" data-layout="mobile-tabstrip" data-model="APP.models.house">
+<div data-role="view" id="GeneralHouseAdd" data-title="General" data-layout="mobile-tabstrip" data-model="APP.models.house">
     <form>
         <ul data-role="listview" data-style="inset" title="General">
             <li>
@@ -72,15 +72,15 @@
 <div data-role="layout" data-id="mobile-tabstrip" data-show="showDemoLayout">
     <header data-role="header">
         <div data-role="navbar">
-			<a  style="display:none" name="btnBackAddHouse" data-role="backbutton" data-align="left">Atrás</a>
+			<a  name="btnBackAddHouse" data-role="backbutton" data-align="left">Atrás</a>
             <span data-role="view-title"></span>
-            <a  style="display:none" name="btnBackAddHouse" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.house.addHouseSubmit">Guardar</a>                    
+            <a  name="btnSaveAddHouse" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.house.addHouseSubmit">Guardar</a>                    
         </div>
     </header>
     <div data-role="footer">
         <div data-role="tabstrip" id="tabstripAddHouse">
-            <a href="#CasaAdd" data-icon="search">Buscar</a>
-            <a href="#GeneralAdd" data-icon="globe">General</a>
+            <a href="#HouseAdd" data-icon="search">Buscar</a>
+            <a href="#GeneralHouseAdd" data-icon="globe">General</a>
         </div>
     </div>
 </div>

@@ -117,8 +117,6 @@ var app; // store a reference to the application object that will be created  la
             }
         }
     });
-
-    var childrenDataSource;
     
     window.APP = { // create an object to store the models for each view
         models: { home: { title: 'Bienvenido!!!' } }
@@ -158,7 +156,10 @@ var app; // store a reference to the application object that will be created  la
     });
     
     window.APP.models.house = kendo.observable({
-        init: function () {             
+        init: function () {
+            hideTabControls("House", "Add");
+            hideTabControls("House", "View");
+            
             var programa = new kendo.data.DataSource({
                     type: "everlive",
                     transport: {
@@ -182,10 +183,6 @@ var app; // store a reference to the application object that will be created  la
              });      
             
              $("#listHouse").html("");
-             $('[name="btnDepartHouse"]').hide();
-             $('[name="btnReactivateHouse"]').hide();
-             $('[name="btnBackViewHouse"]').hide();
-             $('[name="btnSaveViewHouse"]').hide(); 
     	},
         searchHouseByProgrammeUnit: function(){
             if (!navigator.onLine) {
@@ -201,9 +198,9 @@ var app; // store a reference to the application object that will be created  la
             filters = UpdateSearchFilters(filters, "ProgrammeUnitID", "eq", programmeUnitID, "and");        
 	        houseDataSource.filter(filters);
             
-            var stringTemplate = "Casa: #: SOSHouseID #, Dirección #: Address # <a href='javascript:newSwitchTab(\"View\",\"#if (SOSHouseID == null) {# #=''# #} else {##=SOSHouseID##}#\", \"#if (Address == null) {# #=''# #} else {##=Address##}#\", \"#if (NameOrNumber == null) {# #=''# #} else {##=NameOrNumber##}#\", \"" + programmeUnitID + "\")'>Visualizar</a>";                
-            var inactive = "#if (Status == null || Status != '1') {# <a href='javascript:optEntityTab(\"House\",\"Reactivate\", \"#= SOSHouseID #\")'>Reactivar</a> #}#";                
-            var active = "#if (Status != null && Status == '1') {# <a href='javascript:optEntityTab(\"House\",\"Depart\", \"#= SOSHouseID #\")'>Salida</a> #}#";                
+            var stringTemplate = "Casa: #: SOSHouseID #, Dirección #: Address # <a href='javascript:SwitchTab(\"House\",\"View\",\"#if (SOSHouseID == null) {# #=''# #} else {##=SOSHouseID##}#\", \"#if (Address == null) {# #=''# #} else {##=Address##}#\", \"#if (NameOrNumber == null) {# #=''# #} else {##=NameOrNumber##}#\", \"" + programmeUnitID + "\")'>Visualizar</a>";                
+            var inactive = " #if (Status == null || Status != '1') {# <a href='javascript:optEntityTab(\"House\",\"Reactivate\", \"#= SOSHouseID #\")'>Reactivar</a> #}#";                
+            var active = " #if (Status != null && Status == '1') {# <a href='javascript:optEntityTab(\"House\",\"Depart\", \"#= SOSHouseID #\")'>Salida</a> #}#";                
             stringTemplate = stringTemplate + inactive + active;
             
             $("#listHouse").kendoMobileListView({
@@ -221,7 +218,7 @@ var app; // store a reference to the application object that will be created  la
                     return;
             }
             var programmeUnitID = $("#ddlProgramma").val();
-            newSwitchTab("Add", "", "", "", programmeUnitID);              
+            SwitchTab("House", "Add", "", "", "", programmeUnitID);              
         },
         getHouseItemByID: function(e){
             var houseID = e.view.params.id;
@@ -483,6 +480,9 @@ var app; // store a reference to the application object that will be created  la
     
     window.APP.models.caregiver = kendo.observable({
          init: function () {     
+            hideTabControls("Caregiver", "Add");
+            hideTabControls("Caregiver", "View");
+             
             var casa = new kendo.data.DataSource({
                     type: "everlive",
                     transport: {
@@ -491,26 +491,26 @@ var app; // store a reference to the application object that will be created  la
     				serverFiltering: true,
                     serverSorting: true,
       				sort: { field: "NameOrNumber", dir: "asc" }
-    		});               
+    		 });               
             
-             $("#ddlCasa").kendoDropDownList({
-                        dataTextField: "NameOrNumber",
-                        dataValueField: "SOSHouseID",
-                        dataSource: casa
-                    });
-             
              $("#ddlCasaView").kendoDropDownList({
                         dataTextField: "NameOrNumber",
                         dataValueField: "SOSHouseID",
                         dataSource: casa
              });
              
+             var filters = []; 
+             casa.filter({});
+             filters = UpdateSearchFilters(filters, "Status", "eq", "1", "and");        
+	         casa.filter(filters);
+             
+             $("#ddlCasa").kendoDropDownList({
+                        dataTextField: "NameOrNumber",
+                        dataValueField: "SOSHouseID",
+                        dataSource: casa
+                    });
+             
              $("#listCaregiver").html("");
-             $('[name="btnDepartCaregiver"]').hide();
-             $('[name="btnReactivateCaregiver"]').hide();
-             $('[name="btnTransferCaregiver"]').hide();    
-             $('[name="btnBackViewCaregiver"]').hide();
-             $('[name="btnSaveViewCaregiver"]').hide();
     	 },
          searchCaregiverByHouse: function(){
              if (!navigator.onLine) {
@@ -527,9 +527,9 @@ var app; // store a reference to the application object that will be created  la
             filters = UpdateSearchFilters(filters, "SOSHouseID", "eq", houseID, "and");        
 	        caregiverDataSource.filter(filters);
             
-            var stringTemplate = "Nombres: #: FirstName #, Apellidos #: LastName # <a href='javascript:newSwitchCaregiverTab(\"View\",\"#if (CaregiverID == null) {# #=''# #} else {##=CaregiverID##}#\", \"#if (FirstName == null) {# #=''# #} else {##=FirstName##}#\", \"#if (LastName == null) {# #=''# #} else {##=LastName##}#\", \"" + houseID + "\")'>Visualizar</a>";                
-            var inactive = "#if (Status == null || Status != '1') {# <a href='javascript:optEntityTab(\"Caregiver\",\"Reactivate\", \"#= CaregiverID #\")'>Reactivar</a> #}#";                
-            var active = "#if (Status != null && Status == '1') {# <a href='javascript:optEntityTab(\"Caregiver\",\"Depart\", \"#= CaregiverID #\")'>Salida</a><a href='javascript:optEntityTab(\"Caregiver\",\"Transfer\", \"#= CaregiverID #\")'>Transferencia</a> #}#";                
+            var stringTemplate = "Nombres: #: FirstName #, Apellidos #: LastName # <a href='javascript:SwitchTab(\"Caregiver\",\"View\",\"#if (CaregiverID == null) {# #=''# #} else {##=CaregiverID##}#\", \"#if (FirstName == null) {# #=''# #} else {##=FirstName##}#\", \"#if (LastName == null) {# #=''# #} else {##=LastName##}#\", \"" + houseID + "\")'>Visualizar</a>";                
+            var inactive = " #if (Status == null || Status != '1') {# <a href='javascript:optEntityTab(\"Caregiver\",\"Reactivate\", \"#= CaregiverID #\")'>Reactivar</a> #}#";                
+            var active = " #if (Status != null && Status == '1') {# <a href='javascript:optEntityTab(\"Caregiver\",\"Depart\", \"#= CaregiverID #\")'>Salida</a> <a href='javascript:optEntityTab(\"Caregiver\",\"Transfer\", \"#= CaregiverID #\")'>Transferencia</a> #}#";                
             stringTemplate = stringTemplate + inactive + active;            
              
             $("#listCaregiver").kendoMobileListView({
@@ -547,7 +547,7 @@ var app; // store a reference to the application object that will be created  la
                     return;
             }
             var houseID = $("#ddlCasa").val();
-            newSwitchCaregiverTab("Add", "", "", "", houseID); 
+            SwitchTab("Caregiver", "Add", "", "", "", houseID); 
          },
          getCaregiverItemByID: function(e){
             var caregiverID = e.view.params.id;
@@ -569,15 +569,17 @@ var app; // store a reference to the application object that will be created  la
   				var entity = caregiverDataSource.at(0);
                 
   				$('[name="PhoneNumberView"]').val(entity.get("PhoneNumber"));
-                $('[name="SynchronizedView"]').val(entity.get("Synchronized"));
+                
+                if(entity.get("Synchronized") == true) $('[name="SynchronizedView"]').attr('checked', true);                
                 $('[name="DateOfStartView"]').val(kendo.toString(entity.get("DateOfStart"), "yyyy-MM-dd"));
                 $('[name="DateOfBirthView"]').val(kendo.toString(entity.get("DateOfBirth"), "yyyy-MM-dd"));
                 $('[name="LastNameView"]').val(entity.get("LastName"));
                 $('[name="FirstNameView"]').val(entity.get("FirstName"));
                 $('[name="DocumentNumberView"]').val(entity.get("DocumentNumber"));
                 $('[name="GenderView"]').val(entity.get("Gender"));
-                $('[name="ReceiveSpecialAttentionView"]').val(entity.get("ReceiveSpecialAttention"));
-                $('[name="IsLiterateView"]').val(entity.get("IsLiterate"));
+                
+                if(entity.get("ReceiveSpecialAttention") == true) $('[name="ReceiveSpecialAttentionView"]').attr('checked', true);
+                if(entity.get("IsLiterate") == true) $('[name="IsLiterateView"]').attr('checked', true);
                 $('[name="TotalIncomeView"]').val(entity.get("TotalIncome"));
                 $('[name="AddressView"]').val(entity.get("Address"));                
                 $('[name="DateOfLastHealthControlView"]').val(kendo.toString(entity.get("DateOfLastHealthControl"), "yyyy-MM-dd"));
@@ -586,7 +588,29 @@ var app; // store a reference to the application object that will be created  la
                 $('[name="CaregiverIDView"]').val(entity.get("CaregiverID"));
                 $('[name="SOSHouseIDView"]').val(entity.get("SOSHouseID"));
                 
-                //$('[name="StatusView"]').val(entity.get("Status"));
+                if(entity.get("HasDevelopmentPlan") == true) $('[name="HasDevelopmentPlanView"]').attr('checked', true);
+                $('[name="TypeofFamilyView"]').val(entity.get("TypeofFamily"));
+                $('[name="NationalityView"]').val(entity.get("Nationality"));
+                $('[name="TypeOfCaregiverView"]').val(entity.get("TypeOfCaregiver"));
+                $('[name="PlannedRetirementDateView"]').val(entity.get("PlannedRetirementDate"));
+                
+                if(entity.get("HasChildrenSiblings") == true) $('[name="HasChildrenSiblingsView"]').attr('checked', true);
+                $('[name="TypeOfSupportView"]').val(entity.get("TypeOfSupport"));
+                $('[name="ProfessionView"]').val(entity.get("Profession"));
+                $('[name="TrainingInSOSView"]').val(entity.get("TrainingInSOS"));
+                $('[name="FormalEducationalLevelView"]').val(entity.get("FormalEducationalLevel"));
+                $('[name="YearsOfFormalEducationView"]').val(entity.get("YearsOfFormalEducation"));
+                
+                if(entity.get("MedicalCare") == true) $('[name="MedicalCareView"]').attr('checked', true);
+                SetComboBoxItemsAndConvertJsonToArray(entity.get("TypeOfDisease"),"TypeOfDiseaseView");
+                SetComboBoxItemsAndConvertJsonToArray(entity.get("HousingAndLivingSupport"),"HousingAndLivingSupportView");
+                SetComboBoxItemsAndConvertJsonToArray(entity.get("FoodSupport"),"FoodSupportView");
+                SetComboBoxItemsAndConvertJsonToArray(entity.get("MedicalCareSupport"),"MedicalCareSupportView");
+                SetComboBoxItemsAndConvertJsonToArray(entity.get("PsychosocialSupport"),"PsychosocialSupportView");
+                SetComboBoxItemsAndConvertJsonToArray(entity.get("ChildCareAndParentSupport"),"ChildCareAndParentSupportView");
+                SetComboBoxItemsAndConvertJsonToArray(entity.get("LegalSupport"),"LegalSupportView");
+                SetComboBoxItemsAndConvertJsonToArray(entity.get("EconomicSupport"),"EconomicSupportView");
+
                 if(entity.get("Status") == "1")                	
                     $('[name="StatusView"]').val("Activo");
                 else
@@ -655,23 +679,43 @@ var app; // store a reference to the application object that will be created  la
                         }else{
                             caregiverDataSource.add({
                                 PhoneNumber : $('[name="PhoneNumber"]').val(),
-                                Synchronized : $('[name="Synchronized"]').val(),
+                                Synchronized : $('[name="Synchronized"]').is(":checked"),
                                 DateOfStart : $('[name="DateOfStart"]').val(),
                                 DateOfBirth : $('[name="DateOfBirth"]').val(),
                                 LastName : $('[name="LastName"]').val(),
                                 FirstName : $('[name="FirstName"]').val(),
                                 DocumentNumber : $('[name="DocumentNumber"]').val(),
                                 Gender : $('[name="Gender"]').val(),
-                                ReceiveSpecialAttention: $('[name="ReceiveSpecialAttention"]').val(),
-                                IsLiterate : $('[name="IsLiterate"]').val(),
+                                ReceiveSpecialAttention: $('[name="ReceiveSpecialAttention"]').is(":checked"),
+                                IsLiterate : $('[name="IsLiterate"]').is(":checked"),
                                 TotalIncome : $('[name="TotalIncome"]').val(),
                                 Address : $('[name="Address"]').val(),
-                                Status : $('[name="Status"]').val(),
                                 DateOfLastHealthControl : $('[name="DateOfLastHealthControl"]').val(),
                                 DateOfLastUpdateDevelopmentPlan : $('[name="DateOfLastUpdateDevelopmentPlan"]').val(),
                                 PlannedUpdateOfDevelopmentPlan : $('[name="PlannedUpdateOfDevelopmentPlan"]').val(),
                                 CaregiverID : $('[name="CaregiverID"]').val(),
-                                SOSHouseID: $('[name="SOSHouseID"]').val()
+                                SOSHouseID: $('[name="SOSHouseID"]').val(),
+                                HasDevelopmentPlan:$('[name="HasDevelopmentPlan"]').is(":checked"),
+                                TypeofFamily:$('[name="TypeofFamily"]').val(),
+                                Nationality:$('[name="Nationality"]').val(),
+                                TypeOfCaregiver:$('[name="TypeOfCaregiver"]').val(),
+                                PlannedRetirementDate:$('[name="PlannedRetirementDate"]').val(),
+                                HasChildrenSiblings:$('[name="HasChildrenSiblings"]').is(":checked"),
+                                TypeOfSupport:$('[name="TypeOfSupport"]').val(),
+                                Profession:$('[name="Profession"]').val(),
+                                TrainingInSOS:$('[name="TrainingInSOS"]').val(),
+                                FormalEducationalLevel:$('[name="FormalEducationalLevel"]').val(),
+                                YearsOfFormalEducation:$('[name="YearsOfFormalEducation"]').val(),
+                                MedicalCare:$('[name="MedicalCare"]').is(":checked"),
+                                TypeOfDisease:GetComboBoxItemsAndConvertToJson("TypeOfDisease"),
+                                HousingAndLivingSupport:GetComboBoxItemsAndConvertToJson("HousingAndLivingSupport"),
+                                FoodSupport:GetComboBoxItemsAndConvertToJson("FoodSupport"),
+                                MedicalCareSupport:GetComboBoxItemsAndConvertToJson("MedicalCareSupport"),
+                                PsychosocialSupport:GetComboBoxItemsAndConvertToJson("PsychosocialSupport"),
+                                ChildCareAndParentSupport:GetComboBoxItemsAndConvertToJson("ChildCareAndParentSupport"),
+                                LegalSupport:GetComboBoxItemsAndConvertToJson("LegalSupport"),
+                                EconomicSupport:GetComboBoxItemsAndConvertToJson("EconomicSupport"),
+                                Status: "1"
                             });
                             caregiverDataSource.sync();
                             navigator.notification.alert("Se ha registrado correctamente");            
@@ -693,16 +737,36 @@ var app; // store a reference to the application object that will be created  la
                     FirstName : $('[name="FirstName"]').val(),
                     DocumentNumber : $('[name="DocumentNumber"]').val(),
                     Gender : $('[name="Gender"]').val(),
-                    ReceiveSpecialAttention: $('[name="ReceiveSpecialAttention"]').val(),
-                    IsLiterate : $('[name="IsLiterate"]').val(),
+                    ReceiveSpecialAttention: $('[name="ReceiveSpecialAttention"]').is(":checked"),
+                    IsLiterate : $('[name="IsLiterate"]').is(":checked"),
                     TotalIncome : $('[name="TotalIncome"]').val(),
                     Address : $('[name="Address"]').val(),
-                    Status : $('[name="Status"]').val(),
                     DateOfLastHealthControl : $('[name="DateOfLastHealthControl"]').val(),
                     DateOfLastUpdateDevelopmentPlan : $('[name="DateOfLastUpdateDevelopmentPlan"]').val(),
                     PlannedUpdateOfDevelopmentPlan : $('[name="PlannedUpdateOfDevelopmentPlan"]').val(),
                     CaregiverID : $('[name="CaregiverID"]').val(),
-                    SOSHouseID: $('[name="SOSHouseID"]').val()
+                    SOSHouseID: $('[name="SOSHouseID"]').val(),
+                    HasDevelopmentPlan:$('[name="HasDevelopmentPlan"]').is(":checked"),
+                    TypeofFamily:$('[name="TypeofFamily"]').val(),
+                    Nationality:$('[name="Nationality"]').val(),
+                    TypeOfCaregiver:$('[name="TypeOfCaregiver"]').val(),
+                    PlannedRetirementDate:$('[name="PlannedRetirementDate"]').val(),
+                    HasChildrenSiblings:$('[name="HasChildrenSiblings"]').is(":checked"),
+                    TypeOfSupport:$('[name="TypeOfSupport"]').val(),
+                    Profession:$('[name="Profession"]').val(),
+                    TrainingInSOS:$('[name="TrainingInSOS"]').val(),
+                    FormalEducationalLevel:$('[name="FormalEducationalLevel"]').val(),
+                    YearsOfFormalEducation:$('[name="YearsOfFormalEducation"]').val(),
+                    MedicalCare:$('[name="MedicalCare"]').is(":checked"),
+                    TypeOfDisease:GetComboBoxItemsAndConvertToJson("TypeOfDisease"),
+                    HousingAndLivingSupport:GetComboBoxItemsAndConvertToJson("HousingAndLivingSupport"),
+                    FoodSupport:GetComboBoxItemsAndConvertToJson("FoodSupport"),
+                    MedicalCareSupport:GetComboBoxItemsAndConvertToJson("MedicalCareSupport"),
+                    PsychosocialSupport:GetComboBoxItemsAndConvertToJson("PsychosocialSupport"),
+                    ChildCareAndParentSupport:GetComboBoxItemsAndConvertToJson("ChildCareAndParentSupport"),
+                    LegalSupport:GetComboBoxItemsAndConvertToJson("LegalSupport"),
+                    EconomicSupport:GetComboBoxItemsAndConvertToJson("EconomicSupport"),
+                    Status: "1"
                 });
                 offlineCaregiverDataSource.sync();
                 navigator.notification.alert("Se ha registrado correctamente en modo desconectado");
@@ -739,15 +803,15 @@ var app; // store a reference to the application object that will be created  la
                 caregiverDataSource.fetch(function() {
                     var entity = caregiverDataSource.at(0);                    
                     entity.set("PhoneNumber",$('[name="PhoneNumberView"]').val());
-                    entity.set("Synchronized",$('[name="SynchronizedView"]').val());
+                    entity.set("Synchronized",$('[name="SynchronizedView"]').is(":checked"));
                     entity.set("DateOfStart",$('[name="DateOfStartView"]').val());
                     entity.set("DateOfBirth",$('[name="DateOfBirthView"]').val());
                     entity.set("LastName",$('[name="LastNameView"]').val());
                     entity.set("FirstName",$('[name="FirstNameView"]').val());
                     entity.set("DocumentNumber",$('[name="DocumentNumberView"]').val());
                     entity.set("Gender",$('[name="GenderView"]').val());
-                    entity.set("ReceiveSpecialAttention",$('[name="ReceiveSpecialAttentionView"]').val());
-                    entity.set("IsLiterate",$('[name="IsLiterateView"]').val());
+                    entity.set("ReceiveSpecialAttention",$('[name="ReceiveSpecialAttentionView"]').is(":checked"));
+                    entity.set("IsLiterate",$('[name="IsLiterateView"]').is(":checked"));
                     entity.set("TotalIncome",$('[name="TotalIncomeView"]').val());
                     entity.set("Address",$('[name="AddressView"]').val());
                     entity.set("Status",$('[name="StatusView"]').val());
@@ -756,6 +820,28 @@ var app; // store a reference to the application object that will be created  la
                     entity.set("PlannedUpdateOfDevelopmentPlan",$('[name="PlannedUpdateOfDevelopmentPlanView"]').val());
                     entity.set("CaregiverID",$('[name="CaregiverIDView"]').val());
                     entity.set("SOSHouseID",$('[name="SOSHouseIDView"]').val());
+                    
+                    entity.set("HasDevelopmentPlan",$('[name="HasDevelopmentPlanView"]').is(":checked"));
+                    entity.set("TypeofFamily",$('[name="TypeofFamilyView"]').val());
+                    entity.set("Nationality",$('[name="NationalityView"]').val());
+                    entity.set("TypeOfCaregiver",$('[name="TypeOfCaregiverView"]').val());
+                    entity.set("PlannedRetirementDate",$('[name="PlannedRetirementDateView"]').val());
+                    entity.set("HasChildrenSiblings",$('[name="HasChildrenSiblingsView"]').is(":checked"));
+                    entity.set("TypeOfSupport",$('[name="TypeOfSupportView"]').val());
+                    entity.set("Profession",$('[name="ProfessionView"]').val());
+                    entity.set("TrainingInSOS",$('[name="TrainingInSOSView"]').val());
+                    entity.set("FormalEducationalLevel",$('[name="FormalEducationalLevelView"]').val());
+                    entity.set("YearsOfFormalEducation",$('[name="YearsOfFormalEducationView"]').val());
+                    entity.set("MedicalCare",$('[name="MedicalCareView"]').is(":checked"));
+                    entity.set("TypeOfDisease",GetComboBoxItemsAndConvertToJson("TypeOfDiseaseView"));
+                    entity.set("HousingAndLivingSupport",GetComboBoxItemsAndConvertToJson("HousingAndLivingSupportView"));
+                    entity.set("FoodSupport",GetComboBoxItemsAndConvertToJson("FoodSupportView"));
+                    entity.set("MedicalCareSupport",GetComboBoxItemsAndConvertToJson("MedicalCareSupportView"));
+                    entity.set("PsychosocialSupport",GetComboBoxItemsAndConvertToJson("PsychosocialSupportView"));
+                    entity.set("ChildCareAndParentSupport",GetComboBoxItemsAndConvertToJson("ChildCareAndParentSupportView"));
+                    entity.set("LegalSupport",GetComboBoxItemsAndConvertToJson("LegalSupportView"));
+                    entity.set("EconomicSupport",GetComboBoxItemsAndConvertToJson("EconomicSupportView"));
+
                     caregiverDataSource.sync();
                 	navigator.notification.alert("Se ha registrado correctamente");
                 });
@@ -777,8 +863,8 @@ var app; // store a reference to the application object that will be created  la
                     entity.set("FirstName",$('[name="FirstNameView"]').val());
                     entity.set("DocumentNumber",$('[name="DocumentNumberView"]').val());
                     entity.set("Gender",$('[name="GenderView"]').val());
-                    entity.set("ReceiveSpecialAttention",$('[name="ReceiveSpecialAttentionView"]').val());
-                    entity.set("IsLiterate",$('[name="IsLiterateView"]').val());
+                    entity.set("ReceiveSpecialAttention",$('[name="ReceiveSpecialAttentionView"]').is(":checked"));
+                    entity.set("IsLiterate",$('[name="IsLiterateView"]').is(":checked"));
                     entity.set("TotalIncome",$('[name="TotalIncomeView"]').val());
                     entity.set("Address",$('[name="AddressView"]').val());
                     entity.set("Status",$('[name="StatusView"]').val());
@@ -787,6 +873,28 @@ var app; // store a reference to the application object that will be created  la
                     entity.set("PlannedUpdateOfDevelopmentPlan",$('[name="PlannedUpdateOfDevelopmentPlanView"]').val());
                     entity.set("CaregiverID",$('[name="CaregiverIDView"]').val());
                     entity.set("SOSHouseID",$('[name="SOSHouseIDView"]').val());
+                    
+                    entity.set("HasDevelopmentPlan",$('[name="HasDevelopmentPlanView"]').is(":checked"));
+                    entity.set("TypeofFamily",$('[name="TypeofFamilyView"]').val());
+                    entity.set("Nationality",$('[name="NationalityView"]').val());
+                    entity.set("TypeOfCaregiver",$('[name="TypeOfCaregiverView"]').val());
+                    entity.set("PlannedRetirementDate",$('[name="PlannedRetirementDateView"]').val());
+                    entity.set("HasChildrenSiblings",$('[name="HasChildrenSiblingsView"]').val());
+                    entity.set("TypeOfSupport",$('[name="TypeOfSupportView"]').val());
+                    entity.set("Profession",$('[name="ProfessionView"]').val());
+                    entity.set("TrainingInSOS",$('[name="TrainingInSOSView"]').val());
+                    entity.set("FormalEducationalLevel",$('[name="FormalEducationalLevelView"]').val());
+                    entity.set("YearsOfFormalEducation",$('[name="YearsOfFormalEducationView"]').val());
+                    entity.set("MedicalCare",$('[name="MedicalCareView"]').is(":checked"));
+                    entity.set("TypeOfDisease",GetComboBoxItemsAndConvertToJson("TypeOfDiseaseView"));
+                    entity.set("HousingAndLivingSupport",GetComboBoxItemsAndConvertToJson("HousingAndLivingSupportView"));
+                    entity.set("FoodSupport",GetComboBoxItemsAndConvertToJson("FoodSupportView"));
+                    entity.set("MedicalCareSupport",GetComboBoxItemsAndConvertToJson("MedicalCareSupportView"));
+                    entity.set("PsychosocialSupport",GetComboBoxItemsAndConvertToJson("PsychosocialSupportView"));
+                    entity.set("ChildCareAndParentSupport",GetComboBoxItemsAndConvertToJson("ChildCareAndParentSupportView"));
+                    entity.set("LegalSupport",GetComboBoxItemsAndConvertToJson("LegalSupportView"));
+                    entity.set("EconomicSupport",GetComboBoxItemsAndConvertToJson("EconomicSupportView"));
+
                     offlineCaregiverDataSource.sync();
                 });
             }
@@ -899,6 +1007,9 @@ var app; // store a reference to the application object that will be created  la
     
     window.APP.models.child = kendo.observable({         
          init: function () {             
+            hideTabControls("Child", "Add");
+            hideTabControls("Child", "View");
+             
             var cuidador = new kendo.data.DataSource({
                     type: "everlive",
                     transport: {
@@ -921,11 +1032,6 @@ var app; // store a reference to the application object that will be created  la
                     });
              
              $("#listChild").html("");
-             $('[name="btnDepartChild"]').hide();
-             $('[name="btnReactivateChild"]').hide();
-             $('[name="btnTransferChild"]').hide();    
-             $('[name="btnBackViewChild"]').hide();
-             $('[name="btnSaveViewChild"]').hide();
     	 },
          searchChildByCaregiver: function(){
            if (!navigator.onLine) {
@@ -941,9 +1047,9 @@ var app; // store a reference to the application object that will be created  la
             filters = UpdateSearchFilters(filters, "CaregiverID", "eq", caregiverID, "and");        
 	        childDataSource.filter(filters);
             
-            var stringTemplate = "Nombres: #: FirstName #, Apellidos #: LastName # <a href='javascript:newSwitchChildTab(\"View\",\"#if (SOSChildID == null) {# #=''# #} else {##=SOSChildID##}#\", \"#if (FirstName == null) {# #=''# #} else {##=FirstName##}#\", \"#if (LastName == null) {# #=''# #} else {##=LastName##}#\", \"" + caregiverID + "\")'>Visualizar</a>";                
-            var inactive = "#if (Status == null || Status != '1') {# <a href='javascript:optEntityTab(\"Child\",\"Reactivate\", \"#= SOSChildID #\")'>Reactivar</a> #}#";                
-            var active = "#if (Status != null && Status == '1') {# <a href='javascript:optEntityTab(\"Child\", \"Depart\", \"#= SOSChildID #\")'>Salida</a><a href='javascript:optEntityTab(\"Child\",\"Transfer\", \"#= SOSChildID #\")'>Transferencia</a> #}#";                
+            var stringTemplate = "Nombres: #: FirstName #, Apellidos #: LastName # <a href='javascript:SwitchTab(\"Child\",\"View\",\"#if (SOSChildID == null) {# #=''# #} else {##=SOSChildID##}#\", \"#if (FirstName == null) {# #=''# #} else {##=FirstName##}#\", \"#if (LastName == null) {# #=''# #} else {##=LastName##}#\", \"" + caregiverID + "\")'>Visualizar</a>";                
+            var inactive = " #if (Status == null || Status != '1') {# <a href='javascript:optEntityTab(\"Child\",\"Reactivate\", \"#= SOSChildID #\")'>Reactivar</a> #}#";                
+            var active = " #if (Status != null && Status == '1') {# <a href='javascript:optEntityTab(\"Child\", \"Depart\", \"#= SOSChildID #\")'>Salida</a> <a href='javascript:optEntityTab(\"Child\",\"Transfer\", \"#= SOSChildID #\")'>Transferencia</a> #}#";                
             stringTemplate = stringTemplate + inactive + active;            
                          
             $("#listChild").kendoMobileListView({
@@ -961,7 +1067,7 @@ var app; // store a reference to the application object that will be created  la
                     return;
             }
             var caregiverID = $("#ddlCuidador").val();
-            newSwitchChildTab("Add", "", "", "", caregiverID); 
+            SwitchTab("Child", "Add", "", "", "", caregiverID); 
          },
          getChildItemByID: function(e){
             var childID = e.view.params.id;
@@ -991,13 +1097,56 @@ var app; // store a reference to the application object that will be created  la
                 $('[name="SOSChildIDView"]').val(entity.get("SOSChildID"));
                 $('[name="CaregiverIDView"]').val(entity.get("CaregiverID"));
                 
-                if(entity.get("ExitReason").trim() != "")
-                	SetComboBoxItemsAndConvertJsonToArray(entity.get("ExitReason"), "ExitReasonView");
+                $('[name="DocumentNumberView"]').val(entity.get("DocumentNumber"));
+                $('[name="GenderView"]').val(entity.get("Gender"));
+                $('[name="NativeLanguageView"]').val(entity.get("NativeLanguage"));
+                $('[name="OriginPlaceFromParentsView"]').val(entity.get("OriginPlaceFromParents"));
                 
-                /*if(entity.get("Status") == "1")                	
+                if(entity.get("HasChildDevelopmentPlan") == true) $('[name="HasChildDevelopmentPlanView"]').attr('checked', true);
+                
+                $('[name="DateOfExpectedUpdateView"]').val(entity.get("DateOfExpectedUpdate"));
+                $('[name="DateOfStartView"]').val(entity.get("DateOfStart"));
+                $('[name="NationalityView"]').val(entity.get("Nationality"));
+                
+                if(entity.get("GoesToEducationalCenterSOS") == true) $('[name="GoesToEducationalCenterSOSView"]').attr('checked', true);                
+                $('[name="NonSOSEducationalCenterNameView"]').val(entity.get("NonSOSEducationalCenterName"));                                
+                if(entity.get("CurrentEnrollment") == true) $('[name="CurrentEnrollmentView"]').attr('checked', true);
+                
+                $('[name="CurrentSchoolYearView"]').val(entity.get("CurrentSchoolYear"));
+                $('[name="DateOfLastMedicalControlView"]').val(entity.get("DateOfLastMedicalControl"));
+                
+                if(entity.get("Disability") == true) $('[name="DisabilityView"]').attr('checked', true);
+                $('[name="NutritionalStatusView"]').val(entity.get("NutritionalStatus"));
+                
+                if(entity.get("HasMedicalCare") == true) $('[name="HasMedicalCareView"]').attr('checked', true);
+                if(entity.get("HasHIV") == true) $('[name="HasHIVView"]').attr('checked', true);
+                
+                SetComboBoxItemsAndConvertJsonToArray(entity.get("TypeOfVaccination"),"TypeOfVaccinationView");
+				SetComboBoxItemsAndConvertJsonToArray(entity.get("TypeOfDisease"),"TypeOfDiseaseView");
+                $('[name="ReasonForAdmissionView"]').val(entity.get("ReasonForAdmission"));
+                $('[name="DetailsForAdmissionView"]').val(entity.get("DetailsForAdmission"));
+                $('[name="AdmissionProvidedByView"]').val(entity.get("AdmissionProvidedBy"));
+                SetComboBoxItemsAndConvertJsonToArray(entity.get("DocumentsForAdmission"),"DocumentsForAdmissionView");
+                SetComboBoxItemsAndConvertJsonToArray(entity.get("RecordBeforeAdmission"),"RecordBeforeAdmissionView");
+                SetComboBoxItemsAndConvertJsonToArray(entity.get("BiologicalSiblings"),"BiologicalSiblingsView");
+                SetComboBoxItemsAndConvertJsonToArray(entity.get("ChildParticipation"),"ChildParticipationView");
+                
+                if(entity.get("HasExitPlan") == true) $('[name="HasExitPlanView"]').attr('checked', true);
+                
+                $('[name="TypeOfEmploymentView"]').val(entity.get("TypeOfEmployment"));
+                $('[name="DetailsOfEmploymentView"]').val(entity.get("DetailsOfEmployment"));
+                $('[name="PsychosocialDevelopmentView"]').val(entity.get("PsychosocialDevelopment"));
+                
+                if(entity.get("ChildAbuseReceived") == true) $('[name="ChildAbuseReceivedView"]').attr('checked', true);
+                SetComboBoxItemsAndConvertJsonToArray(entity.get("PsychosocialSupport"),"PsychosocialSupportView");
+                SetComboBoxItemsAndConvertJsonToArray(entity.get("MedicalSupport"),"MedicalSupportView");
+                SetComboBoxItemsAndConvertJsonToArray(entity.get("EducationalSupport"),"EducationalSupportView");
+                SetComboBoxItemsAndConvertJsonToArray(entity.get("AdditionalSupport"),"AdditionalSupportView");
+
+                if(entity.get("Status") == "1")                	
                     $('[name="StatusView"]').val("Activo");
                 else
-                	$('[name="StatusView"]').val("Inactivo");*/
+                	$('[name="StatusView"]').val("Inactivo");
 			});   
             childDataSource.filter({});  
          },
@@ -1054,7 +1203,7 @@ var app; // store a reference to the application object that will be created  la
     				serverFiltering: true,
                     change: function(e) {
                         var view = this.view();
-                                                
+        
                         if(view.length > 0){
                             navigator.notification.alert("El código del niño ya está registrado");                
                             return;
@@ -1068,6 +1217,41 @@ var app; // store a reference to the application object that will be created  la
                                 MotherLastName : $('[name="MotherLastName"]').val(),
                                 SOSChildID : $('[name="SOSChildID"]').val(),
                                 CaregiverID: $('[name="CaregiverID"]').val(),
+                                DocumentNumber:$('[name="DocumentNumber"]').val(),
+                                Gender:$('[name="Gender"]').val(),
+                                NativeLanguage:$('[name="NativeLanguage"]').val(),
+                                OriginPlaceFromParents:$('[name="OriginPlaceFromParents"]').val(),
+                                HasChildDevelopmentPlan:$('[name="HasChildDevelopmentPlan"]').is(":checked"),
+                                DateOfExpectedUpdate:$('[name="DateOfExpectedUpdate"]').val(),
+                                DateOfStart:$('[name="DateOfStart"]').val(),
+                                Nationality:$('[name="Nationality"]').val(),
+                                GoesToEducationalCenterSOS:$('[name="GoesToEducationalCenterSOS"]').is(":checked"),
+                                NonSOSEducationalCenterName:$('[name="NonSOSEducationalCenterName"]').val(),
+                                CurrentEnrollment:$('[name="CurrentEnrollment"]').is(":checked"),
+                                CurrentSchoolYear:$('[name="CurrentSchoolYear"]').val(),
+                                DateOfLastMedicalControl:$('[name="DateOfLastMedicalControl"]').val(),
+                                Disability:$('[name="Disability"]').is(":checked"),
+                                NutritionalStatus:$('[name="NutritionalStatus"]').val(),
+                                HasMedicalCare:$('[name="HasMedicalCare"]').is(":checked"),
+                                HasHIV:$('[name="HasHIV"]').is(":checked"),
+                                TypeOfVaccination:GetComboBoxItemsAndConvertToJson("TypeOfVaccination"),
+								TypeOfDisease:GetComboBoxItemsAndConvertToJson("TypeOfDisease"),
+                                ReasonForAdmission:$('[name="ReasonForAdmission"]').val(),
+                                DetailsForAdmission:$('[name="DetailsForAdmission"]').val(),
+                                AdmissionProvidedBy:$('[name="AdmissionProvidedBy"]').val(),
+                                DocumentsForAdmission:GetComboBoxItemsAndConvertToJson("DocumentsForAdmission"),
+                                RecordBeforeAdmission:GetComboBoxItemsAndConvertToJson("RecordBeforeAdmission"),
+                                BiologicalSiblings:GetComboBoxItemsAndConvertToJson("BiologicalSiblings"),
+                                ChildParticipation:GetComboBoxItemsAndConvertToJson("ChildParticipation"),
+                                HasExitPlan:$('[name="HasExitPlan"]').is(":checked"),
+                                TypeOfEmployment:$('[name="TypeOfEmployment"]').val(),
+                                DetailsOfEmployment:$('[name="DetailsOfEmployment"]').val(),
+                                PsychosocialDevelopment:$('[name="PsychosocialDevelopment"]').val(),
+                                ChildAbuseReceived:$('[name="ChildAbuseReceived"]').is(":checked"),
+                                PsychosocialSupport:GetComboBoxItemsAndConvertToJson("PsychosocialSupport"),
+                                MedicalSupport:GetComboBoxItemsAndConvertToJson("MedicalSupport"),
+                                EducationalSupport:GetComboBoxItemsAndConvertToJson("EducationalSupport"),
+                                AdditionalSupport:GetComboBoxItemsAndConvertToJson("AdditionalSupport"),
                                 Status: "1"
                             });
                             childDataSource.sync();
@@ -1083,16 +1267,50 @@ var app; // store a reference to the application object that will be created  la
                 offlineChildDataSource.online(false);
 
                 offlineChildDataSource.add({
-                    Birthdate : $('[name="Birthdate"]').val(),
-                    LastName : $('[name="LastName"]').val(),
-                    FirstName : $('[name="FirstName"]').val(),
-                    Trackings : $('[name="Trackings"]').val(),
-                    Exitdate : $('[name="Exitdate"]').val(),
-                    ExitReason : $('[name="ExitReason"]').val(),
-                    MotherLastName : $('[name="MotherLastName"]').val(),
-                    SOSChildID : $('[name="SOSChildID"]').val(),
-                    CaregiverID: $('[name="CaregiverID"]').val(),
-                    Status: "1"
+                                Birthdate : $('[name="Birthdate"]').val(),
+                                LastName : $('[name="LastName"]').val(),
+                                FirstName : $('[name="FirstName"]').val(),
+                                Exitdate : $('[name="Exitdate"]').val(),
+                                ExitReason : $('[name="ExitReason"]').val(),
+                                MotherLastName : $('[name="MotherLastName"]').val(),
+                                SOSChildID : $('[name="SOSChildID"]').val(),
+                                CaregiverID: $('[name="CaregiverID"]').val(),
+                                DocumentNumber:$('[name="DocumentNumber"]').val(),
+                                Gender:$('[name="Gender"]').val(),
+                                NativeLanguage:$('[name="NativeLanguage"]').val(),
+                                OriginPlaceFromParents:$('[name="OriginPlaceFromParents"]').val(),
+                                HasChildDevelopmentPlan:$('[name="HasChildDevelopmentPlan"]').is(":checked"),
+                                DateOfExpectedUpdate:$('[name="DateOfExpectedUpdate"]').val(),
+                                DateOfStart:$('[name="DateOfStart"]').val(),
+                                Nationality:$('[name="Nationality"]').val(),
+                                GoesToEducationalCenterSOS:$('[name="GoesToEducationalCenterSOS"]').is(":checked"),
+                                NonSOSEducationalCenterName:$('[name="NonSOSEducationalCenterName"]').val(),
+                                CurrentEnrollment:$('[name="CurrentEnrollment"]').is(":checked"),
+                                CurrentSchoolYear:$('[name="CurrentSchoolYear"]').val(),
+                                DateOfLastMedicalControl:$('[name="DateOfLastMedicalControl"]').val(),
+                                Disability:$('[name="Disability"]').is(":checked"),
+                                NutritionalStatus:$('[name="NutritionalStatus"]').val(),
+                                HasMedicalCare:$('[name="HasMedicalCare"]').is(":checked"),
+                                HasHIV:$('[name="HasHIV"]').is(":checked"),
+                                TypeOfVaccination:GetComboBoxItemsAndConvertToJson("TypeOfVaccination"),
+								TypeOfDisease:GetComboBoxItemsAndConvertToJson("TypeOfDisease"),
+                                ReasonForAdmission:$('[name="ReasonForAdmission"]').val(),
+                                DetailsForAdmission:$('[name="DetailsForAdmission"]').val(),
+                                AdmissionProvidedBy:$('[name="AdmissionProvidedBy"]').val(),
+                                DocumentsForAdmission:GetComboBoxItemsAndConvertToJson("DocumentsForAdmission"),
+                                RecordBeforeAdmission:GetComboBoxItemsAndConvertToJson("RecordBeforeAdmission"),
+                                BiologicalSiblings:GetComboBoxItemsAndConvertToJson("BiologicalSiblings"),
+                                ChildParticipation:GetComboBoxItemsAndConvertToJson("ChildParticipation"),
+                                HasExitPlan:$('[name="HasExitPlan"]').is(":checked"),
+                                TypeOfEmployment:$('[name="TypeOfEmployment"]').val(),
+                                DetailsOfEmployment:$('[name="DetailsOfEmployment"]').val(),
+                                PsychosocialDevelopment:$('[name="PsychosocialDevelopment"]').val(),
+                                ChildAbuseReceived:$('[name="ChildAbuseReceived"]').is(":checked"),
+                                PsychosocialSupport:GetComboBoxItemsAndConvertToJson("PsychosocialSupport"),
+                                MedicalSupport:GetComboBoxItemsAndConvertToJson("MedicalSupport"),
+                                EducationalSupport:GetComboBoxItemsAndConvertToJson("EducationalSupport"),
+                                AdditionalSupport:GetComboBoxItemsAndConvertToJson("AdditionalSupport"),
+                    			Status: "1"
                 });
                 offlineChildDataSource.sync();
                 navigator.notification.alert("Se ha registrado correctamente en modo desconectado");
@@ -1137,11 +1355,47 @@ var app; // store a reference to the application object that will be created  la
                     entity.set("SOSChildID",$('[name="SOSChildIDView"]').val());
                     entity.set("CaregiverID",$('[name="CaregiverIDView"]').val());
                     
-                    var jsonExitReasonView = GetComboBoxItemsAndConvertToJson("ExitReasonView");
-                    
+                    entity.set("DocumentNumber",$('[name="DocumentNumberView"]').val());
+                    entity.set("Gender",$('[name="GenderView"]').val());
+                    entity.set("NativeLanguage",$('[name="NativeLanguageView"]').val());
+                    entity.set("OriginPlaceFromParents",$('[name="OriginPlaceFromParentsView"]').val());
+                    entity.set("HasChildDevelopmentPlan",$('[name="HasChildDevelopmentPlanView"]').is(":checked"));
+                    entity.set("DateOfExpectedUpdate",$('[name="DateOfExpectedUpdateView"]').val());
+                    entity.set("DateOfStart",$('[name="DateOfStartView"]').val());
+                    entity.set("Nationality",$('[name="NationalityView"]').val());
+                    entity.set("GoesToEducationalCenterSOS",$('[name="GoesToEducationalCenterSOSView"]').is(":checked"));
+                    entity.set("NonSOSEducationalCenterName",$('[name="NonSOSEducationalCenterNameView"]').val());
+                    entity.set("CurrentEnrollment",$('[name="CurrentEnrollmentView"]').is(":checked"));
+                    entity.set("CurrentSchoolYear",$('[name="CurrentSchoolYearView"]').val());
+                    entity.set("DateOfLastMedicalControl",$('[name="DateOfLastMedicalControlView"]').val());
+                    entity.set("Disability",$('[name="DisabilityView"]').is(":checked"));
+                    entity.set("NutritionalStatus",$('[name="NutritionalStatusView"]').val());
+                    entity.set("HasMedicalCare",$('[name="HasMedicalCareView"]').is(":checked"));
+                    entity.set("HasHIV",$('[name="HasHIVView"]').is(":checked"));
+                    entity.set("TypeOfVaccination",GetComboBoxItemsAndConvertToJson("TypeOfVaccinationView"));
+					entity.set("TypeOfDisease",GetComboBoxItemsAndConvertToJson("TypeOfDiseaseView"));
+                    entity.set("ReasonForAdmission",$('[name="ReasonForAdmissionView"]').val());
+                    entity.set("DetailsForAdmission",$('[name="DetailsForAdmissionView"]').val());
+                    entity.set("AdmissionProvidedBy",$('[name="AdmissionProvidedByView"]').val());
+                    entity.set("DocumentsForAdmission",GetComboBoxItemsAndConvertToJson("DocumentsForAdmissionView"));
+                    entity.set("RecordBeforeAdmission",GetComboBoxItemsAndConvertToJson("RecordBeforeAdmissionView"));
+                    entity.set("BiologicalSiblings",GetComboBoxItemsAndConvertToJson("BiologicalSiblingsView"));
+                    entity.set("ChildParticipation",GetComboBoxItemsAndConvertToJson("ChildParticipationView"));
+                    entity.set("HasExitPlan",$('[name="HasExitPlanView"]').is(":checked"));
+                    entity.set("TypeOfEmployment",$('[name="TypeOfEmploymentView"]').val());
+                    entity.set("DetailsOfEmployment",$('[name="DetailsOfEmploymentView"]').val());
+                    entity.set("PsychosocialDevelopment",$('[name="PsychosocialDevelopmentView"]').val());
+                    entity.set("ChildAbuseReceived",$('[name="ChildAbuseReceivedView"]').is(":checked"));
+                    entity.set("PsychosocialSupport",GetComboBoxItemsAndConvertToJson("PsychosocialSupportView"));
+                    entity.set("MedicalSupport",GetComboBoxItemsAndConvertToJson("MedicalSupportView"));
+                    entity.set("EducationalSupport",GetComboBoxItemsAndConvertToJson("EducationalSupportView"));
+                    entity.set("AdditionalSupport",GetComboBoxItemsAndConvertToJson("AdditionalSupportView"));
+
+					/*var jsonExitReasonView = GetComboBoxItemsAndConvertToJson("ExitReasonView");                    
                     if(jsonExitReasonView.trim() != "")
-                    	entity.set("ExitReason", jsonExitReasonView);
-                    
+                    	entity.set("ExitReason", jsonExitReasonView);*/                    
+                    //entity.set("ExitReason",GetComboBoxItemsAndConvertToJson("ExitReasonView"));
+
                     childDataSource.sync();
                 	navigator.notification.alert("Se ha registrado correctamente");
                 });
@@ -1163,6 +1417,42 @@ var app; // store a reference to the application object that will be created  la
                     entity.set("MotherLastName",$('[name="MotherLastNameView"]').val());
                     entity.set("SOSChildID",$('[name="SOSChildIDView"]').val());
                     entity.set("CaregiverID",$('[name="CaregiverIDView"]').val());
+                    
+                    entity.set("DocumentNumber",$('[name="DocumentNumberView"]').val());
+                    entity.set("Gender",$('[name="GenderView"]').val());
+                    entity.set("NativeLanguage",$('[name="NativeLanguageView"]').val());
+                    entity.set("OriginPlaceFromParents",$('[name="OriginPlaceFromParentsView"]').val());
+                    entity.set("HasChildDevelopmentPlan",$('[name="HasChildDevelopmentPlanView"]').is(":checked"));
+                    entity.set("DateOfExpectedUpdate",$('[name="DateOfExpectedUpdateView"]').val());
+                    entity.set("DateOfStart",$('[name="DateOfStartView"]').val());
+                    entity.set("Nationality",$('[name="NationalityView"]').val());
+                    entity.set("GoesToEducationalCenterSOS",$('[name="GoesToEducationalCenterSOSView"]').is(":checked"));
+                    entity.set("NonSOSEducationalCenterName",$('[name="NonSOSEducationalCenterNameView"]').val());
+                    entity.set("CurrentEnrollment",$('[name="CurrentEnrollmentView"]').is(":checked"));
+                    entity.set("CurrentSchoolYear",$('[name="CurrentSchoolYearView"]').val());
+                    entity.set("DateOfLastMedicalControl",$('[name="DateOfLastMedicalControlView"]').val());
+                    entity.set("Disability",$('[name="DisabilityView"]').is(":checked"));
+                    entity.set("NutritionalStatus",$('[name="NutritionalStatusView"]').val());
+                    entity.set("HasMedicalCare",$('[name="HasMedicalCareView"]').is(":checked"));
+                    entity.set("HasHIV",$('[name="HasHIVView"]').is(":checked"));
+                    entity.set("TypeOfVaccination",GetComboBoxItemsAndConvertToJson("TypeOfVaccinationView"));
+					entity.set("TypeOfDisease",GetComboBoxItemsAndConvertToJson("TypeOfDiseaseView"));
+                    entity.set("ReasonForAdmission",$('[name="ReasonForAdmissionView"]').val());
+                    entity.set("DetailsForAdmission",$('[name="DetailsForAdmissionView"]').val());
+                    entity.set("AdmissionProvidedBy",$('[name="AdmissionProvidedByView"]').val());
+                    entity.set("DocumentsForAdmission",GetComboBoxItemsAndConvertToJson("DocumentsForAdmissionView"));
+                    entity.set("RecordBeforeAdmission",GetComboBoxItemsAndConvertToJson("RecordBeforeAdmissionView"));
+                    entity.set("BiologicalSiblings",GetComboBoxItemsAndConvertToJson("BiologicalSiblingsView"));
+                    entity.set("ChildParticipation",GetComboBoxItemsAndConvertToJson("ChildParticipationView"));
+                    entity.set("HasExitPlan",$('[name="HasExitPlanView"]').is(":checked"));
+                    entity.set("TypeOfEmployment",$('[name="TypeOfEmploymentView"]').val());
+                    entity.set("DetailsOfEmployment",$('[name="DetailsOfEmploymentView"]').val());
+                    entity.set("PsychosocialDevelopment",$('[name="PsychosocialDevelopmentView"]').val());
+                    entity.set("ChildAbuseReceived",$('[name="ChildAbuseReceivedView"]').is(":checked"));
+                    entity.set("PsychosocialSupport",GetComboBoxItemsAndConvertToJson("PsychosocialSupportView"));
+                    entity.set("MedicalSupport",GetComboBoxItemsAndConvertToJson("MedicalSupportView"));
+                    entity.set("EducationalSupport",GetComboBoxItemsAndConvertToJson("EducationalSupportView"));
+                    entity.set("AdditionalSupport",GetComboBoxItemsAndConvertToJson("AdditionalSupportView"));
                     offlineChildDataSource.sync();
                 });
             }
@@ -1302,7 +1592,14 @@ var app; // store a reference to the application object that will be created  la
     });
 
     window.APP.models.tracking = kendo.observable({
-        searchByCode: function () {            
+        init: function () {             
+            hideTabControls("Follow", "Add");
+            hideTabControls("Follow", "View");
+             
+            $("#trackAddList").html("");
+            $("#trackViewList").html("");            
+    	},
+        searchTrackingByChildID: function () {            
             if (!navigator.onLine) {
                     navigator.notification.alert("No hay conexion a Internet");
                     return;
@@ -1320,10 +1617,15 @@ var app; // store a reference to the application object that will be created  la
                 dataSource: listTracking,
                 //template: "Fecha de Inicio: #: kendo.toString(StartDate, 'yyyy/MM/dd' ) #, Fecha de Fin: #: kendo.toString(EndDate, 'yyyy/MM/dd' ) # <a href='javascript:switchTab(\"#if (SOSChildID == null) {# #=''# #} else {# #=SOSChildID# #}#\", \"#if (FirstName == null) {# #=''# #} else {# #=FirstName# #}#\", \"#if (LastName == null) {# #=''# #} else {# #=LastName# #}#\")'>Visualizar</a>"                
                 //No values for firstName and lastName
-                template: "Fecha de Inicio: #: kendo.toString(StartDate, 'yyyy/MM/dd' ) #, Fecha de Fin: #: kendo.toString(EndDate, 'yyyy/MM/dd' ) # <a href='javascript:switchTab(\"View\",\"#if (SOSChildID == null) {# #=''# #} else {##=SOSChildID##}#\", \"\",\"\")'>Visualizar</a>"                
+                
+                template: "Fecha de Inicio: #: kendo.toString(StartDate, 'yyyy/MM/dd' ) #, Fecha de Fin: #: kendo.toString(EndDate, 'yyyy/MM/dd' ) # <a href='javascript:SwitchTab(\"Follow\",\"View\",\"#if (SOSFollowID == null) {# #=''# #} else {##=SOSFollowID##}#\", \"\", \"\", \"#if (SOSChildID == null) {# #=''# #} else {##=SOSChildID##}#\")'>Visualizar</a>",                
+                dataBound: function () {
+                    if (this.dataSource.total() == 0) 
+                        $("#trackViewList").html('<li>No hay resultados.</li>');
+                }
             });
         },
-        search: function () {
+        searchChildByFilters: function () {
             if (!navigator.onLine) {
                     navigator.notification.alert("No hay conexion a Internet");
                     return;
@@ -1369,7 +1671,11 @@ var app; // store a reference to the application object that will be created  la
             //Values should be different to null, instead of this the app crashed (template)
             $("#trackAddList").kendoMobileListView({
                 dataSource: childDataSource,
-                template: "#: LastName #, #: FirstName # <a href='javascript:switchTab(\"Add\",\"#if (SOSChildID == null) {# #=''# #} else {# #=SOSChildID# #}#\", \"#if (FirstName == null) {# #=''# #} else {# #=FirstName# #}#\", \"#if (LastName == null) {# #=''# #} else {# #=LastName# #}#\")'>Seguir</a>"                
+                template: "#: LastName #, #: FirstName # <a href='javascript:SwitchTab(\"Follow\",\"Add\",\"#if (SOSChildID == null) {# #=''# #} else {# #=SOSChildID# #}#\", \"#if (FirstName == null) {# #=''# #} else {# #=FirstName# #}#\", \"#if (LastName == null) {# #=''# #} else {# #=LastName# #}#\")'>Seguir</a>",                
+                dataBound: function () {
+                    if (this.dataSource.total() == 0) 
+                        $("#trackAddList").html('<li>No hay resultados.</li>');
+                }
             });            
         },
         addTrackingSubmit: function () {
@@ -1377,6 +1683,7 @@ var app; // store a reference to the application object that will be created  la
             if (navigator.onLine) 
             {
                 trackingDataSource.add({
+                    SOSFollowID: randomIntFromInterval(10000000,99999999),
                     SOSChildID: $('[name="childID"]').val(),
                     StartDate: $('[name="startDate"]').val(),
                     EndDate: $('[name="endDate"]').val(),
@@ -1404,7 +1711,7 @@ var app; // store a reference to the application object that will be created  la
                     WorkMonthsContinuity: $('[name="continueWorkinMonths"]').val(),
                     WorkMonthlyIncome: $('[name="incomeMonthly"]').val(),
                     WorkMonthsUnemployed: $('[name="monthsUnemployee"]').val(),
-                    HealthHasDisabilities: $('[name="hasDisability"]').val(),
+                    HealthHasDisabilities: $('[name="hasDisability"]').is(":checked"),
                     HealthHowDisabilityAffects: $('[name="affectsInDailyLife"]').val(),
                     HealthDisabilityComments: $('[name="commentsAboutHandicap"]').val()
                 });
@@ -1442,7 +1749,7 @@ var app; // store a reference to the application object that will be created  la
                     WorkMonthsContinuity: $('[name="continueWorkinMonths"]').val(),
                     WorkMonthlyIncome: $('[name="incomeMonthly"]').val(),
                     WorkMonthsUnemployed: $('[name="monthsUnemployee"]').val(),
-                    HealthHasDisabilities: $('[name="hasDisability"]').val(),
+                    HealthHasDisabilities: $('[name="hasDisability"]').is(":checked"),
                     HealthHowDisabilityAffects: $('[name="affectsInDailyLife"]').val(),
                     HealthDisabilityComments: $('[name="commentsAboutHandicap"]').val()
                 });
@@ -1450,7 +1757,7 @@ var app; // store a reference to the application object that will be created  la
                 navigator.notification.alert("Se ha registrado correctamente en modo desconectado");
             }
         },
-        getTracking: function (e) {
+        getTrackingByID: function (e) {
             var childID = e.view.params.id;
             
             if(childID == null)
@@ -1467,41 +1774,41 @@ var app; // store a reference to the application object that will be created  la
             
             trackingSearchDataSource.fetch(function() {
   				var child = trackingSearchDataSource.at(0);
-  				$('[name="childID"]').val(child.get("SOSChildID"));
-                $('[name="startDate"]').val(child.get("StartDate"));
-                $('[name="endDate"]').val(child.get("EndDate"));
+  				$('[name="childIDView"]').val(child.get("SOSChildID"));
+                $('[name="startDateView"]').val(child.get("StartDate"));
+                $('[name="endDateView"]').val(child.get("EndDate"));
                 
-                $('[name="phone"]').val(child.get("Phone"));
-                $('[name="email"]').val(child.get("EmailAddress"));
-                $('[name="ageWhenHasFirstChild"]').val(child.get("AgeWhenFirstChild"));
-                $('[name="childrenNumber"]').val(child.get("ChildrenNumber"));
-                $('[name="legalGuardian"]').val(child.get("LegalGuardian"));
+                $('[name="phoneView"]').val(child.get("Phone"));
+                $('[name="emailView"]').val(child.get("EmailAddress"));
+                $('[name="ageWhenHasFirstChildView"]').val(child.get("AgeWhenFirstChild"));
+                $('[name="childrenNumberView"]').val(child.get("ChildrenNumber"));
+                $('[name="legalGuardianView"]').val(child.get("LegalGuardian"));
                 
-                $('[name="siblingsOutsideSOS"]').val(child.get("SiblingsOutsideSOS"));
-                $('[name="hostageType"]').val(child.get("HomeType"));
-                $('[name="homePlace"]').val(child.get("HomePlace"));
-                $('[name="hostageComments"]').val(child.get("HomeComments"));
-                $('[name="hostageImproveComments"]').val(child.get("HomeImprovementsComments"));
-                $('[name="educationalCenterNoSOS"]').val(child.get("HomeEducationCenterNoSOS"));
+                $('[name="siblingsOutsideSOSView"]').val(child.get("SiblingsOutsideSOS"));
+                $('[name="hostageTypeView"]').val(child.get("HomeType"));
+                $('[name="homePlaceView"]').val(child.get("HomePlace"));
+                $('[name="hostageCommentsView"]').val(child.get("HomeComments"));
+                $('[name="hostageImproveCommentsView"]').val(child.get("HomeImprovementsComments"));
+                $('[name="educationalCenterNoSOSView"]').val(child.get("HomeEducationCenterNoSOS"));
                 
-                $('[name="currentEnrollment"]').val(child.get("CurrentSchoolLevel"));
-                $('[name="educationCurrentEnrollment"]').val(child.get("EducationCurrentEnrollment"));
-                $('[name="educationStudyStart"]').val(child.get("EducationStudyStart"));
-                $('[name="specialityName"]').val(child.get("EducationSpecialityName"));
-                $('[name="specialitySemester"]').val(child.get("EducationSpecialitySemester"));
-                $('[name="sourceOfIncome"]').val(child.get("WorkIncomeType"));
+                $('[name="currentEnrollmentView"]').val(child.get("CurrentSchoolLevel"));
+                $('[name="educationCurrentEnrollmentView"]').val(child.get("EducationCurrentEnrollment"));
+                $('[name="educationStudyStartView"]').val(child.get("EducationStudyStart"));
+                $('[name="specialityNameView"]').val(child.get("EducationSpecialityName"));
+                $('[name="specialitySemesterView"]').val(child.get("EducationSpecialitySemester"));
+                $('[name="sourceOfIncomeView"]').val(child.get("WorkIncomeType"));
                 
-                $('[name="typeOfEmployment"]').val(child.get("WorkType"));
-                $('[name="workCurrency"]').val(child.get("WorkCurrency"));
-                $('[name="workRelatedWithSpeciality"]').val(child.get("WorkSpeacialityRelated"));
-                $('[name="areaOfWork"]').val(child.get("WorkSector"));
-                $('[name="continueWorkinMonths"]').val(child.get("WorkMonthsContinuity"));
-                $('[name="incomeMonthly"]').val(child.get("WorkMonthlyIncome"));
+                $('[name="typeOfEmploymentView"]').val(child.get("WorkType"));
+                $('[name="workCurrencyView"]').val(child.get("WorkCurrency"));
+                $('[name="workRelatedWithSpecialityView"]').val(child.get("WorkSpeacialityRelated"));
+                $('[name="areaOfWorkView"]').val(child.get("WorkSector"));
+                $('[name="continueWorkinMonthsView"]').val(child.get("WorkMonthsContinuity"));
+                $('[name="incomeMonthlyView"]').val(child.get("WorkMonthlyIncome"));
                 
-                $('[name="monthsUnemployee"]').val(child.get("WorkMonthsUnemployed"));
-                $('[name="hasDisability"]').val(child.get("HealthHasDisabilities"));
-                $('[name="affectsInDailyLife"]').val(child.get("HealthHowDisabilityAffects"));
-                $('[name="commentsAboutHandicap"]').val(child.get("HealthDisabilityComments"));  
+                $('[name="monthsUnemployeeView"]').val(child.get("WorkMonthsUnemployed"));
+                if(child.get("HealthHasDisabilities") == true) $('[name="hasDisability"]').attr('checked', true);
+                $('[name="affectsInDailyLifeView"]').val(child.get("HealthHowDisabilityAffects"));
+                $('[name="commentsAboutHandicapView"]').val(child.get("HealthDisabilityComments"));  
 			});
             
             var childSearchDataSource = new kendo.data.DataSource({
@@ -1516,9 +1823,9 @@ var app; // store a reference to the application object that will be created  la
             childSearchDataSource.fetch(function() 
             {
   				var child = childSearchDataSource.at(0);
-  				$('[name="childID"]').val(child.get("SOSChildID"));
-                $('[name="firstName"]').val(child.get("FirstName"));
-                $('[name="surName"]').val(child.get("LastName"));
+  				$('[name="childIDView"]').val(child.get("SOSChildID"));
+                $('[name="firstNameView"]').val(child.get("FirstName"));
+                $('[name="surNameView"]').val(child.get("LastName"));
             });    
         }
     });
@@ -1773,6 +2080,8 @@ var app; // store a reference to the application object that will be created  la
             skin: 'flat', // comment out the following line to get a UI which matches the look  and feel of the operating system
             initial: 'views/home.html' // the application needs to know which view to load first
         });
+        
+        //$.getScript( "scripts/actions.js", function( data, textStatus, jqxhr ) {});
     }, false);
     offlineDataSource.online(false);
 }());

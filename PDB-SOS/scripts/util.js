@@ -12,6 +12,9 @@ function GetComboBoxItemsAndConvertToJson(type) {
 }
 
 function SetComboBoxItemsAndConvertJsonToArray(myJsonString, type){
+    if(myJsonString.trim() == "")
+        return;
+    
     var array = JSON.parse(myJsonString);
 	$("#" + type + "Values").html("");
 	$.each(array, function(text,value) {
@@ -54,79 +57,29 @@ function validateNullValues(variable){
     return variable;
 }
 
-function switchTab(type, childID, firstName, lastName){    	
-		var tabStrip = $("#tabstrip" + type + "FollowUp").data("kendoMobileTabStrip");
-    	//fails when try to filter by GUID, best option would be number or string        
-    	tabStrip.switchTo("#General" + type);
-    	app.navigate("#General" + type + "?id=" + childID, "slide");    	
-    
-    	$('[name="childID"]').val(childID);
-        $('[name="firstName"]').val(firstName);
-        $('[name="surName"]').val(lastName);
-    	
-    	$('[name="btnBack' + type + 'Tracking"]').show();
-    	$('[name="btnSave' + type + 'Tracking"]').show();
+function randomIntFromInterval(min,max)
+{
+    return Math.floor(Math.random()*(max-min+1)+min);
 }
 
-function newSwitchTab(type, SOSHouseID, address, name, programmeUnitID){    	
-		var tabStrip = $("#tabstrip" + type + "House").data("kendoMobileTabStrip");
-    	//fails when try to filter by GUID, best option would be number or string        
-    	tabStrip.switchTo("#GeneralHouse" + type);
-    	app.navigate("#GeneralHouse" + type + "?id=" + SOSHouseID, "slide");    	
+function hideTabControls(entity, action){
+    //alert("hideTabControls");
+    $("#tabstrip" + action + entity).hide();
+    $('[name="btnBack' + action + entity + '"]').hide();
+    $('[name="btnSave' + action + entity + '"]').hide();
+    $('[name="btnDepart' + entity + '"]').hide();
+    $('[name="btnReactivate' + entity + '"]').hide();
     
-    	var sufix = "View";
+    if(entity != "House")
+    	$('[name="btnTransfer' + entity + '"]').hide();    
     
-    	if(type=="Add")
-            sufix="";
-    
-    	$('[name="SOSHouseID' + sufix + '"]').val(SOSHouseID);
-        $('[name="NameOrNumber' + sufix + '"]').val(name);
-        $('[name="Address' + sufix + '"]').val(address);    	    
-    	$('[name="ProgrammeUnitID' + sufix + '"]').val(programmeUnitID);    	        	
-            
-    	$('[name="btnBack' + type + 'House"]').show();
-    	$('[name="btnSave' + type + 'House"]').show();
-}
-
-function newSwitchCaregiverTab(type, ID, name, surname, houseID){    	
-		var tabStrip = $("#tabstrip" + type + "Caregiver").data("kendoMobileTabStrip");
-    	//fails when try to filter by GUID, best option would be number or string        
-    	tabStrip.switchTo("#GeneralCaregiver" + type);
-    	app.navigate("#GeneralCaregiver" + type + "?id=" + ID, "slide");    	
-    
-    	var sufix = "View";
-    
-    	if(type=="Add")
-            sufix="";
-    
-    	$('[name="SOSHouseID' + sufix + '"]').val(houseID);
-        $('[name="FirstName' + sufix + '"]').val(name);
-        $('[name="LastName' + sufix + '"]').val(surname);    	    
-    	$('[name="CaregiverID' + sufix + '"]').val(ID);    	        	
-            
-    	$('[name="btnBack' + type + 'Caregiver"]').show();
-    	$('[name="btnSave' + type + 'Caregiver"]').show();
-}
-
-function optCaregiverTab(type, ID){    	
-		var tabStrip = $("#tabstripViewCaregiver").data("kendoMobileTabStrip");
-    	
-    	tabStrip.switchTo("#Caregiver" + type);
-    	app.navigate("#Caregiver" + type + "?id=" + ID, "slide");    	
-    
-    	$('[name="btnDepartCaregiver"]').hide();
-        $('[name="btnReactivateCaregiver"]').hide();
-        $('[name="btnTransferCaregiver"]').hide();    
-        $('[name="btnBackViewCaregiver"]').show();
-        $('[name="btnSaveViewCaregiver"]').hide();
-    
-        $('[name="btn' + type + 'Caregiver"]').show();    
-    	$('[name="CaregiverIDView"]').val(ID);    	        	
 }
 
 function optEntityTab(entity, type, ID){    	
+    	//alert("optEntityTab");
 		var tabStrip = $("#tabstripView" + entity).data("kendoMobileTabStrip");
-    	
+    	$("#tabstripView" + entity).show();
+    
     	tabStrip.switchTo("#" + entity + type);
     	app.navigate("#" + entity + type + "?id=" + ID, "slide");    	
     
@@ -137,10 +90,9 @@ function optEntityTab(entity, type, ID){
         	$('[name="btnTransfer' + entity + '"]').hide();    
     
         $('[name="btnBackView' + entity + '"]').show();
-        $('[name="btnSaveView' + entity + '"]').hide();
-    
+        $('[name="btnSaveView' + entity + '"]').hide();    
         $('[name="btn' + type + entity + '"]').show();   
-    
+        
     	var prefixSOS = "SOS";
     	if(entity=="Caregiver")
             prefixSOS = "";
@@ -148,25 +100,52 @@ function optEntityTab(entity, type, ID){
     	$('[name="' + prefixSOS + entity + 'IDView"]').val(ID);    	        	
 }
 
-
-function newSwitchChildTab(type, ID, name, surname, caregiverID){    	
-		var tabStrip = $("#tabstrip" + type + "Child").data("kendoMobileTabStrip");
+function SwitchTab(entity, type, ID, name, surname, parentID){    	
+    	//alert("SwitchTab");
+    	var tabStrip = $("#tabstrip" + type + entity).data("kendoMobileTabStrip");
+    	$("#tabstrip" + type + entity).show();
     	//fails when try to filter by GUID, best option would be number or string        
-    	tabStrip.switchTo("#GeneralChild" + type);
-    	app.navigate("#GeneralChild" + type + "?id=" + ID, "slide");    	
+    	tabStrip.switchTo("#General" + entity + type);
+    	app.navigate("#General" + entity + type + "?id=" + ID, "slide");    	
     
     	var sufix = "View";
     
     	if(type=="Add")
-            sufix="";
+            sufix="";    
+    	
+    	if(entity == "Follow")
+        {
+    		$('[name="childID"]').val(parentID);
+        	$('[name="firstName"]').val(name);
+        	$('[name="surName"]').val(surname);
+    	}
     
-    	$('[name="SOSChildID' + sufix + '"]').val(ID);
-        $('[name="FirstName' + sufix + '"]').val(name);
-        $('[name="LastName' + sufix + '"]').val(surname);    	    
-    	$('[name="CaregiverID' + sufix + '"]').val(caregiverID);    	        	
-            
-    	$('[name="btnBack' + type + 'Child"]').show();
-    	$('[name="btnSave' + type + 'Child"]').show();
+    	if(entity == "Child")
+        {
+            $('[name="SOSChildID' + sufix + '"]').val(ID);
+            $('[name="FirstName' + sufix + '"]').val(name);
+            $('[name="LastName' + sufix + '"]').val(surname);    	    
+            $('[name="CaregiverID' + sufix + '"]').val(parentID);    	        	
+        }
+    
+    	if(entity == "Caregiver")
+        {
+            $('[name="CaregiverID' + sufix + '"]').val(ID);             
+            $('[name="FirstName' + sufix + '"]').val(name);
+            $('[name="LastName' + sufix + '"]').val(surname);    	                
+            $('[name="SOSHouseID' + sufix + '"]').val(parentID);
+        }
+    
+    	if(entity == "House")
+        {
+            $('[name="SOSHouseID' + sufix + '"]').val(ID);
+            $('[name="Address' + sufix + '"]').val(name);    	    
+            $('[name="NameOrNumber' + sufix + '"]').val(surname);
+            $('[name="ProgrammeUnitID' + sufix + '"]').val(parentID);    	        	
+        }
+    
+    	$('[name="btnBack' + type + entity + '"]').show();
+    	$('[name="btnSave' + type + entity + '"]').show();    	
 }
 
 function redirect(val){
