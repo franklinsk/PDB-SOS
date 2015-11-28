@@ -111,8 +111,14 @@ function SwitchTab(entity, type, ID, name, surname, parentID){
     	var tabStrip = $("#tabstrip" + type + entity).data("kendoMobileTabStrip");
     	$("#tabstrip" + type + entity).show();
     	//fails when try to filter by GUID, best option would be number or string        
-    	tabStrip.switchTo("#General" + entity + type);
-    	app.navigate("#General" + entity + type + "?id=" + ID, "slide");    	
+    
+    	var tabName = "General";
+    	if(parentID == "*") tabName = "";
+            
+    	tabStrip.switchTo("#" + tabName + entity + type);
+    	app.navigate("#" + tabName + entity + type + "?id=" + ID, "slide");    	
+    
+    	if(parentID == "*") return;
     
     	var sufix = "View";
     
@@ -158,3 +164,26 @@ function redirect(val){
     app.navigate("views/ViewTracking.html?id=" + val, "slide");    
 }
     
+function checkConnection()
+{
+          var networkState = navigator.connection.type;
+	
+          var states = {};
+          states[Connection.UNKNOWN] = 'Unknown connection';
+          states[Connection.ETHERNET] = 'Ethernet connection';
+          states[Connection.WIFI] = 'WiFi connection';
+          states[Connection.CELL_2G] = 'Cell 2G connection';
+          states[Connection.CELL_3G] = 'Cell 3G connection';
+          states[Connection.CELL_4G] = 'Cell 4G connection';
+          states[Connection.CELL] = 'Cell generic connection';
+          states[Connection.NONE] = 'No network connection';
+
+          if (states[networkState] == 'No network connection') {              
+              var connectionImg = "<img src='styles/inactive.jpg' id='statusConnection''/>";
+              $(".connectionStatus").html(connectionImg);               
+              //navigator.notification.alert('No active connection found!',null,'Network ','OK');
+          }else{
+              var connectionImg = "<img src='styles/active.gif' id='statusConnection''/>";
+              $(".connectionStatus").html(connectionImg);              
+          }
+}

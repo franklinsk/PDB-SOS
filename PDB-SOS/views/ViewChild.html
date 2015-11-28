@@ -1,5 +1,6 @@
 <div data-role="view" id="ChildView" data-title="Niño" data-layout="mobile-tabstrip-vch" data-model="APP.models.child" data-show="APP.models.child.init">
     <form>
+        <a data-role="button" href="views/AddChild.html"> Agregar Niño</a>                    
         <ul data-role="listview" data-style="inset">
             <li>
                 <label>Cuidador:
@@ -283,6 +284,7 @@
 			<a data-role="button" href="#appDrawer" data-rel="drawer" data-align="left" data-icon="drawer-button"></a>
             <a  name="btnBackViewChild" data-role="backbutton" data-align="left">Atrás</a>
             <span data-role="view-title"></span>
+            <span class="connectionStatus"></span>
             <a  name="btnSaveViewChild" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.child.viewChildSubmit">Guardar</a>                    
             <a  name="btnDepartChild" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.child.departChildSubmit">Inactivar</a>                    
             <a  name="btnReactivateChild" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.child.reactivateChildSubmit">Reactivar</a>                    

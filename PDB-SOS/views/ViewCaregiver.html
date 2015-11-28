@@ -1,5 +1,6 @@
 <div data-role="view" id="CaregiverView" data-title="Cuidador" data-layout="mobile-tabstrip-vc" data-model="APP.models.caregiver" data-show="APP.models.caregiver.init">
     <form>
+        <a data-role="button" href="views/AddCaregiver.html"> Agregar Cuidador</a>                    
         <ul data-role="listview" data-style="inset">
             <li>
                 <label>Casa:
@@ -254,6 +255,7 @@
 			<a data-role="button" href="#appDrawer" data-rel="drawer" data-align="left" data-icon="drawer-button"></a>
             <a  name="btnBackViewCaregiver" data-role="backbutton" data-align="left">Atrás</a>
             <span data-role="view-title"></span>
+            <span class="connectionStatus"></span>
             <a  name="btnSaveViewCaregiver" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.caregiver.viewCaregiverSubmit">Guardar</a>                    
             <a  name="btnDepartCaregiver" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.caregiver.departCaregiverSubmit">Inactivar</a>                    
             <a  name="btnReactivateCaregiver" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.caregiver.reactivateCaregiverSubmit">Reactivar</a>                    

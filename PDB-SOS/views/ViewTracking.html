@@ -1,5 +1,6 @@
 <div data-role="view" id="BusquedaFollowView" data-title="Busqueda" data-layout="mobile-tabstrip-vf" data-model="APP.models.tracking"  data-show="APP.models.tracking.init">
     <form>
+        <a data-role="button" href="views/AddTracking.html"> Agregar Seguimiento</a>                    
         <ul data-role="listview" data-style="inset">
             <li>
                 <label>Código del Niño:
@@ -271,9 +272,10 @@
              <header data-role="header">
                 <div data-role="navbar">
 					<a data-role="button" href="#appDrawer" data-rel="drawer" data-align="left" data-icon="drawer-button"></a>
-                    <a  style="display:none" name="btnBackViewFollow" data-role="backbutton" data-align="left">Atrás</a>                    
+                    <a  name="btnBackViewFollow" data-role="backbutton" data-align="left">Atrás</a>                    
                     <span data-role="view-title"></span>
-                    <a  style="display:none" name="btnSaveViewFollow" data-role="button" data-click-on="down" data-align="right"></a>                    
+                    <span class="connectionStatus"></span>
+                    <a  name="btnSaveViewFollow" data-role="button" data-click-on="down" data-align="right"></a>                    
                 </div>
             </header>
             <div data-role="footer">          

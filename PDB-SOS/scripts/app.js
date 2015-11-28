@@ -182,6 +182,9 @@ var app; // store a reference to the application object that will be created  la
     });
     
     window.APP.models.house = kendo.observable({
+        redirectToAddEntity: function () {             
+            SwitchTab("House", "Add", "", "", "", "*");              
+        },
         init: function () {
             
             setRestrictions();
@@ -506,6 +509,9 @@ var app; // store a reference to the application object that will be created  la
     });
     
     window.APP.models.caregiver = kendo.observable({
+         redirectToAddEntity: function () {             
+            SwitchTab("Caregiver", "Add", "", "", "", "*");              
+         },
          init: function () {     
             setRestrictions();
             hideTabControls("Caregiver", "Add");
@@ -1034,6 +1040,9 @@ var app; // store a reference to the application object that will be created  la
     });
     
     window.APP.models.child = kendo.observable({         
+         redirectToAddEntity: function () {             
+            SwitchTab("Child", "Add", "", "", "", "*");              
+         },
          init: function () {             
             setRestrictions();
             hideTabControls("Child", "Add");
@@ -1626,6 +1635,9 @@ var app; // store a reference to the application object that will be created  la
     });
 
     window.APP.models.tracking = kendo.observable({
+        redirectToAddEntity: function () {             
+            SwitchTab("Follow", "Add", "", "", "", "*");              
+        },
         init: function () {             
             setRestrictions();
             hideTabControls("Follow", "Add");
@@ -2115,9 +2127,11 @@ var app; // store a reference to the application object that will be created  la
             initial: 'views/home.html' // the application needs to know which view to load first
         });
         
+        setInterval("checkConnection();", 3000);
+        
         //$.getScript( "scripts/actions.js", function( data, textStatus, jqxhr ) {});
     }, false);
-    
+      
     offlineDataSource.online(false);
     offlineHouseDataSource.online(false);
     offlineCaregiverDataSource.online(false);

@@ -1,5 +1,6 @@
 <div data-role="view" id="HouseView" data-title="Casa" data-layout="mobile-tabstrip-vh" data-model="APP.models.house" data-show="APP.models.house.init">
     <form>
+        <a data-role="button" href="views/AddHouse.html"> Agregar Hogar</a>                    
         <ul data-role="listview" data-style="inset">
             <li>
                 <label>Programa:
@@ -95,6 +96,7 @@
 			<a data-role="button" href="#appDrawer" data-rel="drawer" data-align="left" data-icon="drawer-button"></a>
             <a name="btnBackViewHouse" data-role="backbutton" data-align="left">Atrás</a>
             <span data-role="view-title"></span>
+            <span class="connectionStatus"></span>
             <a name="btnSaveViewHouse" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.house.viewHouseSubmit">Guardar</a>                    
             <a name="btnDepartHouse" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.house.departHouseSubmit">Inactivar</a>                    
             <a name="btnReactivateHouse" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.house.reactivateHouseSubmit">Reactivar</a>                                     
