@@ -5,3 +5,19 @@
 .no-scroll::-o-scrollbar {display:none;}
 .no-scroll::-google-ms-scrollbar {display:none;}
 .no-scroll::-khtml-scrollbar {display:none;}
+
+input { text-align: right; }
+select { direction: rtl; }
+
+input[type=date] { text-align: right !important; }
+
+::-webkit-datetime-edit { padding: 0em; }
+::-webkit-datetime-edit-text { padding: 0em; }
+/*::-webkit-datetime-edit-fields-wrapper { background: silver; }
+::-webkit-datetime-edit-month-field { color: blue; }
+::-webkit-datetime-edit-day-field { color: green; }
+::-webkit-datetime-edit-year-field { color: purple; }
+::-webkit-calendar-picker-indicator { background: orange; }*/
+::-webkit-inner-spin-button { display: none; }
+::-webkit-clear-button { display: none; -webkit-appearance: none; }
+::-webkit-calendar-picker-indicator { width: 3px; }

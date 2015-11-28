@@ -164,20 +164,17 @@ var app; // store a reference to the application object that will be created  la
                         dataSource: paises
              });  
             
-             $("#submitFollowReport").kendoDropDownList({
+             $("#ddlPaisViewFollowReport").kendoDropDownList({
                         dataTextField: "Name",
                         dataValueField: "CountryID",
                         dataSource: paises
              });              
         },
-        submitConsolidatedReport: function(){
-            
-            alert("en implementacion");
-            
+        submitConsolidatedReport: function(){            
+            alert("en implementacion");            
         },
         submitFollowReport: function(){
-            alert("en implementacion");
-            
+            alert("en implementacion");            
         }
     });
     
@@ -659,8 +656,8 @@ var app; // store a reference to the application object that will be created  la
                     return;
                 }
              
-                $('[name="FirstName"]').val("");
-                $('[name="LastName"]').val("");
+                $('[name="FirstNameView"]').val("");
+                $('[name="LastNameView"]').val("");
 
                 caregiverDataSource.filter({});
                 caregiverDataSource = new kendo.data.DataSource({
@@ -669,14 +666,14 @@ var app; // store a reference to the application object that will be created  la
                             typeName: "CareGiver"
                         },
                         serverFiltering: true,
-                        filter: { field: 'CaregiverID', operator: 'eq', value: $('[name="CaregiverID"]').val().trim() }
+                        filter: { field: 'CaregiverID', operator: 'eq', value: $('[name="CaregiverIDView"]').val().trim() }
                 });    
 				
                 caregiverDataSource.fetch(function() {
                     var caregiver = caregiverDataSource.at(0);
-                    $('[name="CaregiverID"]').val(caregiver.get("CaregiverID"));
-                    $('[name="FirstName"]').val(caregiver.get("FirstName"));
-                    $('[name="LastName"]').val(caregiver.get("LastName"));
+                    $('[name="CaregiverIDView"]').val(caregiver.get("CaregiverID"));
+                    $('[name="FirstNameView"]').val(caregiver.get("FirstName"));
+                    $('[name="LastNameView"]').val(caregiver.get("LastName"));
                 });
             },
          addCaregiverSubmit: function () {
