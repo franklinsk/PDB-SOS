@@ -478,6 +478,11 @@ var app; // store a reference to the application object that will be created  la
             }
         },
         departHouseSubmit: function(){
+            	if (!navigator.onLine) {
+                    navigator.notification.alert("Algunas opciones no podrán ser usadas en modo desconectado");
+                    return;
+                 }
+
              	houseDataSource.filter({});
                 houseDataSource = new kendo.data.DataSource({
                     type: "everlive",
@@ -497,6 +502,11 @@ var app; // store a reference to the application object that will be created  la
                 });
          },
         reactivateHouseSubmit: function(){
+            	if (!navigator.onLine) {
+                    navigator.notification.alert("Algunas opciones no podrán ser usadas en modo desconectado");
+                    return;
+                 }
+
              	houseDataSource.filter({});
                 houseDataSource = new kendo.data.DataSource({
                     type: "everlive",
@@ -526,6 +536,26 @@ var app; // store a reference to the application object that will be created  la
             hideTabControls("Caregiver", "Add");
             hideTabControls("Caregiver", "View");
              
+            $("#listCaregiver").html("");
+             
+            if (!navigator.onLine) {
+                	navigator.notification.alert("Se realizará la búsqueda desconectada");
+                	offlineHouseDataSource.filter({});
+             
+                	$("#ddlCasa").kendoDropDownList({
+                        dataTextField: "NameOrNumber",
+                        dataValueField: "SOSHouseID",
+                        dataSource: offlineHouseDataSource
+                    });
+                
+                    $("#ddlCasaView").kendoDropDownList({
+                        dataTextField: "NameOrNumber",
+                        dataValueField: "SOSHouseID",
+                        dataSource: offlineHouseDataSource
+                    });
+                    return;
+            }
+             
             var casa = new kendo.data.DataSource({
                     type: "everlive",
                     transport: {
@@ -552,8 +582,6 @@ var app; // store a reference to the application object that will be created  la
                         dataValueField: "SOSHouseID",
                         dataSource: casa
                     });
-             
-             $("#listCaregiver").html("");
     	 },
          searchCaregiverByHouse: function(){
              
@@ -958,6 +986,11 @@ var app; // store a reference to the application object that will be created  la
             }
          },
          departCaregiverSubmit: function(){
+             	if (!navigator.onLine) {
+                    navigator.notification.alert("Algunas opciones no podrán ser usadas en modo desconectado");
+                    return;
+                 }
+             
              	caregiverDataSource.filter({});
                 caregiverDataSource = new kendo.data.DataSource({
                     type: "everlive",
@@ -978,6 +1011,11 @@ var app; // store a reference to the application object that will be created  la
                 });
          },
          reactivateCaregiverSubmit: function(){
+             	if (!navigator.onLine) {
+                    navigator.notification.alert("Algunas opciones no podrán ser usadas en modo desconectado");
+                    return;
+                 }
+             
              	caregiverDataSource.filter({});
                 caregiverDataSource = new kendo.data.DataSource({
                     type: "everlive",
@@ -998,6 +1036,11 @@ var app; // store a reference to the application object that will be created  la
                 });
          },
          initTransfer: function(){
+             if (!navigator.onLine) {
+            	navigator.notification.alert("Algunas opciones no podrán ser usadas en modo desconectado");
+                return;
+             }
+             
              var programa = new kendo.data.DataSource({
                     type: "everlive",
                     transport: {
@@ -1037,6 +1080,11 @@ var app; // store a reference to the application object that will be created  la
              });
          },
          tranferCaregiverSubmit: function(){
+             	if (!navigator.onLine) {
+                    navigator.notification.alert("Algunas opciones no podrán ser usadas en modo desconectado");
+                    return;
+                 }
+             
                 if(validateNullValues($("#ddlCasaTransfer").val()) == ""){
                     navigator.notification.alert("Debe seleccionar una casa");
                     return;
@@ -1072,6 +1120,26 @@ var app; // store a reference to the application object that will be created  la
             hideTabControls("Child", "Add");
             hideTabControls("Child", "View");
              
+            $("#listChild").html("");
+             
+            if (!navigator.onLine) {
+                	navigator.notification.alert("Se realizará la búsqueda desconectada");
+                	offlineCaregiverDataSource.filter({});
+             
+                	$("#ddlCuidador").kendoDropDownList({
+                        dataTextField: "LastName",
+                        dataValueField: "CaregiverID",
+                        dataSource: offlineCaregiverDataSource
+                    });
+                
+                    $("#ddlCuidadorView").kendoDropDownList({
+                        dataTextField: "LastName",
+                        dataValueField: "CaregiverID",
+                        dataSource: offlineCaregiverDataSource
+                    });
+                    return;
+            }
+             
             var cuidador = new kendo.data.DataSource({
                     type: "everlive",
                     transport: {
@@ -1080,12 +1148,13 @@ var app; // store a reference to the application object that will be created  la
     				serverFiltering: true,
                     serverSorting: true,
       				sort: { field: "LastName", dir: "asc" }
-    		});               
+    		 });               
+            
              $("#ddlCuidadorView").kendoDropDownList({
                         dataTextField: "LastName",
                         dataValueField: "CaregiverID",
                         dataSource: cuidador
-                    });
+             });
              
              var filters = []; 
              cuidador.filter({});
@@ -1097,8 +1166,6 @@ var app; // store a reference to the application object that will be created  la
                         dataValueField: "CaregiverID",
                         dataSource: cuidador
                     });
-             
-             $("#listChild").html("");
     	 },
          searchChildByCaregiver: function(){
             var stringTemplate = "Nombres: #: FirstName #, Apellidos #: LastName # <a href='javascript:SwitchTab(\"Child\",\"View\",\"#if (SOSChildID == null) {# #=''# #} else {##=SOSChildID##}#\", \"#if (FirstName == null) {# #=''# #} else {##=FirstName##}#\", \"#if (LastName == null) {# #=''# #} else {##=LastName##}#\", \"" + caregiverID + "\")'>Visualizar</a>";                
@@ -1540,6 +1607,11 @@ var app; // store a reference to the application object that will be created  la
             }
          },
          departChildSubmit: function(){
+             	if (!navigator.onLine) {
+                    navigator.notification.alert("Algunas opciones no podrán ser usadas en modo desconectado");
+                    return;
+                 }
+             
              	childDataSource.filter({});
                 childDataSource = new kendo.data.DataSource({
                     type: "everlive",
@@ -1560,6 +1632,11 @@ var app; // store a reference to the application object that will be created  la
                 });
          },
          reactivateChildSubmit: function(){
+             	if (!navigator.onLine) {
+                    navigator.notification.alert("Algunas opciones no podrán ser usadas en modo desconectado");
+                    return;
+             	}
+             
              	childDataSource.filter({});
                 childDataSource = new kendo.data.DataSource({
                     type: "everlive",
@@ -1580,6 +1657,11 @@ var app; // store a reference to the application object that will be created  la
                 });
          },
          initChildTransfer: function(){
+             if (!navigator.onLine) {
+            	navigator.notification.alert("Algunas opciones no podrán ser usadas en modo desconectado");
+                return;
+             }
+             
              var programa = new kendo.data.DataSource({
                     type: "everlive",
                     transport: {
@@ -1647,6 +1729,11 @@ var app; // store a reference to the application object that will be created  la
              });
          },
          transferChildSubmit: function(){
+                if (!navigator.onLine) {
+                    navigator.notification.alert("Algunas opciones no podrán ser usadas en modo desconectado");
+                    return;
+                }
+             
                 if(validateNullValues($("#ddlCuidadorChildTransfer").val()) == ""){
                     navigator.notification.alert("Debe seleccionar un cuidador");
                     return;
@@ -1686,24 +1773,24 @@ var app; // store a reference to the application object that will be created  la
             $("#trackViewList").html("");            
     	},
         searchTrackingByChildID: function () {            
-            if (!navigator.onLine) {
-                    navigator.notification.alert("No hay conexion a Internet");
-                    return;
-            }
-            var listTracking = new kendo.data.DataSource({
-                    type: "everlive",
-                    transport: {
-                        typeName: "ChildTracking"
-                    },
-    				serverFiltering: true,
-    				filter: { field: 'SOSChildID', operator: 'eq', value: $('[name="SOSChildID"]').val() }
-    		});                            
+            trackingDataSource.filter({});
+            offlineDataSource.filter({});
             
+            var filters = [];
+            filters = UpdateSearchFilters(filters, "SOSChildID", "eq", $('[name="SOSChildID"]').val(), "and");        
+             
+			var datasource = trackingDataSource;
+             
+            if (!navigator.onLine) { 
+                navigator.notification.alert("Algunas opciones no podrán ser usadas en modo desconectado");
+                datasource = offlineDataSource; 
+            }          
+            
+            datasource.filter({});
+            datasource.filter(filters);  
+                        
             $("#trackViewList").kendoMobileListView({
-                dataSource: listTracking,
-                //template: "Fecha de Inicio: #: kendo.toString(StartDate, 'yyyy/MM/dd' ) #, Fecha de Fin: #: kendo.toString(EndDate, 'yyyy/MM/dd' ) # <a href='javascript:switchTab(\"#if (SOSChildID == null) {# #=''# #} else {# #=SOSChildID# #}#\", \"#if (FirstName == null) {# #=''# #} else {# #=FirstName# #}#\", \"#if (LastName == null) {# #=''# #} else {# #=LastName# #}#\")'>Visualizar</a>"                
-                //No values for firstName and lastName
-                
+                dataSource: datasource,                
                 template: "Fecha de Inicio: #: kendo.toString(StartDate, 'yyyy/MM/dd' ) #, Fecha de Fin: #: kendo.toString(EndDate, 'yyyy/MM/dd' ) # <a href='javascript:SwitchTab(\"Follow\",\"View\",\"#if (SOSFollowID == null) {# #=''# #} else {##=SOSFollowID##}#\", \"\", \"\", \"#if (SOSChildID == null) {# #=''# #} else {##=SOSChildID##}#\")'>Visualizar</a>",                
                 dataBound: function () {
                     if (this.dataSource.total() == 0) 
@@ -1717,12 +1804,13 @@ var app; // store a reference to the application object that will be created  la
                     return;
             }
             
-            var childDataSource = new kendo.data.DataSource({
-                type: "everlive",
-                transport: {
-                    typeName: "Child"
-                }
-            });
+            trackingDataSource.filter({});
+            offlineDataSource.filter({});
+            
+            var filters = [];
+            var datasource = trackingDataSource;
+             
+            if (!navigator.onLine) { datasource = offlineDataSource; }          
             
             //Implementing for filtering by textbox values (missing the motherlastname)
             //http://www.telerik.com/forums/multiple-filters-on-datasource
@@ -1730,8 +1818,8 @@ var app; // store a reference to the application object that will be created  la
             var opt1 = validateNullValues(this.firstNameSearch);
             var opt2 = validateNullValues(this.lastNameSearch);
             var opt3 = validateNullValues(this.lastName2Search);
-                       
-            childDataSource.filter([
+            
+            datasource.filter([
             {
                         "logic": "and",
                      	"filters": 
@@ -1756,7 +1844,7 @@ var app; // store a reference to the application object that will be created  la
             
             //Values should be different to null, instead of this the app crashed (template)
             $("#trackAddList").kendoMobileListView({
-                dataSource: childDataSource,
+                dataSource: datasource,
                 template: "#: LastName #, #: FirstName # <a href='javascript:SwitchTab(\"Follow\",\"Add\",\"#if (SOSChildID == null) {# #=''# #} else {# #=SOSChildID# #}#\", \"#if (FirstName == null) {# #=''# #} else {# #=FirstName# #}#\", \"#if (LastName == null) {# #=''# #} else {# #=LastName# #}#\")'>Seguir</a>",                
                 dataBound: function () {
                     if (this.dataSource.total() == 0) 
@@ -1844,22 +1932,30 @@ var app; // store a reference to the application object that will be created  la
             }
         },
         getTrackingByID: function (e) {
-            var childID = e.view.params.id;
+            var followID = e.view.params.id;
             
-            if(childID == null)
+            if(followID == null)
                 return;
-            	
-            var trackingSearchDataSource = new kendo.data.DataSource({
-                    type: "everlive",
-                    transport: {
-                        typeName: "ChildTracking"
-                    },
-    				serverFiltering: true,
-    			filter: { field: 'SOSChildID', operator: 'eq', value: childID }	
-    		});    
             
-            trackingSearchDataSource.fetch(function() {
-  				var child = trackingSearchDataSource.at(0);
+            offlineDataSource.filter({});
+            trackingDataSource.filter({});
+            
+            var filters = [];
+            filters = UpdateSearchFilters(filters, "SOSFollowID", "eq", followID, "and");        
+             
+			var datasource = trackingDataSource;
+            var childID = "";
+            if (!navigator.onLine) { 
+                datasource = offlineDataSource; 
+                navigator.notification.alert("Se realizará la búsqueda desconectada");
+            }          
+            
+            datasource.filter({});
+            datasource.filter(filters);  
+                        
+            datasource.fetch(function() {
+  				var child = datasource.at(0);
+                childID = child.get("SOSChildID");
   				$('[name="childIDView"]').val(child.get("SOSChildID"));
                 $('[name="startDateView"]').val(child.get("StartDate"));
                 $('[name="endDateView"]').val(child.get("EndDate"));
@@ -1897,29 +1993,96 @@ var app; // store a reference to the application object that will be created  la
                 $('[name="commentsAboutHandicapView"]').val(child.get("HealthDisabilityComments"));  
 			});
             
-            var childSearchDataSource = new kendo.data.DataSource({
-                    type: "everlive",
-                    transport: {
-                        typeName: "Child"
-                    },
-    				serverFiltering: true,
-    				filter: { field: 'SOSChildID', operator: 'eq', value: childID }
-    		});    
-            
-            childSearchDataSource.fetch(function() 
+            if(childID != "")
             {
-  				var child = childSearchDataSource.at(0);
-  				$('[name="childIDView"]').val(child.get("SOSChildID"));
-                $('[name="firstNameView"]').val(child.get("FirstName"));
-                $('[name="surNameView"]').val(child.get("LastName"));
-            });    
+            	childDataSource.filter({});
+            	offlineChildDataSource.filter({});
+            
+                var filters = [];
+            	filters = UpdateSearchFilters(filters, "SOSChildID", "eq", childID, "and");        
+                
+                var datasource = houseDataSource;
+             
+            	if (!navigator.onLine) { datasource = offlineChildDataSource; }          
+                
+                datasource.filter({});
+            	datasource.filter(filters);  
+                
+                datasource.fetch(function() 
+                {
+                    var child = datasource.at(0);
+                    $('[name="childIDView"]').val(child.get("SOSChildID"));
+                    $('[name="firstNameView"]').val(child.get("FirstName"));
+                    $('[name="surNameView"]').val(child.get("LastName"));
+                });    
+            }
         }
     });
 
-    window.APP.synchro = kendo.observable({
-        submitFollow: function () { 
-
+    window.APP.models.synchro = kendo.observable({
+        init: function () { 
+			$("#listView").html("");
+            $("#listViewChild").html("");
+            $("#listViewCaregiver").html("");
+            $("#listViewHouse").html("");
+            
             if (navigator.onLine) {
+
+                var sLocalStorage = localStorage.getItem("tracking-offline");
+                var jLocalStorage = JSON.parse(sLocalStorage);
+				
+                var localStorageDataSource = new kendo.data.DataSource({
+                    data: jLocalStorage
+                });
+
+                $("#listView").kendoMobileListView({
+                    dataSource: localStorageDataSource,
+                    template: "Seguimiento: #: StartDate # - #: EndDate # - #: SOSChildID #"
+                });
+                
+                sLocalStorage = localStorage.getItem("house-offline");
+                jLocalStorage = JSON.parse(sLocalStorage);
+
+                localStorageDataSource = new kendo.data.DataSource({
+                    data: jLocalStorage
+                });
+
+                $("#listViewHouse").kendoMobileListView({
+                    dataSource: localStorageDataSource,
+                    template: "Hogar: #: NameOrNumber # - #: Address # - #: SOSHouseID #"
+                });
+                
+                sLocalStorage = localStorage.getItem("caregiver-offline");
+                jLocalStorage = JSON.parse(sLocalStorage);
+
+                localStorageDataSource = new kendo.data.DataSource({
+                    data: jLocalStorage
+                });
+
+                $("#listViewCaregiver").kendoMobileListView({
+                    dataSource: localStorageDataSource,
+                    template: "Cuidador: #: FirstName # - #: LastName # - #: CaregiverID #"
+                });
+                
+                sLocalStorage = localStorage.getItem("child-offline");
+                jLocalStorage = JSON.parse(sLocalStorage);
+
+                localStorageDataSource = new kendo.data.DataSource({
+                    data: jLocalStorage
+                });
+
+                $("#listViewChild").kendoMobileListView({
+                    dataSource: localStorageDataSource,
+                    template: "Niño: #: FirstName # - #: LastName # - #: SOSChildID #"
+                });
+            }
+            else 
+            {
+                navigator.notification.alert("No se ha detectado una conexion activa a internet");
+            }
+        },
+        submitFollow: function () { 
+			if (navigator.onLine) {
 
                 var sLocalStorage = localStorage.getItem("tracking-offline");
                 var jLocalStorage = JSON.parse(sLocalStorage);
@@ -1983,7 +2146,8 @@ var app; // store a reference to the application object that will be created  la
 
                 localStorage.removeItem("tracking-offline");
                 synchroDataSource.sync();
-                navigator.notification.alert("Sincronizacion finalizada!!!");
+                $("#listView").html("");
+                navigator.notification.alert("Sincronizacion finalizada de Seguimiento!!!");
             }
             else 
             {
@@ -2000,7 +2164,7 @@ var app; // store a reference to the application object that will be created  la
                     data: jLocalStorage
                 });
 
-                $("#listView").kendoMobileListView({
+                $("#listViewHouse").kendoMobileListView({
                     dataSource: localStorageDataSource,
                     template: "#: NameOrNumber # - #: Address # - #: SOSHouseID #"
                 });
@@ -2036,7 +2200,7 @@ var app; // store a reference to the application object that will be created  la
                 localStorage.removeItem("house-offline");
                 synchroDataSource.sync();
                 navigator.notification.alert("Sincronizacion finalizada!!!");
-
+	            $("#listViewHouse").html("");
             }
             else 
             {
@@ -2053,7 +2217,7 @@ var app; // store a reference to the application object that will be created  la
                     data: jLocalStorage
                 });
 
-                $("#listView").kendoMobileListView({
+                $("#listViewCaregiver").kendoMobileListView({
                     dataSource: localStorageDataSource,
                     template: "#: FirstName # - #: LastName # - #: CaregiverID #"
                 });
@@ -2097,7 +2261,8 @@ var app; // store a reference to the application object that will be created  la
                 localStorage.removeItem("caregiver-offline");
                 synchroDataSource.sync();
                 navigator.notification.alert("Sincronizacion finalizada!!!");
-
+				
+            	$("#listViewCaregiver").html("");
             }
             else 
             {
@@ -2114,7 +2279,7 @@ var app; // store a reference to the application object that will be created  la
                     data: jLocalStorage
                 });
 
-                $("#listView").kendoMobileListView({
+                $("#listViewChild").kendoMobileListView({
                     dataSource: localStorageDataSource,
                     template: "#: FirstName # - #: LastName # - #: SOSChildID #"
                 });
@@ -2149,6 +2314,7 @@ var app; // store a reference to the application object that will be created  la
                 synchroDataSource.sync();
                 navigator.notification.alert("Sincronizacion finalizada!!!");
 
+            	$("#listViewChild").html("");
             }
             else 
             {
