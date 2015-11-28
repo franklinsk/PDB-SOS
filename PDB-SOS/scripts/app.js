@@ -119,7 +119,7 @@ var app; // store a reference to the application object that will be created  la
     });
     
     window.APP = { // create an object to store the models for each view
-        models: { home: { title: '¡Bienvenido!' } }
+        models: { home: { title: '¡Bienvenido!' }, credits: { title: '¡Créditos!' } }
     };
     
     window.APP.models.Util = kendo.observable({
