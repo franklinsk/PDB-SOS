@@ -213,8 +213,24 @@ var app; // store a reference to the application object that will be created  la
              $("#listHouse").html("");
     	},
         searchHouseByProgrammeUnit: function(){
+            
+            var stringTemplate = "Casa: #: SOSHouseID #, Dirección #: Address # <a href='javascript:SwitchTab(\"House\",\"View\",\"#if (SOSHouseID == null) {# #=''# #} else {##=SOSHouseID##}#\", \"#if (Address == null) {# #=''# #} else {##=Address##}#\", \"#if (NameOrNumber == null) {# #=''# #} else {##=NameOrNumber##}#\", \"" + programmeUnitID + "\")'>Visualizar</a>";                
+            var inactive = " #if (Status == null || Status != '1') {# <a href='javascript:optEntityTab(\"House\",\"Reactivate\", \"#= SOSHouseID #\")'>Reactivar</a> #}#";                
+            var active = " #if (Status != null && Status == '1') {# <a href='javascript:optEntityTab(\"House\",\"Depart\", \"#= SOSHouseID #\")'>Salida</a> #}#";                
+            stringTemplate = stringTemplate + inactive + active;
+            
             if (!navigator.onLine) {
-                    navigator.notification.alert("No hay conexion a Internet");
+                	navigator.notification.alert("Se realizará la búsqueda desconectada");
+                	offlineHouseDataSource.filter({});
+                    
+                    $("#listHouse").kendoMobileListView({
+                        dataSource: offlineHouseDataSource,
+                        template: stringTemplate,
+                        dataBound: function () {
+                            if (this.dataSource.total() == 0) 
+                                $("#listHouse").html('<li>No hay resultados.</li>');
+                        }                
+                    }); 
                     return;
             }
             
@@ -226,11 +242,6 @@ var app; // store a reference to the application object that will be created  la
             filters = UpdateSearchFilters(filters, "ProgrammeUnitID", "eq", programmeUnitID, "and");        
 	        houseDataSource.filter(filters);
             
-            var stringTemplate = "Casa: #: SOSHouseID #, Dirección #: Address # <a href='javascript:SwitchTab(\"House\",\"View\",\"#if (SOSHouseID == null) {# #=''# #} else {##=SOSHouseID##}#\", \"#if (Address == null) {# #=''# #} else {##=Address##}#\", \"#if (NameOrNumber == null) {# #=''# #} else {##=NameOrNumber##}#\", \"" + programmeUnitID + "\")'>Visualizar</a>";                
-            var inactive = " #if (Status == null || Status != '1') {# <a href='javascript:optEntityTab(\"House\",\"Reactivate\", \"#= SOSHouseID #\")'>Reactivar</a> #}#";                
-            var active = " #if (Status != null && Status == '1') {# <a href='javascript:optEntityTab(\"House\",\"Depart\", \"#= SOSHouseID #\")'>Salida</a> #}#";                
-            stringTemplate = stringTemplate + inactive + active;
-            
             $("#listHouse").kendoMobileListView({
                 dataSource: houseDataSource,
                 template: stringTemplate,
@@ -241,11 +252,12 @@ var app; // store a reference to the application object that will be created  la
             });
         },
         addProgrammeUnitToHouse: function(){
-            if (!navigator.onLine) {
+            /*if (!navigator.onLine) {
                     navigator.notification.alert("No hay conexion a Internet");
                     return;
-            }
-            var programmeUnitID = $("#ddlProgramma").val();
+            }*/            
+            var programmeUnitID = "";
+            if (navigator.onLine) { programmeUnitID = $("#ddlProgramma").val(); }
             SwitchTab("House", "Add", "", "", "", programmeUnitID);              
         },
         getHouseItemByID: function(e){
@@ -255,17 +267,19 @@ var app; // store a reference to the application object that will be created  la
                 return;
             	
             houseDataSource.filter({});
-            houseDataSource = new kendo.data.DataSource({
-                    type: "everlive",
-                    transport: {
-                        typeName: "House"
-                    },
-    				serverFiltering: true,
-    			filter: { field: 'SOSHouseID', operator: 'eq', value: houseID }	
-    		});    
             
-            houseDataSource.fetch(function() {
-  				var entity = houseDataSource.at(0);
+            var filters = [];
+            filters = UpdateSearchFilters(filters, "SOSHouseID", "eq", houseID, "and");        
+             
+			var datasource = houseDataSource;
+             
+            if (!navigator.onLine) { datasource = offlineHouseDataSource; }          
+            
+            datasource.filter({});
+            datasource.filter(filters);  
+
+            datasource.fetch(function() {
+  				var entity = datasource.at(0);
   				$('[name="AddressView"]').val(entity.get("Address"));
                 $('[name="DateOfStartView"]').val(kendo.toString(entity.get("DateOfStart"), "yyyy-MM-dd"));
                 $('[name="MaximunCapacityView"]').val(entity.get("MaximunCapacity"));
@@ -275,8 +289,6 @@ var app; // store a reference to the application object that will be created  la
                 $('[name="PhoneNumberView"]').val(entity.get("PhoneNumber"));
                 $('[name="ProgrammeUnitIDView"]').val(entity.get("ProgrammeUnitID"));
                 $('[name="SOSHouseIDView"]').val(entity.get("SOSHouseID"));
-                
-                //$('[name="StatusView"]').val(entity.get("Status"));
                 
                 if(entity.get("Status") == "1")                	
                     $('[name="StatusView"]').val("Activo");
@@ -544,8 +556,26 @@ var app; // store a reference to the application object that will be created  la
              $("#listCaregiver").html("");
     	 },
          searchCaregiverByHouse: function(){
+             
+             var stringTemplate = "Nombres: #: FirstName #, Apellidos #: LastName # <a href='javascript:SwitchTab(\"Caregiver\",\"View\",\"#if (CaregiverID == null) {# #=''# #} else {##=CaregiverID##}#\", \"#if (FirstName == null) {# #=''# #} else {##=FirstName##}#\", \"#if (LastName == null) {# #=''# #} else {##=LastName##}#\", \"" + houseID + "\")'>Visualizar</a>";                
+             var inactive = " #if (Status == null || Status != '1') {# <a href='javascript:optEntityTab(\"Caregiver\",\"Reactivate\", \"#= CaregiverID #\")'>Reactivar</a> #}#";                
+             var active = " #if (Status != null && Status == '1') {# <a href='javascript:optEntityTab(\"Caregiver\",\"Depart\", \"#= CaregiverID #\")'>Salida</a> <a href='javascript:optEntityTab(\"Caregiver\",\"Transfer\", \"#= CaregiverID #\")'>Transferencia</a> #}#";                
+             stringTemplate = stringTemplate + inactive + active;            
+             
              if (!navigator.onLine) {
-                    navigator.notification.alert("No hay conexion a Internet");
+                    //navigator.notification.alert("No hay conexion a Internet");
+                    //return;
+                	navigator.notification.alert("Se realizará la búsqueda desconectada");
+                	offlineCaregiverDataSource.filter({});
+                    
+                    $("#listCaregiver").kendoMobileListView({
+                        dataSource: offlineCaregiverDataSource,
+                        template: stringTemplate,
+                        dataBound: function () {
+                            if (this.dataSource.total() == 0) 
+                                $("#listCaregiver").html('<li>No hay resultados.</li>');
+                        }                
+                    }); 
                     return;
             }
              
@@ -558,11 +588,6 @@ var app; // store a reference to the application object that will be created  la
             filters = UpdateSearchFilters(filters, "SOSHouseID", "eq", houseID, "and");        
 	        caregiverDataSource.filter(filters);
             
-            var stringTemplate = "Nombres: #: FirstName #, Apellidos #: LastName # <a href='javascript:SwitchTab(\"Caregiver\",\"View\",\"#if (CaregiverID == null) {# #=''# #} else {##=CaregiverID##}#\", \"#if (FirstName == null) {# #=''# #} else {##=FirstName##}#\", \"#if (LastName == null) {# #=''# #} else {##=LastName##}#\", \"" + houseID + "\")'>Visualizar</a>";                
-            var inactive = " #if (Status == null || Status != '1') {# <a href='javascript:optEntityTab(\"Caregiver\",\"Reactivate\", \"#= CaregiverID #\")'>Reactivar</a> #}#";                
-            var active = " #if (Status != null && Status == '1') {# <a href='javascript:optEntityTab(\"Caregiver\",\"Depart\", \"#= CaregiverID #\")'>Salida</a> <a href='javascript:optEntityTab(\"Caregiver\",\"Transfer\", \"#= CaregiverID #\")'>Transferencia</a> #}#";                
-            stringTemplate = stringTemplate + inactive + active;            
-             
             $("#listCaregiver").kendoMobileListView({
                 dataSource: caregiverDataSource,
                 template: stringTemplate,
@@ -573,11 +598,12 @@ var app; // store a reference to the application object that will be created  la
             });
          },
          addHouseToCaregiver: function(){
-            if (!navigator.onLine) {
+            /*if (!navigator.onLine) {
                     navigator.notification.alert("No hay conexion a Internet");
                     return;
-            }
-            var houseID = $("#ddlCasa").val();
+            }*/
+            var houseID = "";
+            if (navigator.onLine) { houseID = $("#ddlCasa").val(); }
             SwitchTab("Caregiver", "Add", "", "", "", houseID); 
          },
          getCaregiverItemByID: function(e){
@@ -586,18 +612,18 @@ var app; // store a reference to the application object that will be created  la
             if(caregiverID == null)
                 return;
             	
-            caregiverDataSource.filter({});
-            caregiverDataSource = new kendo.data.DataSource({
-                    type: "everlive",
-                    transport: {
-                        typeName: "CareGiver"
-                    },
-    				serverFiltering: true,
-    			filter: { field: 'CaregiverID', operator: 'eq', value: caregiverID }	
-    		});    
-            
-            caregiverDataSource.fetch(function() {
-  				var entity = caregiverDataSource.at(0);
+            var filters = [];
+            filters = UpdateSearchFilters(filters, "CaregiverID", "eq", caregiverID, "and");        
+             
+            var datasource = caregiverDataSource;
+
+			if (!navigator.onLine) { datasource = offlineCaregiverDataSource; }          
+
+            datasource.filter({});
+            datasource.filter(filters);  
+
+            datasource.fetch(function() {
+  				var entity = datasource.at(0);
                 
   				$('[name="PhoneNumberView"]').val(entity.get("PhoneNumber"));
                 
@@ -927,6 +953,7 @@ var app; // store a reference to the application object that will be created  la
                     entity.set("EconomicSupport",GetComboBoxItemsAndConvertToJson("EconomicSupportView"));
 
                     offlineCaregiverDataSource.sync();
+                    navigator.notification.alert("Se ha registrado correctamente");            
                 });
             }
          },
@@ -1074,12 +1101,27 @@ var app; // store a reference to the application object that will be created  la
              $("#listChild").html("");
     	 },
          searchChildByCaregiver: function(){
-           if (!navigator.onLine) {
-                    navigator.notification.alert("No hay conexion a Internet");
+            var stringTemplate = "Nombres: #: FirstName #, Apellidos #: LastName # <a href='javascript:SwitchTab(\"Child\",\"View\",\"#if (SOSChildID == null) {# #=''# #} else {##=SOSChildID##}#\", \"#if (FirstName == null) {# #=''# #} else {##=FirstName##}#\", \"#if (LastName == null) {# #=''# #} else {##=LastName##}#\", \"" + caregiverID + "\")'>Visualizar</a>";                
+            var inactive = " #if (Status == null || Status != '1') {# <a href='javascript:optEntityTab(\"Child\",\"Reactivate\", \"#= SOSChildID #\")'>Reactivar</a> #}#";                
+            var active = " #if (Status != null && Status == '1') {# <a href='javascript:optEntityTab(\"Child\", \"Depart\", \"#= SOSChildID #\")'>Salida</a> <a href='javascript:optEntityTab(\"Child\",\"Transfer\", \"#= SOSChildID #\")'>Transferencia</a> #}#";                
+            stringTemplate = stringTemplate + inactive + active;            
+            
+            if (!navigator.onLine) {
+                	navigator.notification.alert("Se realizará la búsqueda desconectada");
+                	offlineChildDataSource.filter({});
+                    
+                    $("#listChild").kendoMobileListView({
+                        dataSource: offlineChildDataSource,
+                        template: stringTemplate,
+                        dataBound: function () {
+                            if (this.dataSource.total() == 0) 
+                                $("#listChild").html('<li>No hay resultados.</li>');
+                        }                
+                    }); 
                     return;
             }
-            var caregiverID = $("#ddlCuidadorView").val();
             
+            var caregiverID = $("#ddlCuidadorView").val();
             var filters = [];
  
             childDataSource.filter({});
@@ -1087,11 +1129,6 @@ var app; // store a reference to the application object that will be created  la
             filters = UpdateSearchFilters(filters, "CaregiverID", "eq", caregiverID, "and");        
 	        childDataSource.filter(filters);
             
-            var stringTemplate = "Nombres: #: FirstName #, Apellidos #: LastName # <a href='javascript:SwitchTab(\"Child\",\"View\",\"#if (SOSChildID == null) {# #=''# #} else {##=SOSChildID##}#\", \"#if (FirstName == null) {# #=''# #} else {##=FirstName##}#\", \"#if (LastName == null) {# #=''# #} else {##=LastName##}#\", \"" + caregiverID + "\")'>Visualizar</a>";                
-            var inactive = " #if (Status == null || Status != '1') {# <a href='javascript:optEntityTab(\"Child\",\"Reactivate\", \"#= SOSChildID #\")'>Reactivar</a> #}#";                
-            var active = " #if (Status != null && Status == '1') {# <a href='javascript:optEntityTab(\"Child\", \"Depart\", \"#= SOSChildID #\")'>Salida</a> <a href='javascript:optEntityTab(\"Child\",\"Transfer\", \"#= SOSChildID #\")'>Transferencia</a> #}#";                
-            stringTemplate = stringTemplate + inactive + active;            
-                         
             $("#listChild").kendoMobileListView({
                 dataSource: childDataSource,
                 template: stringTemplate,
@@ -1102,11 +1139,13 @@ var app; // store a reference to the application object that will be created  la
             }); 
          },
          addCaregiverToChild: function(){
-            if (!navigator.onLine) {
+            /*if (!navigator.onLine) {
                     navigator.notification.alert("No hay conexion a Internet");
                     return;
-            }
-            var caregiverID = $("#ddlCuidador").val();
+            }*/
+             
+            var caregiverID = "";
+            if (navigator.onLine) { caregiverID =  $("#ddlCuidador").val(); }
             SwitchTab("Child", "Add", "", "", "", caregiverID); 
          },
          getChildItemByID: function(e){
@@ -1115,18 +1154,18 @@ var app; // store a reference to the application object that will be created  la
             if(childID == null)
                 return;
             
-            childDataSource.filter({});             
-            childDataSource = new kendo.data.DataSource({
-                    type: "everlive",
-                    transport: {
-                        typeName: "Child"
-                    },
-    				serverFiltering: true,
-    			filter: { field: 'SOSChildID', operator: 'eq', value: childID }	
-    		});    
+            var filters = [];
+            filters = UpdateSearchFilters(filters, "SOSChildID", "eq", childID, "and");        
+             
+            var datasource = childDataSource;
+             
+            if (!navigator.onLine) { datasource = offlineChildDataSource; }          
             
-            childDataSource.fetch(function() {
-  				var entity = childDataSource.at(0);
+            datasource.filter({});
+            datasource.filter(filters);    			
+             
+            datasource.fetch(function() {
+  				var entity = datasource.at(0);
                 
   				$('[name="BirthdateView"]').val(kendo.toString(entity.get("Birthdate"), "yyyy-MM-dd"));
                 $('[name="LastNameView"]').val(entity.get("LastName"));
@@ -1187,8 +1226,7 @@ var app; // store a reference to the application object that will be created  la
                     $('[name="StatusView"]').val("Activo");
                 else
                 	$('[name="StatusView"]').val("Inactivo");
-			});   
-            childDataSource.filter({});  
+			});                
          },
          getChildByID: function () {   
                 if (!navigator.onLine) {
@@ -1357,6 +1395,7 @@ var app; // store a reference to the application object that will be created  la
             }
          },
          viewChildSubmit: function(){
+             
             if(validateNullValues($('[name="FirstNameView"]').val()) == ""){
                 navigator.notification.alert("Los nombres son obligatorios");
                 return;
@@ -1444,11 +1483,13 @@ var app; // store a reference to the application object that will be created  la
                 offlineChildDataSource.online(false);
                 
                 var filters = [];
+                offlineChildDataSource.filter({});
  				filters = UpdateSearchFilters(filters, "SOSChildID", "eq", $('[name="SOSChildIDView"]').val(), "and");        
                 offlineChildDataSource.filter(filters);
                 
                 offlineChildDataSource.fetch(function() {
-  					var entity = offlineChildDataSource.at(0);
+                    var entity = offlineChildDataSource.at(0);
+                    
                     entity.set("Birthdate",$('[name="BirthdateView"]').val());
                     entity.set("LastName",$('[name="LastNameView"]').val());
                     entity.set("FirstName",$('[name="FirstNameView"]').val());
@@ -1494,6 +1535,7 @@ var app; // store a reference to the application object that will be created  la
                     entity.set("EducationalSupport",GetComboBoxItemsAndConvertToJson("EducationalSupportView"));
                     entity.set("AdditionalSupport",GetComboBoxItemsAndConvertToJson("AdditionalSupportView"));
                     offlineChildDataSource.sync();
+                    navigator.notification.alert("Se ha registrado correctamente en modo desconectado");
                 });
             }
          },
