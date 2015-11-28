@@ -119,7 +119,7 @@ var app; // store a reference to the application object that will be created  la
     });
     
     window.APP = { // create an object to store the models for each view
-        models: { home: { title: 'Bienvenido!!!' } }
+        models: { home: { title: '¡Bienvenido!' } }
     };
     
     window.APP.models.Util = kendo.observable({
@@ -147,11 +147,37 @@ var app; // store a reference to the application object that will be created  la
     });
     
     window.APP.models.Reports = kendo.observable({
-        submit: function(){
-            alert("en implementacion");
+        init: function(){
+          var paises = new kendo.data.DataSource({
+                    type: "everlive",
+                    transport: {
+                        typeName: "Country"
+                    },
+    				serverFiltering: true,
+                    serverSorting: true,
+      				sort: { field: "Name", dir: "asc" }
+    		});               
+            
+             $("#ddlPaisViewConsolidated").kendoDropDownList({
+                        dataTextField: "Name",
+                        dataValueField: "CountryID",
+                        dataSource: paises
+             });  
+            
+             $("#submitFollowReport").kendoDropDownList({
+                        dataTextField: "Name",
+                        dataValueField: "CountryID",
+                        dataSource: paises
+             });              
         },
-        submitFollow: function(){
+        submitConsolidatedReport: function(){
+            
             alert("en implementacion");
+            
+        },
+        submitFollowReport: function(){
+            alert("en implementacion");
+            
         }
     });
     
@@ -384,7 +410,6 @@ var app; // store a reference to the application object that will be created  la
                     navigator.notification.alert("El código de hogar es obligatorio y ser de 8 caracteres");
                     return;
             }
-
             
             if (navigator.onLine) 
             {
@@ -1841,7 +1866,7 @@ var app; // store a reference to the application object that will be created  la
     });
 
     window.APP.synchro = kendo.observable({
-        submit: function () { 
+        submitFollow: function () { 
 
             if (navigator.onLine) {
 
@@ -1908,7 +1933,6 @@ var app; // store a reference to the application object that will be created  la
                 localStorage.removeItem("tracking-offline");
                 synchroDataSource.sync();
                 navigator.notification.alert("Sincronizacion finalizada!!!");
-
             }
             else 
             {
@@ -2093,5 +2117,10 @@ var app; // store a reference to the application object that will be created  la
         
         //$.getScript( "scripts/actions.js", function( data, textStatus, jqxhr ) {});
     }, false);
+    
     offlineDataSource.online(false);
+    offlineHouseDataSource.online(false);
+    offlineCaregiverDataSource.online(false);
+	offlineChildDataSource.online(false);
+    
 }());

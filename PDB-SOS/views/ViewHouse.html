@@ -1,4 +1,4 @@
-<div data-role="view" id="HouseView" data-title="Casa" data-layout="mobile-tabstrip" data-model="APP.models.house" data-show="APP.models.house.init">
+<div data-role="view" id="HouseView" data-title="Casa" data-layout="mobile-tabstrip-vh" data-model="APP.models.house" data-show="APP.models.house.init">
     <form>
         <ul data-role="listview" data-style="inset">
             <li>
@@ -13,7 +13,7 @@
     </form>
     <ul id="listHouse"></ul>
 </div>
-<div data-role="view" id="GeneralHouseView" data-title="General" data-show="APP.models.house.getHouseItemByID" data-layout="mobile-tabstrip" data-model="APP.models.house">
+<div data-role="view" id="GeneralHouseView" data-title="General" data-show="APP.models.house.getHouseItemByID" data-layout="mobile-tabstrip-vh" data-model="APP.models.house">
     <form id="formViewHouse">
         <!--<div id="errors"></div>-->
         <ul data-role="listview" data-style="inset" title="General">
@@ -71,7 +71,7 @@
         </ul>
     </form>
 </div>
-<div data-role="view" id="HouseDepart" data-title="Salida" data-layout="mobile-tabstrip" data-model="APP.models.house" style="display:none">
+<div data-role="view" id="HouseDepart" data-title="Salida" data-layout="mobile-tabstrip-vh" data-model="APP.models.house" style="display:none">
     <form>
         <ul data-role="listview" data-style="inset">
             <li>
@@ -80,7 +80,7 @@
         </ul>
     </form>
 </div>
-<div data-role="view" id="HouseReactivate" data-title="Reactivar" data-layout="mobile-tabstrip" data-model="APP.models.house" style="display:none">
+<div data-role="view" id="HouseReactivate" data-title="Reactivar" data-layout="mobile-tabstrip-vh" data-model="APP.models.house" style="display:none">
     <form>
         <ul data-role="listview" data-style="inset">            
             <li>
@@ -89,7 +89,7 @@
         </ul>
     </form>
 </div>
-<div data-role="layout" data-id="mobile-tabstrip" data-show="showDemoLayout">
+<div data-role="layout" data-id="mobile-tabstrip-vh" data-show="showDemoLayout">
     <header data-role="header">
         <div data-role="navbar">
 			<a name="btnBackViewHouse" data-role="backbutton" data-align="left">Atrás</a>

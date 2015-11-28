@@ -1,4 +1,4 @@
-<div data-role="view" id="ChildAdd" data-title="Niño" data-layout="mobile-tabstrip" data-model="APP.models.child"  data-show="APP.models.child.init">
+<div data-role="view" id="ChildAdd" data-title="Niño" data-layout="mobile-tabstrip-ach" data-model="APP.models.child"  data-show="APP.models.child.init">
     <form>
         <ul data-role="listview" data-style="inset">
             <li>
@@ -12,7 +12,7 @@
         </ul>
     </form>
 </div>
-<div data-role="view" id="GeneralChildAdd" data-title="General" data-layout="mobile-tabstrip" data-model="APP.models.child">
+<div data-role="view" id="GeneralChildAdd" data-title="General" data-layout="mobile-tabstrip-ach" data-model="APP.models.child">
     <form>
         <ul data-role="listview" data-style="inset" title="General">
             <li><label>Código de Niño:<input type="text" name="SOSChildID" data-bind="value: SOSChildID"/></label></li>
@@ -35,7 +35,7 @@
         </ul>
     </form>
 </div>
-<div data-role="view" id="EducationChildAdd" data-title="Educación" data-layout="mobile-tabstrip" data-model="APP.models.child">
+<div data-role="view" id="EducationChildAdd" data-title="Educación" data-layout="mobile-tabstrip-ach" data-model="APP.models.child">
     <form>
         <ul data-role="listview" data-style="inset" title="Educación">
             <li><label>Va a un centro educativo SOS:<input type="checkbox" name="GoesToEducationalCenterSOS" data-bind="value: GoesToEducationalCenterSOS"/></label></li>
@@ -45,7 +45,7 @@
         </ul>
     </form>
 </div>      
-<div data-role="view" id="HealthChildAdd" data-title="Salud" data-layout="mobile-tabstrip" data-model="APP.models.child">
+<div data-role="view" id="HealthChildAdd" data-title="Salud" data-layout="mobile-tabstrip-ach" data-model="APP.models.child">
     <form>
         <ul data-role="listview" data-style="inset" title="Salud">
             <li><label>Fecha de último control médico:<input type="date" name="DateOfLastMedicalControl" data-bind="value: DateOfLastMedicalControl"/></label></li>
@@ -101,7 +101,7 @@
         </ul>
     </form>
 </div>      
-<div data-role="view" id="AdmissionChildAdd" data-title="Admisión" data-layout="mobile-tabstrip" data-model="APP.models.child">
+<div data-role="view" id="AdmissionChildAdd" data-title="Admisión" data-layout="mobile-tabstrip-ach" data-model="APP.models.child">
     <form>
         <ul data-role="listview" data-style="inset" title="Admisión">
             
@@ -163,7 +163,7 @@
         </ul>
     </form>
 </div>      
-<div data-role="view" id="PsychosocialChildAdd" data-title="Psicológico" data-layout="mobile-tabstrip" data-model="APP.models.child">
+<div data-role="view" id="PsychosocialChildAdd" data-title="Psicológico" data-layout="mobile-tabstrip-ach" data-model="APP.models.child">
     <form>
         <ul data-role="listview" data-style="inset" title="Psicológico">
             <li><label>Desarrollo Psicosocial:<select name="PsychosocialDevelopment" id="PsychosocialDevelopment" data-bind="value: PsychosocialDevelopment">
@@ -175,7 +175,7 @@
 		</ul>
     </form>
 </div>      
-<div data-role="view" id="ServicesChildAdd" data-title="Servicios" data-layout="mobile-tabstrip" data-model="APP.models.child">
+<div data-role="view" id="ServicesChildAdd" data-title="Servicios" data-layout="mobile-tabstrip-ach" data-model="APP.models.child">
     <form>
         <ul data-role="listview" data-style="inset" title="Servicios">            
             <li><label>Apoyo Psicosocial:<select name="PsychosocialSupport" id="PsychosocialSupport" data-bind="value: PsychosocialSupport">
@@ -231,7 +231,7 @@
         </ul>
     </form>
 </div>
-<div data-role="layout" data-id="mobile-tabstrip" data-show="showDemoLayout">
+<div data-role="layout" data-id="mobile-tabstrip-ach" data-show="showDemoLayout">
     <header data-role="header">
         <div data-role="navbar">
 			<a  name="btnBackAddChild" data-role="backbutton" data-align="left">Atrás</a>

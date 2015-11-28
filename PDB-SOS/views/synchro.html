@@ -1,10 +1,18 @@
-<div data-role="view" data-title="Inicio" data-layout="main" data-model="APP.synchro">
+<div data-role="view" data-title="Sincronizar" data-layout="main" data-model="APP.synchro">
     <form>
-        <div id="listView"></div>
-        
+        <div id="listView"></div>        
         <ul data-role="listview" data-style="inset">
             <li>
-                <button style="width: 100%" data-role="button" data-bind="click: submit">Sincronizar</button>
+                <button style="width: 100%" data-role="button" data-bind="click: submitFollow">Sincronizar Seguimiento</button>
+            </li>
+            <li>
+                <button style="width: 100%" data-role="button" data-bind="click: submitHouse">Sincronizar Hogares</button>
+            </li>
+            <li>
+                <button style="width: 100%" data-role="button" data-bind="click: submitCaregiver">Sincronizar Cuidadores</button>
+            </li>
+            <li>
+                <button style="width: 100%" data-role="button" data-bind="click: submitChild">Sincronizar Niños</button>
             </li>
         </ul>
     </form> 

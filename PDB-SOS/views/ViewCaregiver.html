@@ -1,4 +1,4 @@
-<div data-role="view" id="CaregiverView" data-title="Cuidador" data-layout="mobile-tabstrip" data-model="APP.models.caregiver" data-show="APP.models.caregiver.init">
+<div data-role="view" id="CaregiverView" data-title="Cuidador" data-layout="mobile-tabstrip-vc" data-model="APP.models.caregiver" data-show="APP.models.caregiver.init">
     <form>
         <ul data-role="listview" data-style="inset">
             <li>
@@ -13,7 +13,7 @@
     </form>
     <ul id="listCaregiver"></ul>
 </div>
-<div data-role="view" id="GeneralCaregiverView" data-title="General" data-show="APP.models.caregiver.getCaregiverItemByID" data-layout="mobile-tabstrip" data-model="APP.models.caregiver">
+<div data-role="view" id="GeneralCaregiverView" data-title="General" data-show="APP.models.caregiver.getCaregiverItemByID" data-layout="mobile-tabstrip-vc" data-model="APP.models.caregiver">
     <form>
         <ul data-role="listview" data-style="inset" title="General">
             <li><label>Código de Cuidador:<input type="text" name="CaregiverIDView" data-bind="value: CaregiverID"/>
@@ -66,7 +66,7 @@
     </form>
 </div>
             
-<div data-role="view" id="EducationCaregiverView" data-title="Educación" data-layout="mobile-tabstrip" data-model="APP.models.caregiver">
+<div data-role="view" id="EducationCaregiverView" data-title="Educación" data-layout="mobile-tabstrip-vc" data-model="APP.models.caregiver">
     <form>
         <ul data-role="listview" data-style="inset" title="Educación">
           
@@ -88,7 +88,7 @@
         </ul>
     </form>
 </div>      
-<div data-role="view" id="HealthCaregiverView" data-title="Salud" data-layout="mobile-tabstrip" data-model="APP.models.caregiver">
+<div data-role="view" id="HealthCaregiverView" data-title="Salud" data-layout="mobile-tabstrip-vc" data-model="APP.models.caregiver">
     <form>
         <ul data-role="listview" data-style="inset" title="Salud">
             
@@ -112,7 +112,7 @@
         </ul>
     </form>
 </div>      
-<div data-role="view" id="ServicesCaregiverView" data-title="Servicios" data-layout="mobile-tabstrip" data-model="APP.models.caregiver">
+<div data-role="view" id="ServicesCaregiverView" data-title="Servicios" data-layout="mobile-tabstrip-vc" data-model="APP.models.caregiver">
     <form>
         <ul data-role="listview" data-style="inset" title="Servicios">
             
@@ -208,7 +208,7 @@
         </ul>
     </form>
 </div>
-<div data-role="view" id="CaregiverDepart" data-title="Salida" data-layout="mobile-tabstrip" data-model="APP.models.caregiver" style="display:none">
+<div data-role="view" id="CaregiverDepart" data-title="Salida" data-layout="mobile-tabstrip-vc" data-model="APP.models.caregiver" style="display:none">
     <form>
         <ul data-role="listview" data-style="inset">
             <li>
@@ -218,7 +218,7 @@
         </ul>
     </form>
 </div>
-<div data-role="view" id="CaregiverReactivate" data-title="Reactivar" data-layout="mobile-tabstrip" data-model="APP.models.caregiver" style="display:none">
+<div data-role="view" id="CaregiverReactivate" data-title="Reactivar" data-layout="mobile-tabstrip-vc" data-model="APP.models.caregiver" style="display:none">
     <form>
         <ul data-role="listview" data-style="inset">            
             <li>
@@ -228,7 +228,7 @@
         </ul>
     </form>
 </div>
-<div data-role="view" id="CaregiverTransfer" data-title="Transferencia" data-layout="mobile-tabstrip" data-model="APP.models.caregiver" style="display:none"  data-show="APP.models.caregiver.initTransfer">
+<div data-role="view" id="CaregiverTransfer" data-title="Transferencia" data-layout="mobile-tabstrip-vc" data-model="APP.models.caregiver" style="display:none"  data-show="APP.models.caregiver.initTransfer">
     <form>
         <ul data-role="listview" data-style="inset">            
             <li>
@@ -248,7 +248,7 @@
         </ul>
     </form>
 </div>
-<div data-role="layout" data-id="mobile-tabstrip" data-show="showDemoLayout">
+<div data-role="layout" data-id="mobile-tabstrip-vc" data-show="showDemoLayout">
     <header data-role="header">
         <div data-role="navbar">
 			<a  name="btnBackViewCaregiver" data-role="backbutton" data-align="left">Atrás</a>

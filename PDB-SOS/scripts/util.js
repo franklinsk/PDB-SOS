@@ -82,6 +82,7 @@ function hideTabControls(entity, action){
 
 function optEntityTab(entity, type, ID){    	
     	//alert("optEntityTab");
+    	//alert("#tabstripView" + entity);
 		var tabStrip = $("#tabstripView" + entity).data("kendoMobileTabStrip");
     	$("#tabstripView" + entity).show();
     
