@@ -1,6 +1,6 @@
 var app; // store a reference to the application object that will be created  later on so that we can use it if need be
 
-(function () {
+(function () { 
     //remove filters in each search
     //http://www.telerik.com/forums/remove-filters-from-data-source
     //FoodMenuDataSource.filter({});
