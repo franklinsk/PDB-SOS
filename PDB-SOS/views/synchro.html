@@ -1,4 +1,4 @@
-<div data-role="view" data-title="Sincronizar" data-layout="main" data-model="APP.synchro">
+<div data-role="view" data-title="Sincronizar" data-model="APP.synchro" data-layout="mobile-tabstrip-sy" >
     <form>
         <div id="listView"></div>        
         <ul data-role="listview" data-style="inset">
@@ -15,6 +15,14 @@
                 <button style="width: 100%" data-role="button" data-bind="click: submitChild">Sincronizar Niños</button>
             </li>
         </ul>
-    </form> 
-    
+    </form>     
+</div>
+<div data-role="layout" data-id="mobile-tabstrip-sy" data-show="showDemoLayout">
+    <header data-role="header">
+        <div data-role="navbar">
+            <a data-role="button" href="#appDrawer" data-rel="drawer" data-align="left" data-icon="drawer-button"></a>
+			<a  name="btnBackSync" data-role="backbutton" data-align="left">Atrás</a>
+            <span data-role="view-title"></span>            
+        </div>
+    </header>
 </div>
