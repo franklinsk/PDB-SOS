@@ -1828,13 +1828,13 @@ var app; // store a reference to the application object that will be created  la
                     return;
             }
             
-            trackingDataSource.filter({});
-            offlineDataSource.filter({});
+            childDataSource.filter({});
+            offlineChildDataSource.filter({});
             
             var filters = [];
-            var datasource = trackingDataSource;
+            var datasource = childDataSource;
              
-            if (!navigator.onLine) { datasource = offlineDataSource; }          
+            if (!navigator.onLine) { datasource = offlineChildDataSource; }          
             
             //Implementing for filtering by textbox values (missing the motherlastname)
             //http://www.telerik.com/forums/multiple-filters-on-datasource
@@ -1869,7 +1869,7 @@ var app; // store a reference to the application object that will be created  la
             //Values should be different to null, instead of this the app crashed (template)
             $("#trackAddList").kendoMobileListView({
                 dataSource: datasource,
-                template: "#: LastName #, #: FirstName # <a href='javascript:SwitchTab(\"Follow\",\"Add\",\"#if (SOSChildID == null) {# #=''# #} else {# #=SOSChildID# #}#\", \"#if (FirstName == null) {# #=''# #} else {# #=FirstName# #}#\", \"#if (LastName == null) {# #=''# #} else {# #=LastName# #}#\")'>Seguir</a>",                
+                template: "#: LastName #, #: FirstName # <a href='javascript:SwitchTab(\"Follow\",\"Add\",\"\", \"#if (FirstName == null) {# #=''# #} else {# #=FirstName# #}#\", \"#if (LastName == null) {# #=''# #} else {# #=LastName# #}#\",\"#if (SOSChildID == null) {# #=''# #} else {# #=SOSChildID# #}#\")'>Seguir</a>",                
                 dataBound: function () {
                     if (this.dataSource.total() == 0) 
                         $("#trackAddList").html('<li>No hay resultados.</li>');
@@ -1882,7 +1882,7 @@ var app; // store a reference to the application object that will be created  la
             {
                 trackingDataSource.add({
                     SOSFollowID: randomIntFromInterval(10000000,99999999),
-                    SOSChildID: $('[name="childID"]').val(),
+                    SOSChildID: $('[name="SOSChildID"]').val(),
                     StartDate: $('[name="startDate"]').val(),
                     EndDate: $('[name="endDate"]').val(),
                     Phone: $('[name="phone"]').val(),
@@ -1920,7 +1920,7 @@ var app; // store a reference to the application object that will be created  la
                 offlineDataSource.online(false);
 
                 offlineDataSource.add({
-                    SOSChildID: $('[name="childID"]').val(),
+                    SOSChildID: $('[name="SOSChildID"]').val(),
                     StartDate: $('[name="startDate"]').val(),
                     EndDate: $('[name="endDate"]').val(),
                     Phone: $('[name="phone"]').val(),
@@ -1980,6 +1980,7 @@ var app; // store a reference to the application object that will be created  la
             datasource.fetch(function() {
   				var child = datasource.at(0);
                 childID = child.get("SOSChildID");
+                $('[name="SOSFollowIDView"]').val(child.get("SOSFollowID"));
   				$('[name="childIDView"]').val(child.get("SOSChildID"));
                 $('[name="startDateView"]').val(child.get("StartDate"));
                 $('[name="endDateView"]').val(child.get("EndDate"));
