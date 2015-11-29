@@ -93,7 +93,19 @@
                     <label>Hermanos biológicos fuera de SOS:
                         <input type="number" name="siblingsOutsideSOS" data-bind="value: siblingsOutsideSOS">
                     </label>
-                </li>                             
+                </li>    
+                <li>
+                    <label>Estado Civil:
+                        <select name="MaritalStatus" data-bind="value: MaritalStatus">
+                            <option value="1">Soltero</option>
+                            <option value="2">Casado</option>
+                            <option value="3">Viudo</option>
+                            <option value="4">Divorciado</option>
+                            <option value="5">Conviviente</option>
+                            <option value="6">Separado</option>
+                        </select>
+                    </label>
+                </li>    
                 <li>
                     <!--<a href="#Vivienda" data-icon="fastforward" data-click="onClickTabFollowUp">Adelantar</a>-->
                 </li>
@@ -183,10 +195,29 @@
                         <input type="text" name="specialitySemester" data-bind="value: specialitySemester">
                     </label>
                 </li>
+                <li>
+                    <label>Satisfacción en desarrollo Profesional:
+                        <select name="SatisfactionInProfessionalDev" data-bind="value: SatisfactionInProfessionalDev">
+                            <option value="1">Muy Contento</option>
+                            <option value="2">Contento</option>
+                            <option value="3">Descontento</option>
+                            <option value="4">Muy Descontento</option>
+                        </select>
+                    </label>
+                </li>    
             </ul>
         </div>
         <div data-role="view" id="EmpleoIngresosFollowAdd" data-title="Empleo" data-layout="mobile-tabstrip-af">
             <ul data-role="listview" data-style="inset" title="Empleo">
+                <li>
+                    <label>Condición Laboral:
+                        <select name="WorkCondition" data-bind="value: WorkCondition">
+                            <option value="1">Dependiente</option>
+                            <option value="2">Independiente</optiosn>
+                            <option value="3">No labora</option>
+                        </select>
+                    </label>
+                </li>
                 <li>
                     <label>Ingresos Mensuales:
                             <input type="number" name="incomeMonthly" data-bind="value: incomeMonthly">
@@ -208,6 +239,17 @@
                             <option value="2">Prestaciones sociales</option>
                             <option value="3">Apoyo de SOS</option>
                             <option value="4">Otros</option>
+                        </select>
+                    </label>
+                </li>
+				<li>
+                    <label>Dinero Suficiente:
+                        <select name="EnoughWorkIncome" data-bind="value: EnoughWorkIncome">
+                            <option value="1">Si fácilmente</option>
+                            <option value="2">Si me las arreglo</optiosn>
+                            <option value="3">Es difícil</option>
+                        	<option value="4">Es imposible</option>
+                        	<option value="5">No sabe</option>
                         </select>
                     </label>
                 </li>

@@ -1289,6 +1289,11 @@ var app; // store a reference to the application object that will be created  la
                 SetComboBoxItemsAndConvertJsonToArray(entity.get("EducationalSupport"),"EducationalSupportView");
                 SetComboBoxItemsAndConvertJsonToArray(entity.get("AdditionalSupport"),"AdditionalSupportView");
 
+                $('[name="MaritalStatusView"]').val(entity.get("MaritalStatus"));
+                $('[name="SatisfactionInProfessionalDevView"]').val(entity.get("SatisfactionInProfessionalDev"));
+                $('[name="WorkConditionView"]').val(entity.get("WorkCondition"));
+                $('[name="EnoughWorkIncomeView"]').val(entity.get("EnoughWorkIncome"));
+                
                 if(entity.get("Status") == "1")                	
                     $('[name="StatusView"]').val("Activo");
                 else
@@ -1397,6 +1402,10 @@ var app; // store a reference to the application object that will be created  la
                                 MedicalSupport:GetComboBoxItemsAndConvertToJson("MedicalSupport"),
                                 EducationalSupport:GetComboBoxItemsAndConvertToJson("EducationalSupport"),
                                 AdditionalSupport:GetComboBoxItemsAndConvertToJson("AdditionalSupport"),
+                                MaritalStatus:$('[name="MaritalStatus"]').val(),
+                                SatisfactionInProfessionalDev:$('[name="SatisfactionInProfessionalDev"]').val(),
+                                WorkCondition:$('[name="WorkCondition"]').val(),
+                                EnoughWorkIncome:$('[name="EnoughWorkIncome"]').val(),
                                 Status: "1"
                             });
                             childDataSource.sync();
@@ -1454,7 +1463,11 @@ var app; // store a reference to the application object that will be created  la
                                 PsychosocialSupport:GetComboBoxItemsAndConvertToJson("PsychosocialSupport"),
                                 MedicalSupport:GetComboBoxItemsAndConvertToJson("MedicalSupport"),
                                 EducationalSupport:GetComboBoxItemsAndConvertToJson("EducationalSupport"),
-                                AdditionalSupport:GetComboBoxItemsAndConvertToJson("AdditionalSupport"),
+                                AdditionalSupport:GetComboBoxItemsAndConvertToJson("AdditionalSupport"),                    
+                                MaritalStatus:$('[name="MaritalStatus"]').val(),
+                                SatisfactionInProfessionalDev:$('[name="SatisfactionInProfessionalDev"]').val(),
+                                WorkCondition:$('[name="WorkCondition"]').val(),
+                                EnoughWorkIncome:$('[name="EnoughWorkIncome"]').val(),
                     			Status: "1"
                 });
                 offlineChildDataSource.sync();
@@ -1536,7 +1549,12 @@ var app; // store a reference to the application object that will be created  la
                     entity.set("MedicalSupport",GetComboBoxItemsAndConvertToJson("MedicalSupportView"));
                     entity.set("EducationalSupport",GetComboBoxItemsAndConvertToJson("EducationalSupportView"));
                     entity.set("AdditionalSupport",GetComboBoxItemsAndConvertToJson("AdditionalSupportView"));
-
+					                               
+                    entity.set("MaritalStatus",$('[name="MaritalStatusView"]').val());
+                    entity.set("SatisfactionInProfessionalDev",$('[name="SatisfactionInProfessionalDevView"]').val());
+                    entity.set("WorkCondition",$('[name="WorkConditionView"]').val());
+                    entity.set("EnoughWorkIncome",$('[name="EnoughWorkIncomeView"]').val());
+                                    
 					/*var jsonExitReasonView = GetComboBoxItemsAndConvertToJson("ExitReasonView");                    
                     if(jsonExitReasonView.trim() != "")
                     	entity.set("ExitReason", jsonExitReasonView);*/                    
@@ -1601,6 +1619,12 @@ var app; // store a reference to the application object that will be created  la
                     entity.set("MedicalSupport",GetComboBoxItemsAndConvertToJson("MedicalSupportView"));
                     entity.set("EducationalSupport",GetComboBoxItemsAndConvertToJson("EducationalSupportView"));
                     entity.set("AdditionalSupport",GetComboBoxItemsAndConvertToJson("AdditionalSupportView"));
+                    
+                    entity.set("MaritalStatus",$('[name="MaritalStatusView"]').val());
+                    entity.set("SatisfactionInProfessionalDev",$('[name="SatisfactionInProfessionalDevView"]').val());
+                    entity.set("WorkCondition",$('[name="WorkConditionView"]').val());
+                    entity.set("EnoughWorkIncome",$('[name="EnoughWorkIncomeView"]').val());
+                    
                     offlineChildDataSource.sync();
                     navigator.notification.alert("Se ha registrado correctamente en modo desconectado");
                 });
