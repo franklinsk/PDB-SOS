@@ -62,8 +62,7 @@ function validateNullValues(variable){
     return variable;
 }
 
-function randomIntFromInterval(min,max)
-{
+function randomIntFromInterval(min,max){
     return Math.floor(Math.random()*(max-min+1)+min);
 }
 
@@ -76,8 +75,7 @@ function hideTabControls(entity, action){
     $('[name="btnReactivate' + entity + '"]').hide();
     
     if(entity != "House")
-    	$('[name="btnTransfer' + entity + '"]').hide();    
-    
+    	$('[name="btnTransfer' + entity + '"]').hide();        
 }
 
 function optEntityTab(entity, type, ID){    	
@@ -164,8 +162,7 @@ function redirect(val){
     app.navigate("views/ViewTracking.html?id=" + val, "slide");    
 }
     
-function checkConnection()
-{
+function checkConnection(){
           var networkState = navigator.connection.type;
 	
           var states = {};

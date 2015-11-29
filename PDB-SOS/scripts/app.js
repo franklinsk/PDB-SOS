@@ -1288,11 +1288,6 @@ var app; // store a reference to the application object that will be created  la
                 SetComboBoxItemsAndConvertJsonToArray(entity.get("MedicalSupport"),"MedicalSupportView");
                 SetComboBoxItemsAndConvertJsonToArray(entity.get("EducationalSupport"),"EducationalSupportView");
                 SetComboBoxItemsAndConvertJsonToArray(entity.get("AdditionalSupport"),"AdditionalSupportView");
-
-                $('[name="MaritalStatusView"]').val(entity.get("MaritalStatus"));
-                $('[name="SatisfactionInProfessionalDevView"]').val(entity.get("SatisfactionInProfessionalDev"));
-                $('[name="WorkConditionView"]').val(entity.get("WorkCondition"));
-                $('[name="EnoughWorkIncomeView"]').val(entity.get("EnoughWorkIncome"));
                 
                 if(entity.get("Status") == "1")                	
                     $('[name="StatusView"]').val("Activo");
@@ -1402,10 +1397,6 @@ var app; // store a reference to the application object that will be created  la
                                 MedicalSupport:GetComboBoxItemsAndConvertToJson("MedicalSupport"),
                                 EducationalSupport:GetComboBoxItemsAndConvertToJson("EducationalSupport"),
                                 AdditionalSupport:GetComboBoxItemsAndConvertToJson("AdditionalSupport"),
-                                MaritalStatus:$('[name="MaritalStatus"]').val(),
-                                SatisfactionInProfessionalDev:$('[name="SatisfactionInProfessionalDev"]').val(),
-                                WorkCondition:$('[name="WorkCondition"]').val(),
-                                EnoughWorkIncome:$('[name="EnoughWorkIncome"]').val(),
                                 Status: "1"
                             });
                             childDataSource.sync();
@@ -1464,11 +1455,7 @@ var app; // store a reference to the application object that will be created  la
                                 MedicalSupport:GetComboBoxItemsAndConvertToJson("MedicalSupport"),
                                 EducationalSupport:GetComboBoxItemsAndConvertToJson("EducationalSupport"),
                                 AdditionalSupport:GetComboBoxItemsAndConvertToJson("AdditionalSupport"),                    
-                                MaritalStatus:$('[name="MaritalStatus"]').val(),
-                                SatisfactionInProfessionalDev:$('[name="SatisfactionInProfessionalDev"]').val(),
-                                WorkCondition:$('[name="WorkCondition"]').val(),
-                                EnoughWorkIncome:$('[name="EnoughWorkIncome"]').val(),
-                    			Status: "1"
+                                Status: "1"
                 });
                 offlineChildDataSource.sync();
                 navigator.notification.alert("Se ha registrado correctamente en modo desconectado");
@@ -1550,10 +1537,6 @@ var app; // store a reference to the application object that will be created  la
                     entity.set("EducationalSupport",GetComboBoxItemsAndConvertToJson("EducationalSupportView"));
                     entity.set("AdditionalSupport",GetComboBoxItemsAndConvertToJson("AdditionalSupportView"));
 					                               
-                    entity.set("MaritalStatus",$('[name="MaritalStatusView"]').val());
-                    entity.set("SatisfactionInProfessionalDev",$('[name="SatisfactionInProfessionalDevView"]').val());
-                    entity.set("WorkCondition",$('[name="WorkConditionView"]').val());
-                    entity.set("EnoughWorkIncome",$('[name="EnoughWorkIncomeView"]').val());
                                     
 					/*var jsonExitReasonView = GetComboBoxItemsAndConvertToJson("ExitReasonView");                    
                     if(jsonExitReasonView.trim() != "")
@@ -1619,11 +1602,6 @@ var app; // store a reference to the application object that will be created  la
                     entity.set("MedicalSupport",GetComboBoxItemsAndConvertToJson("MedicalSupportView"));
                     entity.set("EducationalSupport",GetComboBoxItemsAndConvertToJson("EducationalSupportView"));
                     entity.set("AdditionalSupport",GetComboBoxItemsAndConvertToJson("AdditionalSupportView"));
-                    
-                    entity.set("MaritalStatus",$('[name="MaritalStatusView"]').val());
-                    entity.set("SatisfactionInProfessionalDev",$('[name="SatisfactionInProfessionalDevView"]').val());
-                    entity.set("WorkCondition",$('[name="WorkConditionView"]').val());
-                    entity.set("EnoughWorkIncome",$('[name="EnoughWorkIncomeView"]').val());
                     
                     offlineChildDataSource.sync();
                     navigator.notification.alert("Se ha registrado correctamente en modo desconectado");
@@ -1882,7 +1860,7 @@ var app; // store a reference to the application object that will be created  la
             {
                 trackingDataSource.add({
                     SOSFollowID: randomIntFromInterval(10000000,99999999),
-                    SOSChildID: $('[name="SOSChildID"]').val(),
+                    SOSChildID: $('[name="childID"]').val(),
                     StartDate: $('[name="startDate"]').val(),
                     EndDate: $('[name="endDate"]').val(),
                     Phone: $('[name="phone"]').val(),
@@ -1911,7 +1889,11 @@ var app; // store a reference to the application object that will be created  la
                     WorkMonthsUnemployed: $('[name="monthsUnemployee"]').val(),
                     HealthHasDisabilities: $('[name="hasDisability"]').is(":checked"),
                     HealthHowDisabilityAffects: $('[name="affectsInDailyLife"]').val(),
-                    HealthDisabilityComments: $('[name="commentsAboutHandicap"]').val()
+                    HealthDisabilityComments: $('[name="commentsAboutHandicap"]').val(),
+                    MaritalStatus:$('[name="MaritalStatus"]').val(),
+                    SatisfactionInProfessionalDev:$('[name="SatisfactionInProfessionalDev"]').val(),
+                    WorkCondition:$('[name="WorkCondition"]').val(),
+                    EnoughWorkIncome:$('[name="EnoughWorkIncome"]').val()
                 });
                 trackingDataSource.sync();
                 navigator.notification.alert("Se ha registrado correctamente");
@@ -1920,7 +1902,8 @@ var app; // store a reference to the application object that will be created  la
                 offlineDataSource.online(false);
 
                 offlineDataSource.add({
-                    SOSChildID: $('[name="SOSChildID"]').val(),
+                    SOSFollowID: randomIntFromInterval(10000000,99999999),
+                    SOSChildID: $('[name="childID"]').val(),
                     StartDate: $('[name="startDate"]').val(),
                     EndDate: $('[name="endDate"]').val(),
                     Phone: $('[name="phone"]').val(),
@@ -1949,7 +1932,11 @@ var app; // store a reference to the application object that will be created  la
                     WorkMonthsUnemployed: $('[name="monthsUnemployee"]').val(),
                     HealthHasDisabilities: $('[name="hasDisability"]').is(":checked"),
                     HealthHowDisabilityAffects: $('[name="affectsInDailyLife"]').val(),
-                    HealthDisabilityComments: $('[name="commentsAboutHandicap"]').val()
+                    HealthDisabilityComments: $('[name="commentsAboutHandicap"]').val(),
+                    MaritalStatus:$('[name="MaritalStatus"]').val(),
+                    SatisfactionInProfessionalDev:$('[name="SatisfactionInProfessionalDev"]').val(),
+                    WorkCondition:$('[name="WorkCondition"]').val(),
+                    EnoughWorkIncome:$('[name="EnoughWorkIncome"]').val()
                 });
                 offlineDataSource.sync();
                 navigator.notification.alert("Se ha registrado correctamente en modo desconectado");
@@ -2016,6 +2003,12 @@ var app; // store a reference to the application object that will be created  la
                 if(child.get("HealthHasDisabilities") == true) $('[name="hasDisability"]').attr('checked', true);
                 $('[name="affectsInDailyLifeView"]').val(child.get("HealthHowDisabilityAffects"));
                 $('[name="commentsAboutHandicapView"]').val(child.get("HealthDisabilityComments"));  
+                
+                $('[name="MaritalStatusView"]').val(child.get("MaritalStatus"));
+                $('[name="SatisfactionInProfessionalDevView"]').val(child.get("SatisfactionInProfessionalDev"));
+                $('[name="WorkConditionView"]').val(child.get("WorkCondition"));
+                $('[name="EnoughWorkIncomeView"]').val(child.get("EnoughWorkIncome"));
+
 			});
             
             if(childID != "")
