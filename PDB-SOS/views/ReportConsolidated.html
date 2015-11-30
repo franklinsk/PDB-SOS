@@ -1,30 +1,67 @@
-<div data-role="view" id="ViewConsolidated" data-title="Consolidado" data-layout="mobile-tabstrip-rc" data-model="APP.models.Reports" data-show="APP.models.Reports.init">
-    <form>
-        <ul data-role="listview" data-style="inset">
-            <li>
-                <label>País:
-                    <input id="ddlPaisViewConsolidated" />
-                </label>
-            </li>
-            <li>
-                <button style="width: 100%" data-role="button" data-bind="click: submitConsolidatedReport">Generar</button>
-            </li>
-        </ul>
-    </form>
-    <ul id="list"></ul>
-</div>
-<div data-role="layout" data-id="mobile-tabstrip-rc" data-show="showDemoLayout">
-    <header data-role="header">
-        <div data-role="navbar">
-            <a data-role="button" href="#appDrawer" data-rel="drawer" data-align="left" data-icon="drawer-button"></a>
-			<a  style="display:none" name="btnBackViewConsolidated" data-role="backbutton" data-align="left">Atrás</a>
-            <span data-role="view-title"></span>  
-            <span class="connectionStatus"></span>
-        </div>
-    </header>
-    <div data-role="footer">
-        <div data-role="tabstrip" id="tabstripViewConsolidated">
-            <a href="#ViewConsolidated" data-icon="globe">Generar</a>
-        </div>
-    </div>
-</div>
+<div data-role="view" data-title="Reporte Consolidado" data-layout="main" data-show="initDatasourcesForReports" data-stretch="true">
+			<div id="example">
+                <br>
+                <a  data-role="button" data-click-on="down" data-align="right" data-click="onGridViewShowConsolidated">Generar Reporte Consolidado</a>                    
+                <br>
+                <div id="gridConsolidated" style="width: 900px;"></div>
+                <script id="rowConsolidatedTrackingTemplate" type="text/x-kendo-tmpl">
+                	    <tr>
+                        	<td style="width: 300px">#: programmeUnitName #</td>
+                            <td style="width: 300px">#: houseName #</td>
+                            <td style="width: 160px">#: MaleChildLess18Years#</td>
+                            <td style="width: 160px">#: FemaleChildLess18Years#</td>
+                            <td style="width: 160px">#: TotalChildLess18Years#</td>
+                            <td style="width: 160px">#: MaleChildMore18Years#</td>
+                            <td style="width: 160px">#: FemaleChildMore18Years#</td>
+                            <td style="width: 160px">#: TotalChildMore18Years#</td>
+                        </tr>
+				</script>
+                <script id="consolidatedTemplate" type="text/x-kendo-template">
+					<br><a class="k-button" href="\#" onclick="return exportToPdf('\#gridConsolidated')">Exportar Reporte Consolidado</a><br>
+				</script>
+			</div>
+			<style scoped>
+				.name
+				{
+					display: block;
+					font-size: 1.6em;
+				}
+				
+				.title
+				{
+					display: block;
+					padding-top: 1.6em;
+				}
+				
+				.k-grid-header .k-header
+				{
+					padding: 10px 20px;
+				}
+				
+				.k-grid tr
+				{
+					background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.15) 100%);
+					background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0.05)), color-stop(100%, rgba(0, 0, 0, 0.15)));
+					background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.15) 100%);
+					background: -o-linear-gradient(top, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.15) 100%);
+					background: -ms-linear-gradient(top, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.15) 100%);
+					background: linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.15) 100%);
+					padding: 20px;
+				}
+				
+				.k-grid tr.k-alt
+				{
+					background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.1) 100%);
+					background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0.2)), color-stop(100%, rgba(0, 0, 0, 0.1)));
+					background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.1) 100%);
+					background: -o-linear-gradient(top, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.1) 100%);
+					background: -ms-linear-gradient(top, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.1) 100%);
+					background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.1) 100%);
+				}
+				
+				@font-face
+				{
+					font-family: "DejaVu Sans";
+					src: url("http://cdn.kendostatic.com/2014.3.1314/styles/fonts/DejaVu/DejaVuSans.ttf") format("truetype");
+				}
+			</style>

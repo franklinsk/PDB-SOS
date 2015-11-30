@@ -111,7 +111,8 @@ function arraysOrgUnit(){
                 parentID: entity.get("CaregiverID"),
                 Name: entity.get("FirstName") + " " + entity.get("LastName"),
                 ID: entity.get("SOSChildID"),
-                Gender: entity.get("Gender")
+                Gender: entity.get("Gender"),
+                DateOfBirth: kendo.toString(entity.get("Birthdate"), "yyyy-MM-dd")
             });
 		}  	                
     });
@@ -160,6 +161,24 @@ function searchGenderInArray(entityArray, ID)
     return GenderName;
 }
 
+function searchDateOfBirthInArray(entityArray, ID)
+{
+    if(ID == "")
+        return "";
+    
+    var DateOfBirth = "";
+    for (var i=0; i<entityArray.length; i++) 
+    {
+        if (entityArray[i].ID == ID)
+        {
+            DateOfBirth = entityArray[i].DateOfBirth;               
+            break;
+        }
+  	}
+    
+    return DateOfBirth;
+}
+
 function searchProgrammeUnitNameBySOSChildID(SOSChildID){
     var caregiverID = searchCodeInArray(childValues, SOSChildID, "");    
     var houseID = searchCodeInArray(caregiverValues, caregiverID, "");
@@ -169,9 +188,54 @@ function searchProgrammeUnitNameBySOSChildID(SOSChildID){
     return programmeunitName;
 }
 
+function searchHouseNameBySOSChildID(SOSChildID){
+    var caregiverID = searchCodeInArray(childValues, SOSChildID, "");    
+    var houseID = searchCodeInArray(caregiverValues, caregiverID, "");
+    var houseName = searchCodeInArray(houseValues, houseID, "Name");
+    
+    return houseName;
+}
+
+function getDateOfBirthBySOSChildID(SOSChildID){
+    var dateofbirth = searchDateOfBirthInArray(childValues, SOSChildID);        
+    return dateofbirth;
+}
+
 function getGenderBySOSChildID(SOSChildID){
     var genderName = searchGenderInArray(childValues, SOSChildID);        
     return genderName;
+}
+
+function checkDate(DateOfBirth, typeConsolidated)
+{
+    //typeConsolidated: 1 (less than), 2 (more than)
+    //trackingArrayValues[i].DateOfBirth, typeConsolidated
+    if(typeConsolidated == "1")
+    {
+    	if(getAge(DateOfBirth) <18)        
+            return true;
+        else
+            return false;
+    }
+    
+    if(typeConsolidated == "2")
+    {
+    	if(getAge(DateOfBirth) >= 18)        
+            return true;
+        else
+            return false;
+    }    
+}
+
+function getAge(dateString) {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
 }
 
 function countRecordsSatisfaction(trackingArrayValues, ProgrammeUnitName, satisfactionValue){
@@ -212,6 +276,37 @@ function countRecordsEnoughWork(trackingArrayValues, ProgrammeUnitName, enoughWo
      	return valueEnoughWorkValue/totalValueEnoughWorkValue;       
 }
 
+//(arrChildTrackingValues, houseValues[i].Name, 1, 1)
+function countRecordsConsolidated(trackingArrayValues, HouseName, typeConsolidated, gender){
+    //typeConsolidated: 1 (less than), 2 (more than)
+    //gender: 1 male 2 female 3 total
+    
+    var valueConsolidated = 0;     
+    var totalValueConsolidated = 0;     
+    
+    for (var i=0; i<trackingArrayValues.length; i++) 
+    {
+    	if (trackingArrayValues[i].HouseName == HouseName && checkDate(trackingArrayValues[i].DateOfBirth, typeConsolidated) == true)
+            totalValueConsolidated = totalValueConsolidated + 1;
+        
+        if(gender == "1")
+        	if (trackingArrayValues[i].HouseName == HouseName && trackingArrayValues[i].Gender == "Masculino" && checkDate(trackingArrayValues[i].DateOfBirth, typeConsolidated) == true)
+            	valueConsolidated = valueConsolidated + 1;                    
+        
+        if(gender == "2")
+        	if (trackingArrayValues[i].HouseName == HouseName && trackingArrayValues[i].Gender == "Femenino" && checkDate(trackingArrayValues[i].DateOfBirth, typeConsolidated) == true)
+            	valueConsolidated = valueConsolidated + 1;                    
+        
+        if(gender == "3")
+        	valueConsolidated = totalValueConsolidated;
+    }
+    
+    if(totalValueConsolidated == 0)
+        return totalValueConsolidated;
+    else
+     	return valueConsolidated/totalValueConsolidated;       
+}
+
 //PDF Export
 //http://www.telerik.com/forums/kendo-mobile-export-to-pdf
 function onGridViewShowMaritalStatus(){   
@@ -241,13 +336,21 @@ function onGridViewShowWorkCondition(){
     generateWorkConditionReport();
 }
 
-
 function onGridViewShowEnoughMoney(){   
     if (!navigator.onLine) { 
     	navigator.notification.alert("Algunas opciones no podrán ser usadas en modo desconectado");
         return;
     }          
     generateEnoughMoneyReport();
+}
+
+function onGridViewShowConsolidated(){   
+    if (!navigator.onLine) { 
+    	navigator.notification.alert("Algunas opciones no podrán ser usadas en modo desconectado");
+        return;
+    }       
+    
+    generateConsolidatedReport();
 }
 
 function generateMaritalStatusReport(){
@@ -490,6 +593,81 @@ function generateEnoughMoneyReport(){
             }],           
             sortable: true,
             rowTemplate: kendo.template($("#rowEnoughMoneyTrackingTemplate").html()),
+            mobile: true
+        });
+    });
+}
+
+function generateConsolidatedReport(){
+    
+    var arr = [];
+    var arrChildTrackingValues = [];
+    tracking.filter({});
+
+    tracking.fetch(function() {
+  		var len = tracking.total();
+                
+        for (var i = 0; i < len; i++) {
+            var entity = tracking.at(i);
+        	
+            arrChildTrackingValues.push({
+                SOSChildID:  entity.get("SOSChildID"),
+                ProgrammeUnitName: searchProgrammeUnitNameBySOSChildID(entity.get("SOSChildID").trim()),
+                HouseName: searchHouseNameBySOSChildID(entity.get("SOSChildID").trim()),
+                DateOfBirth: getDateOfBirthBySOSChildID(entity.get("SOSChildID").trim()),
+                Gender: getGenderBySOSChildID(entity.get("SOSChildID").trim())
+            });
+		}  	
+        var count = 0;
+        for (var i = 0; i < programmeunitValues.length; i++) {
+            //another "for" to get all houses related to this PU ID
+            count = 0;
+            for(var j = 0; j < houseValues.length; j++)
+            {
+                if(programmeunitValues[i].ID == houseValues[j].parentID)
+                {                    
+                    var puName = programmeunitValues[i].Name;                    
+                    if(count > 0) puName = "";
+                    
+                    arr.push({
+                        programmeUnitName: puName,
+                        houseName: houseValues[j].Name,
+                        MaleChildLess18Years: kendo.toString(countRecordsConsolidated(arrChildTrackingValues, houseValues[j].Name, 1, 1), "p"),
+                        FemaleChildLess18Years: kendo.toString(countRecordsConsolidated(arrChildTrackingValues, houseValues[j].Name, 1, 2), "p"),
+                        TotalChildLess18Years: kendo.toString(countRecordsConsolidated(arrChildTrackingValues, houseValues[j].Name, 1, 3), "p"),
+                        MaleChildMore18Years: kendo.toString(countRecordsConsolidated(arrChildTrackingValues, houseValues[j].Name, 2, 1), "p"),
+                        FemaleChildMore18Years: kendo.toString(countRecordsConsolidated(arrChildTrackingValues, houseValues[j].Name, 2, 2), "p"),
+                        TotalChildMore18Years: kendo.toString(countRecordsConsolidated(arrChildTrackingValues, houseValues[j].Name, 2, 3), "p")                        
+                    });
+                    count = count+1;
+                }
+            }                        
+        }   
+                            
+        var ds = new kendo.data.DataSource({ data: arr });
+        //http://docs.telerik.com/kendo-ui/api/javascript/ui/grid?  	footerTemplate, headerTemplate
+        $("#gridConsolidated").html("");
+        $("#gridConsolidated").kendoGrid({
+            dataSource: ds,
+            toolbar: [{ 
+                template: kendo.template($("#consolidatedTemplate").html()) 
+            }],
+            columns: [
+            {
+                title: "Reporte Consolidado",
+                columns: [
+                    { title: "Programa", width: 200},
+                    { title: "Hogar", width: 200},
+                    { title: "Niños Hombres < 18 años", width: 100},
+                    { title: "Niños Mujeres < 18 años", width: 100},            
+                    { title: "Niños Total < 18 años", width: 100},
+                    { title: "Niños Hombres >= 18 años", width: 100},
+                    { title: "Niños Mujeres >= 18 años", width: 100},            
+                    { title: "Niños Total >= 18 años", width: 100}
+                ]
+            }],           
+            sortable: true,
+            rowTemplate: kendo.template($("#rowConsolidatedTrackingTemplate").html()),
             mobile: true
         });
     });
