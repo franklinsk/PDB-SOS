@@ -1,19 +1,41 @@
-<div data-role="view" data-title="Grid Sample" data-layout="main" data-show="initDatasourcesForReports" data-stretch="true">
+<div data-role="view" data-title="Reporte Seguimiento" data-layout="main" data-show="initDatasourcesForReports" data-stretch="true">
 			<div id="example">
-                <a  data-role="button" data-click-on="down" data-align="right" data-click="testSearch">Test</a>                    
-                <a  data-role="button" data-click-on="down" data-align="right" data-click="onGridViewShow">Generar Reportes</a>                    
+                <br>
+                <a  data-role="button" data-click-on="down" data-align="right" data-click="onGridViewShowMaritalStatus">Generar Reporte Estado Civil</a>                    
+                <a  data-role="button" data-click-on="down" data-align="right" data-click="onGridViewShowSatisfaction">Generar Reporte Satisfacción Profesional</a>                    
+                <a  data-role="button" data-click-on="down" data-align="right" data-click="onGridViewShowWorkCondition">Generar Reporte Condiciones de Trabajo</a>                    
+                <a  data-role="button" data-click-on="down" data-align="right" data-click="onGridViewShowEnoughMoney">Generar Reporte Alcanza el dinero</a>                    
+                <br>
 				<div id="gridMaritalStatus" style="width: 500px;"></div>
-                <div id="gridSatisfaction" style="width: 500px;"></div>
+                <div id="gridSatisfaction" style="width: 700px;"></div>
                 <div id="gridWorkCondition" style="width: 500px;"></div>
-                <div id="gridEnoughMoney" style="width: 500px;"></div>
+                <div id="gridEnoughMoney" style="width: 900px;"></div>
                 <script id="rowTrackingTemplate" type="text/x-kendo-tmpl">
-                	<table style="width: 500px;">
-                        <tr>
+                	    <tr>
                             <td style="width: 300px">#: typeName #</td>
                             <td style="width: 100px">#: amount#</td>
                             <td style="width: 100px">#: percentage#</td>
                         </tr>
-                    </table>
+				</script>
+                <script id="rowSatisfactionTrackingTemplate" type="text/x-kendo-tmpl">
+                	    <tr>
+                            <td style="width: 220px">#: programmeUnitName #</td>
+                            <td style="width: 120px">#: VeryHappy#</td>
+                            <td style="width: 120px">#: Happy#</td>
+                            <td style="width: 120px">#: UnHappy#</td>
+                            <td style="width: 120px">#: VeryUnHappy#</td>
+                        </tr>
+				</script>
+                <script id="rowEnoughMoneyTrackingTemplate" type="text/x-kendo-tmpl">
+                	    <tr>
+                        	<td style="width: 300px">#: gender #</td>
+                            <td style="width: 300px">#: programmeUnitName #</td>
+                            <td style="width: 160px">#: Easy#</td>
+                            <td style="width: 160px">#: Could#</td>
+                            <td style="width: 160px">#: IsDificult#</td>
+                            <td style="width: 160px">#: Impossible#</td>
+                            <td style="width: 160px">#: NotAnswer#</td>
+                        </tr>
 				</script>
 				<script id="rowTemplate" type="text/x-kendo-tmpl">
 					<tr data-uid="#: uid #">
@@ -38,16 +60,16 @@
 					</tr>
 				</script>
 				<script id="maritalStatusTemplate" type="text/x-kendo-template">
-					<a class="k-button" href="\#" onclick="return exportToPdf('\#gridMaritalStatus')">Export to PDF</a>
+					<br><a class="k-button" href="\#" onclick="return exportToPdf('\#gridMaritalStatus')">Exportar Reporte Estado Civil a PDF</a><br>
 				</script>
                 <script id="satisfactionTemplate" type="text/x-kendo-template">
-					<a class="k-button" href="\#" onclick="return exportToPdf('\#gridSatisfaction')">Export to PDF</a>
+					<br><a class="k-button" href="\#" onclick="return exportToPdf('\#gridSatisfaction')">Exportar Reporte Satisfacción Profesional a PDF</a><br>
 				</script>
-                <script id="templateWorkCondition" type="text/x-kendo-template">
-					<a class="k-button" href="\#" onclick="return exportToPdf('\#gridWorkCondition')">Export to PDF</a>
+                <script id="workConditionTemplate" type="text/x-kendo-template">
+					<br><a class="k-button" href="\#" onclick="return exportToPdf('\#gridWorkCondition')">Exportar Reporte Condiciones de Trabajo a PDF</a><br>
 				</script>
-                <script id="templateEnoughMoney" type="text/x-kendo-template">
-					<a class="k-button" href="\#" onclick="return exportToPdf('\#gridEnoughMoney')">Export to PDF</a>
+                <script id="enoughMoneyTemplate" type="text/x-kendo-template">
+					<br><a class="k-button" href="\#" onclick="return exportToPdf('\#gridEnoughMoney')">Exportar Reporte Alcanza el dinero a PDF</a><br>
 				</script>
 			</div>
 			<style scoped>

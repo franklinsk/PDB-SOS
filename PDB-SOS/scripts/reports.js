@@ -59,34 +59,6 @@ function initDatasourcesForReports()
     arraysOrgUnit();    
 }
 
-function searchCodeInArray(entityArray, ID, type){
-    if(ID == "")
-        return "";
-    
-    var parentID = "";
-    for (var i=0; i<entityArray.length; i++) 
-    {
-    	if (entityArray[i].ID == ID)
-        {
-            if(type == "")
-            	parentID = entityArray[i].parentID;
-            else
-                parentID = entityArray[i].Name;                
-            break;
-        }
-  	}
-    return parentID;
-}
-
-function searchProgrammeUnitNameBySOSChildID(SOSChildID){
-    var caregiverID = searchCodeInArray(childValues, SOSChildID, "");
-    var houseID = searchCodeInArray(caregiverValues, caregiverID, "");
-    var programmeunitID = searchCodeInArray(houseValues, houseID, "");
-    var programmeunitName = searchCodeInArray(programmeunitValues, programmeunitID, "Name");    
-    
-    return programmeunitName;
-}
-
 function arraysOrgUnit(){
     programmeunit.filter({});
     programmeunit.fetch(function() {
@@ -138,30 +110,144 @@ function arraysOrgUnit(){
             childValues.push({
                 parentID: entity.get("CaregiverID"),
                 Name: entity.get("FirstName") + " " + entity.get("LastName"),
-                ID: entity.get("SOSChildID")
+                ID: entity.get("SOSChildID"),
+                Gender: entity.get("Gender")
             });
 		}  	                
     });
 }
 
-function testSearch()
+function searchCodeInArray(entityArray, ID, type)
 {
-    alert(searchProgrammeUnitNameBySOSChildID("00224466"));
+    if(ID == "")
+        return "";
+    
+    var parentID = "";
+    for (var i=0; i<entityArray.length; i++) 
+    {
+        if (entityArray[i].ID == ID)
+        {
+            if(type == "")
+            	parentID = entityArray[i].parentID;
+            else
+                parentID = entityArray[i].Name;                
+            break;
+        }
+  	}
+    return parentID;
+}   
+
+function searchGenderInArray(entityArray, ID)
+{
+    if(ID == "")
+        return "";
+    
+    var GenderName = "";
+    for (var i=0; i<entityArray.length; i++) 
+    {
+        if (entityArray[i].ID == ID)
+        {
+            GenderName = entityArray[i].Gender;               
+            break;
+        }
+  	}
+    
+    if(GenderName == "1")
+        GenderName = "Masculino";
+    if(GenderName == "2")    
+        GenderName = "Femenino";
+    
+    return GenderName;
+}
+
+function searchProgrammeUnitNameBySOSChildID(SOSChildID){
+    var caregiverID = searchCodeInArray(childValues, SOSChildID, "");    
+    var houseID = searchCodeInArray(caregiverValues, caregiverID, "");
+    var programmeunitID = searchCodeInArray(houseValues, houseID, "");
+    var programmeunitName = searchCodeInArray(programmeunitValues, programmeunitID, "Name");    
+    
+    return programmeunitName;
+}
+
+function getGenderBySOSChildID(SOSChildID){
+    var genderName = searchGenderInArray(childValues, SOSChildID);        
+    return genderName;
+}
+
+function countRecordsSatisfaction(trackingArrayValues, ProgrammeUnitName, satisfactionValue){
+    var valueSatisfaction = 0;     
+    var totalValueSatisfaction = 0;     
+    
+    for (var i=0; i<trackingArrayValues.length; i++) 
+    {
+    	if (trackingArrayValues[i].ProgrammeUnitName == ProgrammeUnitName)
+            totalValueSatisfaction = totalValueSatisfaction + 1;
+        
+    	if (trackingArrayValues[i].ProgrammeUnitName == ProgrammeUnitName && trackingArrayValues[i].Satisfaction == satisfactionValue)
+            valueSatisfaction = valueSatisfaction + 1;            
+    }
+    
+    if(totalValueSatisfaction == 0)
+        return totalValueSatisfaction;
+    else
+     	return valueSatisfaction/totalValueSatisfaction;       
+}
+
+function countRecordsEnoughWork(trackingArrayValues, ProgrammeUnitName, enoughWorkValue, genderType){
+    var valueEnoughWorkValue = 0;     
+    var totalValueEnoughWorkValue = 0;     
+    
+    for (var i=0; i<trackingArrayValues.length; i++) 
+    {
+    	if (trackingArrayValues[i].ProgrammeUnitName == ProgrammeUnitName && trackingArrayValues[i].Gender == genderType)
+            totalValueEnoughWorkValue = totalValueEnoughWorkValue + 1;
+        
+    	if (trackingArrayValues[i].ProgrammeUnitName == ProgrammeUnitName && trackingArrayValues[i].Gender == genderType && trackingArrayValues[i].EnoughWork == enoughWorkValue)
+            valueEnoughWorkValue = valueEnoughWorkValue + 1;            
+    }
+    
+    if(totalValueEnoughWorkValue == 0)
+        return totalValueEnoughWorkValue;
+    else
+     	return valueEnoughWorkValue/totalValueEnoughWorkValue;       
 }
 
 //PDF Export
 //http://www.telerik.com/forums/kendo-mobile-export-to-pdf
-function onGridViewShow(){   
+function onGridViewShowMaritalStatus(){   
     if (!navigator.onLine) { 
     	navigator.notification.alert("Algunas opciones no podrán ser usadas en modo desconectado");
         return;
     }          
     
-    var satisfactionLevel = ["Muy Contento", "Contento", "Descontento", "Muy Descontento"];
-    var workCondition = ["Dependiente", "Independiente"];
-    var enoughWorkIncome = ["Si fácilmente", "Si me las arreglo", "Es difícil", "Es imposible", "No sabe"];
-    
     generateMaritalStatusReport();
+}
+
+function onGridViewShowSatisfaction(){   
+    if (!navigator.onLine) { 
+    	navigator.notification.alert("Algunas opciones no podrán ser usadas en modo desconectado");
+        return;
+    }          
+    
+    generateSatisfactionReport();
+}
+
+function onGridViewShowWorkCondition(){   
+    if (!navigator.onLine) { 
+    	navigator.notification.alert("Algunas opciones no podrán ser usadas en modo desconectado");
+        return;
+    }          
+    
+    generateWorkConditionReport();
+}
+
+
+function onGridViewShowEnoughMoney(){   
+    if (!navigator.onLine) { 
+    	navigator.notification.alert("Algunas opciones no podrán ser usadas en modo desconectado");
+        return;
+    }          
+    generateEnoughMoneyReport();
 }
 
 function generateMaritalStatusReport(){
@@ -214,7 +300,202 @@ function generateMaritalStatusReport(){
     });
 }
 
-var pdfFileName = "MyPdf.pdf";
+function generateSatisfactionReport(){
+    var satisfactionLevel = ["Muy Contento", "Contento", "Descontento", "Muy Descontento"];
+
+    var satisfactionTotal = 0;
+	var arr = [];
+    var arrChildTrackingValues = [];
+    tracking.filter({});
+
+    tracking.fetch(function() {
+  		var len = tracking.total();
+        satisfactionTotal = len;
+        
+        for (var i = 0; i < len; i++) {
+            var entity = tracking.at(i);
+            
+            arrChildTrackingValues.push({
+                Satisfaction: entity.get("SatisfactionInProfessionalDev"),
+                SOSChildID:  entity.get("SOSChildID"),
+                ProgrammeUnitName: searchProgrammeUnitNameBySOSChildID(entity.get("SOSChildID").trim())
+            });
+		}  	
+        
+        for (var i = 0; i < programmeunitValues.length; i++) {
+            arr.push({
+                programmeUnitName: programmeunitValues[i].Name,
+                VeryHappy: kendo.toString(countRecordsSatisfaction(arrChildTrackingValues, programmeunitValues[i].Name, 1), "p"),
+                Happy: kendo.toString(countRecordsSatisfaction(arrChildTrackingValues, programmeunitValues[i].Name, 2), "p"),
+                UnHappy: kendo.toString(countRecordsSatisfaction(arrChildTrackingValues, programmeunitValues[i].Name, 3), "p"),
+                VeryUnHappy: kendo.toString(countRecordsSatisfaction(arrChildTrackingValues, programmeunitValues[i].Name, 4), "p"),
+            });
+        }   
+
+        var ds = new kendo.data.DataSource({ data: arr });
+        //http://docs.telerik.com/kendo-ui/api/javascript/ui/grid?  	footerTemplate, headerTemplate
+        $("#gridSatisfaction").html("");
+        $("#gridSatisfaction").kendoGrid({
+            dataSource: ds,
+            toolbar: [{ 
+                template: kendo.template($("#satisfactionTemplate").html()) 
+            }],
+            columns: [
+            {
+                title: "Nivel de Satisfacción con su desarrollo profesional",
+                columns: [
+                    { title: "Programa", width: 300},
+                    { title: "Muy Contento", width: 100},
+                    { title: "Contento", width: 100},            
+                    { title: "Descontento", width: 100},
+                    { title: "Muy Descontento", width: 100}
+                ]
+            }],
+            sortable: true,
+            rowTemplate: kendo.template($("#rowSatisfactionTrackingTemplate").html()),
+            mobile: true
+        });
+    });
+}
+
+function generateWorkConditionReport(){
+    var workCondition = ["Dependiente", "Independiente"];
+    var workConditionValues = [0, 0];
+    var workConditionTotal = 0;
+	var arr = [];
+    
+    tracking.filter({});
+
+    tracking.fetch(function() {
+  		var len = tracking.total();
+        workConditionTotal = len;
+        
+        for (var i = 0; i < len; i++) {
+            var entity = tracking.at(i);
+            var indexValue = entity.get("WorkCondition") - 1;            
+            workConditionValues[indexValue] = workConditionValues[indexValue] + 1;
+		}  	
+        
+        for (var i = 0; i < workCondition.length; i++) {
+            arr.push({
+                typeName: workCondition[i],
+                amount: kendo.toString(workConditionValues[i], "n2"),
+                percentage: kendo.toString((workConditionValues[i])/workConditionTotal, "p")
+            });
+        }   
+
+        var ds = new kendo.data.DataSource({ data: arr });
+        //http://docs.telerik.com/kendo-ui/api/javascript/ui/grid?  	footerTemplate, headerTemplate
+        $("#gridWorkCondition").html("");
+        $("#gridWorkCondition").kendoGrid({
+            dataSource: ds,
+            toolbar: [{ 
+                template: kendo.template($("#maritalStatusTemplate").html()) 
+            }],
+            columns: [
+            {
+                title: "Condición Laboral",
+                columns: [
+                    { title: "Condición Laboral", width: 300},
+                    { title: "Cantidad", width: 100},
+                    { title: "Porcentaje", width: 100}            
+                ]
+            }],
+            sortable: true,
+            rowTemplate: kendo.template($("#rowTrackingTemplate").html()),
+            mobile: true
+        });
+    });
+}
+
+function generateEnoughMoneyReport(){
+    var enoughWorkIncome = ["Si fácilmente", "Si me las arreglo", "Es difícil", "Es imposible", "No sabe"];
+    
+    var enoughWorkTotal = 0;
+	var arr = [];
+    var arrChildTrackingValues = [];
+    tracking.filter({});
+
+    tracking.fetch(function() {
+  		var len = tracking.total();
+        enoughWorkTotal = len;
+        
+        for (var i = 0; i < len; i++) {
+            var entity = tracking.at(i);
+            
+            arrChildTrackingValues.push({
+                EnoughWork: entity.get("EnoughWorkIncome"),
+                SOSChildID:  entity.get("SOSChildID"),
+                ProgrammeUnitName: searchProgrammeUnitNameBySOSChildID(entity.get("SOSChildID").trim()),
+                Gender: getGenderBySOSChildID(entity.get("SOSChildID").trim())
+            });
+		}  	
+        
+        for (var i = 0; i < programmeunitValues.length; i++) {
+            var gender = "Masculino";
+            var genderType = "Masculino";
+            
+            if(i != 0)
+            	gender = "";
+            
+            arr.push({
+                gender: gender,
+                programmeUnitName: programmeunitValues[i].Name,
+                Easy: kendo.toString(countRecordsEnoughWork(arrChildTrackingValues, programmeunitValues[i].Name, 1, genderType), "p"),
+                Could: kendo.toString(countRecordsEnoughWork(arrChildTrackingValues, programmeunitValues[i].Name, 2, genderType), "p"),
+                IsDificult: kendo.toString(countRecordsEnoughWork(arrChildTrackingValues, programmeunitValues[i].Name, 3, genderType), "p"),
+                Impossible: kendo.toString(countRecordsEnoughWork(arrChildTrackingValues, programmeunitValues[i].Name, 4, genderType), "p"),
+                NotAnswer: kendo.toString(countRecordsEnoughWork(arrChildTrackingValues, programmeunitValues[i].Name, 5, genderType), "p")
+            });
+        }   
+        
+        for (var i = 0; i < programmeunitValues.length; i++) {
+            var gender = "Femenino";
+            var genderType = "Femenino";
+            
+            if(i != 0)
+            	gender = "";
+            
+            arr.push({
+                gender: gender,
+                programmeUnitName: programmeunitValues[i].Name,
+                Easy: kendo.toString(countRecordsEnoughWork(arrChildTrackingValues, programmeunitValues[i].Name, 1, genderType), "p"),
+                Could: kendo.toString(countRecordsEnoughWork(arrChildTrackingValues, programmeunitValues[i].Name, 2, genderType), "p"),
+                IsDificult: kendo.toString(countRecordsEnoughWork(arrChildTrackingValues, programmeunitValues[i].Name, 3, genderType), "p"),
+                Impossible: kendo.toString(countRecordsEnoughWork(arrChildTrackingValues, programmeunitValues[i].Name, 4, genderType), "p"),
+                NotAnswer: kendo.toString(countRecordsEnoughWork(arrChildTrackingValues, programmeunitValues[i].Name, 5, genderType), "p")
+            });
+        }   
+                            
+        var ds = new kendo.data.DataSource({ data: arr });
+        //http://docs.telerik.com/kendo-ui/api/javascript/ui/grid?  	footerTemplate, headerTemplate
+        $("#gridEnoughMoney").html("");
+        $("#gridEnoughMoney").kendoGrid({
+            dataSource: ds,
+            toolbar: [{ 
+                template: kendo.template($("#enoughMoneyTemplate").html()) 
+            }],
+            columns: [
+            {
+                title: "¿Le alcanza el dinero para vivir?",
+                columns: [
+                    { title: "Género", width: 200},
+                    { title: "Programa", width: 200},
+                    { title: "Si fácilmente", width: 100},
+                    { title: "Si me las arreglo", width: 100},            
+                    { title: "Es difícil", width: 100},
+                    { title: "Es imposible", width: 100},
+                	{ title: "No sabe", width: 100}
+                ]
+            }],           
+            sortable: true,
+            rowTemplate: kendo.template($("#rowEnoughMoneyTrackingTemplate").html()),
+            mobile: true
+        });
+    });
+}
+
+var pdfFileName = "Reports.pdf";
 
 function exportToPdf(elementID) {
     console.log("Export to PDF is starting...");
@@ -235,7 +516,7 @@ function exportToPdf(elementID) {
 								         exclusive: false
 								     };
 								     ////create a file in the file system of the device
-								     fileSystem.root.getFile(pdfFileName, options,
+								     fileSystem.root.getFile(randomIntFromInterval(10000000, 99999999) + pdfFileName, options,
 															 function (fileEntry) {
 															     fileEntry.createWriter(
 																	 function (fileWriter) {
