@@ -694,7 +694,8 @@ function exportToPdf(elementID) {
 								         exclusive: false
 								     };
 								     ////create a file in the file system of the device
-								     fileSystem.root.getFile(randomIntFromInterval(10000000, 99999999) + pdfFileName, options,
+								     //fileSystem.root.getFile(randomIntFromInterval(10000000, 99999999) + pdfFileName, options,
+                        			 fileSystem.root.getFile(pdfFileName, options,
 															 function (fileEntry) {
 															     fileEntry.createWriter(
 																	 function (fileWriter) {
@@ -725,24 +726,28 @@ function exportToPdf(elementID) {
                                                                                                          });
 																	         }, function (error) {
 																	             error.message = "Request file system failed.";
-                                                                                 alert(error);
+                                                                                 //alert(error);
+                                                                                 alert("1");
 																	         });
 
 																	     }, 3000);
 																	 },
 																	 function (error) {
 																	     error.message = "Unable to create file writer.";
-                                                                         alert(error);
+                                                                         //alert(error);
+                                                                         alert("2");
 																	 });
 															 },
 															 function (error) {
 															     error.message = "Failed creating file.";
-															     alert(error);
+															     //alert(error);
+                                                                 alert("3");
 															 });
 								 },
 								 function (error) {
 								     error.message = "Request file system failed.";
-								     alert(error);
+								     //alert(error);
+									 alert("4");
 								 });
            });
     return false;
