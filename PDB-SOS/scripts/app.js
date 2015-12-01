@@ -1775,6 +1775,11 @@ var app; // store a reference to the application object that will be created  la
             $("#trackViewList").html("");            
     	},
         searchTrackingByChildID: function () {            
+            if(validateNullValues($('[name="SOSChildID"]').val()) == "" || validateNullValues($('[name="SOSChildID"]').val()).length != 8){
+                navigator.notification.alert("El código de niño es obligatorio y ser de 8 caracteres");
+                return;
+        	}
+            
             trackingDataSource.filter({});
             offlineDataSource.filter({});
             
@@ -1855,7 +1860,46 @@ var app; // store a reference to the application object that will be created  la
             });            
         },
         addTrackingSubmit: function () {
-
+			if(validateNullValues($('[name="childID"]').val()) == "" || validateNullValues($('[name="childID"]').val()).length != 8){
+                navigator.notification.alert("El código de niño es obligatorio y ser de 8 caracteres");
+                return;
+        	}
+            
+            if(validateNullValues($('[name="startDate"]').val()) == ""){
+                navigator.notification.alert("Fecha de inicio es obligatorio");
+                return;
+        	}
+                        
+            if(validateNullValues($('[name="endDate"]').val()) == ""){
+                navigator.notification.alert("Fecha de fin es obligatorio");
+                return;
+        	}
+            
+            if(validateNullValues($('[name="EnoughWorkIncome"]').val()) == ""){
+                navigator.notification.alert("Es ingreso suficiente de trabajo es obligatorio");
+                return;
+        	}
+            
+            if(validateNullValues($('[name="MaritalStatus"]').val()) == ""){
+                navigator.notification.alert("El estado civil es obligatorio");
+                return;
+        	}
+            
+            if(validateNullValues($('[name="SatisfactionInProfessionalDev"]').val()) == ""){
+                navigator.notification.alert("La satisfacción de desarrollo profesional es obligatorio");
+                return;
+        	}
+            
+            if(validateNullValues($('[name="WorkCondition"]').val()) == ""){
+                navigator.notification.alert("La condición de trabajo es obligatorio");
+                return;
+        	}
+            
+            if(validateNullValues($('[name="EnoughWorkIncome"]').val()) == ""){
+                navigator.notification.alert("Es ingreso suficiente de trabajo es obligatorio");
+                return;
+        	}
+                        
             if (navigator.onLine) 
             {
                 trackingDataSource.add({
