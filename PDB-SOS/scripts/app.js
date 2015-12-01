@@ -1906,8 +1906,6 @@ var app; // store a reference to the application object that will be created  la
                 navigator.notification.alert("La fecha de inicio debe ser menor a la fecha de fin");
                 return;  
             }
-            
-            return;
                         
             if (navigator.onLine) 
             {
