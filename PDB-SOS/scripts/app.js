@@ -1775,9 +1775,9 @@ var app; // store a reference to the application object that will be created  la
             $("#trackViewList").html("");            
     	},
         searchTrackingByChildID: function () {            
-            if(validateNullValues($('[name="SOSChildID"]').val()) == "" || validateNullValues($('[name="SOSChildID"]').val()).length != 8){
+			if(validateNullValues($('[name="SOSChildID"]').val()) == "" || validateNullValues($('[name="SOSChildID"]').val()).length != 8){
                 navigator.notification.alert("El código de niño es obligatorio y ser de 8 caracteres");
-                return;
+				return;
         	}
             
             trackingDataSource.filter({});
@@ -1806,8 +1806,13 @@ var app; // store a reference to the application object that will be created  la
             });
         },
         searchChildByFilters: function () {
+
+			$('[name="childID"]').attr('readonly', true);
+
             if (!navigator.onLine) {
-                    navigator.notification.alert("No hay conexion a Internet");
+                    navigator.notification.alert("No hay conexion a Internet. Ingresará el código de niño manualmente");
+					SwitchTab("Follow","Add","", "", "","");
+					$('[name="childID"]').removeAttr('readonly');	
                     return;
             }
             
@@ -1860,6 +1865,7 @@ var app; // store a reference to the application object that will be created  la
             });            
         },
         addTrackingSubmit: function () {
+			
 			if(validateNullValues($('[name="childID"]').val()) == "" || validateNullValues($('[name="childID"]').val()).length != 8){
                 navigator.notification.alert("El código de niño es obligatorio y ser de 8 caracteres");
                 return;
@@ -1895,10 +1901,13 @@ var app; // store a reference to the application object that will be created  la
                 return;
         	}
             
-            if(validateNullValues($('[name="EnoughWorkIncome"]').val()) == ""){
-                navigator.notification.alert("Es ingreso suficiente de trabajo es obligatorio");
-                return;
-        	}
+            if(!compareDates($('[name="startDate"]').val(), $('[name="endDate"]').val()))
+            {
+                navigator.notification.alert("La fecha de inicio debe ser menor a la fecha de fin");
+                return;  
+            }
+            
+            return;
                         
             if (navigator.onLine) 
             {

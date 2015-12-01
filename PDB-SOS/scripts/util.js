@@ -5,6 +5,18 @@ function setRestrictions(){
 	$("input[type='number']").attr({'min':'10', 'max':'20'});            
 }
 
+function compareDates(min, max)
+{
+    if(validateNullValues(min) != "" && validateNullValues(max) != "")
+    {
+    	var d1 = new Date(min);
+        var d2 = new Date(max);
+        return d1 <  d2;         
+    }
+    
+    return false;    
+}
+
 function GetComboBoxItemsAndConvertToJson(type) {
     var details = [];
            
@@ -123,6 +135,9 @@ function SwitchTab(entity, type, ID, name, surname, parentID){
     	if(type=="Add")
             sufix="";    
     	
+    	parentID = parentID.trim();
+    	ID = ID.trim();
+    
     	if(entity == "Follow")
         {
     		$('[name="childID"]').val(parentID);
