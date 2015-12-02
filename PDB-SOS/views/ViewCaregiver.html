@@ -4,7 +4,7 @@
         <ul data-role="listview" data-style="inset">
             <li>
                 <label>Casa:
-                    <input id="ddlCasaView"  name="ddlCasaView"/>
+                    <input id="CaregiverddlCasaView"  name="CaregiverddlCasaView"/>
                 </label>
             </li>
             <li>
@@ -17,47 +17,47 @@
 <div data-role="view" id="GeneralCaregiverView" data-title="General" data-show="APP.models.caregiver.getCaregiverItemByID" data-layout="mobile-tabstrip-vc" data-model="APP.models.caregiver">
     <form>
         <ul data-role="listview" data-style="inset" title="General">
-            <li><label>Código de Cuidador:<input type="text" name="CaregiverIDView" data-bind="value: CaregiverID"/>
+            <li><label>Código de Cuidador:<input type="text" name="CaregiverCaregiverIDView" data-bind="value: CaregiverID"/>
                 <a data-role="button" data-icon="search" data-click="window.APP.models.caregiver.getCaregiverByID"></a></label></li>
-            <li><label>Código de Casa:<input type="text" name="SOSHouseIDView" data-bind="value: SOSHouseID"/></label></li>
+            <li><label>Código de Casa:<input type="text" name="CaregiverSOSHouseIDView" data-bind="value: SOSHouseID"/></label></li>
             <li>
                 <label>Casa:
-                    <input type="text" name="houseNameView" data-bind="value: caregiverHouse" readonly>
+                    <input type="text" name="CaregiverhouseNameView" data-bind="value: caregiverHouse" readonly>
                 </label>
             </li>
-            <li><label>Nombres:<input type="text" name="FirstNameView" data-bind="value: FirstName"/></label></li>
-            <li><label>Apellidos:<input type="text" name="LastNameView" data-bind="value: LastName"/></label></li>
-            <li><label>Teléfono:<input type="text" name="PhoneNumberView" data-bind="value: PhoneNumber"/></label></li>
-            <li><label>Sincronizado:<input type="checkbox" name="SynchronizedView" data-bind="value: Synchronized"/></label></li>
-            <li><label>Fecha de Inicio:<input type="date" name="DateOfStartView" data-bind="value: DateOfStart"/></label></li>
-            <li><label>Fecha de Nacimiento:<input type="date" name="DateOfBirthView" data-bind="value: DateOfBirth"/></label></li>
-            <li><label>Documento de Identidad:<input type="text" name="DocumentNumberView" data-bind="value: DocumentNumber"/></label></li>
-            <li><label>Género:<select name="GenderView" data-bind="value: Gender"><option value="1">Masculino</option><option value="2">Femenino</option></select></label></li>
-            <li><label>Recibe Atención Especial:<input type="checkbox" name="ReceiveSpecialAttentionView" data-bind="value: ReceiveSpecialAttention"/></label></li>
-            <li><label>Es Alfabetizado:<input type="checkbox" name="IsLiterateView" data-bind="value: IsLiterate"/></label></li>
-            <li><label>Total de Ingresos:<input type="number" name="TotalIncomeView" data-bind="value: TotalIncome"  /></label></li>
-            <li><label>Dirección:<input type="text" name="AddressView" data-bind="value: Address"/></label></li>
-            <li><label>Estado:<input type="text" name="StatusView" data-bind="value: Status" readonly/></label></li>
-            <li><label>Fecha de Último control médico:<input type="date" name="DateOfLastHealthControlView" data-bind="value: DateOfLastHealthControl"/></label></li>
-            <li><label>Fecha de última atualización del plan de desarrollo:<input type="date" name="DateOfLastUpdateDevelopmentPlanView" data-bind="value: DateOfLastUpdateDevelopmentPlan"/></label></li>
-            <li><label>Fecha planeada de desarrollo del plan:<input type="date" name="PlannedUpdateOfDevelopmentPlanView" data-bind="value: PlannedUpdateOfDevelopmentPlan"/></label></li>                                   
+            <li><label>Nombres:<input type="text" name="CaregiverFirstNameView" data-bind="value: FirstName"/></label></li>
+            <li><label>Apellidos:<input type="text" name="CaregiverLastNameView" data-bind="value: LastName"/></label></li>
+            <li><label>Teléfono:<input type="text" name="CaregiverPhoneNumberView" data-bind="value: PhoneNumber"/></label></li>
+            <li><label>Sincronizado:<input type="checkbox" name="CaregiverSynchronizedView" data-bind="value: Synchronized"/></label></li>
+            <li><label>Fecha de Inicio:<input type="date" name="CaregiverDateOfStartView" data-bind="value: DateOfStart"/></label></li>
+            <li><label>Fecha de Nacimiento:<input type="date" name="CaregiverDateOfBirthView" data-bind="value: DateOfBirth"/></label></li>
+            <li><label>Documento de Identidad:<input type="text" name="CaregiverDocumentNumberView" data-bind="value: DocumentNumber"/></label></li>
+            <li><label>Género:<select name="CaregiverGenderView" data-bind="value: Gender"><option value="1">Masculino</option><option value="2">Femenino</option></select></label></li>
+            <li><label>Recibe Atención Especial:<input type="checkbox" name="CaregiverReceiveSpecialAttentionView" data-bind="value: ReceiveSpecialAttention"/></label></li>
+            <li><label>Es Alfabetizado:<input type="checkbox" name="CaregiverIsLiterateView" data-bind="value: IsLiterate"/></label></li>
+            <li><label>Total de Ingresos:<input type="number" name="CaregiverTotalIncomeView" data-bind="value: TotalIncome"  /></label></li>
+            <li><label>Dirección:<input type="text" name="CaregiverAddressView" data-bind="value: Address"/></label></li>
+            <li><label>Estado:<input type="text" name="CaregiverStatusView" data-bind="value: Status" readonly/></label></li>
+            <li><label>Fecha de Último control médico:<input type="date" name="CaregiverDateOfLastHealthControlView" data-bind="value: DateOfLastHealthControl"/></label></li>
+            <li><label>Fecha de última atualización del plan de desarrollo:<input type="date" name="CaregiverDateOfLastUpdateDevelopmentPlanView" data-bind="value: DateOfLastUpdateDevelopmentPlan"/></label></li>
+            <li><label>Fecha planeada de desarrollo del plan:<input type="date" name="CaregiverPlannedUpdateOfDevelopmentPlanView" data-bind="value: PlannedUpdateOfDevelopmentPlan"/></label></li>                                   
             
-            <li><label>Tiene Plan de Desarrollo:<input type="checkbox" name="HasDevelopmentPlanView" data-bind="value: HasDevelopmentPlan"/></label></li>
-            <li><label>Tipo de Familia:<select name="TypeofFamilyView" id="TypeofFamilyView" data-bind="value: TypeofFamily">
+            <li><label>Tiene Plan de Desarrollo:<input type="checkbox" name="CaregiverHasDevelopmentPlanView" data-bind="value: HasDevelopmentPlan"/></label></li>
+            <li><label>Tipo de Familia:<select name="CaregiverTypeofFamilyView" id="TypeofFamilyView" data-bind="value: TypeofFamily">
                     <option value="1">Responsable de Familia</option><option value="2">Padre/Madre de guarda</option><option value="3">Familia por familiares</option>
                     <option value="4">Tia SOS</option><option value="5">Madre/Padre SOS</option><option value="6">Otros</option>
                 </select>
             </label></li>
-            <li><label>Nacionalidad:<input type="text" name="NationalityView" data-bind="value: Nationality"/></label></li>
-            <li><label>Tipo de Cuidador:<select name="TypeOfCaregiverView" id="TypeOfCaregiverView" data-bind="value: TypeOfCaregiver">
+            <li><label>Nacionalidad:<input type="text" name="CaregiverNationalityView" data-bind="value: Nationality"/></label></li>
+            <li><label>Tipo de Cuidador:<select name="CaregiverTypeOfCaregiverView" id="TypeOfCaregiverView" data-bind="value: TypeOfCaregiver">
                     <option value="1">Responsable de Familia</option><option value="2">Padre/Madre de guarda</option><option value="3">Familia por familiares</option>
                     <option value="4">Tia SOS</option><option value="5">Madre/Padre SOS</option><option value="6">Otros</option>
                 </select>
             </label></li>
-            <li><label>Fecha planeada de retiro:<input type="date" name="PlannedRetirementDateView" data-bind="value: PlannedRetirementDate"/></label></li>
-            <li><label>Tiene hermanos:<input type="checkbox" name="HasChildrenSiblingsView" data-bind="value: HasChildrenSiblings"/></label></li>
+            <li><label>Fecha planeada de retiro:<input type="date" name="CaregiverPlannedRetirementDateView" data-bind="value: PlannedRetirementDate"/></label></li>
+            <li><label>Tiene hermanos:<input type="checkbox" name="CaregiverHasChildrenSiblingsView" data-bind="value: HasChildrenSiblings"/></label></li>
             
-            <li><label>Tipo de Apoyo:<select name="TypeOfSupportView" id="TypeOfSupportView" data-bind="value: TypeOfSupport">
+            <li><label>Tipo de Apoyo:<select name="CaregiverTypeOfSupportView" id="TypeOfSupportView" data-bind="value: TypeOfSupport">
                     <option value="1">Acompañamiento Psicológico</option><option value="2">Asesoría Psicológico</option>
                 	<option value="3">Desarrollo de Capacidades</option><option value="4">Finanzas</option><option value="5">Otros</option>
                 </select>
@@ -72,17 +72,17 @@
         <ul data-role="listview" data-style="inset" title="Educación">
           
             <!--Educación-->
-            <li><label>Profesión:<input type="text" name="ProfessionView" data-bind="value: Profession"/></label></li>
-            <li><label>Capacitación en SOS:<input type="text" name="TrainingInSOSView" data-bind="value: TrainingInSOS"/></label></li>
+            <li><label>Profesión:<input type="text" name="CaregiverProfessionView" data-bind="value: Profession"/></label></li>
+            <li><label>Capacitación en SOS:<input type="text" name="CaregiverTrainingInSOSView" data-bind="value: TrainingInSOS"/></label></li>
             <li><label>Nivel de Educación Formal:
-                <select name="FormalEducationalLevelView" id="FormalEducationalLevelView" data-bind="value: FormalEducationalLevel">
+                <select name="CaregiverFormalEducationalLevelView" id="CaregiverFormalEducationalLevelView" data-bind="value: FormalEducationalLevel">
                     <option value="1">Sin Educación</option><option value="2">Primaria</option>
                 	<option value="3">Secundaria</option><option value="4">Técnica</option>
                     <option value="5">Universitaria</option><option value="6">Postgrado</option>
                     <option value="7">Otros</option>
                 </select>
 			</label></li>
-            <li><label>Años de Educación Formal:<input type="number" name="YearsOfFormalEducationView" data-bind="value: YearsOfFormalEducation" /></label></li>
+            <li><label>Años de Educación Formal:<input type="number" name="CaregiverYearsOfFormalEducationView" data-bind="value: YearsOfFormalEducation" /></label></li>
             
             <!--Educación-->
       
@@ -94,10 +94,10 @@
         <ul data-role="listview" data-style="inset" title="Salud">
             
             <!--Salud-->
-            <li><label>Atención médica:<input type="checkbox" name="MedicalCareView" data-bind="value: MedicalCare"/></label></li>
+            <li><label>Atención médica:<input type="checkbox" name="CaregiverMedicalCareView" data-bind="value: MedicalCare"/></label></li>
             
             <li><label>Tipo de Enfermedad:
-                    <select name="TypeOfDiseaseView" id="TypeOfDiseaseView" data-bind="value: TypeOfDisease">
+                    <select name="CaregiverTypeOfDiseaseView" id="CaregiverTypeOfDiseaseView" data-bind="value: TypeOfDisease">
                     <option value="1">Sistema circulatorio</option>
                     <option value="2">Cáncer</option>
 					<option value="3">Sistema Cardiovascular</option>
@@ -118,90 +118,90 @@
         <ul data-role="listview" data-style="inset" title="Servicios">
             
             <!--Servicios-->
-            <li><label>Apoyo de hogar y vivienda:<select name="HousingAndLivingSupportView" id="HousingAndLivingSupportView" data-bind="value: HousingAndLivingSupport">
+            <li><label>Apoyo de hogar y vivienda:<select name="CaregiverHousingAndLivingSupportView" id="CaregiverHousingAndLivingSupportView" data-bind="value: HousingAndLivingSupport">
                     <option value="1">Refacciones</option><option value="2">Presupuesto Extra</option>
                 	<option value="3">Averías</option><option value="4">Otros</option></select>
             </label></li>
             <li>
                 <label>
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-type="HousingAndLivingSupportView">+</a>                    
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-type="HousingAndLivingSupportView">-</a>                                                    
-                    <select name="HousingAndLivingSupportViewValues" id="HousingAndLivingSupportViewValues" multiple>
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-entity="Caregiver" data-type="HousingAndLivingSupportView">+</a>                    
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-entity="Caregiver" data-type="HousingAndLivingSupportView">-</a>                                                    
+                    <select name="CaregiverHousingAndLivingSupportViewValues" id="CaregiverHousingAndLivingSupportViewValues" multiple>
                 	</select>
             	</label>
             </li>            
-            <li><label>Apoyo alimentario:<select name="FoodSupportView" id="FoodSupportView" data-bind="value: FoodSupport">
+            <li><label>Apoyo alimentario:<select name="CaregiverFoodSupportView" id="CaregiverFoodSupportView" data-bind="value: FoodSupport">
                     <option value="1">Alimentos Adicionales</option><option value="2">Presupuesto Extra</option>
                 	<option value="3">Otros</option></select>
             </label></li>
             <li>
                 <label>
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-type="FoodSupportView">+</a>                    
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-type="FoodSupportView">-</a>                                                    
-                    <select name="FoodSupportViewValues" id="FoodSupportViewValues" multiple>
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-entity="Caregiver" data-type="FoodSupportView">+</a>                    
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-entity="Caregiver" data-type="FoodSupportView">-</a>                                                    
+                    <select name="CaregiverFoodSupportViewValues" id="CaregiverFoodSupportViewValues" multiple>
                 	</select>
             	</label>
             </li>            
             
-			<li><label>Apoyo Mèdico:<select name="MedicalCareSupportView" id="MedicalCareSupportView" data-bind="value: MedicalCareSupport">
+			<li><label>Apoyo Mèdico:<select name="CaregiverMedicalCareSupportView" id="CaregiverMedicalCareSupportView" data-bind="value: MedicalCareSupport">
                     <option value="1">Seguro Médico</option><option value="2">No recibe atención</option><option value="3">Otros</option></select>
             </label></li>
             <li>
                 <label>
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-type="MedicalCareSupportView">+</a>                    
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-type="MedicalCareSupportView">-</a>                                                    
-                    <select name="MedicalCareSupportViewValues" id="MedicalCareSupportViewValues" multiple>
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-entity="Caregiver" data-type="MedicalCareSupportView">+</a>                    
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-entity="Caregiver" data-type="MedicalCareSupportView">-</a>                                                    
+                    <select name="CaregiverMedicalCareSupportViewValues" id="CaregiverMedicalCareSupportViewValues" multiple>
                 	</select>
             	</label>
             </li>
 
-            <li><label>Apoyo Psicosocial:<select name="PsychosocialSupportView" id="PsychosocialSupportView" data-bind="value: PsychosocialSupport">
+            <li><label>Apoyo Psicosocial:<select name="CaregiverPsychosocialSupportView" id="CaregiverPsychosocialSupportView" data-bind="value: PsychosocialSupport">
                     <option value="1">Tratamiento Psiquiátrico</option><option value="2">Referencia para clínica</option>
 					<option value="3">Desarrollo de destrezas</option><option value="4">Tratamiento psicoterapéutico</option><option value="5">Otros</option></select>
             </label></li>
             <li>
                 <label>
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-type="PsychosocialSupportView">+</a>                    
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-type="PsychosocialSupportView">-</a>                                                    
-                    <select name="PsychosocialSupportViewValues" id="PsychosocialSupportViewValues" multiple>
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-entity="Caregiver" data-type="PsychosocialSupportView">+</a>                    
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-entity="Caregiver" data-type="PsychosocialSupportView">-</a>                                                    
+                    <select name="CaregiverPsychosocialSupportViewValues" id="CaregiverPsychosocialSupportViewValues" multiple>
                 	</select>
             	</label>
             </li>
 
-            <li><label>Apoyo de cuidado infantil a padres:<select name="ChildCareAndParentSupportView" id="ChildCareAndParentSupportView" data-bind="value: ChildCareAndParentSupport">
+            <li><label>Apoyo de cuidado infantil a padres:<select name="CaregiverChildCareAndParentSupportView" id="CaregiverChildCareAndParentSupportView" data-bind="value: ChildCareAndParentSupport">
                     <option value="1">Terapias</option><option value="2">Guarderías</option>
 					<option value="3">Consultas</option><option value="4">Otros</option></select>
             </label></li>
             <li>
                 <label>
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-type="ChildCareAndParentSupportView">+</a>                    
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-type="ChildCareAndParentSupportView">-</a>                                                    
-                    <select name="ChildCareAndParentSupportViewValues" id="ChildCareAndParentSupportViewValues" multiple>
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-entity="Caregiver" data-type="ChildCareAndParentSupportView">+</a>                    
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-entity="Caregiver" data-type="ChildCareAndParentSupportView">-</a>                                                    
+                    <select name="CaregiverChildCareAndParentSupportViewValues" id="CaregiverChildCareAndParentSupportViewValues" multiple>
                 	</select>
             	</label>
             </li>
-            <li><label>Apoyo Legal:<select name="LegalSupportView" id="LegalSupportView" data-bind="value: LegalSupport">
+            <li><label>Apoyo Legal:<select name="CaregiverLegalSupportView" id="CaregiverLegalSupportView" data-bind="value: LegalSupport">
                     <option value="1">Asesorías</option><option value="2">Estudio de caso</option>
 					<option value="3">Defensa Legal</option><option value="4">Otros</option></select>
             </label></li>
             <li>
                 <label>
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-type="LegalSupportView">+</a>                    
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-type="LegalSupportView">-</a>                                                    
-                    <select name="LegalSupportViewValues" id="LegalSupportViewValues" multiple>
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-entity="Caregiver" data-type="LegalSupportView">+</a>                    
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-entity="Caregiver" data-type="LegalSupportView">-</a>                                                    
+                    <select name="CaregiverLegalSupportViewValues" id="CaregiverLegalSupportViewValues" multiple>
                 	</select>
             	</label>
             </li>
 
-			<li><label>Apoyo Económico:<select name="EconomicSupportView" id="EconomicSupportView" data-bind="value: EconomicSupport">
+			<li><label>Apoyo Económico:<select name="CaregiverEconomicSupportView" id="CaregiverEconomicSupportView" data-bind="value: EconomicSupport">
                     <option value="1">Dinero</option><option value="2">Trabajo</option>
 					<option value="3">Préstamo</option><option value="4">Otros</option></select>
             </label></li>
             <li>
                 <label>
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-type="EconomicSupportView">+</a>                    
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-type="EconomicSupportView">-</a>                                                    
-                    <select name="EconomicSupportViewValues" id="EconomicSupportViewValues" multiple>
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-entity="Caregiver" data-type="EconomicSupportView">+</a>                    
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-entity="Caregiver" data-type="EconomicSupportView">-</a>                                                    
+                    <select name="CaregiverEconomicSupportViewValues" id="CaregiverEconomicSupportViewValues" multiple>
                 	</select>
             	</label>
             </li>
@@ -214,7 +214,7 @@
         <ul data-role="listview" data-style="inset">
             <li>
                 <label>Motivo de Salida:
-                <input type="input" name="ExitReason" data-bind="value: ExitReason"/></label>
+                <input type="input" name="CaregiverExitReason" data-bind="value: ExitReason"/></label>
             </li>
         </ul>
     </form>
@@ -224,7 +224,7 @@
         <ul data-role="listview" data-style="inset">            
             <li>
                 <label>Motivo de Reingreso:
-                <input type="input" name="ReentryReason" data-bind="value: ReentryReason"/></label>
+                <input type="input" name="CaregiverReentryReason" data-bind="value: ReentryReason"/></label>
             </li>
         </ul>
     </form>
@@ -234,27 +234,28 @@
         <ul data-role="listview" data-style="inset">            
             <li>
                 <label>Programa:
-                    <input id="ddlProgramaTransfer"  name="ddlProgramaTransfer"/>
+                    <input id="CaregiverddlProgramaTransfer"  name="CaregiverddlProgramaTransfer"/>
                 </label>
             </li>
             <li>
                 <label>Casa:
-                    <input id="ddlCasaTransfer"  name="ddlCasaTransfer"/>
+                    <input id="CaregiverddlCasaTransfer"  name="CaregiverddlCasaTransfer"/>
                 </label>
             </li>
             <li>
                 <label>Motivo de Transferencia:
-                <input type="input" name="TransferReason" data-bind="value: TransferReason"/></label>
+                <input type="input" name="CaregiverTransferReason" data-bind="value: TransferReason"/></label>
             </li>            
         </ul>
     </form>
 </div>
+
 <div data-role="layout" data-id="mobile-tabstrip-vc" data-show="showDemoLayout">
     <header data-role="header">
         <div data-role="navbar">
 			<a data-role="button" href="#appDrawer" data-rel="drawer" data-align="left" data-icon="drawer-button"></a>
             <a  name="btnBackViewCaregiver" data-role="backbutton" data-align="left">Atrás</a>
-            <span data-role="view-title"></span>
+            <span data-role="view-title"></span>getCaregiverByID
             <span class="connectionStatus"></span>
             <a  name="btnSaveViewCaregiver" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.caregiver.viewCaregiverSubmit">Guardar</a>                    
             <a  name="btnDepartCaregiver" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.caregiver.departCaregiverSubmit">Inactivar</a>                    

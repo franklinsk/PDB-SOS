@@ -3,7 +3,7 @@
         <ul data-role="listview" data-style="inset">
             <li>
                 <label>Casa:
-                    <input id="ddlCasa" name="ddlCasa" />
+                    <input id="CaregiverddlCasa" name="CaregiverddlCasa" />
                 </label>
             </li>
             <li>
@@ -16,47 +16,47 @@
 <div data-role="view" id="GeneralCaregiverAdd" data-title="General" data-layout="mobile-tabstrip-ac" data-model="APP.models.caregiver">
     <form>
         <ul data-role="listview" data-style="inset" title="General">
-            <li><label>Código de Cuidador:<input type="text" name="CaregiverID" data-bind="value: CaregiverID"/></label></li>
-            <li><label>Código de Casa:<input type="text" name="SOSHouseID" data-bind="value: SOSHouseID"/></label></li>
+            <li><label>Código de Cuidador:<input type="text" name="CaregiverCaregiverID" data-bind="value: CaregiverID"/></label></li>
+            <li><label>Código de Casa:<input type="text" name="CaregiverSOSHouseID" data-bind="value: SOSHouseID"/></label></li>
             <li>
                 <label>Casa:
-                    <input type="text" name="houseName" data-bind="value: caregiverHouse" readonly>
+                    <input type="text" name="CaregiverhouseName" data-bind="value: caregiverHouse" readonly>
                 </label>
             </li>
-            <li><label>Nombres:<input type="text" name="FirstName" data-bind="value: FirstName"/></label></li>
-            <li><label>Apellidos:<input type="text" name="LastName" data-bind="value: LastName"/></label></li>
-            <li><label>Teléfono:<input type="text" name="PhoneNumber" data-bind="value: PhoneNumber"/></label></li>
-            <li><label>Sincronizado:<input type="checkbox" name="Synchronized" data-bind="value: Synchronized"/></label></li>
-            <li><label>Fecha de Inicio:<input type="date" name="DateOfStart" data-bind="value: DateOfStart"/></label></li>
-            <li><label>Fecha de Nacimiento:<input type="date" name="DateOfBirth" data-bind="value: DateOfBirth"/></label></li>
-            <li><label>Documento de Identidad:<input type="text" name="DocumentNumber" data-bind="value: DocumentNumber"/></label></li>
-            <li><label>Género:<select name="Gender" data-bind="value: Gender"><option value="1">Masculino</option><option value="2">Femenino</option></select></label></li>
-            <li><label>Recibe Atención Especial:<input type="checkbox" name="ReceiveSpecialAttention" data-bind="value: ReceiveSpecialAttention"/></label></li>
-            <li><label>Es Alfabetizado:<input type="checkbox" name="IsLiterate" data-bind="value: IsLiterate"/></label></li>
-            <li><label>Total de Ingresos:<input type="number" name="TotalIncome" data-bind="value: TotalIncome"/></label></li>
-            <li><label>Dirección:<input type="text" name="Address" data-bind="value: Address"/></label></li>
-            <li><label>Estado:<input type="checkbox" name="Status" data-bind="value: Status"/></label></li>
-            <li><label>Fecha de Último control médico:<input type="date" name="DateOfLastHealthControl" data-bind="value: DateOfLastHealthControl"/></label></li>
-            <li><label>Fecha de última atualización del plan de desarrollo:<input type="date" name="DateOfLastUpdateDevelopmentPlan" data-bind="value: DateOfLastUpdateDevelopmentPlan"/></label></li>
-            <li><label>Fecha planeada de desarrollo del plan:<input type="date" name="PlannedUpdateOfDevelopmentPlan" data-bind="value: PlannedUpdateOfDevelopmentPlan"/></label></li>                       
+            <li><label>Nombres:<input type="text" name="CaregiverFirstName" data-bind="value: FirstName"/></label></li>
+            <li><label>Apellidos:<input type="text" name="CaregiverLastName" data-bind="value: LastName"/></label></li>
+            <li><label>Teléfono:<input type="text" name="CaregiverPhoneNumber" data-bind="value: PhoneNumber"/></label></li>
+            <li><label>Sincronizado:<input type="checkbox" name="CaregiverSynchronized" data-bind="value: Synchronized"/></label></li>
+            <li><label>Fecha de Inicio:<input type="date" name="CaregiverDateOfStart" data-bind="value: DateOfStart"/></label></li>
+            <li><label>Fecha de Nacimiento:<input type="date" name="CaregiverDateOfBirth" data-bind="value: DateOfBirth"/></label></li>
+            <li><label>Documento de Identidad:<input type="text" name="CaregiverDocumentNumber" data-bind="value: DocumentNumber"/></label></li>
+            <li><label>Género:<select name="CaregiverGender" data-bind="value: Gender"><option value="1">Masculino</option><option value="2">Femenino</option></select></label></li>
+            <li><label>Recibe Atención Especial:<input type="checkbox" name="CaregiverReceiveSpecialAttention" data-bind="value: ReceiveSpecialAttention"/></label></li>
+            <li><label>Es Alfabetizado:<input type="checkbox" name="CaregiverIsLiterate" data-bind="value: IsLiterate"/></label></li>
+            <li><label>Total de Ingresos:<input type="number" name="CaregiverTotalIncome" data-bind="value: TotalIncome"/></label></li>
+            <li><label>Dirección:<input type="text" name="CaregiverAddress" data-bind="value: Address"/></label></li>
+            <li><label>Estado:<input type="checkbox" name="CaregiverStatus" data-bind="value: Status"/></label></li>
+            <li><label>Fecha de Último control médico:<input type="date" name="CaregiverDateOfLastHealthControl" data-bind="value: DateOfLastHealthControl"/></label></li>
+            <li><label>Fecha de última atualización del plan de desarrollo:<input type="date" name="CaregiverDateOfLastUpdateDevelopmentPlan" data-bind="value: DateOfLastUpdateDevelopmentPlan"/></label></li>
+            <li><label>Fecha planeada de desarrollo del plan:<input type="date" name="CaregiverPlannedUpdateOfDevelopmentPlan" data-bind="value: PlannedUpdateOfDevelopmentPlan"/></label></li>                       
             
             
-            <li><label>Tiene Plan de Desarrollo:<input type="checkbox" name="HasDevelopmentPlan" data-bind="value: HasDevelopmentPlan"/></label></li>
-            <li><label>Tipo de Familia:<select name="TypeofFamily" id="TypeofFamily" data-bind="value: TypeofFamily">
+            <li><label>Tiene Plan de Desarrollo:<input type="checkbox" name="CaregiverHasDevelopmentPlan" data-bind="value: HasDevelopmentPlan"/></label></li>
+            <li><label>Tipo de Familia:<select name="CaregiverTypeofFamily" id="TypeofFamily" data-bind="value: TypeofFamily">
                     <option value="1">Responsable de Familia</option><option value="2">Padre/Madre de guarda</option><option value="3">Familia por familiares</option>
                     <option value="4">Tia SOS</option><option value="5">Madre/Padre SOS</option><option value="6">Otros</option>
                 </select>
             </label></li>
-            <li><label>Nacionalidad:<input type="text" name="Nationality" data-bind="value: Nationality"/></label></li>
-            <li><label>Tipo de Cuidador:<select name="TypeOfCaregiver" id="TypeOfCaregiver" data-bind="value: TypeOfCaregiver">
+            <li><label>Nacionalidad:<input type="text" name="CaregiverNationality" data-bind="value: Nationality"/></label></li>
+            <li><label>Tipo de Cuidador:<select name="CaregiverTypeOfCaregiver" id="TypeOfCaregiver" data-bind="value: TypeOfCaregiver">
                     <option value="1">Responsable de Familia</option><option value="2">Padre/Madre de guarda</option><option value="3">Familia por familiares</option>
                     <option value="4">Tia SOS</option><option value="5">Madre/Padre SOS</option><option value="6">Otros</option>
                 </select>
             </label></li>
-            <li><label>Fecha planeada de retiro:<input type="date" name="PlannedRetirementDate" data-bind="value: PlannedRetirementDate"/></label></li>
-            <li><label>Tiene hermanos:<input type="checkbox" name="HasChildrenSiblings" data-bind="value: HasChildrenSiblings"/></label></li>
+            <li><label>Fecha planeada de retiro:<input type="date" name="CaregiverPlannedRetirementDate" data-bind="value: PlannedRetirementDate"/></label></li>
+            <li><label>Tiene hermanos:<input type="checkbox" name="CaregiverHasChildrenSiblings" data-bind="value: HasChildrenSiblings"/></label></li>
             
-            <li><label>Tipo de Apoyo:<select name="TypeOfSupport" id="TypeOfSupport" data-bind="value: TypeOfSupport">
+            <li><label>Tipo de Apoyo:<select name="CaregiverTypeOfSupport" id="TypeOfSupport" data-bind="value: TypeOfSupport">
                     <option value="1">Acompañamiento Psicológico</option><option value="2">Asesoría Psicológico</option>
                 	<option value="3">Desarrollo de Capacidades</option><option value="4">Finanzas</option><option value="5">Otros</option>
                 </select>
@@ -71,17 +71,17 @@
         <ul data-role="listview" data-style="inset" title="Educación">
           
             <!--Educación-->
-            <li><label>Profesión:<input type="text" name="Profession" data-bind="value: Profession"/></label></li>
-            <li><label>Capacitación en SOS:<input type="text" name="TrainingInSOS" data-bind="value: TrainingInSOS"/></label></li>
+            <li><label>Profesión:<input type="text" name="CaregiverProfession" data-bind="value: Profession"/></label></li>
+            <li><label>Capacitación en SOS:<input type="text" name="CaregiverTrainingInSOS" data-bind="value: TrainingInSOS"/></label></li>
             <li><label>Nivel de Educación Formal:
-                <select name="FormalEducationalLevel" id="FormalEducationalLevel" data-bind="value: FormalEducationalLevel">
+                <select name="CaregiverFormalEducationalLevel" id="FormalEducationalLevel" data-bind="value: FormalEducationalLevel">
                     <option value="1">Sin Educación</option><option value="2">Primaria</option>
                 	<option value="3">Secundaria</option><option value="4">Técnica</option>
                     <option value="5">Universitaria</option><option value="6">Postgrado</option>
                     <option value="7">Otros</option>
                 </select>
 			</label></li>
-            <li><label>Años de Educación Formal:<input type="number" name="YearsOfFormalEducation" data-bind="value: YearsOfFormalEducation"/></label></li>
+            <li><label>Años de Educación Formal:<input type="number" name="CaregiverYearsOfFormalEducation" data-bind="value: YearsOfFormalEducation"/></label></li>
             
             <!--Educación-->
       
@@ -93,10 +93,10 @@
         <ul data-role="listview" data-style="inset" title="Salud">
             
             <!--Salud-->
-            <li><label>Atención médica:<input type="checkbox" name="MedicalCare" data-bind="value: MedicalCare"/></label></li>
+            <li><label>Atención médica:<input type="checkbox" name="CaregiverMedicalCare" data-bind="value: MedicalCare"/></label></li>
             
             <li><label>Tipo de Enfermedad:
-                    <select name="TypeOfDisease" id="TypeOfDisease" data-bind="value: TypeOfDisease">
+                    <select name="CaregiverTypeOfDisease" id="TypeOfDisease" data-bind="value: TypeOfDisease">
                     <option value="1">Sistema circulatorio</option>
                     <option value="2">Cáncer</option>
 					<option value="3">Sistema Cardiovascular</option>
@@ -117,90 +117,90 @@
         <ul data-role="listview" data-style="inset" title="Servicios">
             
             <!--Servicios-->
-            <li><label>Apoyo de hogar y vivienda:<select name="HousingAndLivingSupport" id="HousingAndLivingSupport" data-bind="value: HousingAndLivingSupport">
+            <li><label>Apoyo de hogar y vivienda:<select name="CaregiverHousingAndLivingSupport" id="CaregiverHousingAndLivingSupport" data-bind="value: HousingAndLivingSupport">
                     <option value="1">Refacciones</option><option value="2">Presupuesto Extra</option>
                 	<option value="3">Averías</option><option value="4">Otros</option></select>
             </label></li>
             <li>
                 <label>
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-type="HousingAndLivingSupport">+</a>                    
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-type="HousingAndLivingSupport">-</a>                                                    
-                    <select name="HousingAndLivingSupportValues" id="HousingAndLivingSupportValues" multiple>
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem"  data-entity="Caregiver" data-type="HousingAndLivingSupport">+</a>                    
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem"  data-entity="Caregiver" data-type="HousingAndLivingSupport">-</a>                                                    
+                    <select name="CaregiverHousingAndLivingSupportValues" id="CaregiverHousingAndLivingSupportValues" multiple>
                 	</select>
             	</label>
             </li>            
-            <li><label>Apoyo alimentario:<select name="FoodSupport" id="FoodSupport" data-bind="value: FoodSupport">
+            <li><label>Apoyo alimentario:<select name="CaregiverFoodSupport" id="CaregiverFoodSupport" data-bind="value: FoodSupport">
                     <option value="1">Alimentos Adicionales</option><option value="2">Presupuesto Extra</option>
                 	<option value="3">Otros</option></select>
             </label></li>
             <li>
                 <label>
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-type="FoodSupport">+</a>                    
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-type="FoodSupport">-</a>                                                    
-                    <select name="FoodSupportValues" id="FoodSupportValues" multiple>
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem"  data-entity="Caregiver" data-type="FoodSupport">+</a>                    
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem"  data-entity="Caregiver" data-type="FoodSupport">-</a>                                                    
+                    <select name="CaregiverFoodSupportValues" id="CaregiverFoodSupportValues" multiple>
                 	</select>
             	</label>
             </li>            
             
-			<li><label>Apoyo Mèdico:<select name="MedicalCareSupport" id="MedicalCareSupport" data-bind="value: MedicalCareSupport">
+			<li><label>Apoyo Mèdico:<select name="CaregiverMedicalCareSupport" id="CaregiverMedicalCareSupport" data-bind="value: MedicalCareSupport">
                     <option value="1">Seguro Médico</option><option value="2">No recibe atención</option><option value="3">Otros</option></select>
             </label></li>
             <li>
                 <label>
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-type="MedicalCareSupport">+</a>                    
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-type="MedicalCareSupport">-</a>                                                    
-                    <select name="MedicalCareSupportValues" id="MedicalCareSupportValues" multiple>
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem"  data-entity="Caregiver" data-type="MedicalCareSupport">+</a>                    
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem"  data-entity="Caregiver" data-type="MedicalCareSupport">-</a>                                                    
+                    <select name="CaregiverMedicalCareSupportValues" id="CaregiverMedicalCareSupportValues" multiple>
                 	</select>
             	</label>
             </li>
 
-            <li><label>Apoyo Psicosocial:<select name="PsychosocialSupport" id="PsychosocialSupport" data-bind="value: PsychosocialSupport">
+            <li><label>Apoyo Psicosocial:<select name="CaregiverPsychosocialSupport" id="CaregiverPsychosocialSupport" data-bind="value: PsychosocialSupport">
                     <option value="1">Tratamiento Psiquiátrico</option><option value="2">Referencia para clínica</option>
 					<option value="3">Desarrollo de destrezas</option><option value="4">Tratamiento psicoterapéutico</option><option value="5">Otros</option></select>
             </label></li>
             <li>
                 <label>
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-type="PsychosocialSupport">+</a>                    
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-type="PsychosocialSupport">-</a>                                                    
-                    <select name="PsychosocialSupportValues" id="PsychosocialSupportValues" multiple>
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem"  data-entity="Caregiver" data-type="PsychosocialSupport">+</a>                    
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem"  data-entity="Caregiver" data-type="PsychosocialSupport">-</a>                                                    
+                    <select name="CaregiverPsychosocialSupportValues" id="CaregiverPsychosocialSupportValues" multiple>
                 	</select>
             	</label>
             </li>
 
-            <li><label>Apoyo de cuidado infantil a padres:<select name="ChildCareAndParentSupport" id="ChildCareAndParentSupport" data-bind="value: ChildCareAndParentSupport">
+            <li><label>Apoyo de cuidado infantil a padres:<select name="CaregiverChildCareAndParentSupport" id="CaregiverChildCareAndParentSupport" data-bind="value: ChildCareAndParentSupport">
                     <option value="1">Terapias</option><option value="2">Guarderías</option>
 					<option value="3">Consultas</option><option value="4">Otros</option></select>
             </label></li>
             <li>
                 <label>
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-type="ChildCareAndParentSupport">+</a>                    
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-type="ChildCareAndParentSupport">-</a>                                                    
-                    <select name="ChildCareAndParentSupportValues" id="ChildCareAndParentSupportValues" multiple>
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem"  data-entity="Caregiver" data-type="ChildCareAndParentSupport">+</a>                    
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem"  data-entity="Caregiver" data-type="ChildCareAndParentSupport">-</a>                                                    
+                    <select name="CaregiverChildCareAndParentSupportValues" id="CaregiverChildCareAndParentSupportValues" multiple>
                 	</select>
             	</label>
             </li>
-            <li><label>Apoyo Legal:<select name="LegalSupport" id="LegalSupport" data-bind="value: LegalSupport">
+            <li><label>Apoyo Legal:<select name="CaregiverLegalSupport" id="CaregiverLegalSupport" data-bind="value: LegalSupport">
                     <option value="1">Asesorías</option><option value="2">Estudio de caso</option>
 					<option value="3">Defensa Legal</option><option value="4">Otros</option></select>
             </label></li>
             <li>
                 <label>
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-type="LegalSupport">+</a>                    
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-type="LegalSupport">-</a>                                                    
-                    <select name="LegalSupportValues" id="LegalSupportValues" multiple>
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem"  data-entity="Caregiver" data-type="LegalSupport">+</a>                    
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem"  data-entity="Caregiver" data-type="LegalSupport">-</a>                                                    
+                    <select name="CaregiverLegalSupportValues" id="CaregiverLegalSupportValues" multiple>
                 	</select>
             	</label>
             </li>
 
-			<li><label>Apoyo Económico:<select name="EconomicSupport" id="EconomicSupport" data-bind="value: EconomicSupport">
+			<li><label>Apoyo Económico:<select name="CaregiverEconomicSupport" id="CaregiverEconomicSupport" data-bind="value: EconomicSupport">
                     <option value="1">Dinero</option><option value="2">Trabajo</option>
 					<option value="3">Préstamo</option><option value="4">Otros</option></select>
             </label></li>
             <li>
                 <label>
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-type="EconomicSupport">+</a>                    
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-type="EconomicSupport">-</a>                                                    
-                    <select name="EconomicSupportValues" id="EconomicSupportValues" multiple>
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem"  data-entity="Caregiver" data-type="EconomicSupport">+</a>                    
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem"  data-entity="Caregiver" data-type="EconomicSupport">-</a>                                                    
+                    <select name="CaregiverEconomicSupportValues" id="CaregiverEconomicSupportValues" multiple>
                 	</select>
             	</label>
             </li>

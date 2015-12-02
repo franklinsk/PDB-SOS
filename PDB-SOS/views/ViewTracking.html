@@ -4,7 +4,7 @@
         <ul data-role="listview" data-style="inset">
             <li>
                 <label>Código del Niño:
-                    <input type="text" name="SOSChildID" data-bind="value: SOSChildID">
+                    <input type="text" name="FollowSOSChildIDView" data-bind="value: SOSChildID">
                 </label>
             </li>
             <li>
@@ -21,27 +21,27 @@
             <ul data-role="listview" data-style="inset" title="General">
                 <li>
                     <label>Código de Seguimiento:
-                        <input type="text" name="SOSFollowID" data-bind="value: SOSFollowID">
+                        <input type="text" name="FollowSOSFollowIDView" data-bind="value: SOSFollowID">
                     </label>
                 </li>
                 <li>
                     <label>Código de Niño:
-                        <input type="text" name="childIDView" data-bind="value: SOSChildID">
+                        <input type="text" name="FollowchildIDView" data-bind="value: SOSChildID">
                     </label>
                 </li>
                 <li>
                     <label>Nombres:
-                        <input type="text" name="firstNameView" data-bind="value: firstName" readonly>
+                        <input type="text" name="FollowfirstNameView" data-bind="value: firstName" readonly>
                     </label>
                 </li>
                 <li>
                     <label>Apellidos
-                        <input type="text" name="surNameView" data-bind="value: surName" readonly>
+                        <input type="text" name="FollowsurNameView" data-bind="value: surName" readonly>
                     </label>
                 </li>
                 <li>
                     <label>Razón de Salida:
-                        <select name="reasonsForExitView" data-bind="value: reasonsForExit">
+                        <select name="FollowreasonsForExitView" data-bind="value: reasonsForExit">
                             <option value="1">Adopción</option>
                             <option value="2">Fallecimiento</option>
                             <option value="3">Autosuficiencia</option>
@@ -51,47 +51,47 @@
                 </li>
                 <li>
                     <label>Fecha de Inicio:
-                        <input type="date" name="startDateView" data-bind="value: startDate">
+                        <input type="date" name="FollowstartDateView" data-bind="value: startDate">
                     </label>
                 </li>
                 <li>
                     <label>Fecha de Fin:
-                        <input type="date" name="endDateView" data-bind="value: endDate">
+                        <input type="date" name="FollowendDateView" data-bind="value: endDate">
                     </label>
                 </li>
                 <li>
                     <label>Teléfono:
-                        <input type="tel" name="phoneView" data-bind="value: phone">
+                        <input type="tel" name="FollowphoneView" data-bind="value: phone">
                     </label>
                 </li>                
                 <li>
                     <label>Correo electrónico:
-                        <input type="email" name="emailView" data-bind="value: email">
+                        <input type="email" name="FollowemailView" data-bind="value: email">
                     </label>
                 </li>                 
                 <li>
                     <label>Edad cuando tuvo su primer hijo:
-                        <input type="number" name="ageWhenHasFirstChildView" data-bind="value: ageWhenHasFirstChild" >
+                        <input type="number" name="FollowageWhenHasFirstChildView" data-bind="value: ageWhenHasFirstChild" >
                     </label>
                 </li>
                 <li>
                     <label>Número de Hijos:
-                        <input type="number" name="childrenNumberView" data-bind="value: childrenNumber" >
+                        <input type="number" name="FollowchildrenNumberView" data-bind="value: childrenNumber" >
                     </label>
                 </li>                
                 <li>
                     <label>Tutor Legal:
-                        <input type="text" name="legalGuardianView" data-bind="value: legalGuardian">
+                        <input type="text" name="FollowlegalGuardianView" data-bind="value: legalGuardian">
                     </label>
                 </li>             
                 <li>
                     <label>Hermanos biológicos fuera de SOS:
-                        <input type="number" name="siblingsOutsideSOSView" data-bind="value: siblingsOutsideSOS" >
+                        <input type="number" name="FollowsiblingsOutsideSOSView" data-bind="value: siblingsOutsideSOS" >
                     </label>
                 </li>                             
                 <li>
                     <label>Estado Civil:
-                        <select name="MaritalStatusView" data-bind="value: MaritalStatus">
+                        <select name="FollowMaritalStatusView" data-bind="value: MaritalStatus">
                             <option value="1">Soltero</option>
                             <option value="2">Casado</option>
                             <option value="3">Viudo</option>
@@ -108,7 +108,7 @@
             <ul data-role="listview" data-style="inset" title="Vivienda">
                 <li>
                     <label>Tipo de Alojamiento:
-                        <select name="hostageTypeView" data-bind="value: hostageType">
+                        <select name="FollowhostageTypeView" data-bind="value: hostageType">
                             <option value="1">Casa Propia</option>
                             <option value="2">Casa Alquilada</optiosn>
                             <option value="3">Familiares</option>
@@ -118,22 +118,22 @@
                 </li>
                 <li>
                     <label>Comentarios de Alojamiento:
-                        <textarea name="hostageCommentsView" style="resize: noneView" data-bind="value: hostageComments"></textarea>
+                        <textarea name="FollowhostageCommentsView" style="resize: noneView" data-bind="value: hostageComments"></textarea>
                     </label>
                 </li>
                 <li>
                     <label>Comentarios de Mejora de Alojamiento:
-                        <textarea name="hostageImproveCommentsView" style="resize: noneView" data-bind="value: hostageImproveComments"></textarea>
+                        <textarea name="FollowhostageImproveCommentsView" style="resize: noneView" data-bind="value: hostageImproveComments"></textarea>
                     </label>
                 </li>
                 <li>
                     <label>Centro Educativo NO SOS:
-                        <input type="text" name="educationalCenterNoSOSView" data-bind="value: educationalCenterNoSOS">
+                        <input type="text" name="FolloweducationalCenterNoSOSView" data-bind="value: educationalCenterNoSOS">
                     </label>
                 </li>
 				<li>
                     <label>Lugar de Residencia:
-                        <select name="homePlaceView" data-bind="value: homePlace">
+                        <select name="FollowhomePlaceView" data-bind="value: homePlace">
                             <option value="1">Madre / Padre</option>
                             <option value="2">Hermanos Biologicos</optiosn>
                             <option value="3">Familia SOS</option>
@@ -147,7 +147,7 @@
             <ul data-role="listview" data-style="inset" title="Educacion">
                 <li>
                     <label>Matricula Escolar Vigente:
-                        <select name="currentEnrollmentView" data-bind="value: currentEnrollment">
+                        <select name="FollowcurrentEnrollmentView" data-bind="value: currentEnrollment">
                             <option value="1">Primeros años de Secundaria</option>
                             <option value="2">Finales años de Secundaria</option>
                             <option value="3">Post Secundaria</option>
@@ -159,7 +159,7 @@
                 </li>    
                 <li>
                     <label>Nivel Educación Alcanzado:
-                        <select name="educationCurrentEnrollmentView" data-bind="value: educationCurrentEnrollment">
+                        <select name="FolloweducationCurrentEnrollmentView" data-bind="value: educationCurrentEnrollment">
                             <option value="1">Sin Nivel</option>
                             <option value="2">Primaria</option>
                             <option value="3">Secundaria</option>
@@ -172,22 +172,22 @@
                 </li>   
                 <li>
                     <label>Inicio de Educación:
-                        <input type="date" name="educationStudyStartView" data-bind="value: educationStudyStart">
+                        <input type="date" name="FolloweducationStudyStartView" data-bind="value: educationStudyStart">
                     </label>
                 </li>
                 <li>
                     <label>Nombre de Especialidad:
-                        <input type="text" name="specialityNameView" data-bind="value: specialityName">
+                        <input type="text" name="FollowspecialityNameView" data-bind="value: specialityName">
                     </label>
                 </li>
                 <li>
                     <label>Semestre de la Especialidad:
-                        <input type="text" name="specialitySemesterView" data-bind="value: specialitySemester">
+                        <input type="text" name="FollowspecialitySemesterView" data-bind="value: specialitySemester">
                     </label>
                 </li>
                  <li>
                     <label>Satisfacción en desarrollo Profesional:
-                        <select name="SatisfactionInProfessionalDevView" data-bind="value: SatisfactionInProfessionalDev">
+                        <select name="FollowSatisfactionInProfessionalDevView" data-bind="value: SatisfactionInProfessionalDev">
                             <option value="1">Muy Contento</option>
                             <option value="2">Contento</option>
                             <option value="3">Descontento</option>
@@ -201,7 +201,7 @@
             <ul data-role="listview" data-style="inset" title="Empleo">
                 <li>
                     <label>Condición Laboral:
-                        <select name="WorkConditionView" data-bind="value: WorkCondition">
+                        <select name="FollowWorkConditionView" data-bind="value: WorkCondition">
                             <option value="1">Dependiente</option>
                             <option value="2">Independiente</optiosn>
                             <option value="3">No labora</option>
@@ -210,12 +210,12 @@
                 </li>
                 <li>
                     <label>Ingresos Mensuales:
-                            <input type="number" name="incomeMonthlyView" data-bind="value: incomeMonthly" >
+                            <input type="number" name="FollowincomeMonthlyView" data-bind="value: incomeMonthly" >
                     </label>
                 </li>
                 <li>
                     <label>Tipo de Moneda:
-                        <select name="workCurrencyView" data-bind="value: workCurrency">
+                        <select name="FollowworkCurrencyView" data-bind="value: workCurrency">
                             <option value="1">Nuevos Soles</option>
                             <option value="2">Dolares</optiosn>
                             <option value="3">Euros</option>
@@ -224,7 +224,7 @@
                 </li>
                 <li>
                     <label>Fuente de Ingreso:
-                        <select name="sourceOfIncomeView" data-bind="value: sourceOfIncome">
+                        <select name="FollowsourceOfIncomeView" data-bind="value: sourceOfIncome">
                             <option value="1">Salario</option>
                             <option value="2">Prestaciones sociales</option>
                             <option value="3">Apoyo de SOS</option>
@@ -234,7 +234,7 @@
                 </li>
 				<li>
                     <label>Dinero Suficiente:
-                        <select name="EnoughWorkIncomeView" data-bind="value: EnoughWorkIncome">
+                        <select name="FollowEnoughWorkIncomeView" data-bind="value: EnoughWorkIncome">
                             <option value="1">Si fácilmente</option>
                             <option value="2">Si me las arreglo</optiosn>
                             <option value="3">Es difícil</option>
@@ -245,7 +245,7 @@
                 </li>
                 <li>
                     <label>Tipo de Empleo:
-                        <select name="typeOfEmploymentView" data-bind="value: typeOfEmployment">
+                        <select name="FollowtypeOfEmploymentView" data-bind="value: typeOfEmployment">
                             <option value="1">Tiempo Completo</option>
                             <option value="2">Medio Tiempo</option>
                             <option value="3">Desempleado</option>
@@ -256,7 +256,7 @@
                 </li>
                 <li>
                     <label>Trabajo relacionado con la especialidad:
-                        <select name="workRelatedWithSpecialityView" data-bind="value: workRelatedWithSpeciality">
+                        <select name="FollowworkRelatedWithSpecialityView" data-bind="value: workRelatedWithSpeciality">
                             <option value="1">Si</option>
                             <option value="2">No</option>
                         </select>
@@ -264,7 +264,7 @@
                 </li>
                 <li>
                     <label>Area de Trabajo:
-                        <select name="areaOfWorkView" data-bind="value: areaOfWork">
+                        <select name="FollowareaOfWorkView" data-bind="value: areaOfWork">
                             <option value="1">Privado</option>
                             <option value="2">Publico</option>
                             <option value="3">Independiente</option>
@@ -275,12 +275,12 @@
                 </li>
                 <li>
                     <label>Trabajo Continuo en meses:
-                        <input type="number" name="continueWorkinMonthsView" data-bind="value: continueWorkinMonths" >
+                        <input type="number" name="FollowcontinueWorkinMonthsView" data-bind="value: continueWorkinMonths" >
                     </label>
                 </li>
                 <li>
                     <label>Meses desempleado:
-                        <input type="number" name="monthsUnemployeeView" data-bind="value: monthsUnemployee" >
+                        <input type="number" name="FollowmonthsUnemployeeView" data-bind="value: monthsUnemployee" >
                     </label>
                 </li>
             </ul>
@@ -289,7 +289,7 @@
             <ul data-role="listview" data-style="inset" title="Salud">
                 <li>
                     <label>Tiene Discapacidad:
-                        <select name="hasDisabilityView" data-bind="value: hasDisability">
+                        <select name="FollowhasDisabilityView" data-bind="value: hasDisability">
                             <option value="1">Si</option>
                             <option value="2">No</option>
                         </select>
@@ -297,7 +297,7 @@
                 </li>
                 <li>
                     <label>Afecta en la vida diaria:
-                        <select name="affectsInDailyLifeView" data-bind="value: affectsInDailyLife">
+                        <select name="FollowaffectsInDailyLifeView" data-bind="value: affectsInDailyLife">
                             <option value="1">Demasiado</option>
                             <option value="2">Mucho</option>
                             <option value="3">Regular</option>
@@ -308,7 +308,7 @@
                 </li>
                 <li>
                     <label>Comentarios de la discapacidad:
-                        <textarea name="commentsAboutHandicapView" style="resize: noneView" data-bind="value: commentsAboutHandicap"></textarea>
+                        <textarea name="FollowcommentsAboutHandicapView" style="resize: noneView" data-bind="value: commentsAboutHandicap"></textarea>
                     </label>
                 </li>
             </ul>

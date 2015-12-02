@@ -3,7 +3,7 @@
         <ul data-role="listview" data-style="inset">
             <li>
                 <label>Cuidador:
-                    <input id="ddlCuidador" name="ddlCuidador" />
+                    <input id="ChildddlCuidador" name="ChildddlCuidador" />
                 </label>
             </li>
             <li>
@@ -15,51 +15,51 @@
 <div data-role="view" id="GeneralChildAdd" data-title="General" data-layout="mobile-tabstrip-ach" data-model="APP.models.child">
     <form>
         <ul data-role="listview" data-style="inset" title="General">
-            <li><label>Código de Niño:<input type="text" name="SOSChildID" data-bind="value: SOSChildID"/></label></li>
-            <li><label>Nombres:<input type="text" name="FirstName" data-bind="value: FirstName"/></label></li>
-            <li><label>Apellidos:<input type="text" name="LastName" data-bind="value: LastName"/></label></li>
-            <li><label>Código de Cuidador:<input type="text" name="CaregiverID" data-bind="value: CaregiverID"></label></li>
-            <li><label>Fecha de Nacimiento:<input type="date" name="Birthdate" data-bind="value: Birthdate"/></label></li>
-            <!--<li><label>Fecha de Salida:<input type="date" name="Exitdate" data-bind="value: Exitdate"/></label></li>
-            <li><label>Razón de Salida:<select name="ExitReason" data-bind="value: ExitReason"><option value="1">Adopción</option><option value="2">Fallecimiento</option>
+            <li><label>Código de Niño:<input type="text" name="ChildSOSChildID" data-bind="value: SOSChildID"/></label></li>
+            <li><label>Nombres:<input type="text" name="ChildFirstName" data-bind="value: FirstName"/></label></li>
+            <li><label>Apellidos:<input type="text" name="ChildLastName" data-bind="value: LastName"/></label></li>
+            <li><label>Código de Cuidador:<input type="text" name="ChildCaregiverID" data-bind="value: CaregiverID"></label></li>
+            <li><label>Fecha de Nacimiento:<input type="date" name="ChildBirthdate" data-bind="value: Birthdate"/></label></li>
+            <!--<li><label>Fecha de Salida:<input type="date" name="ChildExitdate" data-bind="value: Exitdate"/></label></li>
+            <li><label>Razón de Salida:<select name="ChildExitReason" data-bind="value: ExitReason"><option value="1">Adopción</option><option value="2">Fallecimiento</option>
 				<option value="3">Autosuficiencia</option><option value="4">Reintegración familiar</option></select></label></li>-->
-            <li><label>Apellido de la Madre:<input type="text" name="MotherLastName" data-bind="value: MotherLastName"/></label></li>
-            <li><label>Número de Documento:<input type="text" name="DocumentNumber" data-bind="value: DocumentNumber"/></label></li>
-            <li><label>Género:<select name="Gender" data-bind="value: Gender"><option value="1">Masculino</option><option value="2">Femenino</option></select></label></li>
-            <li><label>Idioma Nativo:<input type="text" name="NativeLanguage" data-bind="value: NativeLanguage"/></label></li>
-            <li><label>Lugar de Origen de Padres:<input type="text" name="OriginPlaceFromParents" data-bind="value: OriginPlaceFromParents"/></label></li>
-            <li><label>Tiene Plan de Desarrollo:<input type="checkbox" name="HasChildDevelopmentPlan" data-bind="value: HasChildDevelopmentPlan"/></label></li>
-            <li><label>Fecha esperada de actualización:<input type="date" name="DateOfExpectedUpdate" data-bind="value: DateOfExpectedUpdate"/></label></li>
-            <li><label>Fecha de Inicio:<input type="date" name="DateOfStart" data-bind="value: DateOfStart"/></label></li>
-            <li><label>Nacionalidad:<input type="text" name="Nationality" data-bind="value: Nationality"/></label></li>
+            <li><label>Apellido de la Madre:<input type="text" name="ChildMotherLastName" data-bind="value: MotherLastName"/></label></li>
+            <li><label>Número de Documento:<input type="text" name="ChildDocumentNumber" data-bind="value: DocumentNumber"/></label></li>
+            <li><label>Género:<select name="ChildGender" data-bind="value: Gender"><option value="1">Masculino</option><option value="2">Femenino</option></select></label></li>
+            <li><label>Idioma Nativo:<input type="text" name="ChildNativeLanguage" data-bind="value: NativeLanguage"/></label></li>
+            <li><label>Lugar de Origen de Padres:<input type="text" name="ChildOriginPlaceFromParents" data-bind="value: OriginPlaceFromParents"/></label></li>
+            <li><label>Tiene Plan de Desarrollo:<input type="checkbox" name="ChildHasChildDevelopmentPlan" data-bind="value: HasChildDevelopmentPlan"/></label></li>
+            <li><label>Fecha esperada de actualización:<input type="date" name="ChildDateOfExpectedUpdate" data-bind="value: DateOfExpectedUpdate"/></label></li>
+            <li><label>Fecha de Inicio:<input type="date" name="ChildDateOfStart" data-bind="value: DateOfStart"/></label></li>
+            <li><label>Nacionalidad:<input type="text" name="ChildNationality" data-bind="value: Nationality"/></label></li>
         </ul>
     </form>
 </div>
 <div data-role="view" id="EducationChildAdd" data-title="Educación" data-layout="mobile-tabstrip-ach" data-model="APP.models.child">
     <form>
         <ul data-role="listview" data-style="inset" title="Educación">
-            <li><label>Va a un centro educativo SOS:<input type="checkbox" name="GoesToEducationalCenterSOS" data-bind="value: GoesToEducationalCenterSOS"/></label></li>
-            <li><label>Nombre de Centro educativo no SOS:<input type="text" name="NonSOSEducationalCenterName" data-bind="value: NonSOSEducationalCenterName"/></label></li>
-            <li><label>Matrícula Vigente:<input type="checkbox" name="CurrentEnrollment" data-bind="value: CurrentEnrollment"/></label></li>
-            <li><label>Año escolar Vigente:<input type="number" name="CurrentSchoolYear" data-bind="value: CurrentSchoolYear"/></label></li>            
+            <li><label>Va a un centro educativo SOS:<input type="checkbox" name="ChildGoesToEducationalCenterSOS" data-bind="value: GoesToEducationalCenterSOS"/></label></li>
+            <li><label>Nombre de Centro educativo no SOS:<input type="text" name="ChildNonSOSEducationalCenterName" data-bind="value: NonSOSEducationalCenterName"/></label></li>
+            <li><label>Matrícula Vigente:<input type="checkbox" name="ChildCurrentEnrollment" data-bind="value: CurrentEnrollment"/></label></li>
+            <li><label>Año escolar Vigente:<input type="number" name="ChildCurrentSchoolYear" data-bind="value: CurrentSchoolYear"/></label></li>            
         </ul>
     </form>
 </div>      
 <div data-role="view" id="HealthChildAdd" data-title="Salud" data-layout="mobile-tabstrip-ach" data-model="APP.models.child">
     <form>
         <ul data-role="listview" data-style="inset" title="Salud">
-            <li><label>Fecha de último control médico:<input type="date" name="DateOfLastMedicalControl" data-bind="value: DateOfLastMedicalControl"/></label></li>
-            <li><label>Tiene Discapacidad:<input type="checkbox" name="Disability" data-bind="value: Disability"/></label></li>
-			<li><label>Estado Nutricional:<select name="NutritionalStatus" id="NutritionalStatus" data-bind="value: NutritionalStatus">
+            <li><label>Fecha de último control médico:<input type="date" name="ChildDateOfLastMedicalControl" data-bind="value: DateOfLastMedicalControl"/></label></li>
+            <li><label>Tiene Discapacidad:<input type="checkbox" name="ChildDisability" data-bind="value: Disability"/></label></li>
+			<li><label>Estado Nutricional:<select name="ChildNutritionalStatus" id="NutritionalStatus" data-bind="value: NutritionalStatus">
                     <option value="1">Desnutrido</option><option value="2">Normal</option><option value="3">No evaludado</option>
                     <option value="4">Obesidad</option><option value="5">Con Sobrepeso</option><option value="6">Desnutrición severa</option>
                 </select></label></li>
             
-            <li><label>Tiene Atención médica:<input type="checkbox" name="HasMedicalCare" data-bind="value: HasMedicalCare"/></label></li>
-            <li><label>Tiene VIH:<input type="checkbox" name="HasHIV" data-bind="value: HasHIV"/></label></li>
+            <li><label>Tiene Atención médica:<input type="checkbox" name="ChildHasMedicalCare" data-bind="value: HasMedicalCare"/></label></li>
+            <li><label>Tiene VIH:<input type="checkbox" name="ChildHasHIV" data-bind="value: HasHIV"/></label></li>
             
             <li><label>Tipo de Vacuna:
-                    <select name="TypeOfVaccination" id="TypeOfVaccination" data-bind="value: TypeOfVaccination">
+                    <select name="ChildTypeOfVaccination" id="TypeOfVaccination" data-bind="value: TypeOfVaccination">
                     <option value="1">Sarampión</option>
                     <option value="2">Pentavalente</option>
 					<option value="3">Polio</option>
@@ -69,15 +69,15 @@
             </li>
             <li>
                 <label>
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-type="TypeOfVaccination">+</a>                    
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-type="TypeOfVaccination">-</a>                                                    
-                    <select name="TypeOfVaccinationValues" id="TypeOfVaccinationValues" multiple>
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-entity="Child" data-type="TypeOfVaccination">+</a>                    
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-entity="Child" data-type="TypeOfVaccination">-</a>                                                    
+                    <select name="ChildTypeOfVaccinationValues" id="TypeOfVaccinationValues" multiple>
                 	</select>
             	</label>
             </li>
                 
             <li><label>Tipo de Enfermedad:
-                    <select name="TypeOfDisease" id="TypeOfDisease" data-bind="value: TypeOfDisease">
+                    <select name="ChildTypeOfDisease" id="TypeOfDisease" data-bind="value: TypeOfDisease">
                     <option value="1">Sistema circulatorio</option>
                     <option value="2">Cáncer</option>
 					<option value="3">Sistema Cardiovascular</option>
@@ -91,9 +91,9 @@
             </li>
             <li>
                 <label>
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-type="TypeOfDisease">+</a>                    
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-type="TypeOfDisease">-</a>                                                    
-                    <select name="TypeOfDiseaseValues" id="TypeOfDiseaseValues" multiple>
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-entity="Child" data-type="TypeOfDisease">+</a>                    
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-entity="Child" data-type="TypeOfDisease">-</a>                                                    
+                    <select name="ChildTypeOfDiseaseValues" id="TypeOfDiseaseValues" multiple>
                 	</select>
             	</label>
             </li>
@@ -105,126 +105,126 @@
     <form>
         <ul data-role="listview" data-style="inset" title="Admisión">
             
-            <li><label>Razón de Admisión:<input type="text" name="ReasonForAdmission" data-bind="value: ReasonForAdmission"/></label></li>
-            <li><label>Detalles de Admisión:<input type="text" name="DetailsForAdmission" data-bind="value: DetailsForAdmission"/></label></li>
-            <li><label>Provisto de: <select name="AdmissionProvidedBy" id="AdmissionProvidedBy" data-bind="value: AdmissionProvidedBy">
+            <li><label>Razón de Admisión:<input type="text" name="ChildReasonForAdmission" data-bind="value: ReasonForAdmission"/></label></li>
+            <li><label>Detalles de Admisión:<input type="text" name="ChildDetailsForAdmission" data-bind="value: DetailsForAdmission"/></label></li>
+            <li><label>Provisto de: <select name="ChildAdmissionProvidedBy" id="AdmissionProvidedBy" data-bind="value: AdmissionProvidedBy">
                     <option value="1">Familiares</option><option value="2">Familia de Origen</option><option value="3">Policía</option>
                     <option value="4">Comité familiar</option><option value="5">Otros</option></select>
             </label></li>
             
-            <li><label>Documentos de Admisión: <select name="DocumentsForAdmission" id="DocumentsForAdmission" data-bind="value: DocumentsForAdmission">
+            <li><label>Documentos de Admisión: <select name="ChildDocumentsForAdmission" id="DocumentsForAdmission" data-bind="value: DocumentsForAdmission">
                     <option value="1">Certificado de Nacimiento</option><option value="2">Documento de Identidad</option>
 					<option value="3">Información de Familia</option><option value="4">Documento de Acogida</option><option value="5">Otros</option></select>
             </label></li>
             <li>
                 <label>
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-type="DocumentsForAdmission">+</a>                    
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-type="DocumentsForAdmission">-</a>                                                    
-                    <select name="DocumentsForAdmissionValues" id="DocumentsForAdmissionValues" multiple>
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-entity="Child" data-type="DocumentsForAdmission">+</a>                    
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-entity="Child" data-type="DocumentsForAdmission">-</a>                                                    
+                    <select name="ChildDocumentsForAdmissionValues" id="DocumentsForAdmissionValues" multiple>
                 	</select>
             	</label>
             </li>
             
-            <li><label>Historial antes de Admisión: <select name="RecordBeforeAdmission" id="RecordBeforeAdmission" data-bind="value: RecordBeforeAdmission">
+            <li><label>Historial antes de Admisión: <select name="ChildRecordBeforeAdmission" id="RecordBeforeAdmission" data-bind="value: RecordBeforeAdmission">
                     <option value="1">Familia</option><option value="2">Familia de guardia</option>
 					<option value="3">Hogar encabezado por niño</option><option value="4">Cuidado Institucional</option><option value="5">Otros</option></select>
             </label></li>
             <li>
                 <label>
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-type="RecordBeforeAdmission">+</a>                    
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-type="RecordBeforeAdmission">-</a>                                                    
-                    <select name="RecordBeforeAdmissionValues" id="RecordBeforeAdmissionValues" multiple>
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-entity="Child" data-type="RecordBeforeAdmission">+</a>                    
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-entity="Child" data-type="RecordBeforeAdmission">-</a>                                                    
+                    <select name="ChildRecordBeforeAdmissionValues" id="RecordBeforeAdmissionValues" multiple>
                 	</select>
             	</label>
             </li>
             
-            <li><label>Hermanos biológicos:<input type="text" name="BiologicalSiblings" data-bind="value: BiologicalSiblings"/></label></li>
+            <li><label>Hermanos biológicos:<input type="text" name="ChildBiologicalSiblings" data-bind="value: BiologicalSiblings"/></label></li>
             
-            <li><label>Participación Infantil: <select name="ChildParticipation" id="ChildParticipation" data-bind="value: ChildParticipation">
+            <li><label>Participación Infantil: <select name="ChildChildParticipation" id="ChildParticipation" data-bind="value: ChildParticipation">
                     <option value="1">No participa</option><option value="2">Comité de Aldea</option>
 					<option value="3">Día de la Niñez</option><option value="4">Comité Juvenil</option><option value="5">Monitoreo y Evaluación</option></select>
             </label></li>
             <li>
                 <label>
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-type="ChildParticipation">+</a>                    
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-type="ChildParticipation">-</a>                                                    
-                    <select name="ChildParticipationValues" id="ChildParticipationValues" multiple>
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-entity="Child" data-type="ChildParticipation">+</a>                    
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-entity="Child" data-type="ChildParticipation">-</a>                                                    
+                    <select name="ChildChildParticipationValues" id="ChildParticipationValues" multiple>
                 	</select>
             	</label>
             </li>
             
-            <li><label>Tiene plan de salida:<input type="checkbox" name="HasExitPlan" data-bind="value: HasExitPlan"/></label></li>
-            <li><label>Tipo de Empleo:<select name="TypeOfEmployment" id="TypeOfEmployment" data-bind="value: TypeOfEmployment">
+            <li><label>Tiene plan de salida:<input type="checkbox" name="ChildHasExitPlan" data-bind="value: HasExitPlan"/></label></li>
+            <li><label>Tipo de Empleo:<select name="ChildTypeOfEmployment" id="TypeOfEmployment" data-bind="value: TypeOfEmployment">
                     <option value="1">Tiempo Completo</option><option value="2">Medio Tiempo</option>
 					<option value="3">Empresario</option><option value="4">Pasantía</option><option value="5">Desempleado</option><option value="6">Otros</option></select>
             </label></li>
 
-            <li><label>Detalles de Empleo:<input type="text" name="DetailsOfEmployment" data-bind="value: DetailsOfEmployment"/></label></li>
+            <li><label>Detalles de Empleo:<input type="text" name="ChildDetailsOfEmployment" data-bind="value: DetailsOfEmployment"/></label></li>
         </ul>
     </form>
 </div>      
 <div data-role="view" id="PsychosocialChildAdd" data-title="Psicológico" data-layout="mobile-tabstrip-ach" data-model="APP.models.child">
     <form>
         <ul data-role="listview" data-style="inset" title="Psicológico">
-            <li><label>Desarrollo Psicosocial:<select name="PsychosocialDevelopment" id="PsychosocialDevelopment" data-bind="value: PsychosocialDevelopment">
+            <li><label>Desarrollo Psicosocial:<select name="ChildPsychosocialDevelopment" id="PsychosocialDevelopment" data-bind="value: PsychosocialDevelopment">
                     <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
                 	<option value="5">No ha sido Evaluado</option><option value="6">No Corresponde</option></select>
             </label></li>
             
-            <li><label>Abuso Infantil Recibido:<input type="checkbox" name="ChildAbuseReceived" data-bind="value: ChildAbuseReceived"/></label></li>
+            <li><label>Abuso Infantil Recibido:<input type="checkbox" name="ChildChildAbuseReceived" data-bind="value: ChildAbuseReceived"/></label></li>
 		</ul>
     </form>
 </div>      
 <div data-role="view" id="ServicesChildAdd" data-title="Servicios" data-layout="mobile-tabstrip-ach" data-model="APP.models.child">
     <form>
         <ul data-role="listview" data-style="inset" title="Servicios">            
-            <li><label>Apoyo Psicosocial:<select name="PsychosocialSupport" id="PsychosocialSupport" data-bind="value: PsychosocialSupport">
+            <li><label>Apoyo Psicosocial:<select name="ChildPsychosocialSupport" id="PsychosocialSupport" data-bind="value: PsychosocialSupport">
                     <option value="1">Tratamiento Psiquiátrico</option><option value="2">Referencia para clínica</option>
 					<option value="3">Desarrollo de destrezas</option><option value="4">Tratamiento psicoterapéutico</option><option value="5">Otros</option></select>
             </label></li>
             <li>
                 <label>
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-type="PsychosocialSupport">+</a>                    
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-type="PsychosocialSupport">-</a>                                                    
-                    <select name="PsychosocialSupportValues" id="PsychosocialSupportValues" multiple>
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-entity="Child" data-type="PsychosocialSupport">+</a>                    
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-entity="Child" data-type="PsychosocialSupport">-</a>                                                    
+                    <select name="ChildPsychosocialSupportValues" id="PsychosocialSupportValues" multiple>
                 	</select>
             	</label>
             </li>
 
-            <li><label>Apoyo Mèdico:<select name="MedicalSupport" id="MedicalSupport" data-bind="value: MedicalSupport">
+            <li><label>Apoyo Mèdico:<select name="ChildMedicalSupport" id="MedicalSupport" data-bind="value: MedicalSupport">
                     <option value="1">Seguro Médico</option><option value="2">No recibe atención</option><option value="3">Otros</option></select>
             </label></li>
             <li>
                 <label>
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-type="MedicalSupport">+</a>                    
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-type="MedicalSupport">-</a>                                                    
-                    <select name="MedicalSupportValues" id="MedicalSupportValues" multiple>
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-entity="Child" data-type="MedicalSupport">+</a>                    
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-entity="Child" data-type="MedicalSupport">-</a>                                                    
+                    <select name="ChildMedicalSupportValues" id="MedicalSupportValues" multiple>
                 	</select>
             	</label>
             </li>
                 
-            <li><label>Apoyo Educativo:<select name="EducationalSupport" id="EducationalSupport" data-bind="value: EducationalSupport">
+            <li><label>Apoyo Educativo:<select name="ChildEducationalSupport" id="EducationalSupport" data-bind="value: EducationalSupport">
                     <option value="1">Talentos Especiales</option><option value="2">Idiomas</option><option value="3">Tutorias</option>
                 	<option value="4">Becas</option><option value="5">Otros</option></select>
             </label></li>
             <li>
                 <label>
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-type="EducationalSupport">+</a>                    
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-type="EducationalSupport">-</a>                                                    
-                    <select name="EducationalSupportValues" id="EducationalSupportValues" multiple>
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-entity="Child" data-type="EducationalSupport">+</a>                    
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-entity="Child" data-type="EducationalSupport">-</a>                                                    
+                    <select name="ChildEducationalSupportValues" id="EducationalSupportValues" multiple>
                 	</select>
             	</label>
             </li>
             
-            <li><label>Apoyo Adicional:<select name="AdditionalSupport" id="AdditionalSupport" data-bind="value: AdditionalSupport">
+            <li><label>Apoyo Adicional:<select name="ChildAdditionalSupport" id="AdditionalSupport" data-bind="value: AdditionalSupport">
                     <option value="1">Apoyo de Talentos</option><option value="2">Presupuesto Extra</option>
                 	<option value="3">Viajes</option><option value="4">Otros</option></select>
             </label></li>
             <li>
                 <label>
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-type="AdditionalSupport">+</a>                    
-                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-type="AdditionalSupport">-</a>                                                    
-                    <select name="AdditionalSupportValues" id="AdditionalSupportValues" multiple>
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-entity="Child" data-type="AdditionalSupport">+</a>                    
+                    <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-entity="Child" data-type="AdditionalSupport">-</a>                                                    
+                    <select name="ChildAdditionalSupportValues" id="AdditionalSupportValues" multiple>
                 	</select>
             	</label>
             </li>
