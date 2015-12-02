@@ -584,6 +584,7 @@ var app; // store a reference to the application object that will be created  la
                     });
     	 },
          searchCaregiverByHouse: function(){
+             var houseID = $("#CaregiverddlCasaView").val();
              
              var stringTemplate = "Nombres: #: FirstName #, Apellidos #: LastName # <a href='javascript:SwitchTab(\"Caregiver\",\"View\",\"#if (CaregiverID == null) {# #=''# #} else {##=CaregiverID##}#\", \"#if (FirstName == null) {# #=''# #} else {##=FirstName##}#\", \"#if (LastName == null) {# #=''# #} else {##=LastName##}#\", \"" + houseID + "\")'>Visualizar</a>";                
              var inactive = " #if (Status == null || Status != '1') {# <a href='javascript:optEntityTab(\"Caregiver\",\"Reactivate\", \"#= CaregiverID #\")'>Reactivar</a> #}#";                
@@ -607,8 +608,6 @@ var app; // store a reference to the application object that will be created  la
                     return;
             }
              
-            var houseID = $("#CaregiverddlCasaView").val();
-            
             var filters = []; 
             caregiverDataSource.filter({});
              
@@ -633,6 +632,28 @@ var app; // store a reference to the application object that will be created  la
             var houseID = "";
             if (navigator.onLine) { houseID = $("#CaregiverddlCasa").val(); }
             SwitchTab("Caregiver", "Add", "", "", "", houseID); 
+             
+            if(houseID != "")
+            {
+                    houseDataSource.filter({});
+                    offlineHouseDataSource.filter({});
+
+                    var filters = [];
+                    filters = UpdateSearchFilters(filters, "SOSHouseID", "eq", houseID, "and");        
+
+                    var datasourceH = houseDataSource;
+
+                    if (!navigator.onLine) { datasourceH = offlineHouseDataSource; }          
+
+                    datasourceH.filter({});
+                    datasourceH.filter(filters);  
+
+                    datasourceH.fetch(function() 
+                    {
+                        var entity = datasourceH.at(0);
+                        $('[name="CaregiverhouseName"]').val(entity.get("NameOrNumber"));
+                    });    
+            }
          },
          getCaregiverItemByID: function(e){
             var caregiverID = e.view.params.id;
@@ -642,18 +663,20 @@ var app; // store a reference to the application object that will be created  la
             	
             var filters = [];
             filters = UpdateSearchFilters(filters, "CaregiverID", "eq", caregiverID, "and");        
-             
+            
             var datasource = caregiverDataSource;
 
 			if (!navigator.onLine) { datasource = offlineCaregiverDataSource; }          
 
-            datasource.filter({});
             datasource.filter(filters);  
-
+             
+			var houseID="";
+             
             datasource.fetch(function() {
-  				var entity = datasource.at(0);
+                var entity = datasource.at(0);
+                houseID = entity.get("SOSHouseID");
                 
-  				$('[name="CaregiverPhoneNumberView"]').val(entity.get("PhoneNumber"));
+                $('[name="CaregiverPhoneNumberView"]').val(entity.get("PhoneNumber"));
                 
                 if(entity.get("Synchronized") == true) $('[name="CaregiverSynchronizedView"]').attr('checked', true);                
                 $('[name="CaregiverDateOfStartView"]').val(kendo.toString(entity.get("DateOfStart"), "yyyy-MM-dd"));
@@ -700,9 +723,29 @@ var app; // store a reference to the application object that will be created  la
                     $('[name="CaregiverStatusView"]').val("Activo");
                 else
                 	$('[name="CaregiverStatusView"]').val("Inactivo");
+                
+                if(houseID != "")
+             	{
+                    houseDataSource.filter({});
+                    offlineHouseDataSource.filter({});
+
+                    filters = [];
+                    filters = UpdateSearchFilters(filters, "SOSHouseID", "eq", houseID, "and");        
+
+                    var datasourceH = houseDataSource;
+
+                    if (!navigator.onLine) { datasourceH = offlineHouseDataSource; }          
+
+                    datasourceH.filter({});
+                    datasourceH.filter(filters);  
+
+                    datasourceH.fetch(function() 
+                    {
+                        var entity = datasourceH.at(0);
+                        $('[name="CaregiverhouseNameView"]').val(entity.get("NameOrNumber"));
+                    });    
+                }
 			}); 
-            
-            caregiverDataSource.filter({});  
          },
          getCaregiverByID: function () {   
                 if (!navigator.onLine) {
@@ -722,13 +765,14 @@ var app; // store a reference to the application object that will be created  la
                         serverFiltering: true,
                         filter: { field: 'CaregiverID', operator: 'eq', value: $('[name="CaregiverCaregiverIDView"]').val().trim() }
                 });    
-				
-                caregiverDataSource.fetch(function() {
+             
+				caregiverDataSource.fetch(function() {
                     var caregiver = caregiverDataSource.at(0);
                     $('[name="CaregiverCaregiverIDView"]').val(caregiver.get("CaregiverID"));
                     $('[name="CaregiverFirstNameView"]').val(caregiver.get("FirstName"));
                     $('[name="CaregiverLastNameView"]').val(caregiver.get("LastName"));
                 });
+             
             },
          addCaregiverSubmit: function () {
 
@@ -1168,6 +1212,8 @@ var app; // store a reference to the application object that will be created  la
                     });
     	 },
          searchChildByCaregiver: function(){
+            var caregiverID = $("#ChildddlCuidadorView").val();            
+             
             var stringTemplate = "Nombres: #: FirstName #, Apellidos #: LastName # <a href='javascript:SwitchTab(\"Child\",\"View\",\"#if (SOSChildID == null) {# #=''# #} else {##=SOSChildID##}#\", \"#if (FirstName == null) {# #=''# #} else {##=FirstName##}#\", \"#if (LastName == null) {# #=''# #} else {##=LastName##}#\", \"" + caregiverID + "\")'>Visualizar</a>";                
             var inactive = " #if (Status == null || Status != '1') {# <a href='javascript:optEntityTab(\"Child\",\"Reactivate\", \"#= SOSChildID #\")'>Reactivar</a> #}#";                
             var active = " #if (Status != null && Status == '1') {# <a href='javascript:optEntityTab(\"Child\", \"Depart\", \"#= SOSChildID #\")'>Salida</a> <a href='javascript:optEntityTab(\"Child\",\"Transfer\", \"#= SOSChildID #\")'>Transferencia</a> #}#";                
@@ -1188,7 +1234,6 @@ var app; // store a reference to the application object that will be created  la
                     return;
             }
             
-            var caregiverID = $("#ChildddlCuidadorView").val();
             var filters = [];
  
             childDataSource.filter({});
@@ -1214,6 +1259,29 @@ var app; // store a reference to the application object that will be created  la
             var caregiverID = "";
             if (navigator.onLine) { caregiverID =  $("#ChildddlCuidador").val(); }
             SwitchTab("Child", "Add", "", "", "", caregiverID); 
+             
+            if(caregiverID != "")
+            {
+                    caregiverDataSource.filter({});
+                    offlineCaregiverDataSource.filter({});
+
+                    var filters = [];
+                    filters = UpdateSearchFilters(filters, "CaregiverID", "eq", caregiverID, "and");        
+
+                    var datasourceC = caregiverDataSource;
+
+                    if (!navigator.onLine) { datasourceC = offlineCaregiverDataSource; }          
+
+                    datasourceC.filter({});
+                    datasourceC.filter(filters);  
+
+                    datasourceC.fetch(function() 
+                    {
+                        var entity = datasourceC.at(0);
+                        $('[name="CaregiverFirstname"]').val(entity.get("FirstName"));
+                        $('[name="CaregiverLastname"]').val(entity.get("LastName"));
+                    });    
+            }
          },
          getChildItemByID: function(e){
             var childID = e.view.params.id;
@@ -1231,8 +1299,10 @@ var app; // store a reference to the application object that will be created  la
             datasource.filter({});
             datasource.filter(filters);    			
              
+            var caregiverID = "";
             datasource.fetch(function() {
   				var entity = datasource.at(0);
+                caregiverID = entity.get("CaregiverID");
                 
   				$('[name="ChildBirthdateView"]').val(kendo.toString(entity.get("Birthdate"), "yyyy-MM-dd"));
                 $('[name="ChildLastNameView"]').val(entity.get("LastName"));
@@ -1254,7 +1324,7 @@ var app; // store a reference to the application object that will be created  la
                 $('[name="ChildDateOfStartView"]').val(kendo.toString(entity.get("DateOfStart"), "yyyy-MM-dd"));
                 $('[name="ChildNationalityView"]').val(entity.get("Nationality"));
                 
-                if(entity.get("GoesToEducationalCenterSOS") == true) $('[name="ChildGoesToEducationalCenterSOSView"]').attr('checked', true);                
+                if(entity.get("GoesToEducationalCenterSOS") == true) $('[name="ChildGoesToEducationalCenterSOSView"]').attr('checked', true);     
                 $('[name="ChildNonSOSEducationalCenterNameView"]').val(entity.get("NonSOSEducationalCenterName"));                                
                 if(entity.get("CurrentEnrollment") == true) $('[name="ChildCurrentEnrollmentView"]').attr('checked', true);
                 
@@ -1293,6 +1363,29 @@ var app; // store a reference to the application object that will be created  la
                     $('[name="ChildStatusView"]').val("Activo");
                 else
                 	$('[name="ChildStatusView"]').val("Inactivo");
+                
+                if(caregiverID != "")
+             	{
+                    caregiverDataSource.filter({});
+                    offlineCaregiverDataSource.filter({});
+
+                    filters = [];
+                    filters = UpdateSearchFilters(filters, "CaregiverID", "eq", caregiverID, "and");        
+
+                    var datasourceC = caregiverDataSource;
+
+                    if (!navigator.onLine) { datasourceC = offlineCaregiverDataSource; }          
+
+                    datasourceC.filter({});
+                    datasourceC.filter(filters);  
+
+                    datasourceC.fetch(function() 
+                    {
+                        var entity = datasourceC.at(0);
+                        $('[name="CaregiverFirstnameView"]').val(entity.get("FirstName"));
+                        $('[name="CaregiverLastnameView"]').val(entity.get("LastName"));
+                    });    
+                }
 			});                
          },
          getChildByID: function () {   
@@ -1794,10 +1887,10 @@ var app; // store a reference to the application object that will be created  la
             
             datasource.filter({});
             datasource.filter(filters);  
-                        
+            //#if (SOSFollowID == null) {# #=''# #} else {##=SOSFollowID##}#        
             $("#trackViewList").kendoMobileListView({
                 dataSource: datasource,                
-                template: "Fecha de Inicio: #: kendo.toString(StartDate, 'yyyy/MM/dd' ) #, Fecha de Fin: #: kendo.toString(EndDate, 'yyyy/MM/dd' ) # <a href='javascript:SwitchTab(\"Follow\",\"View\",\"#if (SOSFollowID == null) {# #=''# #} else {##=SOSFollowID##}#\", \"\", \"\", \"#if (SOSChildID == null) {# #=''# #} else {##=SOSChildID##}#\")'>Visualizar</a>",                
+                template: "Fecha de Inicio: #: kendo.toString(StartDate, 'yyyy/MM/dd' ) #,  Fecha de Fin: #: kendo.toString(EndDate, 'yyyy/MM/dd' ) # <a href='javascript:SwitchTab(\"Follow\",\"View\",\"#: SOSFollowID #\", \"\", \"\", \"#if (SOSChildID == null) {# #=''# #} else {##=SOSChildID##}#\")'>Visualizar</a>",                
                 dataBound: function () {
                     if (this.dataSource.total() == 0) 
                         $("#trackViewList").html('<li>No hay resultados.</li>');
@@ -1909,7 +2002,7 @@ var app; // store a reference to the application object that will be created  la
             if (navigator.onLine) 
             {
                 trackingDataSource.add({
-                    SOSFollowID: randomIntFromInterval(10000000,99999999),
+                    SOSFollowID: "F" + randomIntFromInterval(1000000,9999999),
                     SOSChildID: $('[name="FollowchildID"]').val(),
                     StartDate: $('[name="FollowstartDate"]').val(),
                     EndDate: $('[name="FollowendDate"]').val(),
@@ -1952,7 +2045,7 @@ var app; // store a reference to the application object that will be created  la
                 offlineDataSource.online(false);
 
                 offlineDataSource.add({
-                    SOSFollowID: randomIntFromInterval(10000000,99999999),
+                    SOSFollowID: "F" + randomIntFromInterval(1000000,9999999),
                     SOSChildID: $('[name="FollowchildID"]').val(),
                     StartDate: $('[name="FollowstartDate"]').val(),
                     EndDate: $('[name="FollowendDate"]').val(),
@@ -2002,7 +2095,8 @@ var app; // store a reference to the application object that will be created  la
             trackingDataSource.filter({});
             
             var filters = [];
-            filters = UpdateSearchFilters(filters, "SOSFollowID", "eq", followID, "and");        
+            //filters = UpdateSearchFilters(filters, "SOSFollowID", "eq", "20480167", "and");        
+            filters = UpdateSearchFilters(filters, "SOSFollowID", "eq", "F0480167", "and");        
              
 			var datasource = trackingDataSource;
             var childID = "";
@@ -2019,8 +2113,8 @@ var app; // store a reference to the application object that will be created  la
                 childID = child.get("SOSChildID");
                 $('[name="FollowSOSFollowIDView"]').val(child.get("SOSFollowID"));
   				$('[name="FollowchildIDView"]').val(child.get("SOSChildID"));
-                $('[name="FollowstartDateView"]').val(child.get("StartDate"));
-                $('[name="FollowendDateView"]').val(child.get("EndDate"));
+                $('[name="FollowstartDateView"]').val(kendo.toString(child.get("StartDate"), "yyyy-MM-dd"));
+                $('[name="FollowendDateView"]').val(kendo.toString(child.get("EndDate"), "yyyy-MM-dd"));
                 
                 $('[name="FollowphoneView"]').val(child.get("Phone"));
                 $('[name="FollowemailView"]').val(child.get("EmailAddress"));
@@ -2037,7 +2131,7 @@ var app; // store a reference to the application object that will be created  la
                 
                 $('[name="FollowcurrentEnrollmentView"]').val(child.get("CurrentSchoolLevel"));
                 $('[name="FolloweducationCurrentEnrollmentView"]').val(child.get("EducationCurrentEnrollment"));
-                $('[name="FolloweducationStudyStartView"]').val(child.get("EducationStudyStart"));
+                $('[name="FolloweducationStudyStartView"]').val(kendo.toString(child.get("EducationStudyStart"), "yyyy-MM-dd"));
                 $('[name="FollowspecialityNameView"]').val(child.get("EducationSpecialityName"));
                 $('[name="FollowspecialitySemesterView"]').val(child.get("EducationSpecialitySemester"));
                 $('[name="FollowsourceOfIncomeView"]').val(child.get("WorkIncomeType"));
@@ -2059,31 +2153,30 @@ var app; // store a reference to the application object that will be created  la
                 $('[name="FollowWorkConditionView"]').val(child.get("WorkCondition"));
                 $('[name="FollowEnoughWorkIncomeView"]').val(child.get("EnoughWorkIncome"));
 
-			});
-            
-            if(childID != "")
-            {
-            	childDataSource.filter({});
-            	offlineChildDataSource.filter({});
-            
-                var filters = [];
-            	filters = UpdateSearchFilters(filters, "SOSChildID", "eq", childID, "and");        
-                
-                var datasource = houseDataSource;
-             
-            	if (!navigator.onLine) { datasource = offlineChildDataSource; }          
-                
-                datasource.filter({});
-            	datasource.filter(filters);  
-                
-                datasource.fetch(function() 
+                if(childID != "")
                 {
-                    var child = datasource.at(0);
-                    $('[name="FollowchildIDView"]').val(child.get("SOSChildID"));
-                    $('[name="FollowfirstNameView"]').val(child.get("FirstName"));
-                    $('[name="FollowsurNameView"]').val(child.get("LastName"));
-                });    
-            }
+                    childDataSource.filter({});
+                    offlineChildDataSource.filter({});
+
+                    filters = [];
+                    filters = UpdateSearchFilters(filters, "SOSChildID", "eq", childID, "and");        
+
+                    var datasourceCh = childDataSource;
+
+                    if (!navigator.onLine) { datasourceCh = offlineChildDataSource; }          
+
+                    datasourceCh.filter({});
+                    datasourceCh.filter(filters);  
+
+                    datasourceCh.fetch(function() 
+                    {
+                        var child = datasourceCh.at(0);
+                        $('[name="FollowchildIDView"]').val(child.get("SOSChildID"));
+                        $('[name="FollowfirstNameView"]').val(child.get("FirstName"));
+                        $('[name="FollowsurNameView"]').val(child.get("LastName"));
+                    });    
+                }
+			});
         }
     });
 

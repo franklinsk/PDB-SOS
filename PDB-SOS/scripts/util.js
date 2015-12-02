@@ -113,7 +113,7 @@ function optEntityTab(entity, type, ID){
     	if(entity=="Caregiver")
             prefixSOS = "";
     
-    	$('[name="' + prefixSOS + entity + 'IDView"]').val(ID);    	        	
+    	$('[name="' + entity + prefixSOS + entity + 'IDView"]').val(ID);    	        	
 }
 
 function SwitchTab(entity, type, ID, name, surname, parentID){    	
@@ -140,33 +140,33 @@ function SwitchTab(entity, type, ID, name, surname, parentID){
     
     	if(entity == "Follow")
         {
-    		$('[name="childID"]').val(parentID);
-        	$('[name="firstName"]').val(name);
-        	$('[name="surName"]').val(surname);
+    		$('[name="' + entity + 'childID"]').val(parentID);
+        	$('[name="' + entity + 'firstName"]').val(name);
+        	$('[name="' + entity + 'surName"]').val(surname);
     	}
     
     	if(entity == "Child")
         {
-            $('[name="SOSChildID' + sufix + '"]').val(ID);
-            $('[name="FirstName' + sufix + '"]').val(name);
-            $('[name="LastName' + sufix + '"]').val(surname);    	    
-            $('[name="CaregiverID' + sufix + '"]').val(parentID);    	        	
+            $('[name="' + entity + 'SOSChildID' + sufix + '"]').val(ID);
+            $('[name="' + entity + 'FirstName' + sufix + '"]').val(name);
+            $('[name="' + entity + 'LastName' + sufix + '"]').val(surname);    	    
+            $('[name="' + entity + 'CaregiverID' + sufix + '"]').val(parentID);    	        	
         }
     
     	if(entity == "Caregiver")
         {
-            $('[name="CaregiverID' + sufix + '"]').val(ID);             
-            $('[name="FirstName' + sufix + '"]').val(name);
-            $('[name="LastName' + sufix + '"]').val(surname);    	                
-            $('[name="SOSHouseID' + sufix + '"]').val(parentID);
+            $('[name="' + entity + 'CaregiverID' + sufix + '"]').val(ID);             
+            $('[name="' + entity + 'FirstName' + sufix + '"]').val(name);
+            $('[name="' + entity + 'LastName' + sufix + '"]').val(surname);    	                
+            $('[name="' + entity + 'SOSHouseID' + sufix + '"]').val(parentID);
         }
     
     	if(entity == "House")
         {
-            $('[name="SOSHouseID' + sufix + '"]').val(ID);
-            $('[name="Address' + sufix + '"]').val(name);    	    
-            $('[name="NameOrNumber' + sufix + '"]').val(surname);
-            $('[name="ProgrammeUnitID' + sufix + '"]').val(parentID);    	        	
+            $('[name="' + entity + 'SOSHouseID' + sufix + '"]').val(ID);
+            $('[name="' + entity + 'Address' + sufix + '"]').val(name);    	    
+            $('[name="' + entity + 'NameOrNumber' + sufix + '"]').val(surname);
+            $('[name="' + entity + 'ProgrammeUnitID' + sufix + '"]').val(parentID);    	        	
         }
     
     	$('[name="btnBack' + type + entity + '"]').show();

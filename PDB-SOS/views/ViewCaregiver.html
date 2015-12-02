@@ -17,47 +17,47 @@
 <div data-role="view" id="GeneralCaregiverView" data-title="General" data-show="APP.models.caregiver.getCaregiverItemByID" data-layout="mobile-tabstrip-vc" data-model="APP.models.caregiver">
     <form>
         <ul data-role="listview" data-style="inset" title="General">
-            <li><label>Código de Cuidador:<input type="text" name="CaregiverCaregiverIDView" data-bind="value: CaregiverID"/>
+            <li><label>Código de Cuidador:<input type="text" name="CaregiverCaregiverIDView" data-member="CaregiverID"/>
                 <a data-role="button" data-icon="search" data-click="window.APP.models.caregiver.getCaregiverByID"></a></label></li>
-            <li><label>Código de Casa:<input type="text" name="CaregiverSOSHouseIDView" data-bind="value: SOSHouseID"/></label></li>
+            <li><label>Código de Casa:<input type="text" name="CaregiverSOSHouseIDView" data-member="SOSHouseID"/></label></li>
             <li>
                 <label>Casa:
-                    <input type="text" name="CaregiverhouseNameView" data-bind="value: caregiverHouse" readonly>
+                    <input type="text" name="CaregiverhouseNameView" data-member="caregiverHouse" readonly>
                 </label>
             </li>
-            <li><label>Nombres:<input type="text" name="CaregiverFirstNameView" data-bind="value: FirstName"/></label></li>
-            <li><label>Apellidos:<input type="text" name="CaregiverLastNameView" data-bind="value: LastName"/></label></li>
-            <li><label>Teléfono:<input type="text" name="CaregiverPhoneNumberView" data-bind="value: PhoneNumber"/></label></li>
-            <li><label>Sincronizado:<input type="checkbox" name="CaregiverSynchronizedView" data-bind="value: Synchronized"/></label></li>
-            <li><label>Fecha de Inicio:<input type="date" name="CaregiverDateOfStartView" data-bind="value: DateOfStart"/></label></li>
-            <li><label>Fecha de Nacimiento:<input type="date" name="CaregiverDateOfBirthView" data-bind="value: DateOfBirth"/></label></li>
-            <li><label>Documento de Identidad:<input type="text" name="CaregiverDocumentNumberView" data-bind="value: DocumentNumber"/></label></li>
-            <li><label>Género:<select name="CaregiverGenderView" data-bind="value: Gender"><option value="1">Masculino</option><option value="2">Femenino</option></select></label></li>
-            <li><label>Recibe Atención Especial:<input type="checkbox" name="CaregiverReceiveSpecialAttentionView" data-bind="value: ReceiveSpecialAttention"/></label></li>
-            <li><label>Es Alfabetizado:<input type="checkbox" name="CaregiverIsLiterateView" data-bind="value: IsLiterate"/></label></li>
-            <li><label>Total de Ingresos:<input type="number" name="CaregiverTotalIncomeView" data-bind="value: TotalIncome"  /></label></li>
-            <li><label>Dirección:<input type="text" name="CaregiverAddressView" data-bind="value: Address"/></label></li>
-            <li><label>Estado:<input type="text" name="CaregiverStatusView" data-bind="value: Status" readonly/></label></li>
-            <li><label>Fecha de Último control médico:<input type="date" name="CaregiverDateOfLastHealthControlView" data-bind="value: DateOfLastHealthControl"/></label></li>
-            <li><label>Fecha de última atualización del plan de desarrollo:<input type="date" name="CaregiverDateOfLastUpdateDevelopmentPlanView" data-bind="value: DateOfLastUpdateDevelopmentPlan"/></label></li>
-            <li><label>Fecha planeada de desarrollo del plan:<input type="date" name="CaregiverPlannedUpdateOfDevelopmentPlanView" data-bind="value: PlannedUpdateOfDevelopmentPlan"/></label></li>                                   
+            <li><label>Nombres:<input type="text" name="CaregiverFirstNameView" data-member="FirstName"/></label></li>
+            <li><label>Apellidos:<input type="text" name="CaregiverLastNameView" data-member="LastName"/></label></li>
+            <li><label>Teléfono:<input type="text" name="CaregiverPhoneNumberView" data-member="PhoneNumber"/></label></li>
+            <li><label>Sincronizado:<input type="checkbox" name="CaregiverSynchronizedView" data-member="Synchronized"/></label></li>
+            <li><label>Fecha de Inicio:<input type="date" name="CaregiverDateOfStartView" data-member="DateOfStart"/></label></li>
+            <li><label>Fecha de Nacimiento:<input type="date" name="CaregiverDateOfBirthView" data-member="DateOfBirth"/></label></li>
+            <li><label>Documento de Identidad:<input type="text" name="CaregiverDocumentNumberView" data-member="DocumentNumber"/></label></li>
+            <li><label>Género:<select name="CaregiverGenderView" data-member="Gender"><option value="1">Masculino</option><option value="2">Femenino</option></select></label></li>
+            <li><label>Recibe Atención Especial:<input type="checkbox" name="CaregiverReceiveSpecialAttentionView" data-member="ReceiveSpecialAttention"/></label></li>
+            <li><label>Es Alfabetizado:<input type="checkbox" name="CaregiverIsLiterateView" data-member="IsLiterate"/></label></li>
+            <li><label>Total de Ingresos:<input type="number" name="CaregiverTotalIncomeView" data-member="TotalIncome"  /></label></li>
+            <li><label>Dirección:<input type="text" name="CaregiverAddressView" data-member="Address"/></label></li>
+            <li><label>Estado:<input type="text" name="CaregiverStatusView" data-member="Status" readonly/></label></li>
+            <li><label>Fecha de Último control médico:<input type="date" name="CaregiverDateOfLastHealthControlView" data-member="DateOfLastHealthControl"/></label></li>
+            <li><label>Fecha de última atualización del plan de desarrollo:<input type="date" name="CaregiverDateOfLastUpdateDevelopmentPlanView" data-member="DateOfLastUpdateDevelopmentPlan"/></label></li>
+            <li><label>Fecha planeada de desarrollo del plan:<input type="date" name="CaregiverPlannedUpdateOfDevelopmentPlanView" data-member="PlannedUpdateOfDevelopmentPlan"/></label></li>                                   
             
-            <li><label>Tiene Plan de Desarrollo:<input type="checkbox" name="CaregiverHasDevelopmentPlanView" data-bind="value: HasDevelopmentPlan"/></label></li>
-            <li><label>Tipo de Familia:<select name="CaregiverTypeofFamilyView" id="TypeofFamilyView" data-bind="value: TypeofFamily">
+            <li><label>Tiene Plan de Desarrollo:<input type="checkbox" name="CaregiverHasDevelopmentPlanView" data-member="HasDevelopmentPlan"/></label></li>
+            <li><label>Tipo de Familia:<select name="CaregiverTypeofFamilyView" id="TypeofFamilyView" data-member="TypeofFamily">
                     <option value="1">Responsable de Familia</option><option value="2">Padre/Madre de guarda</option><option value="3">Familia por familiares</option>
                     <option value="4">Tia SOS</option><option value="5">Madre/Padre SOS</option><option value="6">Otros</option>
                 </select>
             </label></li>
-            <li><label>Nacionalidad:<input type="text" name="CaregiverNationalityView" data-bind="value: Nationality"/></label></li>
-            <li><label>Tipo de Cuidador:<select name="CaregiverTypeOfCaregiverView" id="TypeOfCaregiverView" data-bind="value: TypeOfCaregiver">
+            <li><label>Nacionalidad:<input type="text" name="CaregiverNationalityView" data-member="Nationality"/></label></li>
+            <li><label>Tipo de Cuidador:<select name="CaregiverTypeOfCaregiverView" id="TypeOfCaregiverView" data-member="TypeOfCaregiver">
                     <option value="1">Responsable de Familia</option><option value="2">Padre/Madre de guarda</option><option value="3">Familia por familiares</option>
                     <option value="4">Tia SOS</option><option value="5">Madre/Padre SOS</option><option value="6">Otros</option>
                 </select>
             </label></li>
-            <li><label>Fecha planeada de retiro:<input type="date" name="CaregiverPlannedRetirementDateView" data-bind="value: PlannedRetirementDate"/></label></li>
-            <li><label>Tiene hermanos:<input type="checkbox" name="CaregiverHasChildrenSiblingsView" data-bind="value: HasChildrenSiblings"/></label></li>
+            <li><label>Fecha planeada de retiro:<input type="date" name="CaregiverPlannedRetirementDateView" data-member="PlannedRetirementDate"/></label></li>
+            <li><label>Tiene hermanos:<input type="checkbox" name="CaregiverHasChildrenSiblingsView" data-member="HasChildrenSiblings"/></label></li>
             
-            <li><label>Tipo de Apoyo:<select name="CaregiverTypeOfSupportView" id="TypeOfSupportView" data-bind="value: TypeOfSupport">
+            <li><label>Tipo de Apoyo:<select name="CaregiverTypeOfSupportView" id="TypeOfSupportView" data-member="TypeOfSupport">
                     <option value="1">Acompañamiento Psicológico</option><option value="2">Asesoría Psicológico</option>
                 	<option value="3">Desarrollo de Capacidades</option><option value="4">Finanzas</option><option value="5">Otros</option>
                 </select>
@@ -72,17 +72,17 @@
         <ul data-role="listview" data-style="inset" title="Educación">
           
             <!--Educación-->
-            <li><label>Profesión:<input type="text" name="CaregiverProfessionView" data-bind="value: Profession"/></label></li>
-            <li><label>Capacitación en SOS:<input type="text" name="CaregiverTrainingInSOSView" data-bind="value: TrainingInSOS"/></label></li>
+            <li><label>Profesión:<input type="text" name="CaregiverProfessionView" data-member="Profession"/></label></li>
+            <li><label>Capacitación en SOS:<input type="text" name="CaregiverTrainingInSOSView" data-member="TrainingInSOS"/></label></li>
             <li><label>Nivel de Educación Formal:
-                <select name="CaregiverFormalEducationalLevelView" id="CaregiverFormalEducationalLevelView" data-bind="value: FormalEducationalLevel">
+                <select name="CaregiverFormalEducationalLevelView" id="CaregiverFormalEducationalLevelView" data-member="FormalEducationalLevel">
                     <option value="1">Sin Educación</option><option value="2">Primaria</option>
                 	<option value="3">Secundaria</option><option value="4">Técnica</option>
                     <option value="5">Universitaria</option><option value="6">Postgrado</option>
                     <option value="7">Otros</option>
                 </select>
 			</label></li>
-            <li><label>Años de Educación Formal:<input type="number" name="CaregiverYearsOfFormalEducationView" data-bind="value: YearsOfFormalEducation" /></label></li>
+            <li><label>Años de Educación Formal:<input type="number" name="CaregiverYearsOfFormalEducationView" data-member="YearsOfFormalEducation" /></label></li>
             
             <!--Educación-->
       
@@ -94,10 +94,10 @@
         <ul data-role="listview" data-style="inset" title="Salud">
             
             <!--Salud-->
-            <li><label>Atención médica:<input type="checkbox" name="CaregiverMedicalCareView" data-bind="value: MedicalCare"/></label></li>
+            <li><label>Atención médica:<input type="checkbox" name="CaregiverMedicalCareView" data-member="MedicalCare"/></label></li>
             
             <li><label>Tipo de Enfermedad:
-                    <select name="CaregiverTypeOfDiseaseView" id="CaregiverTypeOfDiseaseView" data-bind="value: TypeOfDisease">
+                    <select name="CaregiverTypeOfDiseaseView" id="CaregiverTypeOfDiseaseView" data-member="TypeOfDisease">
                     <option value="1">Sistema circulatorio</option>
                     <option value="2">Cáncer</option>
 					<option value="3">Sistema Cardiovascular</option>
@@ -118,7 +118,7 @@
         <ul data-role="listview" data-style="inset" title="Servicios">
             
             <!--Servicios-->
-            <li><label>Apoyo de hogar y vivienda:<select name="CaregiverHousingAndLivingSupportView" id="CaregiverHousingAndLivingSupportView" data-bind="value: HousingAndLivingSupport">
+            <li><label>Apoyo de hogar y vivienda:<select name="CaregiverHousingAndLivingSupportView" id="CaregiverHousingAndLivingSupportView" data-member="HousingAndLivingSupport">
                     <option value="1">Refacciones</option><option value="2">Presupuesto Extra</option>
                 	<option value="3">Averías</option><option value="4">Otros</option></select>
             </label></li>
@@ -130,7 +130,7 @@
                 	</select>
             	</label>
             </li>            
-            <li><label>Apoyo alimentario:<select name="CaregiverFoodSupportView" id="CaregiverFoodSupportView" data-bind="value: FoodSupport">
+            <li><label>Apoyo alimentario:<select name="CaregiverFoodSupportView" id="CaregiverFoodSupportView" data-member="FoodSupport">
                     <option value="1">Alimentos Adicionales</option><option value="2">Presupuesto Extra</option>
                 	<option value="3">Otros</option></select>
             </label></li>
@@ -143,7 +143,7 @@
             	</label>
             </li>            
             
-			<li><label>Apoyo Mèdico:<select name="CaregiverMedicalCareSupportView" id="CaregiverMedicalCareSupportView" data-bind="value: MedicalCareSupport">
+			<li><label>Apoyo Mèdico:<select name="CaregiverMedicalCareSupportView" id="CaregiverMedicalCareSupportView" data-member="MedicalCareSupport">
                     <option value="1">Seguro Médico</option><option value="2">No recibe atención</option><option value="3">Otros</option></select>
             </label></li>
             <li>
@@ -155,7 +155,7 @@
             	</label>
             </li>
 
-            <li><label>Apoyo Psicosocial:<select name="CaregiverPsychosocialSupportView" id="CaregiverPsychosocialSupportView" data-bind="value: PsychosocialSupport">
+            <li><label>Apoyo Psicosocial:<select name="CaregiverPsychosocialSupportView" id="CaregiverPsychosocialSupportView" data-member="PsychosocialSupport">
                     <option value="1">Tratamiento Psiquiátrico</option><option value="2">Referencia para clínica</option>
 					<option value="3">Desarrollo de destrezas</option><option value="4">Tratamiento psicoterapéutico</option><option value="5">Otros</option></select>
             </label></li>
@@ -168,7 +168,7 @@
             	</label>
             </li>
 
-            <li><label>Apoyo de cuidado infantil a padres:<select name="CaregiverChildCareAndParentSupportView" id="CaregiverChildCareAndParentSupportView" data-bind="value: ChildCareAndParentSupport">
+            <li><label>Apoyo de cuidado infantil a padres:<select name="CaregiverChildCareAndParentSupportView" id="CaregiverChildCareAndParentSupportView" data-member="ChildCareAndParentSupport">
                     <option value="1">Terapias</option><option value="2">Guarderías</option>
 					<option value="3">Consultas</option><option value="4">Otros</option></select>
             </label></li>
@@ -180,7 +180,7 @@
                 	</select>
             	</label>
             </li>
-            <li><label>Apoyo Legal:<select name="CaregiverLegalSupportView" id="CaregiverLegalSupportView" data-bind="value: LegalSupport">
+            <li><label>Apoyo Legal:<select name="CaregiverLegalSupportView" id="CaregiverLegalSupportView" data-member="LegalSupport">
                     <option value="1">Asesorías</option><option value="2">Estudio de caso</option>
 					<option value="3">Defensa Legal</option><option value="4">Otros</option></select>
             </label></li>
@@ -193,7 +193,7 @@
             	</label>
             </li>
 
-			<li><label>Apoyo Económico:<select name="CaregiverEconomicSupportView" id="CaregiverEconomicSupportView" data-bind="value: EconomicSupport">
+			<li><label>Apoyo Económico:<select name="CaregiverEconomicSupportView" id="CaregiverEconomicSupportView" data-member="EconomicSupport">
                     <option value="1">Dinero</option><option value="2">Trabajo</option>
 					<option value="3">Préstamo</option><option value="4">Otros</option></select>
             </label></li>
@@ -214,7 +214,7 @@
         <ul data-role="listview" data-style="inset">
             <li>
                 <label>Motivo de Salida:
-                <input type="input" name="CaregiverExitReason" data-bind="value: ExitReason"/></label>
+                <input type="input" name="CaregiverExitReason" data-member="ExitReason"/></label>
             </li>
         </ul>
     </form>
@@ -224,7 +224,7 @@
         <ul data-role="listview" data-style="inset">            
             <li>
                 <label>Motivo de Reingreso:
-                <input type="input" name="CaregiverReentryReason" data-bind="value: ReentryReason"/></label>
+                <input type="input" name="CaregiverReentryReason" data-member="ReentryReason"/></label>
             </li>
         </ul>
     </form>
@@ -244,7 +244,7 @@
             </li>
             <li>
                 <label>Motivo de Transferencia:
-                <input type="input" name="CaregiverTransferReason" data-bind="value: TransferReason"/></label>
+                <input type="input" name="CaregiverTransferReason" data-member="TransferReason"/></label>
             </li>            
         </ul>
     </form>
@@ -255,7 +255,7 @@
         <div data-role="navbar">
 			<a data-role="button" href="#appDrawer" data-rel="drawer" data-align="left" data-icon="drawer-button"></a>
             <a  name="btnBackViewCaregiver" data-role="backbutton" data-align="left">Atrás</a>
-            <span data-role="view-title"></span>getCaregiverByID
+            <span data-role="view-title"></span>
             <span class="connectionStatus"></span>
             <a  name="btnSaveViewCaregiver" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.caregiver.viewCaregiverSubmit">Guardar</a>                    
             <a  name="btnDepartCaregiver" data-role="button" data-click-on="down" data-align="right" data-click="window.APP.models.caregiver.departCaregiverSubmit">Inactivar</a>                    

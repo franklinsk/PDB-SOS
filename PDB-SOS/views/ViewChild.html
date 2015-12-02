@@ -17,50 +17,52 @@
 <div data-role="view" id="GeneralChildView" data-title="General" data-show="APP.models.child.getChildItemByID" data-layout="mobile-tabstrip-vch" data-model="APP.models.child">
     <form>
         <ul data-role="listview" data-style="inset" title="General">
-            <li><label>Código de Niño:<input type="text" name="ChildSOSChildIDView" data-bind="value: SOSChildID"/>
+            <li><label>Código de Niño:<input type="text" name="ChildSOSChildIDView" data-member="SOSChildID"/>
                 <a data-role="button" data-icon="search" data-click="window.APP.models.child.getChildByID"></a></label></li>
-            <li><label>Nombres:<input type="text" name="ChildFirstNameView" data-bind="value: FirstName"/></label></li>
-            <li><label>Apellidos:<input type="text" name="ChildLastNameView" data-bind="value: LastName"/></label></li>
-            <li><label>Código de Cuidador:<input type="text" name="ChildCaregiverIDView" data-bind="value: CaregiverID"></label></li>
-            <li><label>Fecha de Nacimiento:<input type="date" name="ChildBirthdateView" data-bind="value: Birthdate" /></label></li>
-            <li><label>Apellido de la Madre:<input type="text" name="ChildMotherLastNameView" data-bind="value: MotherLastName"/></label></li>
-            <li><label>Número de Documento:<input type="text" name="ChildDocumentNumberView" data-bind="value: DocumentNumber"/></label></li>
-            <li><label>Género:<select name="ChildGenderView" data-bind="value: Gender"><option value="1">Masculino</option><option value="2">Femenino</option></select></label></li>
-            <li><label>Idioma Nativo:<input type="text" name="ChildNativeLanguageView" data-bind="value: NativeLanguage"/></label></li>
-            <li><label>Lugar de Origen de Padres:<input type="text" name="ChildOriginPlaceFromParentsView" data-bind="value: OriginPlaceFromParents"/></label></li>
-            <li><label>Tiene Plan de Desarrollo:<input type="checkbox" name="ChildHasChildDevelopmentPlanView" data-bind="value: HasChildDevelopmentPlan"/></label></li>
-            <li><label>Fecha esperada de actualización:<input type="date" name="ChildDateOfExpectedUpdateView" data-bind="value: DateOfExpectedUpdate"/></label></li>
-            <li><label>Fecha de Inicio:<input type="date" name="ChildDateOfStartView" data-bind="value: DateOfStart"/></label></li>
-            <li><label>Nacionalidad:<input type="text" name="ChildNationalityView" data-bind="value: Nationality"/></label></li>
-			<li><label>Estado:<input type="text" name="ChildStatusView" data-bind="value: Status" readonly></label></li>
+            <li><label>Nombres:<input type="text" name="ChildFirstNameView" data-member="FirstName"/></label></li>
+            <li><label>Apellidos:<input type="text" name="ChildLastNameView" data-member="LastName"/></label></li>
+            <li><label>Código de Cuidador:<input type="text" name="ChildCaregiverIDView" data-member="CaregiverID"></label></li>
+            <li><label>Nombres de Cuidador:<input type="text" name="CaregiverFirstnameView" data-member="FirstNameC" readonly/></label></li>
+            <li><label>Apellidos de Cuidador:<input type="text" name="CaregiverLastnameView" data-member="LastNameC" readonly/></label></li>
+            <li><label>Fecha de Nacimiento:<input type="date" name="ChildBirthdateView" data-member="Birthdate" /></label></li>
+            <li><label>Apellido de la Madre:<input type="text" name="ChildMotherLastNameView" data-member="MotherLastName"/></label></li>
+            <li><label>Número de Documento:<input type="text" name="ChildDocumentNumberView" data-member="DocumentNumber"/></label></li>
+            <li><label>Género:<select name="ChildGenderView" data-member="Gender"><option value="1">Masculino</option><option value="2">Femenino</option></select></label></li>
+            <li><label>Idioma Nativo:<input type="text" name="ChildNativeLanguageView" data-member="NativeLanguage"/></label></li>
+            <li><label>Lugar de Origen de Padres:<input type="text" name="ChildOriginPlaceFromParentsView" data-member="OriginPlaceFromParents"/></label></li>
+            <li><label>Tiene Plan de Desarrollo:<input type="checkbox" name="ChildHasChildDevelopmentPlanView" data-member="HasChildDevelopmentPlan"/></label></li>
+            <li><label>Fecha esperada de actualización:<input type="date" name="ChildDateOfExpectedUpdateView" data-member="DateOfExpectedUpdate"/></label></li>
+            <li><label>Fecha de Inicio:<input type="date" name="ChildDateOfStartView" data-member="DateOfStart"/></label></li>
+            <li><label>Nacionalidad:<input type="text" name="ChildNationalityView" data-member="Nationality"/></label></li>
+			<li><label>Estado:<input type="text" name="ChildStatusView" data-member="Status" readonly></label></li>
         </ul>
     </form>
 </div>      
 <div data-role="view" id="EducationChildView" data-title="Educación" data-layout="mobile-tabstrip-vch" data-model="APP.models.child">
     <form>
         <ul data-role="listview" data-style="inset" title="Educación">
-            <li><label>Va a un centro educativo SOS:<input type="checkbox" name="ChildGoesToEducationalCenterSOSView" data-bind="value: GoesToEducationalCenterSOS"/></label></li>
-            <li><label>Nombre de Centro educativo no SOS:<input type="text" name="ChildNonSOSEducationalCenterNameView" data-bind="value: NonSOSEducationalCenterName"/></label></li>
-            <li><label>Matrícula Vigente:<input type="checkbox" name="ChildCurrentEnrollmentView" data-bind="value: CurrentEnrollment"/></label></li>
-            <li><label>Año escolar Vigente:<input type="number" name="ChildCurrentSchoolYearView" data-bind="value: CurrentSchoolYear"  min="0" max="20"/></label></li>            
+            <li><label>Va a un centro educativo SOS:<input type="checkbox" name="ChildGoesToEducationalCenterSOSView" data-member="GoesToEducationalCenterSOS"/></label></li>
+            <li><label>Nombre de Centro educativo no SOS:<input type="text" name="ChildNonSOSEducationalCenterNameView" /></label></li>
+            <li><label>Matrícula Vigente:<input type="checkbox" name="ChildCurrentEnrollmentView" data-member="CurrentEnrollment"/></label></li>
+            <li><label>Año escolar Vigente:<input type="number" name="ChildCurrentSchoolYearView" data-member="CurrentSchoolYear"  min="0" max="20"/></label></li>            
         </ul>
     </form>
 </div>      
 <div data-role="view" id="HealthChildView" data-title="Salud" data-layout="mobile-tabstrip-vch" data-model="APP.models.child">
     <form>
         <ul data-role="listview" data-style="inset" title="Salud">
-            <li><label>Fecha de último control médico:<input type="date" name="ChildDateOfLastMedicalControlView" data-bind="value: DateOfLastMedicalControl"/></label></li>
-            <li><label>Discapacidad:<input type="checkbox" name="ChildDisabilityView" data-bind="value: Disability"/></label></li>
-			<li><label>Estado Nutricional:<select name="ChildNutritionalStatusView" id="NutritionalStatusView" data-bind="value: NutritionalStatus">
+            <li><label>Fecha de último control médico:<input type="date" name="ChildDateOfLastMedicalControlView" data-member="DateOfLastMedicalControl"/></label></li>
+            <li><label>Discapacidad:<input type="checkbox" name="ChildDisabilityView" data-member="Disability"/></label></li>
+			<li><label>Estado Nutricional:<select name="ChildNutritionalStatusView" id="NutritionalStatusView" data-member="NutritionalStatus">
                     <option value="1">Desnutrido</option><option value="2">Normal</option><option value="3">No evaludado</option>
                     <option value="4">Obesidad</option><option value="5">Con Sobrepeso</option><option value="6">Desnutrición severa</option>
                 </select></label></li>
             
-            <li><label>Tiene Atención médica:<input type="checkbox" name="ChildHasMedicalCareView" data-bind="value: HasMedicalCare"/></label></li>
-            <li><label>Tiene VIH:<input type="checkbox" name="ChildHasHIVView" data-bind="value: HasHIV"/></label></li>
+            <li><label>Tiene Atención médica:<input type="checkbox" name="ChildHasMedicalCareView" data-member="HasMedicalCare"/></label></li>
+            <li><label>Tiene VIH:<input type="checkbox" name="ChildHasHIVView" data-member="HasHIV"/></label></li>
             
             <li><label>Tipo de Vacuna:
-                    <select name="ChildTypeOfVaccinationView" id="TypeOfVaccinationView" data-bind="value: TypeOfVaccination">
+                    <select name="ChildTypeOfVaccinationView" id="TypeOfVaccinationView" data-member="TypeOfVaccination">
                     <option value="1">Sarampión</option>
                     <option value="2">Pentavalente</option>
 					<option value="3">Polio</option>
@@ -78,7 +80,7 @@
             </li>
                 
             <li><label>Tipo de Enfermedad:
-                    <select name="ChildTypeOfDiseaseView" id="TypeOfDiseaseView" data-bind="value: TypeOfDisease">
+                    <select name="ChildTypeOfDiseaseView" id="TypeOfDiseaseView" data-member="TypeOfDisease">
                     <option value="1">Sistema circulatorio</option>
                     <option value="2">Cáncer</option>
 					<option value="3">Sistema Cardiovascular</option>
@@ -106,14 +108,14 @@
     <form>
         <ul data-role="listview" data-style="inset" title="Admisión">
             
-            <li><label>Razón de Admisión:<input type="text" name="ChildReasonForAdmissionView" data-bind="value: ReasonForAdmission"/></label></li>
-            <li><label>Detalles de Admisión:<input type="text" name="ChildDetailsForAdmissionView" data-bind="value: DetailsForAdmission"/></label></li>
-            <li><label>Provisto de: <select name="ChildAdmissionProvidedByView" id="AdmissionProvidedByView" data-bind="value: AdmissionProvidedBy">
+            <li><label>Razón de Admisión:<input type="text" name="ChildReasonForAdmissionView" data-member="ReasonForAdmission"/></label></li>
+            <li><label>Detalles de Admisión:<input type="text" name="ChildDetailsForAdmissionView" data-member="DetailsForAdmission"/></label></li>
+            <li><label>Provisto de: <select name="ChildAdmissionProvidedByView" id="AdmissionProvidedByView" data-member="AdmissionProvidedBy">
                     <option value="1">Familiares</option><option value="2">Familia de Origen</option><option value="3">Policía</option>
                     <option value="4">Comité familiar</option><option value="5">Otros</option></select>
             </label></li>
             
-            <li><label>Documentos de Admisión: <select name="ChildDocumentsForAdmissionView" id="DocumentsForAdmissionView" data-bind="value: DocumentsForAdmission">
+            <li><label>Documentos de Admisión: <select name="ChildDocumentsForAdmissionView" id="DocumentsForAdmissionView" data-member="DocumentsForAdmission">
                     <option value="1">Certificado de Nacimiento</option><option value="2">Documento de Identidad</option>
 					<option value="3">Información de Familia</option><option value="4">Documento de Acogida</option><option value="5">Otros</option></select>
             </label></li>
@@ -126,7 +128,7 @@
             	</label>
             </li>
             
-            <li><label>Historial antes de Admisión: <select name="ChildRecordBeforeAdmissionView" id="RecordBeforeAdmissionView" data-bind="value: RecordBeforeAdmission">
+            <li><label>Historial antes de Admisión: <select name="ChildRecordBeforeAdmissionView" id="RecordBeforeAdmissionView" data-member="RecordBeforeAdmission">
                     <option value="1">Familia</option><option value="2">Familia de guardia</option>
 					<option value="3">Hogar encabezado por niño</option><option value="4">Cuidado Institucional</option><option value="5">Otros</option></select>
             </label></li>
@@ -139,9 +141,9 @@
             	</label>
             </li>
             
-            <li><label>Hermanos biológicos:<input type="text" name="ChildBiologicalSiblingsView" data-bind="value: BiologicalSiblings"/></label></li>
+            <li><label>Hermanos biológicos:<input type="text" name="ChildBiologicalSiblingsView" data-member="BiologicalSiblings"/></label></li>
             
-            <li><label>Participación Infantil: <select name="ChildChildParticipationView" id="ChildParticipationView" data-bind="value: ChildParticipation">
+            <li><label>Participación Infantil: <select name="ChildChildParticipationView" id="ChildParticipationView" data-member="ChildParticipation">
                     <option value="1">No participa</option><option value="2">Comité de Aldea</option>
 					<option value="3">Día de la Niñez</option><option value="4">Comité Juvenil</option><option value="5">Monitoreo y Evaluación</option></select>
             </label></li>
@@ -154,32 +156,32 @@
             	</label>
             </li>
             
-            <li><label>Tiene plan de salida:<input type="checkbox" name="ChildHasExitPlanView" data-bind="value: HasExitPlan"/></label></li>
-            <li><label>Tipo de Empleo:<select name="ChildTypeOfEmploymentView" id="TypeOfEmploymentView" data-bind="value: TypeOfEmployment">
+            <li><label>Tiene plan de salida:<input type="checkbox" name="ChildHasExitPlanView" data-member="HasExitPlan"/></label></li>
+            <li><label>Tipo de Empleo:<select name="ChildTypeOfEmploymentView" id="TypeOfEmploymentView" data-member="TypeOfEmployment">
                     <option value="1">Tiempo Completo</option><option value="2">Medio Tiempo</option>
 					<option value="3">Empresario</option><option value="4">Pasantía</option><option value="5">Desempleado</option><option value="6">Otros</option></select>
             </label></li>
 
-            <li><label>Detalles de Empleo:<input type="text" name="ChildDetailsOfEmploymentView" data-bind="value: DetailsOfEmployment"/></label></li>
+            <li><label>Detalles de Empleo:<input type="text" name="ChildDetailsOfEmploymentView" data-member="DetailsOfEmployment"/></label></li>
         </ul>
     </form>
 </div>      
 <div data-role="view" id="PsychosocialChildView" data-title="Psicológico" data-layout="mobile-tabstrip-vch" data-model="APP.models.child">
     <form>
         <ul data-role="listview" data-style="inset" title="Psicológico">
-            <li><label>Desarrollo Psicosocial:<select name="ChildPsychosocialDevelopmentView" id="PsychosocialDevelopmentView" data-bind="value: PsychosocialDevelopment">
+            <li><label>Desarrollo Psicosocial:<select name="ChildPsychosocialDevelopmentView" id="PsychosocialDevelopmentView" data-member="PsychosocialDevelopment">
                     <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
                 	<option value="5">No ha sido Evaluado</option><option value="6">No Corresponde</option></select>
             </label></li>
             
-            <li><label>Abuso Infantil Recibido:<input type="checkbox" name="ChildChildAbuseReceivedView" data-bind="value: ChildAbuseReceived"/></label></li>
+            <li><label>Abuso Infantil Recibido:<input type="checkbox" name="ChildChildAbuseReceivedView" data-member="ChildAbuseReceived"/></label></li>
 		</ul>
     </form>
 </div>      
 <div data-role="view" id="ServicesChildView" data-title="Servicios" data-layout="mobile-tabstrip-vch" data-model="APP.models.child">
     <form>
         <ul data-role="listview" data-style="inset" title="Servicios">            
-            <li><label>Apoyo Psicosocial:<select name="ChildPsychosocialSupportView" id="PsychosocialSupportView" data-bind="value: PsychosocialSupport">
+            <li><label>Apoyo Psicosocial:<select name="ChildPsychosocialSupportView" id="ChildPsychosocialSupportView" data-member="PsychosocialSupport">
                     <option value="1">Tratamiento Psiquiátrico</option><option value="2">Referencia para clínica</option>
 					<option value="3">Desarrollo de destrezas</option><option value="4">Tratamiento psicoterapéutico</option><option value="5">Otros</option></select>
             </label></li>
@@ -187,24 +189,24 @@
                 <label>
                     <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-entity="Child" data-type="PsychosocialSupportView">+</a>                    
                     <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-entity="Child" data-type="PsychosocialSupportView">-</a>                                                    
-                    <select name="ChildPsychosocialSupportViewValues" id="PsychosocialSupportViewValues" multiple>
+                    <select name="ChildPsychosocialSupportViewValues" id="ChildPsychosocialSupportViewValues" multiple>
                 	</select>
             	</label>
             </li>
 
-            <li><label>Apoyo Mèdico:<select name="ChildMedicalSupportView" id="MedicalSupportView" data-bind="value: MedicalSupport">
+            <li><label>Apoyo Mèdico:<select name="ChildMedicalSupportView" id="ChildMedicalSupportView" data-member="MedicalSupport">
                     <option value="1">Seguro Médico</option><option value="2">No recibe atención</option><option value="3">Otros</option></select>
             </label></li>
             <li>
                 <label>
                     <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-entity="Child" data-type="MedicalSupportView">+</a>                    
                     <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-entity="Child" data-type="MedicalSupportView">-</a>                                                    
-                    <select name="ChildMedicalSupportViewValues" id="MedicalSupportViewValues" multiple>
+                    <select name="ChildMedicalSupportViewValues" id="ChildMedicalSupportViewValues" multiple>
                 	</select>
             	</label>
             </li>
                 
-            <li><label>Apoyo Educativo:<select name="ChildEducationalSupportView" id="EducationalSupportView" data-bind="value: EducationalSupport">
+            <li><label>Apoyo Educativo:<select name="ChildEducationalSupportView" id="ChildEducationalSupportView" data-member="EducationalSupport">
                     <option value="1">Talentos Especiales</option><option value="2">Idiomas</option><option value="3">Tutorias</option>
                 	<option value="4">Becas</option><option value="5">Otros</option></select>
             </label></li>
@@ -212,12 +214,12 @@
                 <label>
                     <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-entity="Child" data-type="EducationalSupportView">+</a>                    
                     <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-entity="Child" data-type="EducationalSupportView">-</a>                                                    
-                    <select name="ChildEducationalSupportViewValues" id="EducationalSupportViewValues" multiple>
+                    <select name="ChildEducationalSupportViewValues" id="ChildEducationalSupportViewValues" multiple>
                 	</select>
             	</label>
             </li>
             
-            <li><label>Apoyo Adicional:<select name="ChildAdditionalSupportView" id="AdditionalSupportView" data-bind="value: AdditionalSupport">
+            <li><label>Apoyo Adicional:<select name="ChildAdditionalSupportView" id="ChildAdditionalSupportView" data-member="AdditionalSupport">
                     <option value="1">Apoyo de Talentos</option><option value="2">Presupuesto Extra</option>
                 	<option value="3">Viajes</option><option value="4">Otros</option></select>
             </label></li>
@@ -237,7 +239,7 @@
         <ul data-role="listview" data-style="inset">
             <li>
                 <label>Motivo de Salida:
-                <input type="input" name="ChildExitReasonChild" data-bind="value: ExitReason"/></label>
+                <input type="input" name="ChildExitReasonChild" data-member="ExitReason"/></label>
             </li>
         </ul>
     </form>
@@ -247,7 +249,7 @@
         <ul data-role="listview" data-style="inset">            
             <li>
                 <label>Motivo de Reingreso:
-                <input type="input" name="ChildReentryReasonChild" data-bind="value: ReentryReason"/></label>
+                <input type="input" name="ChildReentryReasonChild" data-member="ReentryReason"/></label>
             </li>
         </ul>
     </form>
@@ -272,7 +274,7 @@
             </li>
             <li>
                 <label>Motivo de Transferencia:
-                <input type="input" name="ChildTransferReasonChild" data-bind="value: TransferReason"/></label>
+                <input type="input" name="ChildTransferReasonChild" data-member="TransferReason"/></label>
             </li>            
         </ul>
     </form>
