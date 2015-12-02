@@ -183,6 +183,9 @@ var app; // store a reference to the application object that will be created  la
             SwitchTab("House", "Add", "", "", "", "*");              
         },
         init: function () {
+            if (!navigator.onLine) {
+                	navigator.notification.alert("Se realizará la búsqueda desconectada");
+            }
             
             setRestrictions();
             hideTabControls("House", "Add");
@@ -259,6 +262,11 @@ var app; // store a reference to the application object that will be created  la
             var programmeUnitID = "";
             if (navigator.onLine) { programmeUnitID = $("#HouseddlProgramma").val(); }
             SwitchTab("House", "Add", "", "", "", programmeUnitID);              
+            
+            if(!navigator.onLine) 
+            {
+            	navigator.notification.alert("No hay conexion a Internet. Ingresará el código de programa manualmente");
+            }
         },
         getHouseItemByID: function(e){
             var houseID = e.view.params.id;
@@ -337,6 +345,11 @@ var app; // store a reference to the application object that will be created  la
         
             if(validateNullValues($('[name="HouseSOSHouseID"]').val()) == "" || validateNullValues($('[name="HouseSOSHouseID"]').val()).length != 8){
                 navigator.notification.alert("El código de hogar es obligatorio y ser de 8 caracteres");
+                return;
+        	}
+            
+            if(validateNullValues($('[name="HouseProgrammeUnitID"]').val()) == "" || validateNullValues($('[name="HouseProgrammeUnitID"]').val()).length != 4){
+                navigator.notification.alert("El código de programa es obligatorio y ser de 4 caracteres");
                 return;
         	}
             
@@ -633,6 +646,12 @@ var app; // store a reference to the application object that will be created  la
             if (navigator.onLine) { houseID = $("#CaregiverddlCasa").val(); }
             SwitchTab("Caregiver", "Add", "", "", "", houseID); 
              
+            if(!navigator.onLine) 
+            {
+            	navigator.notification.alert("No hay conexion a Internet. Ingresará el código de hogar manualmente");
+            }
+                
+             
             if(houseID != "")
             {
                     houseDataSource.filter({});
@@ -790,6 +809,12 @@ var app; // store a reference to the application object that will be created  la
                 navigator.notification.alert("El código de cuidador es obligatorio y ser de 8 caracteres");
                 return;
         	}
+             
+            if(validateNullValues($('[name="CaregiverSOSHouseID"]').val()) == "" || validateNullValues($('[name="CaregiverSOSHouseID"]').val()).length != 8){
+                navigator.notification.alert("El código de hogar es obligatorio y ser de 8 caracteres");
+                return;
+        	}
+            
              
             if (navigator.onLine) 
             {
@@ -1255,6 +1280,10 @@ var app; // store a reference to the application object that will be created  la
                     navigator.notification.alert("No hay conexion a Internet");
                     return;
             }*/
+            if(!navigator.onLine) 
+            {
+            	navigator.notification.alert("No hay conexion a Internet. Ingresará el código de cuidador manualmente");
+            }
              
             var caregiverID = "";
             if (navigator.onLine) { caregiverID =  $("#ChildddlCuidador").val(); }
@@ -1427,6 +1456,11 @@ var app; // store a reference to the application object that will be created  la
         
             if(validateNullValues($('[ name="ChildSOSChildID"]').val()) == "" || validateNullValues($('[ name="ChildSOSChildID"]').val()).length != 8){
                 navigator.notification.alert("El código de niño es obligatorio y ser de 8 caracteres");
+                return;
+        	}
+            
+            if(validateNullValues($('[name="ChildCaregiverID"]').val()) == "" || validateNullValues($('[name="ChildCaregiverID"]').val()).length != 8){
+                navigator.notification.alert("El código de cuidador es obligatorio y ser de 8 caracteres");
                 return;
         	}
              
@@ -1998,6 +2032,12 @@ var app; // store a reference to the application object that will be created  la
                 navigator.notification.alert("La fecha de inicio debe ser menor a la fecha de fin");
                 return;  
             }
+            
+            
+            if(validateNullValues($('[name="FollowchildID"]').val()) == "" || validateNullValues($('[name="FollowchildID"]').val()).length != 8){
+                navigator.notification.alert("El código de niño es obligatorio y ser de 8 caracteres");
+                return;
+        	}
                         
             if (navigator.onLine) 
             {
@@ -2301,7 +2341,8 @@ var app; // store a reference to the application object that will be created  la
                         EducationSpecialitySemester: jLocalStorage[item]["EducationSpecialitySemester"],
                         HealthHowDisabilityAffects: jLocalStorage[item]["HealthHowDisabilityAffects"],
                         HealthDisabilityComments: jLocalStorage[item]["HealthDisabilityComments"],
-                        SOSChildID: jLocalStorage[item]["SOSChildID"]
+                        SOSChildID: jLocalStorage[item]["SOSChildID"],
+                        SOSFollowID: "F" + randomIntFromInterval(1000000,9999999)
                     });
                 }
 
@@ -2354,7 +2395,7 @@ var app; // store a reference to the application object that will be created  la
                         PhoneNumber : jLocalStorage[item]["PhoneNumber"],
                         ProgrammeUnitID : jLocalStorage[item]["ProgrammeUnitID"],
                         SOSHouseID : jLocalStorage[item]["SOSHouseID"],
-                        Status: jLocalStorage[item]["Status"]
+                        Status: "1"
                     });
                 }
 
@@ -2398,24 +2439,44 @@ var app; // store a reference to the application object that will be created  la
                 for (var item in jLocalStorage) 
                 {
                     synchroDataSource.add({
-                        PhoneNumber : jLocalStorage[item]["PhoneNumber"],
-                        Synchronized : jLocalStorage[item]["Synchronized"],
-                        DateOfStart : jLocalStorage[item]["DateOfStart"],
-                        DateOfBirth : jLocalStorage[item]["DateOfBirth"],
-                        LastName : jLocalStorage[item]["LastName"],
-                        FirstName : jLocalStorage[item]["FirstName"],
-                        DocumentNumber : jLocalStorage[item]["DocumentNumber"],
-                        Gender : jLocalStorage[item]["Gender"],
-                        ReceiveSpecialAttention: jLocalStorage[item]["ReceiveSpecialAttention"],
-                        IsLiterate : jLocalStorage[item]["IsLiterate"],
-                        TotalIncome : jLocalStorage[item]["TotalIncome"],
-                        Address : jLocalStorage[item]["Address"],
-                        Status : jLocalStorage[item]["Status"],
-                        DateOfLastHealthControl : jLocalStorage[item]["DateOfLastHealthControl"],
-                        DateOfLastUpdateDevelopmentPlan : jLocalStorage[item]["DateOfLastUpdateDevelopmentPlan"],
-                        PlannedUpdateOfDevelopmentPlan : jLocalStorage[item]["PlannedUpdateOfDevelopmentPlan"],
-                        CaregiverID : jLocalStorage[item]["CaregiverID"],
-                        SOSHouseID: jLocalStorage[item]["SOSHouseID"]
+                        PhoneNumber:jLocalStorage[item]["PhoneNumber"],
+                        Synchronized:jLocalStorage[item]["Synchronized"],
+                        DateOfStart:jLocalStorage[item]["DateOfStart"],
+                        DateOfBirth:jLocalStorage[item]["DateOfBirth"],
+                        LastName:jLocalStorage[item]["LastName"],
+                        FirstName:jLocalStorage[item]["FirstName"],
+                        DocumentNumber:jLocalStorage[item]["DocumentNumber"],
+                        Gender:jLocalStorage[item]["Gender"],
+                        ReceiveSpecialAttention:jLocalStorage[item]["ReceiveSpecialAttention"],
+                        IsLiterate:jLocalStorage[item]["IsLiterate"],
+                        TotalIncome:jLocalStorage[item]["TotalIncome"],
+                        Address:jLocalStorage[item]["Address"],
+                        DateOfLastHealthControl:jLocalStorage[item]["DateOfLastHealthControl"],
+                        DateOfLastUpdateDevelopmentPlan:jLocalStorage[item]["DateOfLastUpdateDevelopmentPlan"],
+                        PlannedUpdateOfDevelopmentPlan:jLocalStorage[item]["PlannedUpdateOfDevelopmentPlan"],
+                        CaregiverID:jLocalStorage[item]["CaregiverID"],
+                        SOSHouseID:jLocalStorage[item]["SOSHouseID"],
+                        HasDevelopmentPlan:jLocalStorage[item]["HasDevelopmentPlan"],
+                        TypeofFamily:jLocalStorage[item]["TypeofFamily"],
+                        Nationality:jLocalStorage[item]["Nationality"],
+                        TypeOfCaregiver:jLocalStorage[item]["TypeOfCaregiver"],
+                        PlannedRetirementDate:jLocalStorage[item]["PlannedRetirementDate"],
+                        HasChildrenSiblings:jLocalStorage[item]["HasChildrenSiblings"],
+                        TypeOfSupport:jLocalStorage[item]["TypeOfSupport"],
+                        Profession:jLocalStorage[item]["Profession"],
+                        TrainingInSOS:jLocalStorage[item]["TrainingInSOS"],
+                        FormalEducationalLevel:jLocalStorage[item]["FormalEducationalLevel"],
+                        YearsOfFormalEducation:jLocalStorage[item]["YearsOfFormalEducation"],
+                        MedicalCare:jLocalStorage[item]["MedicalCare"],
+                        TypeOfDisease:jLocalStorage[item]["TypeOfDisease"],
+                        HousingAndLivingSupport:jLocalStorage[item]["HousingAndLivingSupport"],
+                        FoodSupport:jLocalStorage[item]["FoodSupport"],
+                        MedicalCareSupport:jLocalStorage[item]["MedicalCareSupport"],
+                        PsychosocialSupport:jLocalStorage[item]["PsychosocialSupport"],
+                        ChildCareAndParentSupport:jLocalStorage[item]["ChildCareAndParentSupport"],
+                        LegalSupport:jLocalStorage[item]["LegalSupport"],
+                        EconomicSupport:jLocalStorage[item]["EconomicSupport"],
+                        Status: "1"                        
                     });
                 }
 
@@ -2460,14 +2521,49 @@ var app; // store a reference to the application object that will be created  la
                 for (var item in jLocalStorage) 
                 {
                     synchroDataSource.add({
-                        Birthdate : jLocalStorage[item]["Birthdate"],
-                        LastName : jLocalStorage[item]["LastName"],
-                        FirstName : jLocalStorage[item]["FirstName"],
-                        Exitdate : jLocalStorage[item]["Exitdate"],
-                        ExitReason : jLocalStorage[item]["ExitReason"],
-                        MotherLastName : jLocalStorage[item]["MotherLastName"],
-                        SOSChildID : jLocalStorage[item]["SOSChildID"],
-                        CaregiverID: jLocalStorage[item]["CaregiverID"]
+                        Birthdate:jLocalStorage[item]["Birthdate"],
+                        LastName:jLocalStorage[item]["LastName"],
+                        FirstName:jLocalStorage[item]["FirstName"],
+                        Exitdate:jLocalStorage[item]["Exitdate"],
+                        ExitReason:jLocalStorage[item]["ExitReason"],
+                        MotherLastName:jLocalStorage[item]["MotherLastName"],
+                        SOSChildID:jLocalStorage[item]["SOSChildID"],
+                        CaregiverID:jLocalStorage[item]["CaregiverID"],
+                        DocumentNumber:jLocalStorage[item]["DocumentNumber"],
+                        Gender:jLocalStorage[item]["Gender"],
+                        NativeLanguage:jLocalStorage[item]["NativeLanguage"],
+                        OriginPlaceFromParents:jLocalStorage[item]["OriginPlaceFromParents"],
+                        HasChildDevelopmentPlan:jLocalStorage[item]["HasChildDevelopmentPlan"],
+                        DateOfExpectedUpdate:jLocalStorage[item]["DateOfExpectedUpdate"],
+                        DateOfStart:jLocalStorage[item]["DateOfStart"],
+                        Nationality:jLocalStorage[item]["Nationality"],
+                        GoesToEducationalCenterSOS:jLocalStorage[item]["GoesToEducationalCenterSOS"],
+                        NonSOSEducationalCenterName:jLocalStorage[item]["NonSOSEducationalCenterName"],
+                        CurrentEnrollment:jLocalStorage[item]["CurrentEnrollment"],
+                        CurrentSchoolYear:jLocalStorage[item]["CurrentSchoolYear"],
+                        DateOfLastMedicalControl:jLocalStorage[item]["DateOfLastMedicalControl"],
+                        Disability:jLocalStorage[item]["Disability"],
+                        NutritionalStatus:jLocalStorage[item]["NutritionalStatus"],
+                        HasMedicalCare:jLocalStorage[item]["HasMedicalCare"],
+                        HasHIV:jLocalStorage[item]["HasHIV"],
+                        TypeOfVaccination:jLocalStorage[item]["TypeOfVaccination"],
+                        ReasonForAdmission:jLocalStorage[item]["ReasonForAdmission"],
+                        DetailsForAdmission:jLocalStorage[item]["DetailsForAdmission"],
+                        AdmissionProvidedBy:jLocalStorage[item]["AdmissionProvidedBy"],
+                        DocumentsForAdmission:jLocalStorage[item]["DocumentsForAdmission"],
+                        RecordBeforeAdmission:jLocalStorage[item]["RecordBeforeAdmission"],
+                        BiologicalSiblings:jLocalStorage[item]["BiologicalSiblings"],
+                        ChildParticipation:jLocalStorage[item]["ChildParticipation"],
+                        HasExitPlan:jLocalStorage[item]["HasExitPlan"],
+                        TypeOfEmployment:jLocalStorage[item]["TypeOfEmployment"],
+                        DetailsOfEmployment:jLocalStorage[item]["DetailsOfEmployment"],
+                        PsychosocialDevelopment:jLocalStorage[item]["PsychosocialDevelopment"],
+                        ChildAbuseReceived:jLocalStorage[item]["ChildAbuseReceived"],
+                        PsychosocialSupport:jLocalStorage[item]["PsychosocialSupport"],
+                        MedicalSupport:jLocalStorage[item]["MedicalSupport"],
+                        EducationalSupport:jLocalStorage[item]["EducationalSupport"],
+                        AdditionalSupport:jLocalStorage[item]["AdditionalSupport"],
+                        Status:"1"                      
                     });
                 }
 
