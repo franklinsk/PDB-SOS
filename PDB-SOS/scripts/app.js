@@ -2291,7 +2291,7 @@ var app; // store a reference to the application object that will be created  la
                 var localStorageDataSource = new kendo.data.DataSource({
                     data: jLocalStorage
                 });
-
+                
                 $("#FollowlistView").kendoMobileListView({
                     dataSource: localStorageDataSource,
                     template: "#: StartDate # - #: EndDate # - #: SOSChildID #"
@@ -2308,7 +2308,7 @@ var app; // store a reference to the application object that will be created  la
                         }
                     }
                 });
-
+                
                 for (var item in jLocalStorage) 
                 {
                     synchroDataSource.add({
@@ -2342,7 +2342,11 @@ var app; // store a reference to the application object that will be created  la
                         HealthHowDisabilityAffects: jLocalStorage[item]["HealthHowDisabilityAffects"],
                         HealthDisabilityComments: jLocalStorage[item]["HealthDisabilityComments"],
                         SOSChildID: jLocalStorage[item]["SOSChildID"],
-                        SOSFollowID: "F" + randomIntFromInterval(1000000,9999999)
+                        SOSFollowID: jLocalStorage[item]["SOSFollowID"],                        
+                        MaritalStatus:jLocalStorage[item]["MaritalStatus"],
+                        SatisfactionInProfessionalDev:jLocalStorage[item]["SatisfactionInProfessionalDev"],
+                        WorkCondition:jLocalStorage[item]["WorkCondition"],
+                        EnoughWorkIncome:jLocalStorage[item]["EnoughWorkIncome"]
                     });
                 }
 
