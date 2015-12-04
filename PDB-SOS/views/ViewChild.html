@@ -110,12 +110,12 @@
             
             <li><label>Razón de Admisión:<input type="text" name="ChildReasonForAdmissionView" data-member="ReasonForAdmission"/></label></li>
             <li><label>Detalles de Admisión:<input type="text" name="ChildDetailsForAdmissionView" data-member="DetailsForAdmission"/></label></li>
-            <li><label>Provisto de: <select name="ChildAdmissionProvidedByView" id="AdmissionProvidedByView" data-member="AdmissionProvidedBy">
+            <li><label>Provisto de: <select name="ChildAdmissionProvidedByView" id="ChildAdmissionProvidedByView" data-member="AdmissionProvidedBy">
                     <option value="1">Familiares</option><option value="2">Familia de Origen</option><option value="3">Policía</option>
                     <option value="4">Comité familiar</option><option value="5">Otros</option></select>
             </label></li>
             
-            <li><label>Documentos de Admisión: <select name="ChildDocumentsForAdmissionView" id="DocumentsForAdmissionView" data-member="DocumentsForAdmission">
+            <li><label>Documentos de Admisión: <select name="ChildDocumentsForAdmissionView" id="ChildDocumentsForAdmissionView" data-member="DocumentsForAdmission">
                     <option value="1">Certificado de Nacimiento</option><option value="2">Documento de Identidad</option>
 					<option value="3">Información de Familia</option><option value="4">Documento de Acogida</option><option value="5">Otros</option></select>
             </label></li>
@@ -123,12 +123,12 @@
                 <label>
                     <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-entity="Child" data-type="DocumentsForAdmissionView">+</a>                    
                     <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-entity="Child" data-type="DocumentsForAdmissionView">-</a>                                                    
-                    <select name="ChildDocumentsForAdmissionViewValues" id="DocumentsForAdmissionViewValues" multiple>
+                    <select name="ChildDocumentsForAdmissionViewValues" id="ChildDocumentsForAdmissionViewValues" multiple>
                 	</select>
             	</label>
             </li>
             
-            <li><label>Historial antes de Admisión: <select name="ChildRecordBeforeAdmissionView" id="RecordBeforeAdmissionView" data-member="RecordBeforeAdmission">
+            <li><label>Historial antes de Admisión: <select name="ChildRecordBeforeAdmissionView" id="ChildRecordBeforeAdmissionView" data-member="RecordBeforeAdmission">
                     <option value="1">Familia</option><option value="2">Familia de guardia</option>
 					<option value="3">Hogar encabezado por niño</option><option value="4">Cuidado Institucional</option><option value="5">Otros</option></select>
             </label></li>
@@ -136,14 +136,14 @@
                 <label>
                     <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-entity="Child" data-type="RecordBeforeAdmissionView">+</a>                    
                     <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-entity="Child" data-type="RecordBeforeAdmissionView">-</a>                                                    
-                    <select name="ChildRecordBeforeAdmissionViewValues" id="RecordBeforeAdmissionViewValues" multiple>
+                    <select name="ChildRecordBeforeAdmissionViewValues" id="ChildRecordBeforeAdmissionViewValues" multiple>
                 	</select>
             	</label>
             </li>
             
             <li><label>Hermanos biológicos:<input type="text" name="ChildBiologicalSiblingsView" data-member="BiologicalSiblings"/></label></li>
             
-            <li><label>Participación Infantil: <select name="ChildChildParticipationView" id="ChildParticipationView" data-member="ChildParticipation">
+            <li><label>Participación Infantil: <select name="ChildChildParticipationView" id="ChildChildParticipationView" data-member="ChildParticipation">
                     <option value="1">No participa</option><option value="2">Comité de Aldea</option>
 					<option value="3">Día de la Niñez</option><option value="4">Comité Juvenil</option><option value="5">Monitoreo y Evaluación</option></select>
             </label></li>
@@ -151,30 +151,30 @@
                 <label>
                     <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-entity="Child" data-type="ChildParticipationView">+</a>                    
                     <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-entity="Child" data-type="ChildParticipationView">-</a>                                                    
-                    <select name="ChildChildParticipationViewValues" id="ChildParticipationViewValues" multiple>
+                    <select name="ChildChildParticipationViewValues" id="ChildChildParticipationViewValues" multiple>
                 	</select>
             	</label>
             </li>
             
             <li><label>Tiene plan de salida:<input type="checkbox" name="ChildHasExitPlanView" data-member="HasExitPlan"/></label></li>
-            <li><label>Tipo de Empleo:<select name="ChildTypeOfEmploymentView" id="TypeOfEmploymentView" data-member="TypeOfEmployment">
+            <li><label>Tipo de Empleo:<select name="ChildTypeOfEmploymentView" id="ChildTypeOfEmploymentView" data-member="TypeOfEmployment">
                     <option value="1">Tiempo Completo</option><option value="2">Medio Tiempo</option>
 					<option value="3">Empresario</option><option value="4">Pasantía</option><option value="5">Desempleado</option><option value="6">Otros</option></select>
             </label></li>
 
-            <li><label>Detalles de Empleo:<input type="text" name="ChildDetailsOfEmploymentView" data-member="DetailsOfEmployment"/></label></li>
+            <li><label>Detalles de Empleo:<input type="text" name="ChildDetailsOfEmploymentView" data-member="ChildDetailsOfEmployment"/></label></li>
         </ul>
     </form>
 </div>      
 <div data-role="view" id="PsychosocialChildView" data-title="Psicológico" data-layout="mobile-tabstrip-vch" data-model="APP.models.child">
     <form>
         <ul data-role="listview" data-style="inset" title="Psicológico">
-            <li><label>Desarrollo Psicosocial:<select name="ChildPsychosocialDevelopmentView" id="PsychosocialDevelopmentView" data-member="PsychosocialDevelopment">
+            <li><label>Desarrollo Psicosocial:<select name="ChildPsychosocialDevelopmentView" id="ChildPsychosocialDevelopmentView" data-member="PsychosocialDevelopment">
                     <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
                 	<option value="5">No ha sido Evaluado</option><option value="6">No Corresponde</option></select>
             </label></li>
             
-            <li><label>Abuso Infantil Recibido:<input type="checkbox" name="ChildChildAbuseReceivedView" data-member="ChildAbuseReceived"/></label></li>
+            <li><label>Abuso Infantil Recibido:<input type="checkbox" name="ChildChildAbuseReceivedView" data-member="ChildChildAbuseReceived"/></label></li>
 		</ul>
     </form>
 </div>      
@@ -227,7 +227,7 @@
                 <label>
                     <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-entity="Child" data-type="AdditionalSupportView">+</a>                    
                     <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-entity="Child" data-type="AdditionalSupportView">-</a>                                                    
-                    <select name="ChildAdditionalSupportViewValues" id="AdditionalSupportViewValues" multiple>
+                    <select name="ChildAdditionalSupportViewValues" id="ChildAdditionalSupportViewValues" multiple>
                 	</select>
             	</label>
             </li>

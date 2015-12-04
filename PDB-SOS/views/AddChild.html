@@ -79,7 +79,7 @@
             </li>
                 
             <li><label>Tipo de Enfermedad:
-                    <select name="ChildTypeOfDisease" id="TypeOfDisease" data-member="TypeOfDisease">
+                    <select name="ChildTypeOfDisease" id="ChildTypeOfDisease" data-member="TypeOfDisease">
                     <option value="1">Sistema circulatorio</option>
                     <option value="2">Cáncer</option>
 					<option value="3">Sistema Cardiovascular</option>
@@ -107,14 +107,14 @@
     <form>
         <ul data-role="listview" data-style="inset" title="Admisión">
             
-            <li><label>Razón de Admisión:<input type="text" name="ChildReasonForAdmission" data-member="ReasonForAdmission"/></label></li>
+            <li><label>Razón de Admisión:<input type="text" name="ChildReasonForAdmission" data-member="ChildReasonForAdmission"/></label></li>
             <li><label>Detalles de Admisión:<input type="text" name="ChildDetailsForAdmission" data-member="DetailsForAdmission"/></label></li>
-            <li><label>Provisto de: <select name="ChildAdmissionProvidedBy" id="AdmissionProvidedBy" data-member="AdmissionProvidedBy">
+            <li><label>Provisto de: <select name="ChildAdmissionProvidedBy" id="ChildAdmissionProvidedBy" data-member="AdmissionProvidedBy">
                     <option value="1">Familiares</option><option value="2">Familia de Origen</option><option value="3">Policía</option>
                     <option value="4">Comité familiar</option><option value="5">Otros</option></select>
             </label></li>
             
-            <li><label>Documentos de Admisión: <select name="ChildDocumentsForAdmission" id="DocumentsForAdmission" data-member="DocumentsForAdmission">
+            <li><label>Documentos de Admisión: <select name="ChildDocumentsForAdmission" id="ChildDocumentsForAdmission" data-member="DocumentsForAdmission">
                     <option value="1">Certificado de Nacimiento</option><option value="2">Documento de Identidad</option>
 					<option value="3">Información de Familia</option><option value="4">Documento de Acogida</option><option value="5">Otros</option></select>
             </label></li>
@@ -122,12 +122,12 @@
                 <label>
                     <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-entity="Child" data-type="DocumentsForAdmission">+</a>                    
                     <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-entity="Child" data-type="DocumentsForAdmission">-</a>                                                    
-                    <select name="ChildDocumentsForAdmissionValues" id="DocumentsForAdmissionValues" multiple>
+                    <select name="ChildDocumentsForAdmissionValues" id="ChildDocumentsForAdmissionValues" multiple>
                 	</select>
             	</label>
             </li>
             
-            <li><label>Historial antes de Admisión: <select name="ChildRecordBeforeAdmission" id="RecordBeforeAdmission" data-member="RecordBeforeAdmission">
+            <li><label>Historial antes de Admisión: <select name="ChildRecordBeforeAdmission" id="ChildRecordBeforeAdmission" data-member="RecordBeforeAdmission">
                     <option value="1">Familia</option><option value="2">Familia de guardia</option>
 					<option value="3">Hogar encabezado por niño</option><option value="4">Cuidado Institucional</option><option value="5">Otros</option></select>
             </label></li>
@@ -135,14 +135,14 @@
                 <label>
                     <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-entity="Child" data-type="RecordBeforeAdmission">+</a>                    
                     <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-entity="Child" data-type="RecordBeforeAdmission">-</a>                                                    
-                    <select name="ChildRecordBeforeAdmissionValues" id="RecordBeforeAdmissionValues" multiple>
+                    <select name="ChildRecordBeforeAdmissionValues" id="ChildRecordBeforeAdmissionValues" multiple>
                 	</select>
             	</label>
             </li>
             
             <li><label>Hermanos biológicos:<input type="text" name="ChildBiologicalSiblings" data-member="BiologicalSiblings"/></label></li>
             
-            <li><label>Participación Infantil: <select name="ChildChildParticipation" id="ChildParticipation" data-member="ChildParticipation">
+            <li><label>Participación Infantil: <select name="ChildChildParticipation" id="ChildChildParticipation" data-member="ChildParticipation">
                     <option value="1">No participa</option><option value="2">Comité de Aldea</option>
 					<option value="3">Día de la Niñez</option><option value="4">Comité Juvenil</option><option value="5">Monitoreo y Evaluación</option></select>
             </label></li>
@@ -150,7 +150,7 @@
                 <label>
                     <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.AddItem" data-entity="Child" data-type="ChildParticipation">+</a>                    
                     <a data-role="button" data-click-on="down" data-click="window.APP.models.Util.RemoveItem" data-entity="Child" data-type="ChildParticipation">-</a>                                                    
-                    <select name="ChildChildParticipationValues" id="ChildParticipationValues" multiple>
+                    <select name="ChildChildParticipationValues" id="ChildChildParticipationValues" multiple>
                 	</select>
             	</label>
             </li>
@@ -161,19 +161,19 @@
 					<option value="3">Empresario</option><option value="4">Pasantía</option><option value="5">Desempleado</option><option value="6">Otros</option></select>
             </label></li>
 
-            <li><label>Detalles de Empleo:<input type="text" name="ChildDetailsOfEmployment" data-member="DetailsOfEmployment"/></label></li>
+            <li><label>Detalles de Empleo:<input type="text" name="ChildDetailsOfEmployment" data-member="ChildDetailsOfEmployment"/></label></li>
         </ul>
     </form>
 </div>      
 <div data-role="view" id="PsychosocialChildAdd" data-title="Psicológico" data-layout="mobile-tabstrip-ach" data-model="APP.models.child">
     <form>
         <ul data-role="listview" data-style="inset" title="Psicológico">
-            <li><label>Desarrollo Psicosocial:<select name="ChildPsychosocialDevelopment" id="PsychosocialDevelopment" data-member="PsychosocialDevelopment">
+            <li><label>Desarrollo Psicosocial:<select name="ChildPsychosocialDevelopment" id="ChildPsychosocialDevelopment" data-member="PsychosocialDevelopment">
                     <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
                 	<option value="5">No ha sido Evaluado</option><option value="6">No Corresponde</option></select>
             </label></li>
             
-            <li><label>Abuso Infantil Recibido:<input type="checkbox" name="ChildChildAbuseReceived" data-member="ChildAbuseReceived"/></label></li>
+            <li><label>Abuso Infantil Recibido:<input type="checkbox" name="ChildChildAbuseReceived" data-member="ChildChildAbuseReceived"/></label></li>
 		</ul>
     </form>
 </div>      
