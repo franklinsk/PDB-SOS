@@ -348,8 +348,8 @@ var app; // store a reference to the application object that will be created  la
                 return;
         	}
             
-            if(validateNullValues($('[name="HouseProgrammeUnitID"]').val()) == "" || validateNullValues($('[name="HouseProgrammeUnitID"]').val()).length != 4){
-                navigator.notification.alert("El código de programa es obligatorio y ser de 4 caracteres");
+            if(validateNullValues($('[name="HouseProgrammeUnitID"]').val()) == "" || validateNullValues($('[name="HouseProgrammeUnitID"]').val()).length != 8){
+                navigator.notification.alert("El código de programa es obligatorio y ser de 8 caracteres");
                 return;
         	}
             
@@ -2136,7 +2136,7 @@ var app; // store a reference to the application object that will be created  la
             
             var filters = [];
             //filters = UpdateSearchFilters(filters, "SOSFollowID", "eq", "20480167", "and");        
-            filters = UpdateSearchFilters(filters, "SOSFollowID", "eq", "F0480167", "and");        
+            filters = UpdateSearchFilters(filters, "SOSFollowID", "eq", followID, "and");        
              
 			var datasource = trackingDataSource;
             var childID = "";
